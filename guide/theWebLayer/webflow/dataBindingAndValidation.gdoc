@@ -12,7 +12,7 @@ enterPersonalDetails {
 ビューは、submitイベントまたはreturnイベントをトリガーする、２つの送信ボタンを持つフォームを持っています:
 
 {code:xml}
-<g:form action="shoppingCart">
+<g:form>
     <!-- Other fields -->
     <g:submitButton name="submit" value="Continue"></g:submitButton>
     <g:submitButton name="return" value="Back"></g:submitButton>
