@@ -1,29 +1,14 @@
 
 h1. Document Translation Report.
 
-* *File Count* - 257
+* *File Count* - 263
 * *Done* - 127
-* *TODO* - 128
+* *TODO* - 134
 * *Not found or new* - 2
 
 h2. Original document updated after translation.:
 
-*./src/ja/guide/theWebLayer/controllers/modelsAndViews.gdoc*
-
-{code}
-102: // write some markup
-111: // render a specific view
-116: // render a template for each item in a collection
-121: // render some text with encoding and content type
-{code}
-
-*./src/ja/guide/webServices/REST.gdoc*
-
-{code}
-18 : Method     | Action
-{code}
-
-*./src/ja/guide/theWebLayer/gsp/sitemeshContentBlocks.gdoc*
+*./guide/theWebLayer/gsp/sitemeshContentBlocks.gdoc*
 
 {code}
 5  : ... draw the navbar here...
@@ -32,158 +17,263 @@ h2. Original document updated after translation.:
 17 : ... draw the body here...
 {code}
 
-*./src/ja/guide/gettingStarted/upgradingFromPreviousVersionsOfGrails.gdoc*
+*./guide/webServices/REST.gdoc*
 
 {code}
-62 :         // Add HSQLDB as a runtime dependency
+18 : Method     | Action
 {code}
 
-*./src/ja/guide/introduction/whatsNew/webFeatures.gdoc*
-
-{code}
-6  : // action as a method
-10 : // action as a closure
-{code}
-
-*./src/ja/guide/gettingStarted/creatingAnApplication.gdoc*
+*./guide/gettingStarted/creatingAnApplication.gdoc*
 
 {code}
 4  : grails [command name]
 {code}
 
+*./guide/gettingStarted/aHelloWorldExample.gdoc*
+
+{code}
+1  : Let's now take the new project and turn it into the classic "Hello world\!" example. First, change into the "helloworld" directory you just created and start the Grails interactive console:
+7  : You should see a prompt that looks like this:
+11 : What we want is a simple page that just prints the message "Hello World\!" to the browser. In Grails, whenever you want a new page you just create a new controller action for it. Since we don't yet have a controller, let's create one now with the [create-controller|commandLine] command:
+16 : Don't forget that in the interactive console, we have auto-completion on command names. So you can type "cre" and then press <tab> to get a list of all @create\-\*@ commands. Type a few more letters of the command name and then <tab> again to finish.
+18 : The above command will create a new [controller|guide:controllers] in the @grails-app/controllers/helloworld@ directory called @HelloController.groovy@. Why the extra @helloworld@ directory? Because in Java land, it's strongly recommended that all classes are placed into packages, so Grails defaults to the application name if you don't provide one. The reference page for [create-controller|commandLine] provides more detail on this.
+20 : We now have a controller so let's add an action to generate the "Hello World\!" page. The code looks like this: 
+27 :     def index() \{
+33 : The action is simply a method. In this particular case, it calls a special method provided by Grails to [render|tags] the page.
+35 : Job done. To see your application in action, you just need to start up a server with another command called [run-app|commandLine]:
+40 : This will start an embedded server on port 8080 that hosts your application. You should now be able to access your application at the URL [http://localhost:8080/helloworld/|http://localhost:8080/helloworld/] - try it\!
+43 : If you see the error "Server failed to start for port 8080: Address already in use", then it means another server is running on that port. You can easily work around this by running your server on a different port using @-Dserver.port=9090 run-app@. '9090' is just an example: you can pretty much choose anything within the range 1024 to 49151.
+46 : The result will look something like this:
+50 : This is the Grails intro page which is rendered by the @grails-app/view/index.gsp@ file. It detects the presence of your controllers and provides links to them. You can click on the "HelloController" link to see our custom page containing the text "Hello World\!". Voila\! You have your first working Grails application.
+52 : One final thing: a controller can contain many actions, each of which corresponds to a different page (ignoring AJAX at this point). Each page is accessible via a unique URL that is composed from the controller name and the action name: /<appname>/<controller>/<action>. This means you can access the Hello World page via [/helloworld/hello/index|http://localhost:8080/helloworld/hello/index], where 'hello' is the controller name (remove the 'Controller' suffix from the class name and lower-case the first letter) and 'index' is the action name. But you can also access the page via the same URL without the action name: this is because 'index' is the _default action_. See the end of the [controllers and actions|guide:understandingControllersAndActions] section of the user guide to find out more on default actions.
+{code}
+
+*./guide/introduction/whatsNew/webFeatures.gdoc*
+
+{code}
+6  : // action as a method
+10 : // action as a closure
+176: It is now possible to provide input arguments when calling a subflow. Flows can also return output values that can be used in a calling flow.
+{code}
+
+*./guide/i18n.gdoc*
+
+{code}
+7  : A Locale is made up of a [language code|http://www.loc.gov/standards/iso639-2/php/English_list.php] and a [country code|http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm]. For example "en_US" is the code for US english, whilst "en_GB" is the code for British English.
+{code}
+
+*./guide/gettingStarted/ide.gdoc*
+
+{code}
+5  : IntelliJ IDEA comes in two flavours; the open source "Community Edition" and the commercial "Ultimate Edition".
+6  : Both offers support for Groovy, but only Ultimate Edition offers Grails support.
+8  : With Ultimate Edition, there is no need to use the @grails integrate-with --intellij@ command, as Ultimate Edition understands Grails projects natively. Just open the project with @File -> New Project -> Create project from existing sources@.
+10 : You can still use Community Edition for Grails development, but you will miss out on all the Grails specific features like automatic classpath management, GSP editor and quick access to Grails commands.
+11 : To integrate Grails with Community Edition run the following command to generate appropriate project files:
+{code}
+
+*./guide/upgradingFromPreviousVersionsOfGrails.gdoc*
+
+{code}
+3  : * @environment@ bean added by Spring 3.1, which will be auto-wired into properties of the same name.
+31 : * @beforeValidate()@ may be called two or more times during a request, for example once on save() and once just before the view is rendered.
+65 : Spring 3.1 adds a new bean with the name 'environment'. It's of type @Environment@ (in package @org.springframework.core.env@) and it will automatically be autowired into properties with the same name. This seems to cause particular problems with domain classes that have an @environment@ property. In this case, adding the method:
+67 : void setEnvironment(org.springframework.core.env.Environment env) \{\}
+69 : works around the problem.
+88 :         // Add HSQLDB as a runtime dependency
+206: As of Grails 2.0, constrained properties in command object classes are no longer nullable by default.  Nullable command object properties must be explicitly configured as such in the same way that nullable persistent properties in domain classes are configured.
+{code}
+
+*./guide/theWebLayer/taglibs/simpleTags.gdoc*
+
+{code}
+1  : As demonstrated in the previous example it is easy to write simple tags that have no body and just output content. Another example is a @dateFormat@ style tag:
+{code}
+
+*./guide/theWebLayer/webflow/flowExecutionEvents.gdoc*
+
+{code}
+20 : <g:form>
+26 : The form automatically submits back to the @shoppingCart@ flow. The name attribute of each [submitButton|tags] tag signals which event will be triggered. If you don't have a form you can also trigger an event with the [link|tags] tag as follows:
+29 : <g:link event="checkout" />\{code\}
+31 : \{note\}
+32 : Prior to 2.0.0, it was required to specify the controller and/or action in forms and links, which caused the url to change when entering a subflow state. When the controller and action are not specified,
+33 : all url's are relative to the main flow execution url, which makes your flows reusable as subflows and prevents issues with the browser's back button.
+34 : \{note\}
+{code}
+
+*./guide/theWebLayer/controllers/modelsAndViews.gdoc*
+
+{code}
+102: // write some markup
+111: // render a specific view
+116: // render a template for each item in a collection
+121: // render some text with encoding and content type
+{code}
+
+*./guide/commandLine/buildCustomising.gdoc*
+
+{code}
+29 : config | The configuration settings defined in the project's @BuildConfig.groovy@ file. Access properties in the same way as you access runtime settings: @grailsSettings.config.foo.bar.hello@.
+72 : Grails uses an agent based reloading system in the development environment that allows source code changes to be picked up while the application is running.  This reloading agent caches information needed to carry out the reloading efficiently.  By default this information is stored under @\<USER_HOME_DIR\>\/.grails\/.slcache\/@.  The @GRAILS_AGENT_CACHE_DIR@ environment variable may be assigned a value to cause this cache information to be stored somewhere else.  Note that this is an operating system environment variable, not a JVM system property or a property which may be defined in @BuildConfig.groovy@.  This setting must be defined as an environment variable because the agent cache directory must be configured very early in the JVM startup process, before any Grails code is executed.
+{code}
+
+*./guide/gettingStarted/requirements.gdoc*
+
+{code}
+1  : Before installing Grails you will need as a minimum a Java Development Kit (JDK) installed version 1.6 or above. Download the appropriate JDK for your operating system, run the installer, and then set up an environment variable called @JAVA_HOME@ pointing to the location of this installation. If you're unsure how to do this, we recommend the video installation guides from [grailsexample.net|http://www.grailsexample.net/]:
+3  : * [Windows|http://www.grailsexample.net/installing-a-grails-development-environment-on-windows/]
+4  : * [Linux|http://www.grailsexample.net/installing-a-grails-development-environment-on-linux/]
+5  : * [Mac OS X|http://www.grailsexample.net/installing-a-grails-development-environment-on-os-x/]
+7  : These will show you how to install Grails too, not just the JDK.
+16 : if you're using bash or another variant of the Bourne Shell.
+{code}
+
+*./guide/GORM/domainClasses/sets,ListsAndMaps.gdoc*
+
+{code}
+75 : If ordering and uniqueness aren't a concern (or if you manage these explicitly) then you can use the Hibernate [Bag|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/collections.html] type to represent mapped collections.
+{code}
+
 h2. Not done.
 
-* ./grails-doc/src/en/guide/GORM.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/defaultSortOrder.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/eventsAutoTimestamping.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/caching.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/compositePrimaryKeys.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/customCascadeBehaviour.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/customHibernateTypes.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/customNamingStrategy.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/databaseIndices.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/derivedProperties.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/fetchingDSL.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/identity.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/inheritanceStrategies.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/optimisticLockingAndVersioning.gdoc
-* ./grails-doc/src/en/guide/GORM/advancedGORMFeatures/ormdsl/tableAndColumnNames.gdoc
-* ./grails-doc/src/en/guide/GORM/domainClasses.gdoc
-* ./grails-doc/src/en/guide/GORM/domainClasses/gormAssociation.gdoc
-* ./grails-doc/src/en/guide/GORM/domainClasses/gormAssociation/basicCollectionTypes.gdoc
-* ./grails-doc/src/en/guide/GORM/domainClasses/gormAssociation/manyToMany.gdoc
-* ./grails-doc/src/en/guide/GORM/domainClasses/gormAssociation/manyToOneAndOneToOne.gdoc
-* ./grails-doc/src/en/guide/GORM/domainClasses/gormAssociation/oneToMany.gdoc
-* ./grails-doc/src/en/guide/GORM/domainClasses/gormComposition.gdoc
-* ./grails-doc/src/en/guide/GORM/domainClasses/inheritanceInGORM.gdoc
-* ./grails-doc/src/en/guide/GORM/gormConstraints.gdoc
-* ./grails-doc/src/en/guide/GORM/persistenceBasics.gdoc
-* ./grails-doc/src/en/guide/GORM/persistenceBasics/cascades.gdoc
-* ./grails-doc/src/en/guide/GORM/persistenceBasics/deletingObjects.gdoc
-* ./grails-doc/src/en/guide/GORM/persistenceBasics/fetching.gdoc
-* ./grails-doc/src/en/guide/GORM/persistenceBasics/locking.gdoc
-* ./grails-doc/src/en/guide/GORM/persistenceBasics/modificationChecking.gdoc
-* ./grails-doc/src/en/guide/GORM/persistenceBasics/savingAndUpdating.gdoc
-* ./grails-doc/src/en/guide/GORM/programmaticTransactions.gdoc
-* ./grails-doc/src/en/guide/GORM/querying.gdoc
-* ./grails-doc/src/en/guide/GORM/querying/criteria.gdoc
-* ./grails-doc/src/en/guide/GORM/querying/detachedCriteria.gdoc
-* ./grails-doc/src/en/guide/GORM/querying/finders.gdoc
-* ./grails-doc/src/en/guide/GORM/querying/hql.gdoc
-* ./grails-doc/src/en/guide/GORM/querying/whereQueries.gdoc
-* ./grails-doc/src/en/guide/GORM/quickStartGuide.gdoc
-* ./grails-doc/src/en/guide/GORM/quickStartGuide/basicCRUD.gdoc
-* ./grails-doc/src/en/guide/commandLine/interactiveMode.gdoc
-* ./grails-doc/src/en/guide/conf.gdoc
-* ./grails-doc/src/en/guide/conf/config.gdoc
-* ./grails-doc/src/en/guide/conf/config/builtInOptions.gdoc
-* ./grails-doc/src/en/guide/conf/config/configGORM.gdoc
-* ./grails-doc/src/en/guide/conf/config/logging.gdoc
-* ./grails-doc/src/en/guide/conf/configExternalized.gdoc
-* ./grails-doc/src/en/guide/conf/dataSource.gdoc
-* ./grails-doc/src/en/guide/conf/dataSource/JNDIDataSources.gdoc
-* ./grails-doc/src/en/guide/conf/dataSource/automaticDatabaseMigration.gdoc
-* ./grails-doc/src/en/guide/conf/dataSource/dataSourcesAndEnvironments.gdoc
-* ./grails-doc/src/en/guide/conf/dataSource/databaseConsole.gdoc
-* ./grails-doc/src/en/guide/conf/dataSource/multipleDatasources.gdoc
-* ./grails-doc/src/en/guide/conf/dataSource/transactionAwareDataSourceProxy.gdoc
-* ./grails-doc/src/en/guide/conf/docengine.gdoc
-* ./grails-doc/src/en/guide/conf/environments.gdoc
-* ./grails-doc/src/en/guide/conf/ivy.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/configurationsAndDependencies.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/debuggingResolution.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/dependencyReports.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/dependencyRepositories.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/inheritedDependencies.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/mavenIntegration.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/mavendeploy.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/pluginDependencies.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/pluginJARDependencies.gdoc
-* ./grails-doc/src/en/guide/conf/ivy/providingDefaultDependencies.gdoc
-* ./grails-doc/src/en/guide/conf/versioning.gdoc
-* ./grails-doc/src/en/guide/contributing.gdoc
-* ./grails-doc/src/en/guide/contributing/build.gdoc
-* ./grails-doc/src/en/guide/contributing/issues.gdoc
-* ./grails-doc/src/en/guide/contributing/patchesCore.gdoc
-* ./grails-doc/src/en/guide/contributing/patchesDoc.gdoc
-* ./grails-doc/src/en/guide/deployment.gdoc
-* ./grails-doc/src/en/guide/hibernate.gdoc
-* ./grails-doc/src/en/guide/hibernate/addingConstraints.gdoc
-* ./grails-doc/src/en/guide/hibernate/mappingWithHibernateAnnotations.gdoc
-* ./grails-doc/src/en/guide/hibernate/usingHibernateXMLMappingFiles.gdoc
-* ./grails-doc/src/en/guide/links.yml
-* ./grails-doc/src/en/guide/plugins.gdoc
-* ./grails-doc/src/en/guide/plugins/addingDynamicMethodsAtRuntime.gdoc
-* ./grails-doc/src/en/guide/plugins/artefactApi.gdoc
-* ./grails-doc/src/en/guide/plugins/artefactApi/customArtefacts.gdoc
-* ./grails-doc/src/en/guide/plugins/artefactApi/queryingArtefacts.gdoc
-* ./grails-doc/src/en/guide/plugins/creatingAndInstallingPlugins.gdoc
-* ./grails-doc/src/en/guide/plugins/evaluatingConventions.gdoc
-* ./grails-doc/src/en/guide/plugins/hookingIntoBuildEvents.gdoc
-* ./grails-doc/src/en/guide/plugins/hookingIntoRuntimeConfiguration.gdoc
-* ./grails-doc/src/en/guide/plugins/participatingInAutoReloadEvents.gdoc
-* ./grails-doc/src/en/guide/plugins/providingBasicArtefacts.gdoc
-* ./grails-doc/src/en/guide/plugins/repositories.gdoc
-* ./grails-doc/src/en/guide/plugins/understandingPluginLoadOrder.gdoc
-* ./grails-doc/src/en/guide/plugins/understandingPluginStructure.gdoc
-* ./grails-doc/src/en/guide/rewriteRules.txt
-* ./grails-doc/src/en/guide/scaffolding.gdoc
-* ./grails-doc/src/en/guide/security.gdoc
-* ./grails-doc/src/en/guide/security/authentication.gdoc
-* ./grails-doc/src/en/guide/security/codecs.gdoc
-* ./grails-doc/src/en/guide/security/securingAgainstAttacks.gdoc
-* ./grails-doc/src/en/guide/security/securityPlugins.gdoc
-* ./grails-doc/src/en/guide/security/securityPlugins/shiro.gdoc
-* ./grails-doc/src/en/guide/security/securityPlugins/springSecurity.gdoc
-* ./grails-doc/src/en/guide/services/declarativeTransactions/transactionsRollbackAndTheSession.gdoc
-* ./grails-doc/src/en/guide/spring.gdoc
-* ./grails-doc/src/en/guide/spring/propertyOverrideConfiguration.gdoc
-* ./grails-doc/src/en/guide/spring/propertyPlaceholderConfiguration.gdoc
-* ./grails-doc/src/en/guide/spring/springdsl.gdoc
-* ./grails-doc/src/en/guide/spring/springdslAdditional.gdoc
-* ./grails-doc/src/en/guide/spring/theBeanBuilderDSLExplained.gdoc
-* ./grails-doc/src/en/guide/spring/theUnderpinningsOfGrails.gdoc
-* ./grails-doc/src/en/guide/testing.gdoc
-* ./grails-doc/src/en/guide/testing/functionalTesting.gdoc
-* ./grails-doc/src/en/guide/testing/integrationTesting.gdoc
-* ./grails-doc/src/en/guide/testing/unitTesting.gdoc
-* ./grails-doc/src/en/guide/testing/unitTesting/mockingCollaborators.gdoc
-* ./grails-doc/src/en/guide/testing/unitTesting/unitTestingControllers.gdoc
-* ./grails-doc/src/en/guide/testing/unitTesting/unitTestingDomains.gdoc
-* ./grails-doc/src/en/guide/testing/unitTesting/unitTestingFilters.gdoc
-* ./grails-doc/src/en/guide/testing/unitTesting/unitTestingTagLibraries.gdoc
-* ./grails-doc/src/en/guide/testing/unitTesting/unitTestingURLMappings.gdoc
-*  *(original file updated)* ./grails-doc/src/en/guide/toc.yml
-* ./grails-doc/src/en/guide/validation.gdoc
-* ./grails-doc/src/en/guide/validation/constraints.gdoc
-* ./grails-doc/src/en/guide/validation/validatingConstraints.gdoc
-* ./grails-doc/src/en/guide/validation/validationAndInternationalization.gdoc
-* ./grails-doc/src/en/guide/validation/validationNonDomainAndCommandObjectClasses.gdoc
-* ./grails-doc/src/en/guide/validation/validationOnTheClient.gdoc
+* ../en/guide/GORM.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/defaultSortOrder.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/eventsAutoTimestamping.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/caching.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/compositePrimaryKeys.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/customCascadeBehaviour.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/customHibernateTypes.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/customNamingStrategy.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/databaseIndices.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/derivedProperties.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/fetchingDSL.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/identity.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/inheritanceStrategies.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/optimisticLockingAndVersioning.gdoc
+* ../en/guide/GORM/advancedGORMFeatures/ormdsl/tableAndColumnNames.gdoc
+* ../en/guide/GORM/domainClasses.gdoc
+* ../en/guide/GORM/domainClasses/gormAssociation.gdoc
+* ../en/guide/GORM/domainClasses/gormAssociation/basicCollectionTypes.gdoc
+* ../en/guide/GORM/domainClasses/gormAssociation/manyToMany.gdoc
+* ../en/guide/GORM/domainClasses/gormAssociation/manyToOneAndOneToOne.gdoc
+* ../en/guide/GORM/domainClasses/gormAssociation/oneToMany.gdoc
+* ../en/guide/GORM/domainClasses/gormComposition.gdoc
+* ../en/guide/GORM/domainClasses/inheritanceInGORM.gdoc
+* ../en/guide/GORM/gormConstraints.gdoc
+* ../en/guide/GORM/persistenceBasics.gdoc
+* ../en/guide/GORM/persistenceBasics/cascades.gdoc
+* ../en/guide/GORM/persistenceBasics/deletingObjects.gdoc
+* ../en/guide/GORM/persistenceBasics/fetching.gdoc
+* ../en/guide/GORM/persistenceBasics/locking.gdoc
+* ../en/guide/GORM/persistenceBasics/modificationChecking.gdoc
+* ../en/guide/GORM/persistenceBasics/savingAndUpdating.gdoc
+* ../en/guide/GORM/programmaticTransactions.gdoc
+* ../en/guide/GORM/querying.gdoc
+* ../en/guide/GORM/querying/criteria.gdoc
+* ../en/guide/GORM/querying/detachedCriteria.gdoc
+* ../en/guide/GORM/querying/finders.gdoc
+* ../en/guide/GORM/querying/hql.gdoc
+* ../en/guide/GORM/querying/whereQueries.gdoc
+* ../en/guide/GORM/quickStartGuide.gdoc
+* ../en/guide/GORM/quickStartGuide/basicCRUD.gdoc
+* ../en/guide/commandLine/interactiveMode.gdoc
+* ../en/guide/commandLine/wrapper.gdoc
+* ../en/guide/conf.gdoc
+* ../en/guide/conf/config.gdoc
+* ../en/guide/conf/config/builtInOptions.gdoc
+* ../en/guide/conf/config/configGORM.gdoc
+* ../en/guide/conf/config/logging.gdoc
+* ../en/guide/conf/configExternalized.gdoc
+* ../en/guide/conf/dataSource.gdoc
+* ../en/guide/conf/dataSource/JNDIDataSources.gdoc
+* ../en/guide/conf/dataSource/automaticDatabaseMigration.gdoc
+* ../en/guide/conf/dataSource/dataSourcesAndEnvironments.gdoc
+* ../en/guide/conf/dataSource/databaseConsole.gdoc
+* ../en/guide/conf/dataSource/multipleDatasources.gdoc
+* ../en/guide/conf/dataSource/transactionAwareDataSourceProxy.gdoc
+* ../en/guide/conf/docengine.gdoc
+* ../en/guide/conf/environments.gdoc
+* ../en/guide/conf/ivy.gdoc
+* ../en/guide/conf/ivy/changingDependencies.gdoc
+* ../en/guide/conf/ivy/configurationsAndDependencies.gdoc
+* ../en/guide/conf/ivy/debuggingResolution.gdoc
+* ../en/guide/conf/ivy/dependencyReports.gdoc
+* ../en/guide/conf/ivy/dependencyRepositories.gdoc
+* ../en/guide/conf/ivy/dependencyResolutionCaching.gdoc
+* ../en/guide/conf/ivy/inheritedDependencies.gdoc
+* ../en/guide/conf/ivy/mavenIntegration.gdoc
+* ../en/guide/conf/ivy/mavendeploy.gdoc
+* ../en/guide/conf/ivy/pluginDependencies.gdoc
+* ../en/guide/conf/ivy/pluginJARDependencies.gdoc
+* ../en/guide/conf/ivy/providingDefaultDependencies.gdoc
+* ../en/guide/conf/versioning.gdoc
+* ../en/guide/contributing.gdoc
+* ../en/guide/contributing/build.gdoc
+* ../en/guide/contributing/issues.gdoc
+* ../en/guide/contributing/patchesCore.gdoc
+* ../en/guide/contributing/patchesDoc.gdoc
+* ../en/guide/deployment.gdoc
+* ../en/guide/hibernate.gdoc
+* ../en/guide/hibernate/addingConstraints.gdoc
+* ../en/guide/hibernate/mappingWithHibernateAnnotations.gdoc
+* ../en/guide/hibernate/usingHibernateXMLMappingFiles.gdoc
+* ../en/guide/introduction/whatsNew21.gdoc
+* ../en/guide/links.yml
+* ../en/guide/plugins.gdoc
+* ../en/guide/plugins/addingDynamicMethodsAtRuntime.gdoc
+* ../en/guide/plugins/artefactApi.gdoc
+* ../en/guide/plugins/artefactApi/customArtefacts.gdoc
+* ../en/guide/plugins/artefactApi/queryingArtefacts.gdoc
+* ../en/guide/plugins/creatingAndInstallingPlugins.gdoc
+* ../en/guide/plugins/evaluatingConventions.gdoc
+* ../en/guide/plugins/hookingIntoBuildEvents.gdoc
+* ../en/guide/plugins/hookingIntoRuntimeConfiguration.gdoc
+* ../en/guide/plugins/participatingInAutoReloadEvents.gdoc
+* ../en/guide/plugins/providingBasicArtefacts.gdoc
+* ../en/guide/plugins/repositories.gdoc
+* ../en/guide/plugins/understandingPluginLoadOrder.gdoc
+* ../en/guide/plugins/understandingPluginStructure.gdoc
+* ../en/guide/rewriteRules.txt
+* ../en/guide/scaffolding.gdoc
+* ../en/guide/security.gdoc
+* ../en/guide/security/authentication.gdoc
+* ../en/guide/security/codecs.gdoc
+* ../en/guide/security/securingAgainstAttacks.gdoc
+* ../en/guide/security/securityPlugins.gdoc
+* ../en/guide/security/securityPlugins/shiro.gdoc
+* ../en/guide/security/securityPlugins/springSecurity.gdoc
+* ../en/guide/services/declarativeTransactions/transactionsRollbackAndTheSession.gdoc
+* ../en/guide/spring.gdoc
+* ../en/guide/spring/propertyOverrideConfiguration.gdoc
+* ../en/guide/spring/propertyPlaceholderConfiguration.gdoc
+* ../en/guide/spring/springdsl.gdoc
+* ../en/guide/spring/springdslAdditional.gdoc
+* ../en/guide/spring/theBeanBuilderDSLExplained.gdoc
+* ../en/guide/spring/theUnderpinningsOfGrails.gdoc
+* ../en/guide/testing.gdoc
+* ../en/guide/testing/functionalTesting.gdoc
+* ../en/guide/testing/integrationTesting.gdoc
+* ../en/guide/testing/unitTesting.gdoc
+* ../en/guide/testing/unitTesting/mockingCodecs.gdoc
+* ../en/guide/testing/unitTesting/mockingCollaborators.gdoc
+* ../en/guide/testing/unitTesting/unitTestingControllers.gdoc
+* ../en/guide/testing/unitTesting/unitTestingDomains.gdoc
+* ../en/guide/testing/unitTesting/unitTestingFilters.gdoc
+* ../en/guide/testing/unitTesting/unitTestingTagLibraries.gdoc
+* ../en/guide/testing/unitTesting/unitTestingURLMappings.gdoc
+*  *(original file updated)* ../en/guide/toc.yml
+* ../en/guide/validation.gdoc
+* ../en/guide/validation/constraints.gdoc
+* ../en/guide/validation/sharingConstraints.gdoc
+* ../en/guide/validation/validatingConstraints.gdoc
+* ../en/guide/validation/validationAndInternationalization.gdoc
+* ../en/guide/validation/validationNonDomainAndCommandObjectClasses.gdoc
+* ../en/guide/validation/validationOnTheClient.gdoc
 
 h2. File not found (new file added) or empty file
 
-* ./grails-doc/src/en/guide/gettingStarted.gdoc
-* ./grails-doc/src/en/guide/theWebLayer.gdoc
+* ../en/guide/gettingStarted.gdoc
+* ../en/guide/theWebLayer.gdoc
 

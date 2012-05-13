@@ -45,6 +45,8 @@ pluginJARDependencies: 3.7.7 Plugin JAR Dependencies
 mavenIntegration: 3.7.8 Maven Integration
 mavendeploy: 3.7.9 Deploying to a Maven Repository
 pluginDependencies: 3.7.10 Plugin Dependencies
+changingDependencies: 3.7.11 Changing/Snapshot Dependencies
+dependencyResolutionCaching: 3.7.12 Dependency Resolution Caching
 commandLine: 4. The Command Line
 creatingGantScripts: 4.1 Creating Gant Scripts
 reusingGrailsScripts: 4.2 Re-using Grails scripts
@@ -195,6 +197,7 @@ unitTestingDomains: 9.1.3 Unit Testing Domains
 unitTestingFilters: 9.1.4 Unit Testing Filters
 unitTestingURLMappings: 9.1.5 Unit Testing URL Mappings
 mockingCollaborators: 9.1.6 Mocking Collaborators
+mockingCodecs: 9.1.7 Mocking Codecs
 integrationTesting: 9.2 Integration Testing
 functionalTesting: 9.3 Functional Testing
 i18n: 10. Internationalization

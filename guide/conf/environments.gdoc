@@ -1,6 +1,6 @@
 h4. Per Environment Configuration
 
-Grails supports the concept of per environment configuration. The @Config.groovy@, @DataSource.groovy@, and @BootStrap.groovy@ files in the @grails-app/conf@ directory can use per-environment configuration using the syntax provided by "ConfigSlurper":http://groovy.codehaus.org/ConfigSlurper. As an example consider the following default @DataSource@ definition provided by Grails:
+Grails supports the concept of per environment configuration. The @Config.groovy@, @DataSource.groovy@, and @BootStrap.groovy@ files in the @grails-app/conf@ directory can use per-environment configuration using the syntax provided by [ConfigSlurper|http://groovy.codehaus.org/ConfigSlurper]. As an example consider the following default @DataSource@ definition provided by Grails:
 
 {code:java}
 dataSource {
@@ -74,7 +74,7 @@ switch (Environment.current) {
 
 h4. Per Environment Bootstrapping
 
-Its often desirable to run code when your application starts up on a per-environment basis. To do so you can use the @grails-app/conf/BootStrap.groovy@ file's support for per-environment execution:
+It's often desirable to run code when your application starts up on a per-environment basis. To do so you can use the @grails-app/conf/BootStrap.groovy@ file's support for per-environment execution:
 
 {code}
 def init = { ServletContext ctx ->

@@ -1,5 +1,6 @@
 introduction:
   title: イントロダクション
+  whatsNew21: Grails 2.1の新機能
   whatsNew:
     title: Grails 2.0の新機能
     developmentEnvironmentFeatures: 開発環境機能
@@ -11,7 +12,6 @@ gettingStarted:
   title: スタートガイド
   requirements: インストール必要条件
   downloadingAndInstalling: ダウンロードとインストール
-  upgradingFromPreviousVersionsOfGrails: Grails下位バージョンからの更新
   creatingAnApplication: アプリケーション作成
   aHelloWorldExample: ハローワールド例
   usingInteractiveMode: インタラクティブモードの利用
@@ -23,6 +23,7 @@ gettingStarted:
   supportedJavaEEContainers: サポートされている Java EE コンテナ
   generatingAnApplication: アプリケーション生成
   creatingArtefacts: アーテファクトの作成
+upgradingFromPreviousVersionsOfGrails: Grails下位バージョンからの更新
 conf:
   title: 設定
   config:
@@ -49,11 +50,13 @@ conf:
     debuggingResolution: 依存解決デバッグ
     inheritedDependencies: 依存の受け継ぎ
     providingDefaultDependencies: 基本依存管理の提供
+    changingDependencies: スナップショットと他の変化する依存関係
     dependencyReports: 依存管理レポート
     pluginJARDependencies: プラグインJAR依存
     mavenIntegration: Maven統合
     mavendeploy: Mavenリポジトリへのデプロイ
     pluginDependencies: プラグイン依存管理
+    dependencyResolutionCaching: 依存管理のキャッシュ
 commandLine:
   title: コマンドライン
   interactiveMode: インタラクティブモード
@@ -62,6 +65,7 @@ commandLine:
   events: イベントを取得する
   buildCustomising: ビルドのカスタマイズ
   antAndMaven: AntとMaven
+  wrapper: Grailsラッパー
 GORM:
   title: O/Rマッピング (GORM)
   quickStartGuide:
@@ -213,6 +217,7 @@ validation:
   title: バリデーション
   constraints: 制約を宣言
   validatingConstraints: 制約をバリデートする
+  sharingConstraints: 制約をクラス間で共有する
   validationOnTheClient: クライアントサイドバリデーション
   validationAndInternationalization: バリデーションの国際化
   validationNonDomainAndCommandObjectClasses: コマンドオブジェクト、ドメインクラス以外のバリデーション
@@ -234,6 +239,7 @@ testing:
     unitTestingFilters: フィルタUnitテスト
     unitTestingURLMappings: URLマッピングUnitテスト
     mockingCollaborators: モッキングコラボレータ
+    mockingCodecs: Mocking Codecs
   integrationTesting: 統合テスト
   functionalTesting: 機能テスト
 i18n:
