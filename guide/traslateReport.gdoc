@@ -210,7 +210,7 @@ h2. Not done.
 * ../en/guide/conf/ivy/providingDefaultDependencies.gdoc
 * ../en/guide/conf/versioning.gdoc
 * ../en/guide/contributing.gdoc
-* ../en/guide/contributing/build.gdoc
+*  *(original file updated)* ../en/guide/contributing/build.gdoc
 * ../en/guide/contributing/issues.gdoc
 * ../en/guide/contributing/patchesCore.gdoc
 * ../en/guide/contributing/patchesDoc.gdoc
@@ -219,7 +219,7 @@ h2. Not done.
 * ../en/guide/hibernate/addingConstraints.gdoc
 * ../en/guide/hibernate/mappingWithHibernateAnnotations.gdoc
 * ../en/guide/hibernate/usingHibernateXMLMappingFiles.gdoc
-* ../en/guide/introduction/whatsNew21.gdoc
+*  *(original file updated)* ../en/guide/introduction/whatsNew21.gdoc
 * ../en/guide/links.yml
 * ../en/guide/plugins.gdoc
 * ../en/guide/plugins/addingDynamicMethodsAtRuntime.gdoc
