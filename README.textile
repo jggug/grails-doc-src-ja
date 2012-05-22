@@ -1,0 +1,22 @@
+
+h2. How to build.
+
+git clone git@github.com:jggug/grails-doc.git
+git co origin/jggug
+git co -b jggug
+git submodule init && git submodule update
+./gradlew -Ddisable.groovydocs=true -Dgrails.home=/path_to_your/grails-core clean publishGuide_ja
+
+h2. Generate traslateReport.doc
+
+cd src/ja
+groovy scanfiles.groovy >guide/traslateReport.gdoc
+
+h2. Update original docs
+* add upstream
+git remote add upstream https://github.com/grails/grails-doc.git
+* fetch upstream
+git fetch upstream
+* merge upstream
+git merge upstream/master
+
