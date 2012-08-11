@@ -8,6 +8,75 @@ h1. Document Translation Report.
 
 h2. Original document updated after translation.:
 
+*./guide/commandLine/antAndMaven.gdoc*
+
+{code}
+60 : In order to use the Maven plugin, all you need is Maven 2 installed and set up. This is because *you no longer need to install Grails separately to use it with Maven\!*
+74 : Using the @create-pom@ command you can generate a valid Maven @pom.xml@ file for any existing Grails project. The below presents an example:
+77 : $ grails create-app myapp
+78 : $ cd myapp
+79 : $ grails create-pom com.mycompany
+82 : The @create-pom@ command expects a group id as an argument. The name and the version are taken from the @application.properties@ of the application. The Maven plugin will keep the version in the @pom.xml@ in sync with the version in @application.properties@.
+84 : The following standard Maven commands are then possible:
+86 : * @compile@ - Compiles a Grails project
+87 : * @package@ - Builds a WAR file from the Grails project.
+88 : * @install@ - Builds a WAR file (or plugin zip/jar if a plugin) and installs it into your local Maven cache
+89 : * @test@ - Runs the tests of a Grails project
+90 : * @clean@ - Cleans the Grails project
+92 : Other standard Maven commands will likely work too.
+117: You can create a Maven Grails project without having Grails installed, simply run the following command:
+122:     -DarchetypeVersion=2.1.0.RC1 \\\
+158: All Grails plugins are published to a standard Maven repository located at [http://repo.grails.org/grails/plugins/]. When using the Maven plugin for Grails you must ensure that this repository is declared in your list of remote repositories:
+161: <repository>
+162:     <id>grails-plugins</id>
+163:     <name>grails-plugins</name>
+164:     <url>http://repo.grails.org/grails/plugins</url>
+165: </repository>
+168: With this done you can declare plugin dependencies within your @pom.xml@ file:
+171: <dependency>
+172:     <groupId>org.grails.plugins</groupId>
+173:     <artifactId>database-migration</artifactId>
+174:     <version>1.1</version>
+175:     <scope>runtime</scope>
+176:     <type>zip</type>
+177: </dependency>
+180: Note that the @type@ element must be set to @zip@.
+184: By default the Maven plugin will run Grails commands in-process, meaning that the Grails process occupies the same JVM as the Maven process. This can put strain on the Maven process for particularly large applications.
+186: In this case it is recommended to use forked execution. Forked execution can be configured in the @configuration@ element of the plugin:
+192:     <version>$\{grails.version\}</version>
+194:         <\!-- Whether for Fork a JVM to run Grails commands -->
+195:         <fork>true</fork>
+201: With this configuration in place a separate JVM will be forked when running Grails commands. If you wish to debug the JVM that is forked you can add the @forkDebug@ element:
+204:     <\!-- Whether for Fork a JVM to run Grails commands -->
+205:     <fork>true</fork>
+206:     <forkDebug>true</forkDebug>
+209: If you need to customize the memory of the forked process the following elements are available:
+211: * @forkMaxMemory@ - The maximum amount of heap (default 1024)
+212: * @forkMinMemory@ - The minimum amount of heap (default 512)
+213: * @forkPermGen@ - The amount of permgen (default 256)
+218: The Maven plugin can be used to power multi-module Grails builds. The easiest way to set this is up is with the @create-multi-project-build@ command:
+221: $ grails create-app myapp
+222: $ grails create-plugin plugin1
+223: $ grails create-plugin plugin2
+224: $ grails create-multi-project-build org.mycompany:parent:1.0
+227: Running @mvn install@ will build all projects together. To enable the 'grails' command to read the POMs you can modify @BuildConfig.groovy@ to use the POM and resolve dependencies from your Maven local cache:
+230: grails.project.dependency.resolution = \{
+232:     pom true
+233:     repositories \{
+235:         mavenLocal()    
+236:     \}
+240: By reading the @pom.xml@ file you can do an initial @mvn install@ from the parent project to build all plugins and install them into your local maven cache and then @cd@ into your project and use the regular @grails run-app@ command to run your application. All previously built plugins will be resolved from the local Maven cache.
+252:     <version>2.1.0.RC2</version>
+300: If you come across any problems with the Maven integration, please raise a [JIRA issue||http://jira.grails.org/browse/MAVEN].
+{code}
+
+*./guide/theWebLayer/ajax/ajaxWithDojo.gdoc*
+
+{code}
+1  : Grails features an external plugin to add "Dojo":http://dojotoolkit.org/ support to Grails. To install the plugin, list it in BuildConfig.groovy:
+4  : compile "\:dojo\:latest.release"
+{code}
+
 *./guide/theWebLayer/gsp/sitemeshContentBlocks.gdoc*
 
 {code}
@@ -21,6 +90,19 @@ h2. Original document updated after translation.:
 
 {code}
 18 : Method     | Action
+{code}
+
+*./guide/theWebLayer/ajax/ajaxWithPrototype.gdoc*
+
+{code}
+1  : Grails features an external plugin to add "Prototype":http://www.prototypejs.org/ support to Grails. To install the plugin, list it in BuildConfig.groovy:
+4  : runtime "\:prototype\:latest.release"
+{code}
+
+*./guide/theWebLayer/controllers/dataBinding.gdoc*
+
+{code}
+182: Since "bogusValue" cannot be converted to type int, the value of accountType will be zero, the controller's @errors.hasErrors()@ will be true, the controller's @errors.errorCount@ will be equal to 1 and the controller's @errors.getFieldError('accountType')@ will contain the corresponding error.
 {code}
 
 *./guide/gettingStarted/creatingAnApplication.gdoc*
@@ -118,6 +200,12 @@ h2. Original document updated after translation.:
 72 : Grails uses an agent based reloading system in the development environment that allows source code changes to be picked up while the application is running.  This reloading agent caches information needed to carry out the reloading efficiently.  By default this information is stored under @\<USER_HOME_DIR\>\/.grails\/.slcache\/@.  The @GRAILS_AGENT_CACHE_DIR@ environment variable may be assigned a value to cause this cache information to be stored somewhere else.  Note that this is an operating system environment variable, not a JVM system property or a property which may be defined in @BuildConfig.groovy@.  This setting must be defined as an environment variable because the agent cache directory must be configured very early in the JVM startup process, before any Grails code is executed.
 {code}
 
+*./guide/services/dependencyInjectionServices.gdoc*
+
+{code}
+57 : The default bean name which is associated with a service can be problematic if there are multiple services with the same name defined in different packages.  For example consider the situation where an application defines a service class named @com.demo.ReportingService@ and the application uses a plugin named @ReportingUtilities@ and that plugin provides a service class named @com.reporting.util.ReportingService@.  The default bean name for each of those would be @reportingService@ so they would conflict with each other.  Grails manages this by changing the default bean name for services provided by plugins by prefixing the bean name with the plugin name.  In the scenario described above the @reportingService@ bean would be an instance of the @com.demo.ReportingService@ class defined in the application and the @reportingUtilitiesReportingService@ bean would be an instance of the @com.reporting.util.ReportingService@ class provided by the @ReportingUtilities@ plugin.  For all service beans provided by plugins, if there are no other services with the same name within the application or other plugins in the application then a bean alias will be created which does not include the plugin name and that alias points to the bean referred to by the name that does include the plugin name prefix.  For example, if the @ReportingUtilities@ plugin provides a service named @com.reporting.util.AuthorService@ and there is no other @AuthorService@ in the application or in any of the plugins that the application is using then there will be a bean named @reportingUtilitiesAuthorService@ which is an instance of this @com.reporting.util.AuthorService@ class and there will be a bean alias defined in the context named @authorService@ which points to that same bean.
+{code}
+
 *./guide/gettingStarted/requirements.gdoc*
 
 {code}
@@ -127,6 +215,19 @@ h2. Original document updated after translation.:
 5  : * [Mac OS X|http://www.grailsexample.net/installing-a-grails-development-environment-on-os-x/]
 7  : These will show you how to install Grails too, not just the JDK.
 16 : if you're using bash or another variant of the Bourne Shell.
+{code}
+
+*./guide/gettingStarted/supportedJavaEEContainers.gdoc*
+
+{code}
+13 : * Jetty 8
+19 : * IBM WebSphere 8.5
+20 : * IBM WebSphere 8.0
+21 : * IBM WebSphere 7.0
+22 : * IBM WebSphere 6.1
+23 : \{note\}
+24 : It's required to set "-Xverify:none" in "Application servers > server > Process Definition > Java Virtual Machine > Generic JVM arguments" for WebSphere.
+25 : \{note\}
 {code}
 
 *./guide/GORM/domainClasses/sets,ListsAndMaps.gdoc*
@@ -139,7 +240,7 @@ h2. Not done.
 
 * ../en/guide/GORM.gdoc
 * ../en/guide/GORM/advancedGORMFeatures/defaultSortOrder.gdoc
-* ../en/guide/GORM/advancedGORMFeatures/eventsAutoTimestamping.gdoc
+*  *(original file updated)* ../en/guide/GORM/advancedGORMFeatures/eventsAutoTimestamping.gdoc
 * ../en/guide/GORM/advancedGORMFeatures/ormdsl.gdoc
 * ../en/guide/GORM/advancedGORMFeatures/ormdsl/caching.gdoc
 * ../en/guide/GORM/advancedGORMFeatures/ormdsl/compositePrimaryKeys.gdoc
@@ -158,7 +259,7 @@ h2. Not done.
 * ../en/guide/GORM/domainClasses/gormAssociation/basicCollectionTypes.gdoc
 * ../en/guide/GORM/domainClasses/gormAssociation/manyToMany.gdoc
 * ../en/guide/GORM/domainClasses/gormAssociation/manyToOneAndOneToOne.gdoc
-* ../en/guide/GORM/domainClasses/gormAssociation/oneToMany.gdoc
+*  *(original file updated)* ../en/guide/GORM/domainClasses/gormAssociation/oneToMany.gdoc
 * ../en/guide/GORM/domainClasses/gormComposition.gdoc
 * ../en/guide/GORM/domainClasses/inheritanceInGORM.gdoc
 * ../en/guide/GORM/gormConstraints.gdoc
@@ -260,8 +361,8 @@ h2. Not done.
 * ../en/guide/testing/unitTesting/mockingCollaborators.gdoc
 * ../en/guide/testing/unitTesting/unitTestingControllers.gdoc
 * ../en/guide/testing/unitTesting/unitTestingDomains.gdoc
-* ../en/guide/testing/unitTesting/unitTestingFilters.gdoc
-* ../en/guide/testing/unitTesting/unitTestingTagLibraries.gdoc
+*  *(original file updated)* ../en/guide/testing/unitTesting/unitTestingFilters.gdoc
+*  *(original file updated)* ../en/guide/testing/unitTesting/unitTestingTagLibraries.gdoc
 * ../en/guide/testing/unitTesting/unitTestingURLMappings.gdoc
 *  *(original file updated)* ../en/guide/toc.yml
 * ../en/guide/validation.gdoc
