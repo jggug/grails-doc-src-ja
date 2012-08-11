@@ -1,10 +1,10 @@
 h1. controllers
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 A plugin that configures core Grails MVC architecture using the underlying Spring MVC component model
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 A controller:
 
@@ -28,7 +28,7 @@ class FormatTagLib {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 This plugin configures Grails to use Spring MVC at its core to deal with web requests. The plugin sets up the @GrailsDispatcherServlet@ and necessary Spring beans (see below) for controllers, tag libraries and Groovy Server Pages (GSP)
 

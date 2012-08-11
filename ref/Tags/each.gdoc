@@ -1,10 +1,10 @@
 h1. each
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Uses the Groovy JDK [each|http://groovy.codehaus.org/groovy-jdk/java/lang/Object.html#each(groovy.lang.Closure)] method to iterate over each element of the specified object.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:each in="${books}">
@@ -56,9 +56,9 @@ Using the status parameter to alternate the coloring of a table's rows:
 </tbody>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 # @in@ - The object to iterate over
 # @status@ (optional) - The name of a variable to store the iteration index in. Starts with 0 and increments for each iteration. If this parameter is used, then @var@ is required.

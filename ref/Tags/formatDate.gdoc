@@ -1,10 +1,10 @@
 h1. formatDate
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Formats @java.util.Date@ instances using the patterns defined by the [SimpleDateFormat|api:java.text.SimpleDateFormat] class.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:formatDate format="yyyy-MM-dd" date="${date}"/>
@@ -22,9 +22,9 @@ h2. Examples
 <g:formatDate date="${date}" type="time" style="SHORT"/>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @date@ (required) - The date object to format
 * @format@ (optional) - The formatting pattern to use for the date, see [SimpleDateFormat|api:java.text.SimpleDateFormat]
@@ -36,7 +36,7 @@ Attributes
 * @dateStyle@ (optional) - Set separate @style@ for the date part.
 * @timeStyle@ (optional) - Set separate @style@ for the time part.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormatTagLib.formatDate}
 {source}

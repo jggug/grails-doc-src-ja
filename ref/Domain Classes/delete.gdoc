@@ -1,17 +1,17 @@
 h1. delete
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Deletes a persistent instance.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def book = Book.get(1)
 book.delete()
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @delete@ method informs the persistence context that a persistent instance should be deleted. Equivalent to the Hibernate [delete|api:org.hibernate.Session#delete(java.lang.Object)] method.
 
@@ -19,7 +19,7 @@ The @delete@ method informs the persistence context that a persistent instance s
 Calling @delete@ on a transient instance will result in an error
 {warning}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @flush@ - If set to @true@ the persistent context will be flushed resulting in the instance being deleted immediately. For example:
 

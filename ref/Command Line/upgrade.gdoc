@@ -1,23 +1,23 @@
 h1. upgrade
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @upgrade@ command upgrades a Grails application to the currently installed version of Grails if possible.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails upgrade
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails upgrade
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusUpdate@ - During the upgrade process
 * @StatusFinal@ - After the upgrade completes

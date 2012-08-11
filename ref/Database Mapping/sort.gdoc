@@ -1,10 +1,10 @@
 h1. sort
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Customizes the default property to sort by for query results.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -15,9 +15,9 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @sort(string/map)@
+使用方法: {hidden}Usage:{hidden} @sort(string/map)@
 
 By default results are sorted by creation date, and you can specify the column to order by in a query:
 

@@ -1,17 +1,17 @@
 h1. min
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Ensures a value does not fall below a minimum value.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 age min: new Date()
 price min: 0F
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Sets the minimum value of a class that implements @java.lang.Comparable@. The type of the value must be the same as the property.
 

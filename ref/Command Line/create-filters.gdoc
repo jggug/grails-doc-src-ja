@@ -1,16 +1,16 @@
 h1. create-filters
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @create-filters@ command creates a Grails filters class for the given base name.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails create-filters logging
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Creates a filters class for the give base name. For example for a base name @logging@ a filters class called @LoggingFilters@ will be created in the @grails-app/conf@ directory.
 
@@ -18,12 +18,12 @@ Creates a filters class for the give base name. For example for a base name @log
 Note that this command is just for convenience and you can also create filters in your favorite text editor or IDE if you choose.
 {note}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 
 {code:java}
 grails create-filters [name]
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @CreatedFile@ - When the filters class has been created

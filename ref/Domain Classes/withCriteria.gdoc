@@ -1,10 +1,10 @@
 h1. withCriteria
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Allows inline execution of Criteria queries. See the [createCriteria|domainClasses] method for reference.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def results = Book.withCriteria {
@@ -14,7 +14,7 @@ def results = Book.withCriteria {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @withCriteria@ method allows the inline definition of [Criteria|guide:criteria]. Arguments to the [HibernateCriteriaBuilder|api:grails.orm.HibernateCriteriaBuilder] can be passed as the first parameter:
 
@@ -26,7 +26,7 @@ def book = Book.withCriteria(uniqueResult: true) {
 }
 {code}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @arguments@ (optional) - A map of named arguments to be set on the Criteria instance
 * @closure@ - A closure that defines the criteria

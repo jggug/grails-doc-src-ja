@@ -1,10 +1,10 @@
 h1. hasOne
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Defines a bidirectional one-to-one association between two classes where the foreign key is in the child.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Face {
@@ -21,7 +21,7 @@ class Nose {
 
 In this example we define a one-to-one relationship between the @Face@ class and the @Nose@ class
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Use a @hasOne@ association to store the foreign key reference in child table instead of the parent in a bidirectional one-to-one. The example presented above will generate the following table structure:
 

@@ -1,17 +1,17 @@
 h1. get
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Retrieves an instance of the domain class for the specified id. @null@ is returned if the row with the specified id doesn't exist.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def b = Book.get(1)
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @id@ - The id of the object to retrieve

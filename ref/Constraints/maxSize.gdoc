@@ -1,16 +1,16 @@
 h1. maxSize
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Ensures a value's size does not exceed a maximum value.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 children maxSize: 25
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 This constraint influences [schema generation|guide:gormConstraints].
 

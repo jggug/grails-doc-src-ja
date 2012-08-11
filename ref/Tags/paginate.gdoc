@@ -1,10 +1,10 @@
 h1. paginate
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Creates next/previous buttons and a breadcrumb trail for pagination of results
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example domain class:
 
@@ -39,9 +39,9 @@ or
             action="list" total="${bookCount}" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @total@ (required) - The total number of results to paginate
 * @action@ (optional) - the name of the action to use in the link; if not specified the default action will be linked
@@ -54,7 +54,7 @@ Attributes
 * @maxsteps@ (optional) - The number of steps displayed for pagination (defaults to 10). Used ONLY if @params.maxsteps@ is empty
 * @offset@ (optional) - Used ONLY if @params.offset@ is empty
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=RenderTagLib.paginate}
 {source}

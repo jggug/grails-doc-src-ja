@@ -1,10 +1,10 @@
 h1. findAll
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Finds all of domain class instances matching the specified query
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 // everything
@@ -43,7 +43,7 @@ def example = new Book(author: "Dan Brown")
 Book.findAll(example)
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @findAll@ method allows querying with Hibernate's query language [HQL|guide:hql] and querying by example, returning all matching instances. Pagination can be controlled using the @max@ and @offset@ parameters:
 
@@ -75,7 +75,7 @@ Book.findAll(Book example)
 If you have a join in your HQL, the method will return a @List@ of @Array@s containing domain class instances. You may wish to use [executeQuery|domainClasses] in this case so you have more flexibility in specifying what gets returned.
 {note}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @query@ - An HQL query
 * @positionalParams@ - A @List@ of parameters for a positional parametrized HQL query

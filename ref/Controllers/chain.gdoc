@@ -1,25 +1,25 @@
 h1. chain
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Uses "flash":flash.html storage to implicitly retain the model following an HTTP redirect from one action to another.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def shawshankRedemption = new Book(title: 'The Shawshank Redemption')
 chain(action: "details", model: [book: shawshankRedemption])
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 
 {code:java}
 chain(controller*, action, id*, model, params*)
 {code}
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @uri@ - The full uri to redirect to (example /book/list, book/show/2)
 * @controller@ (optional) - The controller to redirect to; defaults to the current controller if not specified

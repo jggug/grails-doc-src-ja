@@ -1,6 +1,6 @@
 h1. run-app
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Runs a Grails application in an embedded servlet container
 
@@ -8,7 +8,7 @@ Runs a Grails application in an embedded servlet container
 This target is _not_ intended to be used for application deployment. There are many optimizations implemented when  generating a WAR file for deployment that are not available to @run-app@ since @run-app@ is optimized for developer productivity, not performance.
 {warning}
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails run-app
@@ -17,14 +17,14 @@ grails test run-app
 grails -Dserver.port=8090 -Denable.jndi=true -Ddisable.auto.recompile=true run-app
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails [env]* run-app
 {code}
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @https@ - Start an HTTPS server (on port 8443 by default) alongside the main server. Just to be clear, the application will be accessible via HTTPS _and_ HTTP.
 
@@ -36,7 +36,7 @@ Supported system properties:
 * @grails.server.port.https@ - Specifies the HTTPS port to run the server on (defaults to 8443)
 * @grails.server.host@/@server.host@ - Specifies the host name to run the server on (defaults to localhost)
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusFinal@ - When the container has been started
 * @StatusUpdate@ - When the container is reloading

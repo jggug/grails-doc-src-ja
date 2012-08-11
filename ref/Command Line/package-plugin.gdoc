@@ -1,23 +1,23 @@
 h1. package-plugin
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Packages a plugin as a ZIP archive which can then be installed into another application
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails package-plugin
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails package-plugin
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusError@ - When there was an error during packaging
 

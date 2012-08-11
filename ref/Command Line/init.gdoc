@@ -1,10 +1,10 @@
 h1. init
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @init@ command initialises the appropriate directory structure for a Grails application and sets some common variables for use by the calling script. It is typically used as an include.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Command line:
 

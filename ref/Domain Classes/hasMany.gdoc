@@ -1,10 +1,10 @@
 h1. hasMany
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Defines a one-to-many association between two classes.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Author {
@@ -17,7 +17,7 @@ class Author {
 
 In this example we define a one-to-many relationship between the @Author@ and @Book@ classes (one @Author@ has many @Book@s)
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 By default GORM will create a property of type @java.util.Set@ using the key inside the definition of the @hasMany@ map. For example consider this definition:
 

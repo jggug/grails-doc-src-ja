@@ -1,10 +1,10 @@
 h1. layoutTitle
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Used in layouts to render the contents of the title tag of the decorated page. Equivalent to the SiteMesh @<decorator:title />@ tag.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example decorated page:
 
@@ -31,7 +31,7 @@ Results in:
 </html>
 {code}
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=RenderTagLib.layoutTitle}
 {source}

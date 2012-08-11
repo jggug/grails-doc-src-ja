@@ -1,10 +1,10 @@
 h1. test-app
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Runs all Grails unit and integration tests and generates reports. The command returns appropriate response codes for embedding with continuous integration servers.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails test-app
@@ -12,14 +12,14 @@ grails test-app Foo
 grails test-app Foo Bar
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails [environment]* test-app [names]*
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusFinal@ - When the test cycle completes
 

@@ -1,10 +1,10 @@
 h1. datePicker
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Creates a date picker which renders as HTML select tags for the day, month, year, hour and second of the day.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:datePicker name="myDate" value="${new Date()}"
@@ -20,9 +20,9 @@ h2. Examples
               noSelection="['':'-Choose-']" relativeYears="[-2..7]"/>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @name@ (required) - The name of the date picker field set
 * @value@ (optional) - The current value of the date picker; defaults to now if not specified
@@ -38,7 +38,7 @@ Attributes
 * @years@ (optional) - A list or range of years to display, in the order specified. i.e. specify 2007..1900 for a reverse order list going back to 1900. If this attribute is not specified, a range of years from the current year - 100 to current year + 100 will be shown.
 * @relativeYears@ (optional) - A range of int representing  values relative to @value@.  For example, a @relativeYears@ of [-2..7] and a @value@ of today will render a list of 10 years starting with 2 years ago through 7 years in the future.  This can be useful for things like credit card expiration dates or birthdates which should be bound relative to today.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormTagLib.datePicker}
 {source}

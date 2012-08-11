@@ -1,10 +1,10 @@
 h1. package
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Runs the packaging phase of Grails' runtime. This is mainly useful when used by other scripts.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 As an include:
 
@@ -18,9 +18,9 @@ As a command:
 grails package
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails package
 {code}

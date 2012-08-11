@@ -1,10 +1,10 @@
 h1. type
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Configures the Hibernate type for a particular property.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Changing to a text type (CLOB or TEXT depending on database dialect):
 
@@ -35,9 +35,9 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @association_name(type:string/class)@
+使用方法: {hidden}Usage:{hidden} @association_name(type:string/class)@
 
 Hibernate will attempt to automatically select the appropriate database type from the field typed based on configuration in the @Dialect@ class that is being used. But you can override the defaults if necessary. For example @String@ values are mapped by default to @varchar(255)@ columns. To store larger @String@ values you can use a @text@ type instead:
 

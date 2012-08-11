@@ -1,10 +1,10 @@
 h1. hasErrors
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Check if a domain class instance has validation errors following a call to [validate|domainClasses] or [save|domainClasses], or following [Data Binding|guide:dataBinding]
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def b = new Book(title: "The Shining")

@@ -1,10 +1,10 @@
 h1. embedded
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Supports embedding domain components into domain classes - otherwise known as [composition|guide:gormComposition].
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Given these domain classes:
 
@@ -38,7 +38,7 @@ LIVES_IN_COUNTRY_ISO3 | VARCHAR(255)
 LIVES_IN_COUNTRY_NAME | VARCHAR(255)
 {table}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 An embedded component does not store its data in its own table as a regular domain class relationship does. Instead, the data is included in the owner's table. So in the above example, the @Country@ fields appear in the @person@ table. This means that queries are faster because there is no join required, but you may end up with duplicate data across tables.
 

@@ -1,10 +1,10 @@
 h1. formatNumber
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Formats a number using the patterns defined by the [DecimalFormat|api:java.text.DecimalFormat] class. Also supports attributes used in the JSTL @formatNumber@ tag.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:formatNumber number="${myNumber}" format="\\$###,##0" />
@@ -38,9 +38,9 @@ Example of formatting a number showing 2 fraction digits, rounding with Rounding
                 maxFractionDigits="2" roundingMode="HALF_DOWN" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @number@ (required) - The number object to formate
 * @format@ (optional) - The formatting pattern to use for the number, see [DecimalFormat|api:java.text.DecimalFormat]
@@ -56,7 +56,7 @@ Attributes
 * @currencySymbol@ (optional) - Force the currency symbol to some symbol, recommended way is to use @currencyCode@ attribute instead (takes symbol information from [Currency|api:java.util.Currency])
 * @roundingMode@ (optional) - Sets the [RoundingMode|api:java.math.RoundingMode] used in this DecimalFormat. Usual values: @HALF_UP@, @HALF_DOWN@. If roundingMode is @UNNECESSARY@ and an @ArithemeticException@ occurs, the original number formatted with default number formatting will be returned.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormatTagLib.formatNumber}
 {source}

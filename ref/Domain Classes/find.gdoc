@@ -1,10 +1,10 @@
 h1. find
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Finds the first matching result for the given query or @null@ if no instance is found
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 // Dan brown's first book
@@ -27,7 +27,7 @@ def example = new Book(author: "Dan Brown")
 Book.find(example)
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @find@ method allows querying with Hibernate's query language [HQL|guide:hql] and querying by example. The basic syntax is:
 
@@ -40,7 +40,7 @@ Book.find(String query, Map namedParams, Map queryParams)
 Book.find(Book example)
 {code}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @query@ - An HQL query
 * @positionalParams@ - A @List@ of parameters for a positional parametrized HQL query

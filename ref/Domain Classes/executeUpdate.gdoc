@@ -1,10 +1,10 @@
 h1. executeUpdate
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Updates the database with [DML-style operations|http://docs.jboss.org/hibernate/stable/core/reference/en-US/html/batch.html#batch-direct]
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 Account.executeUpdate("delete Book b where b.pages > 100")
@@ -23,7 +23,7 @@ Account.executeUpdate("update Book b set b.title=:newTitle " +
                       [newTitle: 'Groovy In Action', oldTitle: 'GINA'])
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 [GORM|guide:GORM] does not provide a @deleteAll@ method as deleting data must be done with caution. To delete data you can use @executeUpdate@. The basic syntax is:
 
@@ -33,7 +33,7 @@ Book.executeUpdate(String query, List positionalParams)
 Book.executeUpdate(String query, Map namedParams)
 {code}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @query@ - An HQL query with DML-style operations
 * @positionalParams@ - A @List@ of parameters for a positional parameterized HQL query

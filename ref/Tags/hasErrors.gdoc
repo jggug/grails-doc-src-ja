@@ -1,10 +1,10 @@
 h1. hasErrors
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Checks whether a bean, request scope, or model reference has any errors and if so invokes the body of the tag. Typically used in conjunction with either [eachError|tags] or [renderErrors|tags]
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Checks whether there are any errors for any bean throughout the request scope:
 
@@ -52,15 +52,15 @@ Checking for errors inside a nested object:
 </div>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @bean@ (optional) - The bean to check for errors
 * @model@ (optional) - The name of the model reference to check for errors
 * @field@ (optional) - Check if a field of the bean or model reference has errors
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=ValidationTagLib.hasErrors}
 {source}

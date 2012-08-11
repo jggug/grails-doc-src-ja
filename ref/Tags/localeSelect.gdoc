@@ -1,24 +1,24 @@
 h1. localeSelect
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Generates an HTML select with @Locale@s as values
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 // create a locale select
 <g:localeSelect name="myLocale" value="${locale}" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @name@ - The name to be used for the select box
 * @value@ (optional) - The selected @Locale@; defaults to the current request locale if not specified
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormTagLib.localeSelect}
 {source}

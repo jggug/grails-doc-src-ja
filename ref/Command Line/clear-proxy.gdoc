@@ -1,20 +1,20 @@
 h1. clear-proxy
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Clears the current proxy configuration Grails should use when communicating over the internet such as with the [install-plugin|commandLine] command.
 
 Proxy configurations are defined using the [add-proxy|commandLine] command
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails clear-proxy
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails clear-proxy
 {code}

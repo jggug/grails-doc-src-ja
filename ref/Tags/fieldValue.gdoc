@@ -1,10 +1,10 @@
 h1. fieldValue
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Inspects a bean which has been the subject of [data binding|guide:dataBinding] and obtains the value of the field either from the originally submitted value in the bean's @errors@ object populated during data binding or from the value of a bean's property. Once the value is obtained it will be automatically HTML-encoded.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:fieldValue bean="${book}" field="title" />
@@ -13,14 +13,14 @@ h2. Examples
 <input type="text" value="${fieldValue(bean: book, field: 'title')}" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @bean@ (required) - The bean instance to inspect
 * @field@ (required) - The name of the field to obtain the value of
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=ValidationTagLib.fieldValue}
 {source}

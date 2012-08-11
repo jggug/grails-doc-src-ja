@@ -1,10 +1,10 @@
 h1. unless
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Renders its body conditionally, based on an expression and/or current environment. The tag renders its body unless all of the specified conditions (test and/or environment) are @true@. Does the opposite of what the [if|Tags] tag does.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:unless test="${name == 'fred'}">
@@ -20,9 +20,9 @@ h2. Examples
 </g:unless>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @test@ - The expression to test
 * @env@ - An environment name

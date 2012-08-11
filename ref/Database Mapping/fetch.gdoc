@@ -1,10 +1,10 @@
 h1. fetch
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Configures the fetching behavior of an association.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Author {
@@ -17,11 +17,11 @@ class Author {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @association_name(fetch:string)@
+使用方法: {hidden}Usage:{hidden} @association_name(fetch:string)@
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @fetchStrategy@ - The fetching strategy to use. Either @join@ or @select@.
 

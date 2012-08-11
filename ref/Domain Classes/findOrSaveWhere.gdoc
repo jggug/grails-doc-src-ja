@@ -1,10 +1,10 @@
 h1. findOrSaveWhere
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Uses named arguments corresponding to property names of the domain class to execute a query returning the first matching result. This method behaves just like [findWhere|domainClasses] except that it will never return @null@. If a matching instance cannot be found in the database then a new instance is created, populated with values from the query parameters, saved and returned.  The difference between this method and [findOrCreateWhere|domainClasses] is that this method will save a newly created instance where [findOrCreateWhere|domainClasses] does not.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Given the domain class:
 
@@ -27,8 +27,8 @@ You can query in the form:
 def book = Book.findOrSaveWhere(author: "Stephen King", title: "The Stand")
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @queryParams@ - A Map of key/value pairs to be used in the query. If no matching instance is found then this data is used to initialize a new instance.

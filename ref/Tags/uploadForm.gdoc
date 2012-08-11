@@ -1,10 +1,10 @@
 h1. uploadForm
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Creates a form that can submit multi-part data for file uploads.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:uploadForm name="myUpload">
@@ -12,18 +12,18 @@ h2. Examples
 </g:uploadForm>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Identical to the standard [form|tags] tag except that it sets the @enctype@ attribute to @"multipart/form-data"@ automatically.
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @action@ (optional) - the name of the action to use in the link; if not specified the default action will be linked
 * @controller@ (optional) - the name of the controller to use in the link; if not specified the current controller will be linked
 * @id@ (optional) - The id to use in the link
 * @url@ (optional) - A map containing the action, controller, id etc.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormTagLib.uploadForm}
 {source}

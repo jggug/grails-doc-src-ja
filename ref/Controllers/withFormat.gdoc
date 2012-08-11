@@ -1,10 +1,10 @@
 h1. withFormat
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Renders different responses based on the incoming request @Accept@ header, format parameter or URI extension. See [content negotiation|guide:contentNegotiation] for more information.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 import grails.converters.XML
@@ -23,7 +23,7 @@ class BookController {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @withFormat@ accepts a Closure which contains methods corresponding to the different content types you want to respond to. For example:
 

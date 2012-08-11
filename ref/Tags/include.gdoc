@@ -1,10 +1,10 @@
 h1. include
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Includes the response of another controller/action or view in the current response
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example controller for an application called "shop":
 
@@ -41,9 +41,9 @@ Example as a method call in a controller, tag library or GSP:
 def content = g.include(action: 'list', controller: 'book')
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @action@ (optional) - the name of the action to use in the include
 * @controller@ (optional) - the name of the controller to use in the include
@@ -52,7 +52,7 @@ Attributes
 * @params@ (optional) - a Map of request parameters
 * @model@ (optional) - Any request attributes (the model) to pass to the view to be included
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=RenderTagLib.include}
 {source}

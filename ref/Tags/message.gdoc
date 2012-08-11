@@ -1,10 +1,10 @@
 h1. message
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Resolves a message from the given code or error. Normally used in conjunction with [eachError|tags]
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Loop through each error and output the message:
 
@@ -33,9 +33,9 @@ Output a message for a compatible object.
 Objects passed to the message parameter must implement the [MessageSourceResolvable|api:org.springframework.context.MessageSourceResolvable] interface.
 {note}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @error@ (optional) - The error to resolve the message for. Used for built-in Grails messages.
 * @code@ (optional) - The code to resolve the message for.  Used for custom application messages.
@@ -70,7 +70,7 @@ and specify the following from your view:
 
 Which would result in the output "Book The Stand deleted."  If you had misnamed the message or not specified it in @messages.properties@, your default message of "book deleted" would be output.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=ValidationTagLib.message}
 {source}

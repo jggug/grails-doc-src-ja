@@ -1,18 +1,18 @@
 h1. uninstall-plugin
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Uninstalls an installed plugin from an application.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails uninstall-plugin shiro
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails uninstall-plugin [name]
 {code}

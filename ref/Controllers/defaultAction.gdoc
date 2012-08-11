@@ -1,12 +1,12 @@
 h1. defaultAction
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Specifies the default action to be executed if none is specified in the URI.
 
 This is unnecessary if you have an action named "index" and want it to be the default, since that happens automatically.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class BookController {

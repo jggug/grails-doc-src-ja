@@ -1,10 +1,10 @@
 h1. discard
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Discards any changes that have been made to a persistent instance.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def b = Book.get(1)
@@ -12,7 +12,7 @@ b.title = "Blah"
 b.discard() // changes won't be applied now
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @discard@ method informs the persistence context that the instance should not be saved. The @discard@ method is equivalent to using Hibernate's [evict|api:org.hibernate.Session#evict(java.lang.Object)] method.
 

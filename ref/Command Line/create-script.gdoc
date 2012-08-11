@@ -1,10 +1,10 @@
 h1. create-script
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @create-script@ command creates a new Grails executable script that can be run with the @grails@ command from a terminal window.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 The command:
 
@@ -29,18 +29,18 @@ The command can then be run with:
 grails execute-report
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The command will translate lower case command names separated by hyphens into a valid Groovy camel-cased class name. For example @create-controller@ would become a script called @scripts/CreateController.groovy@.
 
 The script generated is a "Gant":http://groovy.codehaus.org/Gant script which can use Gant's capabilities to depend on other scripts from Grails core. Refer to the section on [Command Line Scripting|guide:commandLine] in the user guide.
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 
 {code:java}
 grails create-script [name]
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @CreatedFile@ - When the script has been created

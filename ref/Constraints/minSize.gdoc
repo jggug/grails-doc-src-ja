@@ -1,16 +1,16 @@
 h1. minSize
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Ensures a value's size does not fall below a minimum value.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 children minSize: 25
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Sets the minimum size of a collection or number property.
 

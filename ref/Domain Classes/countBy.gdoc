@@ -1,10 +1,10 @@
 h1. countBy*
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Dynamic method that uses the properties of the domain class to  query for the count of the number of matching records
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Given the domain class @Book@:
 
@@ -29,7 +29,7 @@ c = Book.countByReleaseDateIsNull()
 c = Book.countByReleaseDateIsNotNull()
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 GORM supports the notion of [Dynamic Finders|guide:finders]. The @countBy*@ method counts the number of records for the given expression
 

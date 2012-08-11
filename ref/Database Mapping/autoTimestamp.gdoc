@@ -1,10 +1,10 @@
 h1. autoTimestamp
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Disables auto timestamping when set to false
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -15,9 +15,9 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @autoTimestamp(boolean)@
+使用方法: {hidden}Usage:{hidden} @autoTimestamp(boolean)@
 
 By default when you have properties called @dateCreated@ and/or @lastUpdated@ in a domain class, Grails automatically maintains their state in the database. You can disable this by setting @autoTimestamp@ to @false@:
 

@@ -1,16 +1,16 @@
 h1. unique
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Constrains a property as unique at the database level
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 username unique: true
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Set to @true@ if the property must be unique. This is a persistent call and will query the database.
 

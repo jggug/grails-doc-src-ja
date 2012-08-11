@@ -1,28 +1,28 @@
 h1. generate-views
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Generates GSP views for the given domain class
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails generate-views org.bookstore.Book
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Grails supports a feature known as scaffolding which involves the generation of a CRUD (Create/Read/Update/Delete) interface for a given domain class.
 
 The @generate-views@ command generates GSP views that implement CRUD for the given domain class. So for a domain class @org.bookstore.Book@ views in @grails-app/views/book@ will be generated.
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 
 {code:java}
 grails generate-views [domain class name]
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusUpdate@ - When generation begins
 * @StatusFinal@ - When generation completes

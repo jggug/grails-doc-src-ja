@@ -1,10 +1,10 @@
 h1. if
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The logical if tag to switch on an expression and/or current environment.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:if test="${name == 'fred'}">
@@ -20,9 +20,9 @@ h2. Examples
 </g:if>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @test@ - The expression to test
 * @env@ - An environment name

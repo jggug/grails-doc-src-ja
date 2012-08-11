@@ -1,10 +1,10 @@
 h1. layoutBody
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Used in layouts to output the contents of the body tag of the decorated page.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example decorated page:
 
@@ -41,7 +41,7 @@ Results in:
 </html>
 {code}
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=RenderTagLib.layoutBody}
 {source}

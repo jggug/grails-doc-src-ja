@@ -1,10 +1,10 @@
 h1. findBy*
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Dynamic method that uses the properties of the domain class to execute a query returning the first matching result.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Given the domain class @Book@:
 
@@ -35,7 +35,7 @@ b = Book.findNotPaperbackByAuthor("Douglas Adams")
 b = Book.findByAuthorInList(["Douglas Adams", "Hunter S. Thompson"])
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 GORM supports the notion of [Dynamic Finders|guide:finders]. The @findBy*@ method finds the first result for the given method expression.
 

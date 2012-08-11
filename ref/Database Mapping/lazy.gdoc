@@ -1,10 +1,10 @@
 h1. lazy
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Configures whether to use proxies and lazy loading for one-to-one and many-to-one associations.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -17,9 +17,9 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @association_name(lazy: boolean)@
+使用方法: {hidden}Usage:{hidden} @association_name(lazy: boolean)@
 
 By default GORM single-ended associations are lazy in that when you load a domain instance, an associated domain is not loaded until accessed. Hibernate creates a dynamic proxy by subclassing the domain class and proxying all methods and property access.
 

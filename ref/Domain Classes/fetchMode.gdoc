@@ -1,10 +1,10 @@
 h1. fetchMode
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Allows the configuration of an associations fetch strategy ('eager' or 'lazy')
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Author {
@@ -19,7 +19,7 @@ class Author {
 
 In this example the @fetchMode@ static property specifies that the @book@ association should be fetching eagerly
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 By default associations in Grails are fetched lazily (each record is read from the database only when it is first accessed from the collection). This makes sense for most cases, however in the case where you have a small number of records to fetch and/or are repeatedly required to load lazy associations (resulting in N+1 queries) it makes sense to use eager fetching.
 

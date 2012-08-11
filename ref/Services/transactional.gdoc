@@ -1,10 +1,10 @@
 h1. transactional
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Enables automatic transaction demarcation if not set or set to @true@
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class BookService {
@@ -13,7 +13,7 @@ class BookService {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 By default services have automatic transaction management such as propagation and so on. By setting @transactional@ to @false@ you disable automatic Spring managed transaction demarcation for every method in the service. When set to the @true@, The propagation level of the transaction is by default set to [PROPAGATION_REQUIRED|http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/transaction/TransactionDefinition.html#PROPAGATION_REQUIRED].
 

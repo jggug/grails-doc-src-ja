@@ -1,19 +1,19 @@
 h1. actionSubmitImage
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Generates a submit button using the input type="image" with the indicated value. JavaScript event handlers can be added using the same attribute names as in HTML.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:actionSubmitImage value="Update" action="update"
                      src="${resource(dir: 'images', file: 'update.gif')}" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @value@ - The caption of the button and name of action when not explicitly defined
 * @src@ - The source of the image to use

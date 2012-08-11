@@ -1,24 +1,24 @@
 h1. set-version
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Sets the current application version inside the application metadata file (@application.properties@)
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails set-version 1.6
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails set-version [number]
 {code}
 
 When executing Grails retains metadata about the currently executing application inside the @GrailsApplication@ object. The version of the application is one such item of metadata. The version is used by the Grails [war|commandLine] command to produce a versioned WAR archive and can also be used by the application at runtime to validate application state.
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusFinal@ - When the version has been set

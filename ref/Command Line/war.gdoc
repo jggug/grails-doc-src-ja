@@ -1,10 +1,10 @@
 h1. war
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @war@ command creates a Web Application Archive (WAR) file which can be deployed on any Java EE compliant application server.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails war
@@ -12,19 +12,19 @@ grails test war
 grails -Dgrails.env=staging war
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails [environment]* war [filename]* [arguments]*
 {code}
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @filename@ - The path and name to use in place of the default
 * @nojars@ - Packages the WAR with no jar files. Used for shared deployment
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusFinal@ - When the WAR file has been created
 

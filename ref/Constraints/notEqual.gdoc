@@ -1,15 +1,15 @@
 h1. notEqual
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Ensures that a property is not equal a specified value
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 username notEqual: "Bob"
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Error Code: @className.propertyName.notEqual@
