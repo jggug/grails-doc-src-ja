@@ -72,8 +72,9 @@ author.save()
 
 h4. Bagオブジェクトのコレクション {hidden}Bags of Objects{hidden}
 
-{hidden}If ordering and uniqueness aren't a concern (or if you manage these explicitly) then you can use the Hibernate [Bag|http://docs.jboss.org/hibernate/stable/core/reference/en-US/html/collections.html] type to represent mapped collections.{hidden}
-ユニークや順序が必要の無い場合は(また明示的に自分で管理する場合)、Hibernateの[Bag|http://docs.jboss.org/hibernate/stable/core/reference/en-US/html/collections.html]型をコレクションマップとして使用できます。
+{hidden}If ordering and uniqueness aren't a concern (or if you manage these explicitly) then you can use the Hibernate [Bag|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/collections.html] type to represent mapped collections.{hidden}
+
+ユニークや順序が必要の無い場合は(また明示的に自分で管理する場合)、Hibernateの[Bag|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/collections.html]型をコレクションマップとして使用できます。
 
 {hidden}The only change required for this is to define the collection type as a @Collection@:{hidden}
 この場合はコレクションの型を@Collection@型として定義します。

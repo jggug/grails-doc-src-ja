@@ -7,5 +7,5 @@ Grailsの国際化対応(i18n)は、Spring MVC 国際化対応を通して実現
 Locale オブジェクトは、特定の地理的、国家的、または文化的地域を表すためのものです。ある操作で Locale を必要とするタスクがある場合、その操作をロケールに依存する操作といいます。この場合、情報は Locale によりユーザに合わせて調整されます。たとえば、数値を表示するのは、ロケールに依存する操作です。この数値は、ユーザの国や地域、文化の習慣や規則に従ってフォーマットする必要があります。
 {quote}
 
-{hidden}A Locale is made up of a [language code|http://www.loc.gov/standards/iso639-2/englangn.html] and a [country code|http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html]. For example "en_US" is the code for US english, whilst "en_GB" is the for British English.{hidden}
-ロケールは[言語コード|http://www.loc.gov/standards/iso639-2/englangn.html]と[国コード|http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html]で構成されます。例えば、"en_US"はアメリカ+英語、"en_GB"は英国+英語です。
+{hidden}A Locale is made up of a [language code|http://www.loc.gov/standards/iso639-2/php/English_list.php] and a [country code|http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm]. For example "en_US" is the code for US english, whilst "en_GB" is the code for British English.{hidden}
+ロケールは[言語コード|http://www.loc.gov/standards/iso639-2/php/English_list.php]と[国コード|http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm]で構成されます。例えば、"en_US"はアメリカ+英語、"en_GB"は英国+英語です。

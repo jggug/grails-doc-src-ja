@@ -113,6 +113,13 @@ render "Hello World!"
 {hidden}The above code writes the text "Hello World!" to the response. Other examples include:{hidden}
 上記の例ではレスポンスに"Hello World!"を返します。他の例として:
 
+{hidden}
+// write some markup
+// render a specific view
+// render a template for each item in a collection
+// render some text with encoding and content type
+{hidden}
+
 {code}
 // マークアップを返す
 render {

@@ -11,6 +11,7 @@ GrailsはServlet 2.5をサポートする任意のWebコンテナで動作しま
 * Resin 3
 * JBoss 6
 * JBoss 5
+* Jetty 8
 * Jetty 7
 * Jetty 6
 * IBM Websphere 7.0
@@ -18,6 +19,13 @@ GrailsはServlet 2.5をサポートする任意のWebコンテナで動作しま
 * Oracle Weblogic 10.3
 * Oracle Weblogic 10
 * Oracle Weblogic 9
-
+* IBM WebSphere 8.5
+* IBM WebSphere 8.0
+* IBM WebSphere 7.0
+* IBM WebSphere 6.1
+{note}
+{hidden}It's required to set "-Xverify:none" in "Application servers > server > Process Definition > Java Virtual Machine > Generic JVM arguments" for WebSphere.{hidden}
+WebSphereでは、"Application servers > server > Process Definition > Java Virtual Machine > Generic JVM arguments"に、"-Xverify:none"を設定する必要があります。
+{note}
 {hidden}Some containers have bugs however, which in most cases can be worked around. A [list of known deployment issues|http://grails.org/Deployment] can be found on the Grails wiki.{hidden}
 一部のWebコンテナにはバグがありますが、ほとんどの場合では回避することができます。[既知の開発時における課題の一覧|http://grails.org/Deployment]は、GrailsのWikiにあります。

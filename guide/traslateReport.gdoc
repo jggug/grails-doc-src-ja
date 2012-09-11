@@ -1,33 +1,12 @@
 
 h1. Document Translation Report.
 
-* *File Count* - 263
+* *File Count* - 264
 * *Done* - 127
-* *TODO* - 134
+* *TODO* - 135
 * *Not found or new* - 2
 
 h2. Original document updated after translation.:
-
-*./guide/theWebLayer/gsp/sitemeshContentBlocks.gdoc*
-
-{code}
-5  : ... draw the navbar here...
-9  : ... draw the header here...
-13 : ... draw the footer here...
-17 : ... draw the body here...
-{code}
-
-*./guide/webServices/REST.gdoc*
-
-{code}
-18 : Method     | Action
-{code}
-
-*./guide/gettingStarted/creatingAnApplication.gdoc*
-
-{code}
-4  : grails [command name]
-{code}
 
 *./guide/gettingStarted/aHelloWorldExample.gdoc*
 
@@ -48,18 +27,11 @@ h2. Original document updated after translation.:
 52 : One final thing: a controller can contain many actions, each of which corresponds to a different page (ignoring AJAX at this point). Each page is accessible via a unique URL that is composed from the controller name and the action name: /<appname>/<controller>/<action>. This means you can access the Hello World page via [/helloworld/hello/index|http://localhost:8080/helloworld/hello/index], where 'hello' is the controller name (remove the 'Controller' suffix from the class name and lower-case the first letter) and 'index' is the action name. But you can also access the page via the same URL without the action name: this is because 'index' is the _default action_. See the end of the [controllers and actions|guide:understandingControllersAndActions] section of the user guide to find out more on default actions.
 {code}
 
-*./guide/introduction/whatsNew/webFeatures.gdoc*
+*./guide/theWebLayer/controllers/dataBinding.gdoc*
 
 {code}
-6  : // action as a method
-10 : // action as a closure
-176: It is now possible to provide input arguments when calling a subflow. Flows can also return output values that can be used in a calling flow.
-{code}
-
-*./guide/i18n.gdoc*
-
-{code}
-7  : A Locale is made up of a [language code|http://www.loc.gov/standards/iso639-2/php/English_list.php] and a [country code|http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements.htm]. For example "en_US" is the code for US english, whilst "en_GB" is the code for British English.
+182: Since "bogusValue" cannot be converted to type int, the value of accountType will be zero, the controller's @errors.hasErrors()@ will be true, the controller's @errors.errorCount@ will be equal to 1 and the controller's @errors.getFieldError('accountType')@ will contain the corresponding error.
+272: bindData(p, params, [include: ['firstName', 'lastName']])
 {code}
 
 *./guide/gettingStarted/ide.gdoc*
@@ -102,15 +74,6 @@ h2. Original document updated after translation.:
 34 : \{note\}
 {code}
 
-*./guide/theWebLayer/controllers/modelsAndViews.gdoc*
-
-{code}
-102: // write some markup
-111: // render a specific view
-116: // render a template for each item in a collection
-121: // render some text with encoding and content type
-{code}
-
 *./guide/commandLine/buildCustomising.gdoc*
 
 {code}
@@ -118,21 +81,10 @@ h2. Original document updated after translation.:
 72 : Grails uses an agent based reloading system in the development environment that allows source code changes to be picked up while the application is running.  This reloading agent caches information needed to carry out the reloading efficiently.  By default this information is stored under @\<USER_HOME_DIR\>\/.grails\/.slcache\/@.  The @GRAILS_AGENT_CACHE_DIR@ environment variable may be assigned a value to cause this cache information to be stored somewhere else.  Note that this is an operating system environment variable, not a JVM system property or a property which may be defined in @BuildConfig.groovy@.  This setting must be defined as an environment variable because the agent cache directory must be configured very early in the JVM startup process, before any Grails code is executed.
 {code}
 
-*./guide/gettingStarted/requirements.gdoc*
+*./guide/services/dependencyInjectionServices.gdoc*
 
 {code}
-1  : Before installing Grails you will need as a minimum a Java Development Kit (JDK) installed version 1.6 or above. Download the appropriate JDK for your operating system, run the installer, and then set up an environment variable called @JAVA_HOME@ pointing to the location of this installation. If you're unsure how to do this, we recommend the video installation guides from [grailsexample.net|http://www.grailsexample.net/]:
-3  : * [Windows|http://www.grailsexample.net/installing-a-grails-development-environment-on-windows/]
-4  : * [Linux|http://www.grailsexample.net/installing-a-grails-development-environment-on-linux/]
-5  : * [Mac OS X|http://www.grailsexample.net/installing-a-grails-development-environment-on-os-x/]
-7  : These will show you how to install Grails too, not just the JDK.
-16 : if you're using bash or another variant of the Bourne Shell.
-{code}
-
-*./guide/GORM/domainClasses/sets,ListsAndMaps.gdoc*
-
-{code}
-75 : If ordering and uniqueness aren't a concern (or if you manage these explicitly) then you can use the Hibernate [Bag|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/collections.html] type to represent mapped collections.
+57 : The default bean name which is associated with a service can be problematic if there are multiple services with the same name defined in different packages.  For example consider the situation where an application defines a service class named @com.demo.ReportingService@ and the application uses a plugin named @ReportingUtilities@ and that plugin provides a service class named @com.reporting.util.ReportingService@.  The default bean name for each of those would be @reportingService@ so they would conflict with each other.  Grails manages this by changing the default bean name for services provided by plugins by prefixing the bean name with the plugin name.  In the scenario described above the @reportingService@ bean would be an instance of the @com.demo.ReportingService@ class defined in the application and the @reportingUtilitiesReportingService@ bean would be an instance of the @com.reporting.util.ReportingService@ class provided by the @ReportingUtilities@ plugin.  For all service beans provided by plugins, if there are no other services with the same name within the application or other plugins in the application then a bean alias will be created which does not include the plugin name and that alias points to the bean referred to by the name that does include the plugin name prefix.  For example, if the @ReportingUtilities@ plugin provides a service named @com.reporting.util.AuthorService@ and there is no other @AuthorService@ in the application or in any of the plugins that the application is using then there will be a bean named @reportingUtilitiesAuthorService@ which is an instance of this @com.reporting.util.AuthorService@ class and there will be a bean alias defined in the context named @authorService@ which points to that same bean.
 {code}
 
 h2. Not done.
@@ -210,7 +162,7 @@ h2. Not done.
 * ../en/guide/conf/ivy/providingDefaultDependencies.gdoc
 * ../en/guide/conf/versioning.gdoc
 * ../en/guide/contributing.gdoc
-*  *(original file updated)* ../en/guide/contributing/build.gdoc
+* ../en/guide/contributing/build.gdoc
 * ../en/guide/contributing/issues.gdoc
 * ../en/guide/contributing/patchesCore.gdoc
 * ../en/guide/contributing/patchesDoc.gdoc
@@ -219,7 +171,7 @@ h2. Not done.
 * ../en/guide/hibernate/addingConstraints.gdoc
 * ../en/guide/hibernate/mappingWithHibernateAnnotations.gdoc
 * ../en/guide/hibernate/usingHibernateXMLMappingFiles.gdoc
-*  *(original file updated)* ../en/guide/introduction/whatsNew21.gdoc
+* ../en/guide/introduction/whatsNew21.gdoc
 * ../en/guide/links.yml
 * ../en/guide/plugins.gdoc
 * ../en/guide/plugins/addingDynamicMethodsAtRuntime.gdoc
@@ -263,6 +215,7 @@ h2. Not done.
 * ../en/guide/testing/unitTesting/unitTestingFilters.gdoc
 * ../en/guide/testing/unitTesting/unitTestingTagLibraries.gdoc
 * ../en/guide/testing/unitTesting/unitTestingURLMappings.gdoc
+* ../en/guide/theWebLayer/urlmappings/namespacedControllers.gdoc
 *  *(original file updated)* ../en/guide/toc.yml
 * ../en/guide/validation.gdoc
 * ../en/guide/validation/constraints.gdoc

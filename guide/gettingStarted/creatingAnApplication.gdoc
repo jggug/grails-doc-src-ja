@@ -1,6 +1,9 @@
 {hidden}To create a Grails application you first need to familiarize yourself with the usage of the @grails@ command which is used in the following manner:{hidden}
 Grailsアプリケーションを作成する前に、基本的な@grails@コマンドの使用法に慣れておきましょう。
 
+{hidden}
+grails [command name]
+{hidden}
 {code}
 grails [コマンド名]
 {code}

@@ -3,6 +3,10 @@ h4. コントローラのアクションにメソッドを利用 {hidden}Control
 {hidden}It is now possible to define controller actions as methods instead of using closures as in previous versions of Grails. In fact this is now the preferred way of expressing an action. For example:{hidden}
 以前のクロージャで記述していたコントローラアクションをメソッドで記述可能になりました。これからはメソッド記述を推奨します。:
 
+{hidden}
+// action as a method
+// action as a closure
+{hidden}
 {code}
 // メソッドのアクション (action as a method)
 def index() {
@@ -183,3 +187,8 @@ beans = {
     "${grails.web.UrlConverter.BEAN_NAME}"(com.myapplication.MyUrlConverterImpl)
 }
 {code}
+
+h4. Webフローのインプットとアウトプット {hidden}Web Flow input and output{hidden}
+{hidden}It is now possible to provide input arguments when calling a subflow. Flows can also return output values that can be used in a calling flow.{hidden}
+subflowを呼ぶ際にinput引数の提供が可能になりました。またフローは、フローを呼び出す際に使用するoutput値を返す事ができます。
+

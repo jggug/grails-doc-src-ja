@@ -18,6 +18,10 @@ static mappings = {
 {hidden}This maps the URI @/product@ onto a @ProductController@. Each HTTP method such as GET, PUT, POST and DELETE map to unique actions within the controller as outlined by the table below:{hidden}
 この例では、@/product@というURIを@ProductController@に紐付けます。GET、PUT、POSTおよびDELETEといった各HTTPメソッドは、下表に示したようにコントローラ内の一意のアクションに紐付きます。
 
+{hidden}
+Method     | Action
+{hidden}
+
 {table}
 メソッド     | アクション
 @GET@      | @show@
