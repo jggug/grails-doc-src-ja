@@ -1,23 +1,23 @@
 h1. currencySelect
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Generates an HTML select tag with currency symbols (eg. 'EUR', 'USD' etc.).
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:currencySelect name="myCurrency" value="${currency}" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @from@ (optional) - The currency symbols to select from, defaults to the major ones if not specified
 * @value@ (optional) - The currency value as the currency code. Defaults to the currency for the current Locale if not specified
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormTagLib.currencySelect}
 {source}

@@ -1,17 +1,17 @@
 h1. save
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Saves a new domain class instance or updates a modified persistent instance in the database, cascading updates to child instances if required.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def b = new Book(title: "The Shining")
 b.save()
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @save@ method informs the persistence context that an instance should be saved or updated. The object will not be persisted immediately unless the @flush@ argument is used:
 
@@ -29,7 +29,7 @@ if (!b.save()) {
 }
 {code}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @validate@ (optional) - Set to @false@ if validation should be skipped
 * @flush@ (optional) - When set to @true@ flushes the persistence context, persisting the object immediately and updating the @version@ column for [optimistic locking|guide:locking]

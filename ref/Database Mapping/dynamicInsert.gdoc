@@ -1,10 +1,10 @@
 h1. dynamicInsert
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Whether to dynamically build @INSERT@ queries
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -16,9 +16,9 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @dynamicInsert(boolean)@
+使用方法: {hidden}Usage:{hidden} @dynamicInsert(boolean)@
 
 By default Hibernate generates all queries at startup and caches them. This helps performance since insert, update, and delete queries don't have to be dynamically generated at runtime. However, there are certain circumstances where dynamic queries are useful.
 

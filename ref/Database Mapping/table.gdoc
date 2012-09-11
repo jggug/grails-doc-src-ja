@@ -1,10 +1,10 @@
 h1. table
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Customizes the name of the database table associated with the domain class
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -14,11 +14,11 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @table(string/map)@
+使用方法: {hidden}Usage:{hidden} @table(string/map)@
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @name@ - The table name
 * @schema@ (optional) - The table schema

@@ -1,10 +1,10 @@
 h1. isDirty
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Checks to see if a domain class instance has been modified.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def b = Book.get(1)
@@ -19,9 +19,9 @@ if (b.isDirty()) {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @fieldName@ - The name of a field to check
 

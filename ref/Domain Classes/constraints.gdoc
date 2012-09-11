@@ -1,10 +1,10 @@
 h1. constraints
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Allows the definition of declarative validation constraints. See [Validation|guide:validation] in the user guide.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -19,7 +19,7 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Constraints are defined using the declarative constraints DSL as described in the [Validation|guide:validation] section of the user guide. Once evaluated, validation can be applied through the use of the [validate|domainClasses] method:
 

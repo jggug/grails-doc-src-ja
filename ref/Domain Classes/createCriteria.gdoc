@@ -1,10 +1,10 @@
 h1. createCriteria
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Creates and returns an instance of Grails' [HibernateCriteriaBuilder|api:grails.orm.HibernateCriteriaBuilder] that can be used to construct criteria queries.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def c = Account.createCriteria()
@@ -39,7 +39,7 @@ This will return a [PagedResultList|api:grails.orm.PagedResultList] which has a 
 println "Rendering ${results.size()} Accounts of ${results.totalCount}"
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Criteria queries are a type-safe, advanced way to query that uses a Groovy builder to construct potentially complex queries. It is a much better alternative to using a StringBuilder to dynamically construct an HQL query. Refer to the user guide section on [Criteria|guide:criteria] for usage instructions.
 

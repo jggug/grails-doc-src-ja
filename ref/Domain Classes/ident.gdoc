@@ -1,10 +1,10 @@
 h1. ident
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Returns the value of the identity property of the domain class regardless of the name of the identity property itself
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def b = new Book(title: "The Shining")

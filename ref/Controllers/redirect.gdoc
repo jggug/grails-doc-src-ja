@@ -1,10 +1,10 @@
 h1. redirect
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 To redirect flow from one action to the next using an HTTP redirect.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 redirect(action: "show")
@@ -20,11 +20,11 @@ redirect(uri: "book/list")
 redirect(url: "http://www.blogjava.net/BlueSUN")
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Redirects the current action to another action, optionally passing parameters and/or errors.
 
-h4. Parameters
+h4. パラメータ {hidden}h4. Parameters{hidden}
 
 * @action@ (optional) - the name of the action to use in the link, if not specified the default action will be linked
 * @controller@ (optional) - the name of the controller to use in the link, if not specified the current controller will be linked

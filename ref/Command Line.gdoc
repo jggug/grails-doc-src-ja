@@ -1,4 +1,4 @@
-h1. Command Line Usage
+h1. コマンドライン使用方法 {hidden}Command Line Usage {hidden}
 
 Grails incorporates the powerful build system [Gant|http://groovy.codehaus.org/Gant], which is a Groovy wrapper around [Apache Ant|http://ant.apache.org].
 

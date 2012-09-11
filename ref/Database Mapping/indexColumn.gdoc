@@ -1,10 +1,10 @@
 h1. indexColumn
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Customizes the index column definition of an indexed collection such as a @List@ or @Map@
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Neo {
@@ -23,11 +23,11 @@ neo.matrix = [(1): 30, (2): 42, (3): 23]
 neo.save(flush: true)
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @association_name(indexColumn:map)@
+使用方法: {hidden}Usage:{hidden} @association_name(indexColumn:map)@
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @name@ - The name of the column as a String
 * @type@ (optional) - The Hibernate [type|databaseMapping].

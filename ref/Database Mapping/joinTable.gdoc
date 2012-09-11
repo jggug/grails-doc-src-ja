@@ -1,10 +1,10 @@
 h1. joinTable
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Customizes the join table used for undirectional one-to-many, many-to-many and primitive collection types.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Basic collection type:
 
@@ -87,11 +87,11 @@ class Employee {
 class Project {  }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @association_name(joinTable:map)@
+使用方法: {hidden}Usage:{hidden} @association_name(joinTable:map)@
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @name@ - The table name
 * @key@ (optional) - The foreign key

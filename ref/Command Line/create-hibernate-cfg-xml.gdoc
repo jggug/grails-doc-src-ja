@@ -1,24 +1,24 @@
 h1. create-hibernate-cfg-xml
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @create-hibernate-cfg-xml@ command will create a hibernate.cfg.xml file for custom Hibernate mappings.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 bc.
 grails create-hibernate-cfg-xml
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Creates a @hibernate.cfg.xml@ file in the @grails-app/conf/hibernate@ directory. You can add @<mapping>@ elements there to reference annotated Java domain classes, classes mapped by hbm.xml files, or hbm.xml files containing @<database-object>@ elements defining custom DDL that's not supported by GORM.
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails create-hibernate-cfg-xml
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @CreatedFile@ - When the file is created
 

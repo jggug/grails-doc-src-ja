@@ -1,6 +1,6 @@
 h1. external
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Renders the appropriate HTML linking markup for an external resource such as a CSS file, a JavaScript file, or a favicon.
 
@@ -8,7 +8,7 @@ This is a convenience that takes the boilerplate out of the often verbose @<link
 
 This tag is aware of the [Resources plugin|http://grails.org/plugin/resources], and if it's installed it will correctly generate links to static resources processed by the plugin.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example usages for the "shop" app:
 
@@ -27,9 +27,9 @@ Output: <link href="/shop/images/icons/favicon.gif" rel="favicon"/>
 Output: <link href="/shop/images/icons/favicon.gif" rel="apple-touch-icon"/>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @base@ (optional) - Sets the prefix to be added to the link target address, typically an absolute server URL. This overrides the behaviour of the @absolute@ property if both are specified.
 * @contextPath@ (optional) - the context path to use (relative to the application context path). Defaults to "" or path to the plugin for a plugin view or template.
@@ -52,7 +52,7 @@ The types supported are:
 * png - Sets rel="shortcut icon"
 * appleicon - Sets rel="apple-touch-icon"
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=ApplicationTagLib.external}
 {source}

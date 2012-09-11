@@ -1,10 +1,10 @@
 h1. cascade
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Configures the cascading behavior of an association.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Author {
@@ -17,11 +17,11 @@ class Author {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @association_name(cascade:string)@
+使用方法: {hidden}Usage:{hidden} @association_name(cascade:string)@
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @cascade@ - The cascading behavior to define. Can be one or more (comma-separated) of @all@, @merge@, @save-update@, @delete@, @lock@, @refresh@, @evict@, @replicate@ or @all-delete-orphan@ (one-to-many associations only).
 

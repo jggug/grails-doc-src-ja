@@ -1,10 +1,10 @@
 h1. batchSize
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Customizes how many results are fetching during lazy loading.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -15,9 +15,9 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @batchSize(integer)@
+使用方法: {hidden}Usage:{hidden} @batchSize(integer)@
 
 Given a lazy association where an @Author@ has many @Book@s, GORM will perform one query for the @Author@ and additional queries the associated @Book@s. This is what is known as the N+1 problem and can often be worked around by using a join query. However, joins can be expensive.
 

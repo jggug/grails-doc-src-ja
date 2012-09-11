@@ -1,10 +1,10 @@
 h1. webflow
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @webflow@ plugin configures Grails' support for "Spring Webflow":http://www.springsource.org/webflow
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 An example web flow:
 
@@ -25,7 +25,7 @@ class BookController {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Refer to the section on [Web Flow|guide:webflow] in the Grails user guide which details Grails' web flow support.
 

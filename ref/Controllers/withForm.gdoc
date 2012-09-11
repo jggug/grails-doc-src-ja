@@ -1,10 +1,10 @@
 h1. withForm
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Used to handle duplicate form submissions.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 withForm {
@@ -14,7 +14,7 @@ withForm {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @withForm@ method requires the use of the @useToken@ attribute in a [form|tags]
 

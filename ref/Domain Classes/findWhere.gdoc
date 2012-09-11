@@ -1,10 +1,10 @@
 h1. findWhere
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Uses named arguments corresponding to domain class property names to execute a query returning the first matching result.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Given the domain class:
 
@@ -31,8 +31,8 @@ boolean isReleased = Book.findWhere(author: "Stephen King",
                                     releaseDate: null) != null
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @queryParams@ - A @Map@ of key/value pairs to be used in the query

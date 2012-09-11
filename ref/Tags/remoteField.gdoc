@@ -1,10 +1,10 @@
 h1. remoteField
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Creates a text field that sends its value to a remote link when it changes. By default the parameter name sent is called 'value', this can be changed by specifying a 'paramName' attribute.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example controller for an application called "shop":
 
@@ -28,9 +28,9 @@ Example usages for this controller:
 <div id="titleDiv">I'm updated with the new title!</div>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @name@ (required) - the name of the field
 * @value@ (optional) - The initial value of the field
@@ -44,7 +44,7 @@ Attributes
 * @asynchronous@ (optional) - Whether to do the call asynchronously (defaults to @true@)
 * @method@ (optional) - The method to use the execute the call (defaults to POST)
 
-Events
+イベント {hidden}Events{hidden}
 
 * @onSuccess@ (optional) - The JavaScript function to call if successful
 * @onFailure@ (optional) - The JavaScript function to call if the call fails
@@ -54,7 +54,7 @@ Events
 * @onLoaded@ (optional) - The JavaScript function to call when the remote function completes loading the response
 * @onComplete@ (optional) - The JavaScript function to call when the remote function completes, including any updates
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=JavascriptTagLib.remoteField}
 {source}

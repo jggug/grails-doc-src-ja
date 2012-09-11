@@ -1,10 +1,10 @@
 h1. autoImport
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Enable/disable auto import of this domain classes in HQL queries.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -15,9 +15,9 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @autoImport(boolean)@
+使用方法: {hidden}Usage:{hidden} @autoImport(boolean)@
 
 By default the domain classes are auto-imported in HQL queries so you aren't required to specify the whole class name including the package, but if you have duplicate domain class names in different packages the names are no longer unique, causing a @org.hibernate.DuplicateMappingException@. Disable auto-import of one or both of them to fix this, setting @autoImport@ to @false@. Remember that you need to use the fully qualified class name in the HQL query for references to these classes.
 

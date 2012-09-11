@@ -1,10 +1,10 @@
 h1. scope
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Changes the scope of a service
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class BookService {
@@ -13,7 +13,7 @@ class BookService {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 By default services are "singleton" scoped which means that clients of a service only ever use a single instance (a singleton) of the service. This behaviour can be changed by specifying a @scope@ attribute with on the following values:
 

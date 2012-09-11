@@ -1,10 +1,10 @@
 h1. getDirtyPropertyNames
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Retrieve the names of modified fields in a domain class instance.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def b = Book.get(1)
@@ -17,6 +17,6 @@ for (name in names) {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 This method is useful mostly for audit logging or other work done in a *beforeUpdate* event callback. Hibernate caches the original state of all loaded instances for dirty checking during a flush and this method exposes the names of modified fields so you can compare them with the current state.

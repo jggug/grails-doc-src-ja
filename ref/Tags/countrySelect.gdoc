@@ -1,10 +1,10 @@
 h1. countrySelect
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Generates an HTML select tag with Country names.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 // create a select for all countries
@@ -26,13 +26,13 @@ h2. Examples
                  valueMessagePrefix="countryname" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 This class renders a select box with one option for every ISO3166_3 country code, or for the list of country codes supplied in @from@.
 
 The 3-letter ISO codes are used in lowercase format.
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @from@ (optional) - The list or range to select from
 * @value@ (optional) - The current selected value that evaluates @equals()@ to @true@ for one of the elements in the from list.
@@ -40,7 +40,7 @@ Attributes
 * @noSelection@ (optional) - A single-entry Map detailing the key and value to use for the "no selection made" choice in the select box. If there is no current selection this will be shown as it is first in the list, and if submitted with this selected, the key that you provide will be submitted. Typically this will be blank - but you can also use 'null' in the case that you're passing the ID of an object
 * @valueMessagePrefix@ (optional) - By default the value "option" element will be the internal English name of the country according to the ISO3166_3 standard. Setting this allows the value to be resolved from the I18n messages. The valueMessagePrefix will be suffixed with a dot ('.') and then the country code of the option to resolve the message. If the message could not be resolved, the prefix plus country code is presented.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=CountryTagLib.countrySelect}
 {source}

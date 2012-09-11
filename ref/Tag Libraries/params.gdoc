@@ -1,10 +1,10 @@
 h1. params
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 A mutable multi-dimensional map (hash) of request (CGI) parameters.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 To obtain a request parameter called @id@:
 {code}
@@ -23,7 +23,7 @@ def save() {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The standard Servlet API provides access to parameters with the @HttpServletRequest@ object. Although Grails provides the same capability through the [request|controllers] object, it goes a bit further by providing a mutable map of request parameters called @params@.
 

@@ -1,24 +1,24 @@
 h1. install-templates
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Copies the the templates used by Grails during code generation to your project directory
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails install-templates
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 
 {code:java}
 grails install-templates
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @InstallTemplatesStart@ - Before the templates are installed
 * @StatusUpdate@ - When the templates are successfully installed

@@ -1,10 +1,10 @@
 h1. install-dependency
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Installs a JAR dependency, making it available to Grails [dependency resolution|guide:ivy] mechanism.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails install-dependency mysql:mysql-connector-java:5.1.16
@@ -12,14 +12,14 @@ grails install-dependency mysql:mysql-connector-java:5.1.16 --dir=lib
 grails install-dependency --group=mysql --name=mysql-connector-java --version=5.1.16
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails install-dependency [dependency]
 {code}
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @group@ - The group of the dependency
 * @name@ - The name of the dependency

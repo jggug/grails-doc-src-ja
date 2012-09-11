@@ -1,10 +1,10 @@
 h1. withNewSession
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Provides a way to execute code within the context of a new Hibernate session which shares the same transactional (JDBC Connection) resource as the currently bound session.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 Book.withNewSession { session ->
@@ -12,8 +12,8 @@ Book.withNewSession { session ->
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @closure@ - A closure which accepts a @Session@ argument

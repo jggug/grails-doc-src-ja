@@ -1,27 +1,27 @@
 h1. generate-controller
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @create-controller@ command generates a controller and associated unit test for the given domain class
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails generate-controller org.bookstore.Book
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Grails supports a feature known as scaffolding which involves the generation of a CRUD (Create/Read/Update/Delete) interface for a given domain class.
 
 The @generate-controller@ command generates a controller that implements CRUD for the given domain class. So for a domain class @org.bookstore.Book@ a controller @BookController.groovy@ in @grails-app/controllers/org/bookstore@ will be generated.
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails generate-controller [domain class name]
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusUpdate@ - When generation begins
 * @StatusFinal@ - When generation completes

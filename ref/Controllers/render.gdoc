@@ -1,10 +1,10 @@
 h1. render
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 To render different forms of responses from simple text responses, to view and templates.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 // renders text to response
@@ -61,12 +61,12 @@ render Book.get(params.id) as XML
 
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 A multi-purpose method for rendering responses to the client which is best illustrated with a few examples! Warning - this method does not always support multiple parameters. For example, if you specify both collection and model, the model parameter will be ignored.
 Parameters
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @text@ (optional) - The text to render
 * @builder@ (optional) - The builder to use when rendering markup

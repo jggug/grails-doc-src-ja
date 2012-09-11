@@ -1,16 +1,16 @@
 h1. create-integration-test
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @create-integration-test@ command creates an integration test for the given base name.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails create-integration-test book
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Creates an integration test for the given base name. For example for a base name "org.bookstore.book" an integration test called @BookTests@ will be created in the @test/integration/org/bookstore@ directory.
 
@@ -18,11 +18,11 @@ An integration test differs from a unit test in that the Grails environment is l
 
 Note that this command is just for convenience and you can also create integration tests in your favourite text editor or IDE if you choose.
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails create-integration-test [name]
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @CreatedFile@ - When the integration test is created

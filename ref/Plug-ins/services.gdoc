@@ -1,10 +1,10 @@
 h1. services
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @services@ plugin configures Grails' support for [Services|guide:services].
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 An example service class in the @grails-app/services@ directory:
 
@@ -16,7 +16,7 @@ class BookService {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Refer to the section on [Services|guide:services] in the Grails user guide which details Grails' services.
 

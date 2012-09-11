@@ -1,10 +1,10 @@
 h1. install-plugin
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Installs a plugin from the Grails central SVN repository, a file, or a URL
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails install-plugin shiro
@@ -13,15 +13,15 @@ grails install-plugin ../grails-bar-1.0.zip
 grails install-plugin http://foo.com/grails-bar-1.0.zip
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails install-plugin [name] [version]*
 grails install-plugin [URL/File]
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusUpdate@ - Fired at various points during the plugin installation
 * @StatusError@ - When an error occurs during plugin installation

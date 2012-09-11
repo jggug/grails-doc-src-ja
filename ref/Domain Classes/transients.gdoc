@@ -1,10 +1,10 @@
 h1. transients
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Defines a list of property names that should not be persisted to the database. This is often useful if you have read-only accessor methods ("getters") that are helper methods but get confused as being persistence-related.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Author {

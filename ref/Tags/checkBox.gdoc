@@ -1,18 +1,18 @@
 h1. checkBox
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Generates a checkbox form field. All the usual HTML elements apply.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:checkBox name="myCheckbox" value="${true}" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @name@ - The name of the checkbox
 * @value@ (optional) - The value of the checkbox
@@ -20,7 +20,7 @@ Attributes
 
 The @checkBox@ tag typically only requires the @name@ and @value@ attributes and will infer whether the checkbox should be checked from the value. The @checked@ attribute can be used to override this behaviour for fine-grained control.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormTagLib.checkBox}
 {source}

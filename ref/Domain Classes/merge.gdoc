@@ -1,17 +1,17 @@
 h1. merge
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Merges a domain class instance back into the current persistence context and returns a new merged instance.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def b = new Book(title: "The Shining")
 b = b.merge()
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @merge@ method is similar in function to the [save|domainClasses] method, but not in behaviour. @merge@ allows the merging of "detached" instances such as those stored in the HTTP [session|controllers]. Each persistent instance is associated with a persistence context. A new persistence context is created for each [request|controllers]. The result is that objects stored in the HTTP session lose their persistence context on subsequent requests. In this case you can't simply call [save|domainClasses] as the domain class is not associated with a current context.
 
@@ -31,7 +31,7 @@ Copy the state of the given object onto the persistent object with the same iden
 
 The @merge@ method is equivalent to the Hibernate [merge|api:org.hibernate.Session#merge(java.lang.Object)] method.
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @validate@ (optional) - Set to @false@ if validation should be skipped
 * @flush@ (optional) - When set to @true@ flushes the persistence context, hence persisting the object immediately

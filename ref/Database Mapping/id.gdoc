@@ -1,10 +1,10 @@
 h1. id
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Customizes the way the identifier for a domain class is generated
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -15,11 +15,11 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @id(map)@
+使用方法: {hidden}Usage:{hidden} @id(map)@
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @generator@ (optional) - The name of the generator to use. Can be @increment@, @identity@, @sequence@, @hilo@, @seqhilo@, @uuid@, @guid@, @native@, @assigned@, @select@, @foreign@ or @sequence-identity@. See [Hibernate reference documentation|http://docs.jboss.org/hibernate/stable/core/reference/en-US/html/mapping.html#mapping-declaration-id-generator] for more information.
 * @composite@ (optional) - Takes a list of property names to use that form the composite identifier

@@ -1,10 +1,10 @@
 h1. errors
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 An instance of the Spring [Errors|api:org.springframework.validation.Errors] interface containing data binding and/or validation errors.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def user = new User(params)
@@ -19,7 +19,7 @@ else {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @errors@ property is used by Grails during [Data Binding|guide:dataBinding] to store type conversion errors and during [Validation|guide:validation] when calling the [validate|domainClasses] or [save|domainClasses] methods.
 

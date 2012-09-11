@@ -1,16 +1,16 @@
 h1. size
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Uses a Groovy range to restrict the size of a collection, a number, or the length of a String.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 children size: 5..15
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Sets the size of a collection, a number property, or String length.
 

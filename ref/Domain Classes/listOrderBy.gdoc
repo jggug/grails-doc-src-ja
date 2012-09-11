@@ -1,10 +1,10 @@
 h1. listOrderBy*
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Lists all of the instances of the domain class ordered by the property in the method expression
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 // everything
@@ -17,9 +17,9 @@ def results = Book.listOrderByTitle(max: 10)
 def results = Book.listOrderByTitle(max: 10, offset: 100, order: "desc")
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @max@ - The maximum number to list
 * @offset@ - The offset from the first result to list from

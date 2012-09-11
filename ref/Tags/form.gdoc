@@ -1,10 +1,10 @@
 h1. form
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Creates a form that submits to a controller, action, and/or id. Beyond what is described below, all the usual HTML attributes apply.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example controller for an application called "shop":
 
@@ -41,9 +41,9 @@ results in:
 <form action="/shop/book/show" method="post" >...</form>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @action@ (optional) - The name of the action to use in the link; if not specified the default action will be linked
 * @controller@ (optional) - The name of the controller to use in the link; if not specified the current controller will be linked
@@ -57,7 +57,7 @@ Attributes
 * @name@ (optional) - A value to use for both the name and id attribute of the form tag
 * @useToken@ (optional) - Set whether to send a token in the request to handle duplicate form submissions. See [Handling Duplicate Form Submissions|guide:formtokens]
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormTagLib.form}
 {source}

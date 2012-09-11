@@ -1,10 +1,10 @@
 h1. forward
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Forwards a request from one controller to the next without issuing an HTTP redirect.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 forward action: "show"
@@ -16,11 +16,11 @@ forward action: "show", id: 4, params: [author: "Stephen King"]
 forward controller: "book", action: "show"
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Forwards the current action to another action, optionally passing parameters and/or errors.
 
-h4. Parameters
+h4. パラメータ {hidden}h4. Parameters{hidden}
 
 * @controller@ - The controller to redirect to; defaults to the current controller if not specified
 * @action@ - The action to redirect to, either a string name or a reference to an action within the current controller

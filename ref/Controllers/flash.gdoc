@@ -1,10 +1,10 @@
 h1. flash
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 A temporary storage map that stores objects within the session for the next request and the next request only, automatically clearing out the objects held there after the next request completes.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 bc.
 class BookController {
@@ -17,7 +17,7 @@ class BookController {
     def home() {}
 }
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The flash object is a Map (a hash) which you can use to store key value pairs. These values are transparently stored inside the session and then cleared at the end of the next request.
 

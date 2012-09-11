@@ -1,12 +1,12 @@
 h1. bootstrap
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The [bootstrap|commandLine] command is mainly intended to be used by other scripts and enables the ability to bootstrap a Grails application instance outside of the container for usage in tools that require a reference to Grails' @ApplicationContext@.
 
 Examples of its usage include Grails' [shell|commandLine] and [console|commandLine]
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Add this to the top of your Gant script to use this as an include:
 
@@ -34,9 +34,9 @@ Connection c = appCtx.getBean('dataSource').getConnection()
 // do something with connection
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails bootstrap
 {code}

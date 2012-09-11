@@ -1,16 +1,16 @@
 h1. matches
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Validates that a String value matches a given regular expression.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 login matches: "[a-zA-Z]+"
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Applies a regular expression against a string value.
 

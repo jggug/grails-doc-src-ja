@@ -1,10 +1,10 @@
 h1. sortableColumn
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Renders a sortable column to support sorting in tables.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:sortableColumn property="title" title="Title" />
@@ -21,11 +21,11 @@ h2. Examples
                   title="Release Date" titleKey="book.releaseDate" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Either the @title@ or @titleKey@ attribute is required. @titleKey@ takes precedence when both attributes are specified resulting in the title caption being resolved against the message source. In the case when the message can not be resolved, the title is used as the title caption.
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @property@ - name of the property relating to the field
 * @defaultOrder@ (optional) - default order for the property; choose between 'asc' (default if not provided) and 'desc'
@@ -34,7 +34,7 @@ Attributes
 * @params@ (optional) - a Map containing request parameters
 * @action@ (optional) - the name of the action to use in the link; if not specified the @list@ action will be used
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=RenderTagLib.sortableColumn}
 {source}

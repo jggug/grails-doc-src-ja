@@ -4,11 +4,11 @@ h1. createLinkTo
 Deprecated: Use [resource|tags] instead.
 {warning}
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Creates a link that can be used where necessary (for example in an href, JavaScript, Ajax call etc.)
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example controller for an application called "shop":
 
@@ -35,16 +35,16 @@ Results in:
 {code:xml}
 <link type="text/css" href="/shop/css/main.css" />{code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @dir@ (optional) - the name of the directory containing the resource
 * @file@ (optional) - the name of the resource file
 * @absolute@ (optional) - If @true@ will prefix the link target address with the value of the @grails.serverURL@ property from @Config.groovy@, or http://localhost:<port> if there is no setting in @Config.groovy@ and not running in production.
 * @base@ (optional) - Sets the prefix to be added to the link target address, typically an absolute server URL. This overrides the behaviour of the @absolute@ property if both are specified.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=ApplicationTagLib.createLinkTo}
 {source}

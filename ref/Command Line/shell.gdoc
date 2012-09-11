@@ -1,18 +1,18 @@
 h1. shell
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Starts an instance of the Groovy terminal shell with an initialized Grails runtime.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails shell
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails [environment]* shell
 {code}
@@ -24,7 +24,7 @@ Starts the Grails shell, which is an extended version of the regular Groovy shel
 
 These are useful as they allow access to the conventions within Grails and Spring beans.
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusFinal@ - When the shell is loaded
 

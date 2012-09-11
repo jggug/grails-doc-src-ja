@@ -1,27 +1,27 @@
 h1. create-plugin
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @create-plugin@ command creates a Grails plugin project.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails create-plugin simple
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Creates a Grails plugin project. A Grails plugin project is just like an application project except it contains a plugin descriptor and can be packaged as a plugin and installed into other applications.
 
 Plugins are not just useful for plugin developers, but also as a way to modularize large Grails applications. Refer to the section on [Plugin Development|guide:plugins] in the user guide for more information on developing plugins for Grails.
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 
 {code:java}
 grails create-plugin [name]
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @StatusFinal@ - When the plugin has been created

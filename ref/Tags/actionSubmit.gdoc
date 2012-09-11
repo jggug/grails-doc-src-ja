@@ -1,10 +1,10 @@
 h1. actionSubmit
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Generates a submit button that maps to a specific action, which lets you have multiple submit buttons in a single form. JavaScript event handlers can be added using the same parameter names as in HTML.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:actionSubmit value="Update" />
@@ -21,9 +21,9 @@ h2. Examples
                 onclick="return confirm('Are you sure???')" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @value@ (required) - The caption of the button and name of action when not explicitly defined.
 * @action@ (optional) - The name of the action to be executed, otherwise it is derived from the value.
@@ -73,7 +73,7 @@ where the action specified in the mapping is either the default action of the co
 
 Also note that this tag relies on the multipart resolver to be able to inspect parameters included with mulitpart requests. If you disable the resolver by setting @grails.disableCommonsMultipart@ to true in @Config.groovy@, @actionSubmit@ will not work.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormTagLib.actionSubmit}
 {source}

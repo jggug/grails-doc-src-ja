@@ -1,16 +1,16 @@
 h1. migrate-docs
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Migrates old style gdocs in which the section numbers are in the file names to the new approach where section numbers and titles are put into a toc.yml file.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails migrate-docs
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Originally, the source files for Grails-generated user guides included the section numbers and titles in the gdoc filenames. This made it very easy to get going, but tricky to renumber sections and change their titles since the corresponding URLs would also change. The @[doc|commandLine]@ command now allows you to specify sections in a table of contents in YAML form, so the guide can be restructured without breaking URLs.
 

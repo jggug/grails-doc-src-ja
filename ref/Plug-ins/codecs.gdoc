@@ -1,10 +1,10 @@
 h1. codecs
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Provides the facility to register encoders and decoders of textual data as methods on any object
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code}
 class HTMLCodec {
@@ -19,7 +19,7 @@ assert "&lt;p&gt;Hello World!&lt;/p&gt;" == "<p>Hello World!</p>".encodeAsHTML()
 assert "<p>Hello World!</p>" == "&lt;p&gt;Hello World!&lt;/p&gt;".decodeHTML()
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 This plugin searches for classes with names that end in the convention @Codec@ and dynamically registers @encodeAs[Codec]@ and @decode[Codec]@ methods on @java.lang.Object@ so that any data can be encoded and decoded. For more information refer to the section of [Encoding and Decoding Objects|guide:codecs] in the user guide.
 

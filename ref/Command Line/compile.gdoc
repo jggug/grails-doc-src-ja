@@ -1,17 +1,17 @@
 h1. compile
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @compile@ command executes the compile phase of the Grails pre-packaging process, which compiles Groovy and Java sources.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 bc.
 grails compile
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails compile
 {code}
@@ -20,7 +20,7 @@ grails compile
 You can enable verbose compilation for _any_ Grails task by passing the flag @-verboseCompile@ to the task (e.g. @grails run-app -verboseCompile@), or by setting the @verboseCompile@ Grails [build setting|guide:buildCustomising].
 {note}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @CompileStart@ - Before compilation begins
 * @CompileEnd@ - After compilation completes

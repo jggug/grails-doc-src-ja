@@ -1,15 +1,15 @@
 h1. create-controller
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @create-controller@ command creates a controller and associated unit test for the given base name.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 bc.
 grails create-controller org.bookstore.book
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Creates a controller for the given base name. For example for a base name "org.bookstore.book" a controller called @BookController@ will be created in the @grails-app/controllers/org/bookstore@ directory.
 
@@ -17,11 +17,11 @@ A controller is responsible for handling incoming web requests and performing ac
 
 Note that this command is just for convenience and you can also create controllers in your favourite text editor or IDE if you choose.
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails create-controller [name]
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @CreatedFile@ - When the controller is created

@@ -1,16 +1,16 @@
 h1. create-service
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @create-service@ command creates a Grails service class and associated unit test for the given base name.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails create-service org.bookstore.book
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Creates a service for the give base name. For example for a base name @org.bookstore.book@ a service called @BookService@ will be created in the @grails-app/services/org/bookstore@ directory.
 
@@ -20,12 +20,12 @@ A service class encapsulates business logic and is delegated to by controllers t
 Note that this command is just for convenience and you can also create services in your favorite text editor or IDE if you choose.
 {note}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 
 {code:java}
 grails create-service [name]
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @CreatedFile@ - When the service has been created

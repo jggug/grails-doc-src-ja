@@ -1,10 +1,10 @@
 h1. findAllWhere
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Uses named arguments corresponding to property names of the domain class to execute a query returning all matching results.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Given the domain class:
 
@@ -29,8 +29,8 @@ def books = Book.findAllWhere(author: "Stephen King", title: "The Stand")
 def unreleasedBooks = Book.findAllWhere(releaseDate: null)
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @queryParams@ - A Map of key/value pairs to be used in the query

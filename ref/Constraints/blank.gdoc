@@ -1,16 +1,16 @@
 h1. blank
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Validates that a String value is not blank.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 login blank: false
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Set to @false@ if a string value cannot be blank.
 

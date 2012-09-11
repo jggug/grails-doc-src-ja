@@ -1,10 +1,10 @@
 h1. applyLayout
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Applies the specified layout to either the body, a given template, or an arbitrary URL, allowing the development of "portlet"-style applications and mashups
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:applyLayout name="myLayout" template="displaybook" params="[books: books]" />
@@ -24,9 +24,9 @@ The content to apply a layout to
 </g:applyLayout>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @name@ - The name of the layout
 * @template@ - (optional) The template to apply the layout to
@@ -35,7 +35,7 @@ Attributes
 * @encoding@ (optional) - The encoding to use
 * @params@ (optional) - The params to pass onto the page object (retrievable with the [pageProperty|Tags] tag)
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=RenderTagLib.applyLayout}
 {source}

@@ -1,10 +1,10 @@
 h1. executeQuery
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Executes [HQL queries|guide:hql]
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 // simple query
@@ -53,7 +53,7 @@ Account.executeQuery("select distinct a.number from Account a",
                      null, [flushMode: FlushMode.MANUAL])
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @executeQuery@ method allows the execution of arbitrary HQL queries. HQL queries can return domain class instances, or @Array@s of specified data when the query selects individual fields or calculated values. The basic syntax is:
 
@@ -65,7 +65,7 @@ Book.executeQuery(String query, Map namedParams)
 Book.executeQuery(String query, Map namedParams, Map metaParams)
 {code}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @query@ - An HQL query
 * @positionalParams@ - A @List@ of parameters for a positional parameterized query

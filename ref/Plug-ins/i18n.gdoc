@@ -1,10 +1,10 @@
 h1. i18n
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @i18n@ plugin configures Grails' support for [Internationalization|guide:i18n].
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 An example @messages.properties@ within the @grails-app/i18n@ directory:
 
@@ -16,7 +16,7 @@ default.not.deleted.message={0} {1} could not be deleted
 default.not.found.message={0} not found with id {1}
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Refer to the section on [Internationalization|guide:i18n] in the Grails user guide which details Grails' i18n support.
 

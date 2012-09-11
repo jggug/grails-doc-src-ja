@@ -1,12 +1,12 @@
 h1. list-plugin-updates
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Lists the versions of updated plugins available from the Grails standard repository
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails list-plugin-updates
 {code}

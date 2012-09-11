@@ -1,22 +1,22 @@
 h1. dependency-report
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @dependency-report@ command generates Ivy reports showing JAR dependencies required by the application.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 bc.
 grails dependency-report
 grails dependency-report runtime
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails dependency-report [configuration]
 {code}
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @configuration@ - optional configuration to generate a report for. If omitted reports for all configurations are generated

@@ -1,16 +1,16 @@
 h1. range
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Uses a Groovy range to ensure that a property's value is within a specified range
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 age range: 18..65
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Set to a Groovy range which can contain numbers in the form of an @IntRange@, dates or any object that implements @Comparable@ and provides @next@ and @previous@ methods for navigation.
 

@@ -1,10 +1,10 @@
 h1. filters
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @filters@ plugin configures Grails' support for Filters.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 An example filter:
 
@@ -30,7 +30,7 @@ Filter rule attributes:
 * @find@ (@true@/@false@) - rule matches with partial match (see @java.util.regex.Matcher.find()@)
 * @invert@ (@true@/@false@) - invert the rule (NOT rule)
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Refer to the section on [Filters|guide:filters] in the Grails user guide which details how filters work.
 

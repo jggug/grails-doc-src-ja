@@ -1,10 +1,10 @@
 h1. withTransaction
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Allows programmatic transactions using Spring's Transaction abstraction.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 Account.withTransaction { status ->
@@ -26,7 +26,7 @@ Account.withTransaction { status ->
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @withTransaction@ method accepts a Closure with a [TransactionStatus|api:org.springframework.transaction.TransactionStatus] argument. The @TransactionStatus@ object can be used to programmatically control rollback of the transaction.
 

@@ -1,10 +1,10 @@
 h1. refresh
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Refreshes a domain classes state from the database
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def b = Book.get(1)
@@ -12,7 +12,7 @@ def b = Book.get(1)
 b.refresh()
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Equivalent to the Hibernate [refresh|api:org.hibernate.Session#refresh(java.lang.Object)] method.
 

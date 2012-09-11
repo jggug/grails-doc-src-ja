@@ -1,18 +1,18 @@
 !h1. integrate-with
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @integrate-with@ command allows Grails to be integrated with a variety of IDEs and build systems.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code}
 grails integrate-with --eclipse --intellij --textmate --ant --git
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails integrate-with [ARGUMENTS]
 {code}
@@ -29,7 +29,7 @@ eventIntegrateWithStart = {
 }
 {code}
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @IntegrateWithStart@ - Fired when the script is first run
 * @Integrate[NAME]Start@ - Fired when each integration starts (eg. IntegrateEclipseStart)

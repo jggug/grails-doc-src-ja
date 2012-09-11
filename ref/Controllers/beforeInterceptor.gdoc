@@ -1,10 +1,10 @@
 h1. beforeInterceptor
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Allows the interception of an action before it is executed. A @beforeInterceptor@ can optionally halt execution of the action.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Simple tracing interceptor:
 
@@ -32,7 +32,7 @@ def login() {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @beforeInterceptor@ intercepts processing before the action is executed. If it returns @false@ then the action will not be executed. The interceptor can be defined for all actions in a controller as follows:
 

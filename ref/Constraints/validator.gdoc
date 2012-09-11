@@ -1,10 +1,10 @@
 h1. validator
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Adds custom validation to a field.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 even validator: {
@@ -63,7 +63,7 @@ class User {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 A custom validator is implemented by a Closure that takes up to three parameters. If the Closure accepts zero or one parameter, the parameter value will be the one being validated ("it" in the case of a zero-parameter Closure). If it accepts two parameters the first is the value and the second is the domain class instance being validated. This is useful when your validation needs access to other fields, for example when checking that two entered passwords are the same. If it accepts three parameters the first is the value, the second is the instance, and the third is the Spring @Errors@ object.
 

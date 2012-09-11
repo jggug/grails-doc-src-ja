@@ -1,27 +1,27 @@
 h1. formatBoolean
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Outputs the given boolean as the specified text label.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:formatBoolean boolean="${myBoolean}" />
 <g:formatBoolean boolean="${myBoolean}" true="True!" false="False!" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Outputs the given boolean as the specified text label. If the @true@ and @false@ options are not given, the boolean is output using the default label.
 
-Attributes:
+属性: {hidden}Attributes:{hidden}
 
 @boolean@ - the boolean to output
 @true@ (optional) - text label for boolean @true@ value. @boolean.true@ or @default.boolean.true@ key is looked up from the Message Source / ResourceBundle (i18n/*.properties) if this attribute is not given.
 @false@ (optional) - text label for boolean @false@ value. @boolean.false@ or @default.boolean.false@ key is looked up from the Message Source / ResourceBundle (i18n/*.properties) if this attribute is not given.
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormatTagLib.formatBoolean}
 {source}

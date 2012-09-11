@@ -1,10 +1,10 @@
 h1. eachError
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Loops through each error of the specified bean or model. If no arguments are specified it will loop through all model attributes and check for errors.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Loop through each error in the "book" bean:
 
@@ -37,15 +37,15 @@ Loop through each error displaying its i18n message:
 </g:eachError>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @bean@ (optional) - The instance of the bean to check for errors
 * @model@ (optional) - The name of the model Map to check for errors
 * @field@ (optional) - The field within the bean or model to check for errors for
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=ValidationTagLib.eachError}
 {source}

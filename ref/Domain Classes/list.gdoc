@@ -1,10 +1,10 @@
 h1. list
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Lists instances of the domain class.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 // list everything
@@ -23,9 +23,9 @@ def results = Book.list(max: 10, offset: 100, sort: "title", order: "desc")
 def results = Book.list(fetch: [authors: "eager"])
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @max@ - The maximum number to list
 * @offset@ - The offset from the first result to list from

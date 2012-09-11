@@ -1,10 +1,10 @@
 h1. withSession
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Provides access to the underlying Hibernate @Session@ object
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 Book.withSession { session ->
@@ -12,8 +12,8 @@ Book.withSession { session ->
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Parameters:
+パラメータ: {hidden}Parameters:{hidden}
 
 * @closure@ - A closure which accepts a @Session@ argument

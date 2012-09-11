@@ -1,10 +1,10 @@
 h1. version
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Used to disable optimistic locking or change the column that holds the version.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -15,9 +15,9 @@ class Book {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @version(string/boolean)@
+使用方法: {hidden}Usage:{hidden} @version(string/boolean)@
 
 By default GORM is configured with [optimistic locking|guide:locking] enabled. You can disable this by calling the @version@ method with an argument of @false@:
 

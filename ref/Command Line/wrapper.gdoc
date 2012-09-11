@@ -1,10 +1,10 @@
 h1. wrapper
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Generate the Grails wrapper.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails wrapper --wrapperDir=grailsWrapper
@@ -19,12 +19,12 @@ grails wrapper "--wrapperDir=grailsWrapper"
 
 See the [Wrapper Documentation|guide:wrapper] for more details.
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @wrapperDir@ - Directory where wrapper support files are installed relative to project root (defaults to wrapper)
 * @distributationUrl@ - URL to the directory where the release may be downloaded from if necessary (defaults to http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/)
 
-Fired Events:
+発生するイベント: {hidden}Fired Events:{hidden}
 
 * @InstallWrapperStart@ - Start generating the wrapper
 * @InstallWrapperEnd@ - Finished generating the wrapper

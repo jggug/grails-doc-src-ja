@@ -1,16 +1,16 @@
 h1. widget
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Changes the HTML form field type used in scaffolding the associated domain class property.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 description widget: 'textarea'
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Changes the GSP tag used for editing values of the corresponding domain class property in the scaffolding. For example, the above would cause the scaffolding to use @<g:textArea ... />@ for 'description' edit fields.
 

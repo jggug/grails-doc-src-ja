@@ -1,10 +1,10 @@
 h1. discriminator
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Customizes the discriminator column used in table-per-subclass inheritance mapping.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Content {
@@ -21,11 +21,11 @@ class PodCast extends Content {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @discriminator(string/map)@
+使用方法: {hidden}Usage:{hidden} @discriminator(string/map)@
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @column@ (optional) - The column name to store the discriminator
 * @value@ - The value to use for the discriminator

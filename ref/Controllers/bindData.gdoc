@@ -1,10 +1,10 @@
 h1. bindData
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Allows fine-grained control of binding request parameters from strings onto objects and the necessary types (data binding).
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code}
 // binds request parameters to a target object
@@ -24,11 +24,11 @@ bindData(target, params, [include: ['firstName', 'lastName']], "author")
 bindData(target, params, [exclude: ['firstName', 'lastName']], "author")
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @bindData(target, params, excludes*, prefix*)@
+使用方法: {hidden}Usage:{hidden} @bindData(target, params, excludes*, prefix*)@
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @target@ - The target object to bind to
 * @params@ - A @Map@ of source parameters, often the [params|controllers] object when used in a controller

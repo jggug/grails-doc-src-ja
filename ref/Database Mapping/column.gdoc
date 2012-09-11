@@ -1,10 +1,10 @@
 h1. column
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Customizes a column definition
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
     static mapping = {
@@ -12,11 +12,11 @@ h2. Examples
     }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage: @property_name(map)@
+使用方法: {hidden}Usage:{hidden} @property_name(map)@
 
-Arguments:
+引数: {hidden}Arguments:{hidden}
 
 * @column@ - The name of the column as a String
 * @sqlType@ (optional) - The underlying SQL type

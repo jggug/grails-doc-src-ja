@@ -1,10 +1,10 @@
 h1. URLMappings
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @URLMappings@ plugin configures Grails' URL Mapping infrastructure.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 An example @UrlMapping@ class:
 
@@ -24,7 +24,7 @@ class UrlMappings {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Refer to the section on [URL Mapping|guide:urlmappings] in the Grails user guide which details Grails' URL mappings.
 

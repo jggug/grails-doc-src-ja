@@ -1,10 +1,10 @@
 h1. radio
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Generates a radio button
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 <g:radio name="myGroup" value="1"/>
@@ -18,15 +18,15 @@ results in:
 <input type="radio" name="myGroup" checked="checked" value="2" />
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @value@ (required) - The value of the radio button
 * @name@ (required) - The name of the radio button
 * @checked@ (optional) - boolean to indicate that the radio button should be checked
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=FormTagLib.radio}
 {source}

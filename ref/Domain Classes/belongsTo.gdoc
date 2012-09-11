@@ -1,6 +1,6 @@
 h1. belongsTo
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Defines a "belongs to" relationship where the class specified by @belongsTo@ assumes ownership of the relationship. This has the effect of controlling how saves and deletes cascade. The exact behaviour depends on the type of relationship:
 
@@ -8,7 +8,7 @@ Defines a "belongs to" relationship where the class specified by @belongsTo@ ass
 * One-to-many: saves always cascade from the one side to the many side, but if the many side has @belongsTo@, then deletes also cascade in that direction.
 * Many-to-many: only saves cascade from the "owner" to the "dependant", not deletes.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 class Book {
@@ -20,7 +20,7 @@ class Book {
 
 In this example the @Book@ class specifies that it belongs to the @Author@ class, hence when an @Author@ instance is deleted so are all its associated @Book@ instances.
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The @belongsTo@ property abstracts the nature of the cascading behaviour in Hibernate. If you want one class to belong to another but not have a back reference, then you can specify a class or a list of classes as the value:
 

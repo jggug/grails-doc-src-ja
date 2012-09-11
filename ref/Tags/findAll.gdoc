@@ -1,10 +1,10 @@
 h1. findAll
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Uses the Groovy JDK @findAll@ method to iterate over each element of the specified object that match the GPath expression within the attribute "expr"
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 Stephen King's Books:
@@ -13,9 +13,9 @@ Stephen King's Books:
 </g:findAll>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @in@ - The object to iterative over
 * @expr@ - A GPath expression

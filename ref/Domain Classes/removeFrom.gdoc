@@ -1,10 +1,10 @@
 h1. removeFrom*
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Opposite of the [addTo|domainClasses] method in that it removes instances from an association.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 def author = Author.findByName("Stephen King")

@@ -1,10 +1,10 @@
 h1. core
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The core plugin adds methods and beans that other plugins rely upon
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 This plugin configures Grails to use Spring MVC at its core to deal with web requests. The plugin configures the @GrailsDispatcherServlet@ and necessary Spring beans (see below) for controllers, tag libraries and Groovy Server Pages (GSP)
 

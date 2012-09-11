@@ -1,10 +1,10 @@
 h1. session
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @session@ object is an instance of the Servlet API's [HttpSession|api:javax.servlet.http.HttpSession] class
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code}
 class UserController {
@@ -19,7 +19,7 @@ class UserController {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 The [HttpSession|api:javax.servlet.http.HttpSession] class is useful for associated session data with a client.
 

@@ -1,10 +1,10 @@
 h1. dataSource
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @dataSource@ plugin configures the Grails JDBC @DataSource@.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 A @DataSource@ configured with explicit settings in @grails-app/conf/DataSource.groovy@:
 
@@ -27,7 +27,7 @@ dataSource {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Refer to the section on [Data Sources|guide:dataSource] in the Grails user guide.
 

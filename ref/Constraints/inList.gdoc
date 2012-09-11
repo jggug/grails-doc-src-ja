@@ -1,16 +1,16 @@
 h1. inList
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Validates that a value is within a range or collection of constrained values.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 name inList: ["Joe", "Fred", "Bob"]
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Constrains a value so that it must be contained within the given list.
 

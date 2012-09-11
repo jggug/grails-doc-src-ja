@@ -1,10 +1,10 @@
 h1. submitToRemote
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Creates a button that submits the containing form as a remote Ajax call, serializing the fields into parameters.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example controller for an application called "shop":
 
@@ -32,9 +32,9 @@ Example usages for above controller:
 <div id="updateMe">this div will be updated with the form submit response</div>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @url@ - The url to submit to, either a map contraining keys for the action, controller and id or a string value
 * @update@ (optional) - Either a Map containing the elements to update for 'success' or 'failure' states, or a string with the element id to update, in which case failure events would be ignored
@@ -43,7 +43,7 @@ Attributes
 * @asynchronous@ (optional) - Whether to do the call asynchronously (defaults to @true@)
 * @method@ (optional) - The method to use the execute the call (defaults to POST)
 
-Events
+イベント {hidden}Events{hidden}
 
 * @onSuccess@ (optional) - The JavaScript function to call if successful
 * @onFailure@ (optional) - The JavaScript function to call if the call fails
@@ -53,7 +53,7 @@ Events
 * @onLoaded@ (optional) - The JavaScript function to call when the remote function completes loading the response
 * @onComplete@ (optional) - The JavaScript function to call when the remote function completes, including any updates
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=JavascriptTagLib.submitToRemote}
 {source}

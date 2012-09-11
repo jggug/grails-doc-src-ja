@@ -1,25 +1,25 @@
 h1. meta
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Renders application metadata properties.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:xml}
 Version <g:meta name="app.version"/>
 Built with Grails <g:meta name="app.grails.version"/>
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Meta properties are populated from the @application.properties@ file, and include the application's version and the Grails version it requires. It can be used to expose some invariant data about your application at runtime. See the Application Metadata section for more details.
 
-Attributes
+属性 {hidden}Attributes{hidden}
 
 * @name@ - The name of the metadata property to retrieve, for example "app.version"
 
-h2. Source
+h2. ソース {hidden}Source{hidden}
 
 {source:tag=ApplicationTagLib.meta}
 {source}

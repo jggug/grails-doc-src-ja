@@ -1,18 +1,18 @@
 h1. plugin-info
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Displays detailed info about a plugin
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails plugin-info shiro
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
-Usage:
+使用方法: {hidden}Usage:{hidden}
 {code:java}
 grails plugin-info [name]
 {code}

@@ -1,4 +1,4 @@
-h1. Constraints Usage
+h1. 制約使用方法{hidden}Constraints Usage{hidden}
 
 Constraints provide Grails with a declarative DSL for defining validation rules, schema generation and CRUD generation meta data. For example, consider these constraints:
 
@@ -17,7 +17,7 @@ class User {
 
 Refer to the user guide topic on [Constraints|guide:constraints] for more information.
 
-h1. Global Constraints
+h1. グローバルな制約 {hidden}Global Constraints{hidden}
 
 You can apply constraints globally inside @grails-app/conf/Config.groovy@ as follows:
 

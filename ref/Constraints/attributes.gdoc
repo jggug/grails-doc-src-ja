@@ -1,16 +1,16 @@
 h1. attributes
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 Adds custom attributes to scaffolding tags.
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 birthDate attributes: [year: 2000..2011]
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Adds extra attributes to the GSP tag used to display the edit field for the specified domain class property. For example, the rendered tag in scaffolding for the @birthDate@ property above would look like:
 

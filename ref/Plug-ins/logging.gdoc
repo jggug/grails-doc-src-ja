@@ -1,10 +1,10 @@
 h1. logging
 
-h2. Purpose
+h2. 目的 {hidden}Purpose{hidden}
 
 The @logging@ plugin configures Grails' support for [Logging|guide:logging] with [Log4j|http://logging.apache.org/log4j/1.2/index.html].
 
-h2. Examples
+h2. 使用例 {hidden}Examples{hidden}
 
 Example log statements:
 
@@ -19,6 +19,6 @@ catch (Exception e) {
 }
 {code}
 
-h2. Description
+h2. 詳細 {hidden}Description{hidden}
 
 Refer to the section on [Logging|guide:logging] in the Grails user guide which details Grails' logging support.
