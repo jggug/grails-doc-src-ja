@@ -1,0 +1,114 @@
+h4. ネームスペース対応 {hidden}Namespace Support {hidden}
+
+{hidden}Grails 2.2 includes improved support for managing naming conflicts between artifacts provided by an application and its plugins.{hidden}
+Grails 2.2では、アプリケーションとプラグインで提供するアーテファクト間での名前衝突を回避するための管理機能向上が含まれています。
+
+{hidden}
+Bean names for Service artifacts provided by a plugin are now prefixed with the plugin name.  For example, if a Service named @com.publishing.AuthorService@ is provided by
+a plugin named @PublishingUtilities@ and another Service named @com.bookutils.AuthorService@ is provided by a plugin named @BookUtilities@, the bean names for those services
+will be @publishingUtilitiesAuthorService@ and @bookUtilitiesAuthorService@ respectively.  If a plugin provides a Service that does not have a name which conflicts with any
+other Service, then a bean alias will automatically be created that does not contain the prefix and the alias will refer to the bean referenced by the prefixed name.  Service
+artifacts provided directly by the application will have no prefix added to the relevant bean name. See the [dependency injection and services|guide:dependencyInjectionServices] docs. 
+{hidden}
+プラグインで提供されたサービスアーテファクトビーン名称は、プリフィックスとしてプラグイン名が使用されます。例えば、 @PublishingUtilities@ という名称のプラグインで提供された @com.publishing.AuthorService@ という名称のサービスと、 @BookUtilities@ という名称のプラグインで提供された @com.bookutils.AuthorService@ という名称のサービスが存在した場合、それぞれのビーン名称は、 @publishingUtilitiesAuthorService@ と @bookUtilitiesAuthorService@ になります。
+もし他のサービス名称がプラグインが提供したサービスの名称に衝突しない場合は、自動的にプリフィックスの無いビーンエイリアスを生成して、プリフィックスの存在するビーンを参照します。
+アプリケーションで直接提供するサービスアーティファクトには、プリフィックスは追加されません。
+[依存注入とサービス|guide:dependencyInjectionServices]も参照。
+
+{hidden}
+Domain classes provided by a plugin will have their default database table name prefixed with the plugin name if the @grails.gorm.table.prefix.enabled@ config property is
+set to @true@. For example, if the @PublishingUtilities@ plugin provides a domain class named @Book@, the default table name for that domain class will be
+@PUBLISHING_UTILITIES_BOOK@ if the @grails.gorm.table.prefix.enabled@ config property is set to @true@.
+{hidden}
+
+プラグインで提供されたドメインクラスは、 @grails.gorm.table.prefix.enabled@ が @true@ に設定されている場合、テーブル名称にプラグイン名のプリフィックスが追加されます。例として、 @PublishingUtilities@ プラグインが提供した @Book@ とい名称のドメインクラスであれば、テーブル名称が @PUBLISHING_UTILITIES_BOOK@ となります。
+
+{hidden}URL Mappings may now include a @plugin@ attribute to indicate that the controller referenced in the mapping is provided by a particular plugin.{hidden}
+URLマッピングには、プラグインが提供したコントローラを参照させるために、 @plugin@ 属性を使用します。
+{code:java}
+static mappings = {
+
+    // requests to /bookAuthors will be handled by the
+    // AuthorController provided by the BookUtilities plugin
+    "/bookAuthors" {
+        controller = 'author'
+        plugin = 'bookUtilities'
+    }
+
+    // requests to /publishingAuthors will be handled by the
+    // AuthorController provided by the Publishing plugin
+    "/publishingAuthors" {
+        controller 'author'
+        plugin = 'publishing'
+    }
+}
+{code}
+
+{hidden}See the [namespaced controllers|guide:namespacedControllers] docs for more information.{hidden}
+詳しくは [コントローラネームスペース|guide:namespacedControllers] を参照してください。
+
+{hidden}
+Controller methods and GSP Tags which accept a controller name as a paramater now support an optional parameter indicating 
+that the controller is provided by a specific plugin.
+{hidden}
+コントローラメソッドとGSPタグにおいても、プラグインが提供したコントローラを参照させるために、 @plugin@ 属性を使用します。
+
+{code:java}
+<g:link controller="user" plugin="springSecurity">Manage Users</g:link>
+{code}
+
+{code:java}
+class DemoController {
+    def index() {
+        redirect controller: 'user', action: 'list', plugin: 'springSecurity'
+    }
+}
+{code}
+
+h4. フォークされたTomcat実行 {hidden}Forked Tomcat Execution {hidden}
+
+{hidden}
+Grails 2.2 supports forked JVM execution of the Tomcat container in development mode. This has several benefits including:
+{hidden}
+Grails 2.2では、開発モードにおいて、Tomcatコンテナを実行するJVMのフォーク実行に対応しました。幾つかの利点は次のようになります:
+
+{hidden}
+* Reduced memory consumption, since the Grails build system can exit
+* Isolation of the build classpath from the runtime classpath
+* The ability to deploy other Grails/Spring applications in parallels without conflicting dependencies
+{hidden}
+* Grailsビルドシステムから抜けられるため、メモリーの消耗を減らします。
+* ランタイムクラスパスから、独立したビルドクラスパス。
+* 依存衝突無く並行して、別のGrails/Springアプリケーションのデプロイを可能にします。
+
+{hidden}
+See the [documentation|guide:forkedMode] on using forked mode for more information.
+{hidden}
+フォークモードの使用と情報は、 [ドキュメント|guide:forkedMode] を参照してください。
+
+h4. クライテリアクエリーでのSQLプロジェクション {hidden}SQL Projections In Criteria Queries {hidden}
+{hidden}
+Grails 2.2 adds new functionality to criteria queries to provide access to Hibernate's SQL projection API.
+{hidden}
+Grails 2.2から、クライテリアクエリーで、HibernateのSQLプロジェクションAPIにアクセスが可能になりました。
+
+{code:java}
+// Use SQL projections to retrieve the perimeter and area of all of the Box instances...
+def c = Box.createCriteria()
+
+def results = c.list {
+    projections {
+      sqlProjection '(2 * (width + height)) as perimiter, (width * height) as area', ['perimeter', 'area'], [INTEGER, INTEGER]
+    }
+}
+{code}
+
+{hidden}See the [Criteria|guide:criteria] section for more information.{hidden}
+詳しくは [Criteria|guide:criteria] を参照
+
+h4. Groovy 2
+{hidden}
+Grails 2.2 ships with Groovy 2.0, which has a [bunch of new features|http://www.infoq.com/articles/new-groovy-20] itself.
+{hidden}
+Grails 2.2は、 [多くの新機能|http://www.infoq.com/articles/new-groovy-20] を提供している、Groovy 2.0を同梱しています。
+
