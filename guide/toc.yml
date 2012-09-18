@@ -61,6 +61,7 @@ conf:
 commandLine:
   title: コマンドライン
   interactiveMode: インタラクティブモード
+  forkedMode: フォークされたTomcat実行
   creatingGantScripts: Gantスクリプトの作成
   reusingGrailsScripts: Grailsスクリプトの再利用
   events: イベントを取得する
