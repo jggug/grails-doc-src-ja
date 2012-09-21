@@ -2,8 +2,8 @@
 h1. Document Translation Report.
 
 * *File Count* - 266
-* *Done* - 129
-* *TODO* - 135
+* *Done* - 131
+* *TODO* - 133
 * *Not found or new* - 2
 
 h2. Original document updated after translation.:
@@ -32,6 +32,15 @@ h2. Original document updated after translation.:
 46 : The result will look something like this:
 50 : This is the Grails intro page which is rendered by the @grails-app/view/index.gsp@ file. It detects the presence of your controllers and provides links to them. You can click on the "HelloController" link to see our custom page containing the text "Hello World\!". Voila\! You have your first working Grails application.
 52 : One final thing: a controller can contain many actions, each of which corresponds to a different page (ignoring AJAX at this point). Each page is accessible via a unique URL that is composed from the controller name and the action name: /<appname>/<controller>/<action>. This means you can access the Hello World page via [/helloworld/hello/index|http://localhost:8080/helloworld/hello/index], where 'hello' is the controller name (remove the 'Controller' suffix from the class name and lower-case the first letter) and 'index' is the action name. But you can also access the page via the same URL without the action name: this is because 'index' is the _default action_. See the end of the [controllers and actions|guide:understandingControllersAndActions] section of the user guide to find out more on default actions.
+{code}
+
+*./guide/plugins/creatingAndInstallingPlugins.gdoc*
+
+{code}
+102: * Everything within @/web-app/WEB-INF@
+103: * Everything within @/web-app/plugins/\*\*@
+104: * Everything within @/test/\*\*@
+105: * SCM management files within @\*\*/.svn/\*\*@ and @\*\*/CVS/\*\*@
 {code}
 
 *./guide/theWebLayer/controllers/dataBinding.gdoc*
@@ -180,12 +189,10 @@ h2. Not done.
 * ../en/guide/hibernate/mappingWithHibernateAnnotations.gdoc
 * ../en/guide/hibernate/usingHibernateXMLMappingFiles.gdoc
 * ../en/guide/links.yml
-* ../en/guide/plugins.gdoc
 * ../en/guide/plugins/addingDynamicMethodsAtRuntime.gdoc
 * ../en/guide/plugins/artefactApi.gdoc
 * ../en/guide/plugins/artefactApi/customArtefacts.gdoc
 * ../en/guide/plugins/artefactApi/queryingArtefacts.gdoc
-* ../en/guide/plugins/creatingAndInstallingPlugins.gdoc
 * ../en/guide/plugins/evaluatingConventions.gdoc
 * ../en/guide/plugins/hookingIntoBuildEvents.gdoc
 * ../en/guide/plugins/hookingIntoRuntimeConfiguration.gdoc
