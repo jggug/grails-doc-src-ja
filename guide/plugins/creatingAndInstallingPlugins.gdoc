@@ -166,9 +166,20 @@ h4. アーテファクト(Artefacts)除外についての留意事項
 {hidden}
 Although the [create-plugin|commandLine] command creates certain files for you so that the plugin can be run as a Grails application, not all of these files are included when packaging a plugin. The following is a list of artefacts created, but not included by [package-plugin|commandLine]:
 {hidden}
-
-
 前述のように、[create-plugin|commandLine]コマンドは一連のファイル群を作成し、Grailsアプリケーションとして実行することもできすが、パッケージ化したときにそれらの全てが含められるわけではありません。以下は、生成されるけれども[package-plugin|commandLine]で生成されるzipファイルには含められないアーテファクトです。
+
+{hidden}
+* @grails-app/conf/BootStrap.groovy@
+* @grails-app/conf/BuildConfig.groovy@ (although it is used to generate @dependencies.groovy@)
+* @grails-app/conf/Config.groovy@
+* @grails-app/conf/DataSource.groovy@ (and any other @*DataSource.groovy@)
+* @grails-app/conf/UrlMappings.groovy@
+* @grails-app/conf/spring/resources.groovy@
+* Everything within @/web-app/WEB-INF@
+* Everything within @/web-app/plugins/\*\*@
+* Everything within @/test/\*\*@
+* SCM management files within @\*\*/.svn/\*\*@ and @\*\*/CVS/\*\*@
+{hidden}
 
 * @grails-app/conf/BootStrap.groovy@
 * @grails-app/conf/BuildConfig.groovy@ (although it is used to generate @dependencies.groovy@)
