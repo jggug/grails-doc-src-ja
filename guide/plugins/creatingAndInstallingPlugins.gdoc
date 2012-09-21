@@ -1,30 +1,56 @@
 h4. Creating Plugins
 
+{hidden}
 Creating a Grails plugin is a simple matter of running the command:
+{hidden}
+
+Grailsプラグインを作成するには、以下のコマンドを実行します。簡単です:
 
 {code:java}
 grails create-plugin [PLUGIN NAME]
 {code}
 
+{hidden}
 This will create a plugin project for the name you specify. For example running @grails create-plugin example@ would create a new plugin project called @example@.
 
 The structure of a Grails plugin is very nearly the same as a Grails application project's except that in the root of the plugin directory you will find a plugin Groovy file called the "plugin descriptor".
+{hidden}
+
+これで指定した名前のプラグインプロジェクトが作成されます。例えば、@grails create-plugin example@を実行すると@example@という新規プラグインプロジェクトが作成されます。
+
+Grailsプラグインの構造は、プラグインのルートディレクトリに「プラグインディスクリプタ」というファイルがあることを除き、Grailsアプリケーションプロジェクトの構造とほとんど同じです。
 
 {note}
+{hidden}
 The only plugins included in a new plugin project are Tomcat and Release. Hibernate is not included by default.
+{hidden}
+新規プラグインプロジェクトには、TomcatプラグインとReleaseプラグインが含められます。Hibernateプラグインはデフォルトの状態では含められません。
 {note}
 
+
+{hidden}
 Being a regular Grails project has a number of benefits in that you can immediately test your plugin by running:
+{hidden}
+
+Grailsプラグインの構成が「通常のGrailsプロジェクト」と同じであることには利点が多くあります。例えば以下でテストが実行できます。
 
 {code:java}
 grails run-app
 {code}
 
 {note}
+{hidden}
 Plugin projects don't provide an index.gsp by default since most plugins don't need it. So, if you try to view the plugin running in a browser right after creating it, you will receive a page not found error. You can easily create a @grails-app/views/index.gsp@ for your plugin if you'd like.
+{hidden}
+
+プラグインプロジェクトは、index.gspをデフォルトでは提供しません。ほとんどのプラグインでは必要ないからです。なので、プラグインを実行した直後にブラウザから確認しようとすると「ページが見つかりません」エラーになるでしょう。もちろん、もしそうしたければ@grails-app/views/index.gsp@を作成しても全く問題ありません。
+
 {note}
 
+{hidden}
 The plugin descriptor name ends with the convention @GrailsPlugin@ and is found in the root of the plugin project. For example:
+{hidden}
+プラグインディスクリプタ名の末尾は規約上「@GrailsPlugin@」であり、プラグインプロジェクトのルートディレクトリに配置されます。例えば:
 
 {code:java}
 class ExampleGrailsPlugin {
@@ -34,10 +60,20 @@ class ExampleGrailsPlugin {
 }
 {code}
 
+{hidden}
 All plugins must have this class in the root of their directory structure. The plugin class defines the version of the plugin and other metadata, and optionally various hooks into plugin extension points (covered shortly).
+{hidden}
 
+このようなクラスがプラグインのディレクトリ構造のルートに存在しなければなりません。
+このプラグインクラスは、プラグインのバージョン情報や他のメタデータを定義しています。さらに、プラグイン拡張ポイントへの様々なフックを定義するかもしれません(covered shortly)。
+
+{hidden}
 You can also provide additional information about your plugin using several special properties:
+{hidden}
 
+さらに、いくつかの特別なプロパティを使って、プラグインについての追加情報を提供することもできます。
+
+{hidden}
 * @title@ - short one-sentence description of your plugin
 * @version@ - The version of your plugin. Valid values include example "0.1", "0.2-SNAPSHOT", "1.1.4" etc.
 * @grailsVersion@ - The version of version range of Grails that the plugin supports. eg. "1.2 > *" (indicating 1.2 or higher)
@@ -45,8 +81,20 @@ You can also provide additional information about your plugin using several spec
 * @authorEmail@ - plugin author's contact e-mail
 * @description@ - full multi-line description of plugin's features
 * @documentation@ - URL of the plugin's documentation
+{hidden}
 
+* @title@ - このプラグインを説明する短い1文。
+* @version@ - このプラグインのバージョン。例えば"0.1", "0.2-SNAPSHOT", "1.1.4"などの有効な値。
+* @grailsVersion@ - プラグインがサポートするGrailsのバージョンをバージョンの範囲で指定する。例えば、"1.2 > *" (1.2以上であることを示す)
+* @author@ - プラグインの開発者名
+* @authorEmail@ - プラグイン開発者のe-mailアドレス
+* @description@ - 複数行に渡るプラグイン機能のフル説明
+* @documentation@ - プラグインのドキュメントへのURL
+
+{hidden}
 Here is an example from the [Quartz Grails plugin|http://grails.org/plugin/quartz]:
+{hidden}
+以下は、[Quartz Grails plugin|http://grails.org/plugin/quartz]からの例です:
 
 {code:java}
 class QuartzGrailsPlugin {
@@ -67,31 +115,60 @@ via Spring, but is made simpler by the coding by convention paradigm.\\\
 }
 {code}
 
+{hidden}
 h4. Installing and Distributing Plugins
+{hidden}
 
+h4. プラグインのインストールと配布
+
+{hidden}
 To distribute a plugin you navigate to its root directory in a console and run:
+{hidden}
+
+プラグインを配布するには、プラグインのルートディレクトリに移動して以下を実行します:
 
 {code:java}
 grails package-plugin
 {code}
 
+{hidden}
 This will create a zip file of the plugin starting with @grails-@ then the plugin name and version. For example with the example plugin created earlier this would be @grails-example-0.1.zip@. The @package-plugin@ command will also generate a @plugin.xml@ file which contains machine-readable information about plugin's name, version, author, and so on.
+{hidden}
 
+これで「@grails-@」で始まり、「プラグイン名+バージョン」が続く、このプラグインのzipファイルが作成されます。例えば、先ほど作成したexampleプラグインでは@grails-example-0.1.zip@が作成されます。@package-plugin@コマンドはプラグインに関するマシンリーダブルな情報(プラグイン名やバージョン、作者など)を含む@plugin.xml@ファイルも生成します。
+
+{hidden}
 Once you have a plugin distribution file you can navigate to a Grails project and run:
+{hidden}
+
+いったんプラグイン配布ファイルが作成されたなら、Grailsプロジェクトのディレクトリに行き、以下のように実行できます:
 
 {code:java}
 grails install-plugin /path/to/grails-example-0.1.zip
 {code}
 
+{hidden}
 If the plugin is hosted on an HTTP server you can install it with:
+{hidden}
+
+プラグインがHTTPサーバに置かれている場合、以下でインストールできます。
 
 {code:java}
 grails install-plugin http://myserver.com/plugins/grails-example-0.1.zip
 {code}
 
+{hidden}
 h4. Notes on excluded Artefacts
+{hidden}
 
+h4. アーテファクト(Artefacts)除外についての留意事項
+
+{hidden}
 Although the [create-plugin|commandLine] command creates certain files for you so that the plugin can be run as a Grails application, not all of these files are included when packaging a plugin. The following is a list of artefacts created, but not included by [package-plugin|commandLine]:
+{hidden}
+
+
+前述のように、[create-plugin|commandLine]コマンドは一連のファイル群を作成し、Grailsアプリケーションとして実行することもできすが、パッケージ化したときにそれらの全てが含められるわけではありません。以下は、生成されるけれども[package-plugin|commandLine]で生成されるzipファイルには含められないアーテファクトです。
 
 * @grails-app/conf/BootStrap.groovy@
 * @grails-app/conf/BuildConfig.groovy@ (although it is used to generate @dependencies.groovy@)
@@ -99,17 +176,30 @@ Although the [create-plugin|commandLine] command creates certain files for you s
 * @grails-app/conf/DataSource.groovy@ (and any other @*DataSource.groovy@)
 * @grails-app/conf/UrlMappings.groovy@
 * @grails-app/conf/spring/resources.groovy@
-* Everything within @/web-app/WEB-INF@
-* Everything within @/web-app/plugins/\*\*@
-* Everything within @/test/\*\*@
-* SCM management files within @\*\*/.svn/\*\*@ and @\*\*/CVS/\*\*@
+* @/web-app/WEB-INF@ 配下のすべて
+* @/web-app/plugins/\*\*@ 配下のすべて
+* @/test/\*\*@ 配下のすべて
+* @\*\*/.svn/\*\*@ と @\*\*/CVS/\*\*@ 配下のSCM管理ファイル
 
+{hidden}
 If you need artefacts within @WEB-INF@ it is recommended you use the @_Install.groovy@ script (covered later), which is executed when a plugin is installed, to provide such artefacts. In addition, although @UrlMappings.groovy@ is excluded you are allowed to include a @UrlMappings@ definition with a different name, such as @MyPluginUrlMappings.groovy@.
+{hidden}
 
+もしアーテファクトを@WEB-INF@に含める必要があるならば、プラグインがインストールされるときに実行されるスクリプトである@_Install.groovy@スクリプトを使用することがお勧めです。なお、除外されるアーティファクトである @UrlMappings.groovy@は除外されますが、@UrlMappings@情報は「@MyPluginUrlMappings.groovy@」などの異なる名前にしておけば含めることができます。
+
+{hidden}
 h4. Specifying Plugin Locations
+{hidden}
 
+h4. プラグインの位置を指定する
+
+{code}
 An application can load plugins from anywhere on the file system, even if they have not been installed. Specify the location of the (unpacked) plugin in the application's @grails-app/conf/BuildConfig.groovy@ file:
+{code}
 
+アプリケーションはファイルシステム上のどこからでもプラグインをロードできます。それらがインストールされていなくても、です。そのためには、アプリケーションの@grails-app/conf/BuildConfig.groovy@設定ファイルにパックされていないプラグインのディレクトリを指定します:
+
+{hidden}
 {code:java}
 // Useful to test plugins you are developing.
 grails.plugin.location.shiro =
@@ -119,18 +209,48 @@ grails.plugin.location.shiro =
 // applications are in the same directory.
 grails.plugin.location.'grails-ui' = "../grails-grails-ui"
 {code}
+{hidden}
 
+{code:java}
+// 開発中のプラグインをテストするのに便利。
+grails.plugin.location.shiro =
+        "/home/dilbert/dev/plugins/grails-shiro"
+
+// すべてのプラグインとアプリケーションを同じディレクトリに置き、
+// モジュール化するのに便利。
+grails.plugin.location.'grails-ui' = "../grails-grails-ui"
+{code}
+
+{hidden}
 This is particularly useful in two cases:
 
 * You are developing a plugin and want to test it in a real application without packaging and installing it first.
 * You have split an application into a set of plugins and an application, all in the same "super-project" directory.
+{hidden}
 
+このような指定が特に便利なのは、以下の2つの場合です:
+
+* 開発中のプラグインを、パッケージ化とインストールせずに実アプリケーションに組み込んでテストしたいとき。
+* アプリケーションを複数のプラグインの集合に分割し、それらすべてが「スーパープロジェクト」ディレクトリにある場合。
+
+{hidden}
 h4. Global plugins
+{hidden}
 
+h4. グローバルプラグイン
+
+{hidden}
 Plugins can also be installed globally for all applications for a particular version of Grails using the @\-global@ flag, for example:
+{hidden}
+
+@\-global@オプションを指定すると、プラグインは特定バージョンのGrailsのアプリケーション間でグローバルにインストールすることができます(訳注:@\-global@を指定しないとプラグインはアプリごとにインストールされる。複数のアプリであれば、それぞれにプラグインのコピーが別にインストールされる)。例えば:
 
 {code}
 grails install-plugin webtest -global
 {code}
 
+{hidden}
 The default location is \$USER_HOME/.grails/<grailsVersion>/global-plugins but this can be customized with the @grails.global.plugins.dir@ setting in @BuildConfig.groovy@.
+{hidden}
+
+プラグインがグローバルにインストールされるデフォルトの場所は \$USER_HOME/.grails/<grailsVersion>/global-plugins ですが、@BuildConfig.groovy@における@grails.global.plugins.dir@の設定でカスタマイズすることも出来ます。
