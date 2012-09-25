@@ -1,8 +1,14 @@
-Before looking at providing runtime configuration based on conventions you first need to understand how to evaluate those conventions from a plugin. Every plugin has an implicit @application@ variable which is an instance of the [GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication] interface.
+{hidden}Before looking at providing runtime configuration based on conventions you first need to understand how to evaluate those conventions from a plugin. Every plugin has an implicit @application@ variable which is an instance of the [GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication] interface.{hidden}
 
-The @GrailsApplication@ interface provides methods to evaluate the conventions within the project and internally stores references to all artifact classes within your application.
+Grailsが提供する、規約ベースのランタイム設定を見ていく前に、あなたが理解しておくべきことは、これらのプラグインの規約がどう評価されるか、ということです。どのプラグインも、暗黙の@application@変数を持っていて、これは[GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication]のインスタンスです。
 
-Artifacts implement the [GrailsClass|api:org.codehaus.groovy.grails.commons.GrailsClass] interface, which represents a Grails resource such as a controller or a tag library. For example to get all @GrailsClass@ instances you can do:
+{hidden}The @GrailsApplication@ interface provides methods to evaluate the conventions within the project and internally stores references to all artifact classes within your application.{hidden}
+
+この@GrailsApplication@インターフェースは、プロジェクト中の規約を評価するためのメソッドを提供します。また、内部的にあなたのアプリのすべてのアーテファクトクラスへの参照を保存します。
+
+{hidden}Artifacts implement the [GrailsClass|api:org.codehaus.groovy.grails.commons.GrailsClass] interface, which represents a Grails resource such as a controller or a tag library. For example to get all @GrailsClass@ instances you can do:{hidden}
+
+アーテファクトは[GrailsClass|api:org.codehaus.groovy.grails.commons.GrailsClass]インターフェースを実装し、コントローラやタグライブラリのようなGrailsのリソースを表現します。例えばすべての@GrailsClass@インスタンスを取得するには以下のようにします:
 
 {code:java}
 for (grailsClass in application.allClasses) {
@@ -10,7 +16,9 @@ for (grailsClass in application.allClasses) {
 }
 {code}
 
-@GrailsApplication@ has a few "magic" properties to narrow the type of artefact you are interested in. For example to access controllers you can use:
+{hidden}@GrailsApplication@ has a few "magic" properties to narrow the type of artefact you are interested in. For example to access controllers you can use:{hidden}
+
+@GrailsApplication@はいくつかの「マジック」プロパティを持っていて、あなたの興味があるアーテファクトの型を狭めることができます。例えば、コントローラにアクセスするには以下のようにできます:
 
 {code:java}
 for (controllerClass in application.controllerClasses) {
@@ -18,14 +26,24 @@ for (controllerClass in application.controllerClasses) {
 }
 {code}
 
-The dynamic method conventions are as follows:
+{hidden}The dynamic method conventions are as follows:{hidden}
+ダイナミックメソッドの規約は以下のとおりです:
 
+{hidden}
 * @*Classes@ - Retrieves all the classes for a particular artefact name. For example @application.controllerClasses@.
 * @get*Class@ - Retrieves a named class for a particular artefact. For example @application.getControllerClass("PersonController")@
 * @is*Class@ - Returns @true@ if the given class is of the given artefact type. For example @application.isControllerClass(PersonController)@
+{hidden}
 
-The @GrailsClass@ interface has a number of useful methods that let you further evaluate and work with the conventions. These include:
+* @*Classes@ - 特定のアーテファクト名のすべてのクラスを取り出す。 例えば@application.controllerClasses@。
+* @get*Class@ - 特定のアーテファクトの、指定した名前のクラスを取り出す。 例えば@application.getControllerClass("PersonController")@。
+* @is*Class@ - もし指定したクラスが指定したアーテファクトタイプであれば@true@を返す。 例えば、@application.isControllerClass(PersonController)@。
 
+{hidden}The @GrailsClass@ interface has a number of useful methods that let you further evaluate and work with the conventions. These include:{hidden}
+
+@GrailsClass@インターフェースは、規約に関する評価や処理をさらに容易にするための、以下のような便利なメソッド群を持っています:
+
+{hidden}
 * @getPropertyValue@ - Gets the initial value of the given property on the class
 * @hasProperty@ - Returns @true@ if the class has the specified property
 * @newInstance@ - Creates a new instance of this class.
@@ -36,5 +54,19 @@ The @GrailsClass@ interface has a number of useful methods that let you further 
 * @getLogicalPropertyName@ - Returns the logical property name of the class in the application without the trailing convention part if applicable
 * @getNaturalName@ - Returns the name of the property in natural terms (eg. 'lastName' becomes 'Last Name')
 * @getPackageName@ - Returns the package name
+{hidden}
 
-For a full reference refer to the [javadoc API|api:org.codehaus.groovy.grails.commons.GrailsClass].
+* @getPropertyValue@ - そのクラスの指定したプロパティの初期値を取得する。
+* @hasProperty@ - もしクラスが指定したプロパティを持っていたら@true@を返す。
+* @newInstance@ - このクラスの新しいインスタンスを返す。
+* @getName@ -  取得可能であれば、末尾の規約部分を除いた、アプリケーションにおける論理名を返す。
+* @getShortName@ - そのクラスのパッケージ接頭辞を除いた短縮名を返す。
+* @getFullName@ - 末尾の規約部分と先頭のパッケージ部分を含むクラスのフルネームを返す。
+* @getPropertyName@ - クラス名をプロパティ名として返す。
+* @getLogicalPropertyName@ - 末尾の規約部分を除き、アプリケーションにおけるクラスの論理プロパティ名を返す。
+* @getNaturalName@ - 自然な語句としてのプロパティ名を返す。(例: 'lastName'は'Last Name'になる)
+* @getPackageName@ - パッケージ名を返す。
+
+{hidden}For a full reference refer to the [javadoc API|api:org.codehaus.groovy.grails.commons.GrailsClass].{hidden}
+
+全体のリファレンスについては、[javadoc API|api:org.codehaus.groovy.grails.commons.GrailsClass]を参照してください。

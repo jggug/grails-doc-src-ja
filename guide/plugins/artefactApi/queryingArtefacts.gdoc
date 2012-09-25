@@ -1,6 +1,11 @@
-As a plugin developer, it can be important for you to find out about what domain classes, controllers, or other types of artefact are available in an application. For example, the [Searchable plugin|http://grails.org/plugin/searchable] needs to know what domain classes exist so it can check them for any @searchable@ properties and index the appropriate ones. So how does it do it? The answer lies with the @grailsApplication@ object, and instance of [GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication] that's available automatically in controllers and GSPs and can be [injected|guide:dependencyInjectionServices] everywhere else.
+{hidden}As a plugin developer, it can be important for you to find out about what domain classes, controllers, or other types of artefact are available in an application. For example, the [Searchable plugin|http://grails.org/plugin/searchable] needs to know what domain classes exist so it can check them for any @searchable@ properties and index the appropriate ones. So how does it do it? The answer lies with the @grailsApplication@ object, and instance of [GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication] that's available automatically in controllers and GSPs and can be [injected|guide:dependencyInjectionServices] everywhere else.{hidden}
 
-The @grailsApplication@ object has several important properties and methods for querying artefacts. Probably the most common is the one that gives you all the classes of a particular artefact type:
+プラグイン開発者からすると、アプリケーションにおいて、どのドメインクラス・コントローラや他のアーテファクトが利用可能かが分かる、ということが重要かもしれません。
+例えば、[Searchableプラグイン|http://grails.org/plugin/searchable]は、インデックス化すべきであることを指定する@searchable@プロパティをチェックするために、どんなドメインクラスが存在しているかをまず知る必要があります。では、どんなふうにチェックできるのでしょう？ 答えは@grailsApplication@オブジェクトと[GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication]のインスタンスにあります。これらはコントローラとGSP中では自動的に利用可能となり、他の任意の場所で[注入|guide:dependencyInjectionServices]しておくことができます。
+
+{hidden}The @grailsApplication@ object has several important properties and methods for querying artefacts. Probably the most common is the one that gives you all the classes of a particular artefact type:{hidden}
+
+@grailsApplication@オブジェクトは、アーテファクトを検索するためのいくつかの重要なプロパティとメソッドを保持しています。
 
 {code}
 for (cls in grailsApplication.<artefactType>Classes) {
@@ -8,7 +13,9 @@ for (cls in grailsApplication.<artefactType>Classes) {
 }
 {code}
 
-In this case, @artefactType@ is the property name form of the artefact type. With core Grails you have:
+{hidden}In this case, @artefactType@ is the property name form of the artefact type. With core Grails you have:{hidden}
+
+この場合、@artefactType@は、プロパティ名中でアーテファクト型を指定する形式であり、Grailsコアでは以下が指定できます:
 
 * domain
 * controller
@@ -18,7 +25,9 @@ In this case, @artefactType@ is the property name form of the artefact type. Wit
 * bootstrap
 * urlMappings
 
-So for example, if you want to iterate over all the domain classes, you use:
+{hidden}So for example, if you want to iterate over all the domain classes, you use:{hidden}
+
+例えば、繰り返し処理をすべてのドメインクラスについてしたいならば、以下を使います:
 
 {code}
 for (cls in grailsApplication.domainClasses) {
@@ -26,7 +35,9 @@ for (cls in grailsApplication.domainClasses) {
 }
 {code}
 
-and for URL mappings:
+{hidden}and for URL mappings:{hidden}
+
+URLマッピングの場合なら以下です:
 
 {code}
 for (cls in grailsApplication.urlMappingsClasses) {
@@ -34,16 +45,30 @@ for (cls in grailsApplication.urlMappingsClasses) {
 }
 {code}
 
-You need to be aware that the objects returned by these properties are not instances of [Class|api:java.lang.Class]. Instead, they are instances of [GrailsClass|api:org.codehaus.groovy.grails.commons.GrailsClass] that has some particularly useful properties and methods, including one for the underlying @Class@:
+{hidden}You need to be aware that the objects returned by these properties are not instances of [Class|api:java.lang.Class]. Instead, they are instances of [GrailsClass|api:org.codehaus.groovy.grails.commons.GrailsClass] that has some particularly useful properties and methods, including one for the underlying @Class@:{hidden}
 
+これらのプロパティが返すのは[クラス(java.lang.Class)|api:java.lang.Class]のインスタンスではないことに留意する必要があります。そうではなく、これらは[GrailsClass|api:org.codehaus.groovy.grails.commons.GrailsClass]のインスタンスであり、下位の@Class@型用のものも含め、以下のような便利なプロパティやメソッドが利用可能です。
+
+{hidden}
 * @shortName@ - the class name of the artefact without the package (equivalent of @Class.simpleName@).
 * @logicalPropertyName@ - the artefact name in property form without the 'type' suffix. So @MyGreatController@ becomes 'myGreat'.
 * @isAbstract()@ - a boolean indicating whether the artefact class is abstract or not.
 * @getPropertyValue(name)@ - returns the value of the given property, whether it's a static or an instance one. This works best if the property is initialised on declaration, e.g. @static transactional = true@.
+{hidden}
 
-The artefact API also allows you to fetch classes by name and check whether a class is an artefact:
+* @shortName@ - パッケージ部分を除いたアーテファクトのクラス名(@Class.simpleName@と等価)
+* @logicalPropertyName@ - プロパティ中で用いられる名アーテファクトの名前から型接尾辞を除いたもの。@MyGreatController@は「myGreat」になる。
+* @isAbstract()@ - アーテファクトクラスがabstractかどうかを表すブーリアン値
+* @getPropertyValue(name)@ - 指定したプロパティ値を、staticか非staticかどうかに関わらず返す。もしプロパティが「@static transactional = true@」のように初期化されて宣言されていたときにも動作する。
+
+{hidden}The artefact API also allows you to fetch classes by name and check whether a class is an artefact:{hidden}
+
+アーテファクトAPIで、クラスを名前で取得したり、指定したクラスがアーテファクトかどうかを判断したりすることができます:
 
 * get<type>Class(String name)
 * is<type>Class(Class clazz)
 
-The first method will retrieve the @GrailsClass@ instance for the given name, e.g. 'MyGreatController'. The second will check whether a class is a particular type of artefact. For example, you can use @grailsApplication.isControllerClass(org.example.MyGreatController)@ to check whether @MyGreatController@ is in fact a controller.
+{hidden}The first method will retrieve the @GrailsClass@ instance for the given name, e.g. 'MyGreatController'. The second will check whether a class is a particular type of artefact. For example, you can use @grailsApplication.isControllerClass(org.example.MyGreatController)@ to check whether @MyGreatController@ is in fact a controller.{hidden}
+
+最初のメソッドは、指定した名前、たとえば「MyGreatController」から@GrailsClass@インスタンスを取得します。二番目のメソッドは、クラスが特定のアーテファクトの型かどうかを判断します。例えば、@grailsApplication.isControllerClass(org.example.MyGreatController)@とすることで、@MyGreatController@がコントローラかどうかをチェックすることができます。
+
