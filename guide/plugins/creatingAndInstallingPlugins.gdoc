@@ -1,10 +1,13 @@
+{hidden}
 h4. Creating Plugins
+{hidden}
+h4. プラグインの作成
 
 {hidden}
 Creating a Grails plugin is a simple matter of running the command:
 {hidden}
 
-Grailsプラグインを作成するには、以下のコマンドを実行します。簡単です:
+Grailsプラグインを作成するには、単に以下のコマンドを実行します:
 
 {code:java}
 grails create-plugin [PLUGIN NAME]
