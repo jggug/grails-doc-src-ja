@@ -196,9 +196,9 @@ h4. Specifying Plugin Locations
 
 h4. プラグインの位置を指定する
 
-{code}
+{hidden}
 An application can load plugins from anywhere on the file system, even if they have not been installed. Specify the location of the (unpacked) plugin in the application's @grails-app/conf/BuildConfig.groovy@ file:
-{code}
+{hidden}
 
 アプリケーションはファイルシステム上のどこからでもプラグインをロードできます。それらがインストールされていなくても、です。そのためには、アプリケーションの@grails-app/conf/BuildConfig.groovy@設定ファイルにパックされていないプラグインのディレクトリを指定します:
 
