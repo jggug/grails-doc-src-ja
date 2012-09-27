@@ -41,7 +41,7 @@ grails publish-plugin
 
 {hidden}This will automatically commit any remaining source code changes to your SCM provider and then publish the plugin to the central repository. If the command is successful, it will immediately be available on the plugin portal at http://grails.org/plugin/<pluginName>. You can find out more about the Release plugin and its other features in [its user guide|http://grails-plugins.github.com/grails-release/docs/index.html].{hidden}
 
-これはコミットしていないソースコードを自動的にSCMプロバイダにコミットし、プラグインをセントラルリポジトリに公開します。もしコマンドが成功すれば、即座にhttp://grails.org/plugin/<pluginName>のプラグインポータルから利用可能になります。リリースプラグインに関するその他の情報は、[its user guide|http://grails-plugins.github.com/grails-release/docs/index.html]にあります。
+これはコミットしていないソースコードを自動的にSCMプロバイダにコミットし、プラグインをセントラルリポジトリに公開します。もしコマンドが成功すれば、即座にhttp://grails.org/plugin/<pluginName>のプラグインポータルから利用可能になります。リリースプラグインに関するその他の情報は、[ユーザガイド|http://grails-plugins.github.com/grails-release/docs/index.html]にあります。
 
 {hidden}h4. Configuring Additional Repositories{hidden}
 
@@ -49,11 +49,11 @@ h4. 追加リポジトリの設定
 
 {hidden}The process for configuring repositories in Grails differs between versions. For version of Grails 1.2 and earlier please refer to the [Grails 1.2 documentation|http://grails.org/doc/1.2.x/guide/12.%20Plug-ins.html#12.2%20Plugin%20Repositories] on the subject. The following sections cover Grails 1.3 and above.{hidden}
 
-Grailsにおけるリポジトリの設定手順は、Grailsのバージョンによって異なっています。Grails 1.2以前の情報については[Grails 1.2 documentation|http://grails.org/doc/1.2.x/guide/12.%20Plug-ins.html#12.2%20Plugin%20Repositories]を参照ください。以下はGrails 1.3以降の情報です。
+Grailsにおけるリポジトリの設定手順は、Grailsのバージョンによって異なっています。Grails 1.2以前の情報については[Grails 1.2のドキュメンテーション|http://grails.org/doc/1.2.x/guide/12.%20Plug-ins.html#12.2%20Plugin%20Repositories]を参照ください。以下はGrails 1.3以降の情報です。
 
 {hidden}Grails 1.3 and above use Ivy under the hood to resolve plugin dependencies. The mechanism for defining additional plugin repositories is largely the same as [defining repositories for JAR dependencies|guide:ivy]. For example you can define a remote Maven repository that contains Grails plugins using the following syntax in @grails-app/conf/BuildConfig.groovy@:{hidden}
 
-Grails 1.3以上では、背後にあるIvyがプラグインの依存性を解決します。プラグインリポジトリの追加定義する仕組みは、 [JAR依存性を定義|guide:ivy]する方法とほぼ同じです。例えば、Grailsプラグインを含むリモートMavenリポジトリを定義するには、 @grails-app/conf/BuildConfig.groovy@中で以下のように記述します:
+Grails 1.3以上では、背後にあるIvyがプラグインの依存性を解決します。プラグインリポジトリを追加定義する仕組みは、 [JAR依存性を定義|guide:ivy]する方法とほぼ同じです。例えば、Grailsプラグインを含むリモートMavenリポジトリを定義するには、 @grails-app/conf/BuildConfig.groovy@中で以下のように記述します:
 
 {code}
 repositories {
@@ -123,7 +123,7 @@ h4. Maven互換リポジトリへの公開
 
 {hidden}In general it is recommended for Grails 1.3 and above to use standard Maven-style repositories to self host plugins. The benefits of doing so include the ability for existing tooling and repository managers to interpret the structure of a Maven repository. In addition Maven compatible repositories are not tied to SVN as Grails repositories are.{hidden}
 
-Grails 1.3以上では、自身でプラグインをホストするのは一般に、Mavenスタイルの標準リポジトリを使用することが推奨です。そうすることの利点は、Mavenリポジトリ構造を解釈するために既存ツールとリポジトリマネージャを利用できることです。加えて、Maven互換リポジトリはGrailsリポジトリのようにSVNとは結び付いていません。
+自身でプラグインをホストする場合、Grails 1.3以上ではMavenスタイルの標準リポジトリを使用することが推奨です。そうすることの利点は、Mavenリポジトリ構造を解釈するのに既存ツールとリポジトリマネージャを利用できることです。加えて、Maven互換リポジトリはGrailsリポジトリのようにSVNとは結び付いていません。
 
 {hidden}You use the Maven publisher plugin to publish a plugin to a Maven repository. Please refer to the section of the [Maven deployment|guide:mavendeploy] user guide on the subject.{hidden}
 
@@ -149,7 +149,7 @@ grails.plugin.repos.distribution.myRepository =
 
 {hidden}Once this is done use the @repository@ argument of the @release-plugin@ command to specify the repository to release the plugin into:{hidden}
 
-一回これを行えば、@release-plugin@コマンドの@repository@引数で
+一回これを行えば、以下のように@release-plugin@コマンドの@repository@引数で
 プラグインをリリースするリポジトリを指定することができます。
 
 {code}
