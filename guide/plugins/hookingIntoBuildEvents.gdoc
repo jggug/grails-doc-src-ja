@@ -1,12 +1,22 @@
-h4. Post-Install Configuration and Participating in Upgrades
+{hidden}h4. Post-Install Configuration and Participating in Upgrades{hidden}
 
-Grails plugins can do post-install configuration and participate in application upgrade process (the [upgrade|commandLine] command). This is achieved using two specially named scripts under the @scripts@ directory of the plugin - @_Install.groovy@ and @_Upgrade.groovy@.
+h4. Post-Install設定とアップグレード
 
-@_Install.groovy@ is executed after the plugin has been installed and @_Upgrade.groovy@ is executed each time the user upgrades the application (but not the plugin) with [upgrade|commandLine] command.
+{hidden}Grails plugins can do post-install configuration and participate in application upgrade process (the [upgrade|commandLine] command). This is achieved using two specially named scripts under the @scripts@ directory of the plugin - @_Install.groovy@ and @_Upgrade.groovy@.{hidden}
 
-These scripts are [Gant|guide:commandLine] scripts, so you can use the full power of Gant. An addition to the standard Gant variables there is also a @pluginBasedir@ variable which points at the plugin installation basedir.
+Grailsプラグインはpost-install設定を行なったり、アプリケーションの更新プロセス([upgrade|commandLine]コマンドで実行する)に介在することができます。これは2つの特別な名前のスクリプト、@_Install.groovy@と@_Upgrade.groovy@スクリプトを、プラグインの@scripts@ディレクトリ配下に置くことで可能になります。
 
-As an example this @_Install.groovy@ script will create a new directory type under the @grails-app@ directory and install a configuration template:
+{hidden}@_Install.groovy@ is executed after the plugin has been installed and @_Upgrade.groovy@ is executed each time the user upgrades the application (but not the plugin) with [upgrade|commandLine] command.{hidden}
+
+@_Install.groovy@はプラグインが実行された後に実行され、@_Upgrade.groovy@コマンドはアプリケーションが [upgrade|commandLine]コマンドで更新するたびに実行されます(プラグインがupgradeされる時ではありません)。
+
+{hidden}These scripts are [Gant|guide:commandLine] scripts, so you can use the full power of Gant. An addition to the standard Gant variables there is also a @pluginBasedir@ variable which points at the plugin installation basedir.{hidden}
+
+これらのスクリプトは、[Gant|guide:commandLine]スクリプトであり、Gantの全機能を使用することができます。標準Gant変数に加えて、@pluginBasedir@変数があり、プラグインがインストールされているベースディレクトリを指定しています。
+
+{hidden}As an example this @_Install.groovy@ script will create a new directory type under the @grails-app@ directory and install a configuration template:{hidden}
+
+例えば、以下の@_Install.groovy@スクリプトは@grails-app@ディレクトリ配下に新しいディレクトリを作成し、設定テンプレートをインストールします:
 
 {code:java}
 ant.mkdir(dir: "${basedir}/grails-app/jobs")
@@ -15,12 +25,22 @@ ant.copy(file: "${pluginBasedir}/src/samples/SamplePluginConfig.groovy",
          todir: "${basedir}/grails-app/conf")
 {code}
 
-The @pluginBasedir@ variable is not available in custom scripts, but you can use @fooPluginDir@, where @foo@ is the name of your plugin.
+{hidden}The @pluginBasedir@ variable is not available in custom scripts, but you can use @fooPluginDir@, where @foo@ is the name of your plugin.{hidden}
 
-h4. Scripting events
+@pluginBasedir@変数はカスタムスクリプト中では利用できませんが、@foo@がプラグイン名であるとき、@fooPluginDir@を使うことができます。
 
-It is also possible to hook into command line scripting events. These are events triggered during execution of Grails target and plugin scripts.
+{hidden}h4. Scripting events{hidden}
+h4. イベントをスクリプトで処理する
 
-For example, you can hook into status update output (i.e. "Tests passed", "Server running") and the creation of files or artefacts.
+{hidden}It is also possible to hook into command line scripting events. These are events triggered during execution of Grails target and plugin scripts.{hidden}
 
-A plugin just has to provide an @_Events.groovy@ script to listen to the required events. Refer the documentation on [Hooking into Events|guide:events] for further information.
+コマンドラインスクリプト中のイベントをフックすることもできます。Grailsのターゲットとプラグインスクリプトの実行中に発生するイベントがあります。
+
+{hidden}For example, you can hook into status update output (i.e. "Tests passed", "Server running") and the creation of files or artefacts.{hidden}
+
+例えば、状態の変更イベント("テストがパスしたとき"や"サーバが実行開始"など)や、ファイルやアーテファクトの作成イベントなどにもフックすることができます。
+
+{hidden}A plugin just has to provide an @_Events.groovy@ script to listen to the required events. Refer the documentation on [Hooking into Events|guide:events] for further information.{hidden}
+
+プラグインが必要なイベントをlistenするために必要なのは@_Events.groovy@スクリプトを提供することだけです。より詳しい情報については、[イベントをフックする|guide:events]を参照してください。
+
