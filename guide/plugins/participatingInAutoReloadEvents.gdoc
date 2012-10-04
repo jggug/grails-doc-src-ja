@@ -36,7 +36,7 @@ class ServicesGrailsPlugin {
 
 {hidden}The @event@ object defines a number of useful properties:{hidden}
 
-@event@オブジェクトは多数の有用なプロパティを含んでいます:{hidden}
+@event@オブジェクトは多数の有用なプロパティを含んでいます:
 
 {hidden}
 * @event.source@ - The source of the event, either the reloaded @Class@ or a Spring @Resource@
