@@ -10,7 +10,7 @@ grails list-plugins
 
 {hidden}which lists all plugins that are in the central repository. Your plugin will also be available to the [plugin-info|commandLine] command:{hidden}
 
-このコマンドはセントラルリポジトリのすべてのプラグインを一覧表示します。あなたのプラグインを表示するには、[plugin-info|commandLine]コマンドが利用できます:
+このコマンドはセントラルリポジトリのすべてのプラグインを一覧表示します。あなたのプラグインを[plugin-info|commandLine]コマンドで表示することもできます:
 
 {code:java}
 grails plugin-info [plugin-name]
@@ -18,7 +18,7 @@ grails plugin-info [plugin-name]
 
 {hidden}which prints extra information about it, such as its description, who wrote, etc.{hidden}
 
-これで説明や著者やその他のプラグイン情報を表示させることができます。
+これで説明や著者名、その他のプラグイン情報などを表示させることができます。
 
 {hidden}
 {note}
@@ -32,7 +32,7 @@ If you have created a Grails plugin and want it to be hosted in the central repo
 
 {hidden}When you have access to the Grails Plugin repository, install the [Release Plugin|http://grails-plugins.github.com/grails-release/docs/index.html] and execute the @publish-plugin@ command to release your plugin:{hidden}
 
-Grailsプラグインリポジトリにアクセス権を持っていれば、[リリースプラグイン|http://grails-plugins.github.com/grails-release/docs/index.html]をインストールし、@publish-plugin@コマンドを実行することであなたのプラグインをリリースすることができます:
+Grailsプラグインリポジトリにアクセス権を持っていれば、[リリースプラグイン|http://grails-plugins.github.com/grails-release/docs/index.html]をインストールして、@publish-plugin@コマンドを実行することでプラグインをリリースすることができます:
 
 {code:java}
 grails install-plugin release
@@ -41,7 +41,7 @@ grails publish-plugin
 
 {hidden}This will automatically commit any remaining source code changes to your SCM provider and then publish the plugin to the central repository. If the command is successful, it will immediately be available on the plugin portal at http://grails.org/plugin/<pluginName>. You can find out more about the Release plugin and its other features in [its user guide|http://grails-plugins.github.com/grails-release/docs/index.html].{hidden}
 
-これはコミットしていないソースコードを自動的にSCMプロバイダにコミットし、プラグインをセントラルリポジトリに公開します。もしコマンドが成功すれば、即座にhttp://grails.org/plugin/<pluginName>のプラグインポータルから利用可能になります。リリースプラグインに関するその他の情報は、[ユーザガイド|http://grails-plugins.github.com/grails-release/docs/index.html]にあります。
+これにより、未コミットのソースコード変更を自動的にSCMプロバイダにコミットした上で、プラグインをセントラルリポジトリに公開します。もしコマンドが成功すれば、即座にhttp://grails.org/plugin/<pluginName>のプラグインポータルから利用可能になります。リリースプラグインとその他の機能に関する情報は、[ユーザガイド|http://grails-plugins.github.com/grails-release/docs/index.html]にあります。
 
 {hidden}h4. Configuring Additional Repositories{hidden}
 
@@ -49,11 +49,11 @@ h4. 追加リポジトリの設定
 
 {hidden}The process for configuring repositories in Grails differs between versions. For version of Grails 1.2 and earlier please refer to the [Grails 1.2 documentation|http://grails.org/doc/1.2.x/guide/12.%20Plug-ins.html#12.2%20Plugin%20Repositories] on the subject. The following sections cover Grails 1.3 and above.{hidden}
 
-Grailsにおけるリポジトリの設定手順は、Grailsのバージョンによって異なっています。Grails 1.2以前の情報については[Grails 1.2のドキュメンテーション|http://grails.org/doc/1.2.x/guide/12.%20Plug-ins.html#12.2%20Plugin%20Repositories]を参照ください。以下はGrails 1.3以降の情報です。
+Grailsにおけるリポジトリの設定手順は、Grailsのバージョンによって異なっています。Grails 1.2以前の情報については[Grails 1.2のドキュメンテーション|http://grails.org/doc/1.2.x/guide/12.%20Plug-ins.html#12.2%20Plugin%20Repositories]を参照ください。以降の節は、Grails 1.3以降について記述しています。
 
 {hidden}Grails 1.3 and above use Ivy under the hood to resolve plugin dependencies. The mechanism for defining additional plugin repositories is largely the same as [defining repositories for JAR dependencies|guide:ivy]. For example you can define a remote Maven repository that contains Grails plugins using the following syntax in @grails-app/conf/BuildConfig.groovy@:{hidden}
 
-Grails 1.3以上では、背後にあるIvyがプラグインの依存性を解決します。プラグインリポジトリを追加定義する仕組みは、 [JAR依存性を定義|guide:ivy]する方法とほぼ同じです。例えば、Grailsプラグインを含むリモートMavenリポジトリを定義するには、 @grails-app/conf/BuildConfig.groovy@中で以下のように記述します:
+Grails 1.3以上では、下位層に隠されているIvyがプラグインの依存性を解決します。プラグインリポジトリを追加定義する仕組みは、 [JAR依存性を定義|guide:ivy]する方法とほぼ同じです。例えば、Grailsプラグインを含むリモートMavenリポジトリを定義するには、 @grails-app/conf/BuildConfig.groovy@中で以下のように記述します:
 
 {code}
 repositories {
@@ -67,7 +67,7 @@ repositories {
 
 {hidden}You can also define a SVN-based Grails repository (such as the one hosted at [http://plugins.grails.org|http://plugins.grails.org/]) using the @grailsRepo@ method:{hidden}
 
-@grailsRepo@メソッドを使ってSVNベースのGrailsリポジトリ(例えば[http://plugins.grails.org|http://plugins.grails.org/]でホストされているような)を定義することもできます:
+@grailsRepo@メソッドを使ってSVNベースのGrailsリポジトリ(例えば[http://plugins.grails.org|http://plugins.grails.org/]でホストされているリポジトリ)を定義することもできます:
 
 {code}
 repositories {
@@ -79,7 +79,7 @@ repositories {
 {code}
 
 {hidden}There is a shortcut to setup the Grails central repository:{hidden}
-Grailsセントラルリポジトリの指定には以下の短縮記法もあります:
+Grailsセントラルリポジトリは以下の短縮記法で指定することもできます:
 
 {code}
 repositories {
@@ -89,7 +89,7 @@ repositories {
 
 {hidden}The order in which plugins are resolved is based on the ordering of the repositories. So in this case the Grails central repository will be searched last:{hidden}
 
-repositories項目で列挙した順にプラグインが解決されます。なので以下ではGrailsセントラルリポジトリが最後に検索されます:
+repositoriesの項目で列挙した順にプラグインは解決されます。なので以下ではGrailsセントラルリポジトリが最後に検索されます:
 
 {code}
 repositories {
@@ -100,7 +100,7 @@ repositories {
 
 {hidden}All of the above examples use HTTP; however you can specify any [Ivy resolver|http://ant.apache.org/ivy/history/latest-milestone/settings/resolvers.html] to resolve plugins with. Below is an example that uses an SSH resolver:{hidden}
 
-前述の例はHTTPを使用しています。しかし、プラグイン解決に任意の[Ivyリゾルバ|http://ant.apache.org/ivy/history/latest-milestone/settings/resolvers.html]を使用することもできます。以下はSSHリゾルバを使用する例です:
+前述の例ではHTTPを使用していましたが、プラグイン解決に任意の[Ivyリゾルバ|http://ant.apache.org/ivy/history/latest-milestone/settings/resolvers.html]を使用することもできます。以下はSSHリゾルバを使用する例です:
 
 {code}
 def sshResolver = new SshResolver(user:"myuser", host:"myhost.com")
@@ -144,13 +144,11 @@ grails.plugin.repos.distribution.myRepository =
 
 {hidden}You can also provide this settings in the \$USER_HOME/.grails/settings.groovy file if you prefer to share the same settings across multiple projects.{hidden}
 
-複数のプロジェクトで同じ設定を共有するには、これを
-\$USER_HOME/.grails/settings.groovyファイル中に設定します。
+複数のプロジェクトで同じ設定を共有したい場合、これを\$USER_HOME/.grails/settings.groovyファイル中に設定します。
 
 {hidden}Once this is done use the @repository@ argument of the @release-plugin@ command to specify the repository to release the plugin into:{hidden}
 
-一回これを行えば、以下のように@release-plugin@コマンドの@repository@引数で
-プラグインをリリースするリポジトリを指定することができます。
+一回これを行えば、以下のように@release-plugin@コマンドの@repository@引数で、プラグインをリリースするリポジトリを指定することができます。
 
 {code}
 grails release-plugin -repository = myRepository
