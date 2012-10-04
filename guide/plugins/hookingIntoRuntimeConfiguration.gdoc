@@ -1,8 +1,14 @@
-Grails provides a number of hooks to leverage the different parts of the system and perform runtime configuration by convention.
+{hidden}Grails provides a number of hooks to leverage the different parts of the system and perform runtime configuration by convention.{hidden}
 
-h4. Hooking into the Grails Spring configuration
+Grailsはシステムの異なる部分を利用するために、多くのフックを提供し、規約によって実行時設定を行います。
 
-First, you can hook in Grails runtime configuration by providing a property called @doWithSpring@ which is assigned a block of code. For example the following snippet is from one of the core Grails plugins that provides [i18n|guide:i18n] support:
+{hidden}h4. Hooking into the Grails Spring configuration{hidden}
+
+h4. GrailsのSpring設定にフックする
+
+{hidden}First, you can hook in Grails runtime configuration by providing a property called @doWithSpring@ which is assigned a block of code. For example the following snippet is from one of the core Grails plugins that provides [i18n|guide:i18n] support:{hidden}
+
+まず、@doWithSpring@という名前の、クロージャブロックが代入されたプロパティを提供することで、Grails実行時設定にフックすることができます。例えば以下のコード断片は、 [i18n|guide:i18n]サポートを提供するコアGrailsプラグインに含まれているものです:
 
 {code:java}
 import org.springframework.web.servlet.i18n.CookieLocaleResolver
@@ -25,15 +31,25 @@ class I18nGrailsPlugin {
 }
 {code}
 
-This plugin configures the Grails @messageSource@ bean and a couple of other beans to manage Locale resolution and switching. It using the [Spring Bean Builder|guide:spring] syntax to do so.
+{hidden}This plugin configures the Grails @messageSource@ bean and a couple of other beans to manage Locale resolution and switching. It using the [Spring Bean Builder|guide:spring] syntax to do so.{hidden}
 
-h4. Participating in web.xml Generation
+このプラグイン設定は、Grailsの@messageSource@ビーンと、Locale解決と切り替えを行う他のいくつかのビーンを設定します。これは[Spring Bean Builder|guide:spring]シンタックスを使用します。
 
-Grails generates the @WEB-INF/web.xml@ file at load time, and although plugins cannot change this file directly, they can participate in the generation of the file. A plugin can provide a @doWithWebDescriptor@ property that is assigned a block of code that gets passed the @web.xml@ as an @XmlSlurper@ @GPathResult@.
+{hidden}h4. Participating in web.xml Generation{hidden}
 
-h5. Add @servlet@ and @servlet-mapping@
+h4. web.xml生成への参加
 
-Consider this example from the @ControllersPlugin@:
+{hidden}Grails generates the @WEB-INF/web.xml@ file at load time, and although plugins cannot change this file directly, they can participate in the generation of the file. A plugin can provide a @doWithWebDescriptor@ property that is assigned a block of code that gets passed the @web.xml@ as an @XmlSlurper@ @GPathResult@.{hidden}
+
+Grailsは@WEB-INF/web.xml@ファイルをロード時に生成し、プラグインはこのファイルを直接変更することはできませんが、このファイルの生成過程に参加することができます。プラグインはクロージャコードブロックが代入された@doWithWebDescriptor@プロパティを提供することができ、そのコードには@XmlSlurper@の@GPathResult@として@web.xml@渡されます。
+
+{hidden}h5. Add @servlet@ and @servlet-mapping@{hidden}
+
+h5. @servlet@と@servlet-mapping@の追加
+
+{hidden}Consider this example from the @ControllersPlugin@:{hidden}
+
+@ControllersPlugin@にある、以下の例を考えてみてください:
 
 {code:java}
 def doWithWebDescriptor = { webXml ->
@@ -50,11 +66,17 @@ def doWithWebDescriptor = { webXml ->
 }
 {code}
 
-Here the plugin gets a reference to the last @<servlet-mapping>@ element and appends Grails' servlet after it using XmlSlurper's ability to programmatically modify XML using closures and blocks.
+{hidden}Here the plugin gets a reference to the last @<servlet-mapping>@ element and appends Grails' servlet after it using XmlSlurper's ability to programmatically modify XML using closures and blocks.{hidden}
 
-h5. Add @filter@ and @filter-mapping@
+XmlSlurperの「クロージャとブロックを使ってプログラム的にXMLを修正できる」という機能を使って、ここではプラグインは@<servlet-mapping>@への参照を取得し、Grailsのサーブレットを追加しています。
 
-Adding a filter with its mapping works a little differently. The location of the @<filter>@ element doesn't matter since order is not important, so it's simplest to insert your custom filter definition immediately after the last @<context-param>@ element. Order _is_ important for mappings, but the usual approach is to add it immediately after the last @<filter>@ element like so:
+{hidden}h5. Add @filter@ and @filter-mapping@{hidden}
+
+h5. @filter@と@filter-mapping@の追加
+
+{hidden}Adding a filter with its mapping works a little differently. The location of the @<filter>@ element doesn't matter since order is not important, so it's simplest to insert your custom filter definition immediately after the last @<context-param>@ element. Order _is_ important for mappings, but the usual approach is to add it immediately after the last @<filter>@ element like so:{hidden}
+
+マッピングとフィルターの追加は少し異なります。順序は重要ではないので、@<filter>@要素の場所は問題になりません。なのでカスタムフィルタ定義を最後の@<context-param>@要素のすぐ後に挿入するのが最も簡単です。_ 順序は _マッピングに関しては重要です。しかし通常のアプローチでは@<filter>@要素の直後に追加します:
 
 {code:java}
 def doWithWebDescriptor = { webXml ->
@@ -78,7 +100,9 @@ def doWithWebDescriptor = { webXml ->
 }
 {code}
 
-In some cases you need to ensure that your filter comes after one of the standard Grails filters, such as the Spring character encoding filter or the SiteMesh filter. Fortunately you can insert filter mappings immediately after the standard ones (more accurately, any that are in the template web.xml file) like so:
+{hidden}In some cases you need to ensure that your filter comes after one of the standard Grails filters, such as the Spring character encoding filter or the SiteMesh filter. Fortunately you can insert filter mappings immediately after the standard ones (more accurately, any that are in the template web.xml file) like so:{hidden}
+
+あなたのフィルターが、例えばSpringの文字エンコーディングフィルタやSiteMeshフィルタなどの標準Grailsフィルターの後に実行されることが必要な場合があります。以下のようにすることで、フィルタマッピングを標準のもの(正確に言えば、テンプレートのweb.xmlファイルに含まれているもの)のすぐ後に挿入することができます:
 
 {code:java}
 def doWithWebDescriptor = { webXml ->
@@ -99,9 +123,12 @@ def doWithWebDescriptor = { webXml ->
 }
 {code}
 
-h4. Doing Post Initialisation Configuration
+{hidden}h4. Doing Post Initialisation Configuration{hidden}
+h4. 初期化設定後の実行
 
-Sometimes it is useful to be able do some runtime configuration after the Spring [ApplicationContext|api:org.springframework.context.ApplicationContext] has been built. In this case you can define a @doWithApplicationContext@ closure property.
+{hidden}Sometimes it is useful to be able do some runtime configuration after the Spring [ApplicationContext|api:org.springframework.context.ApplicationContext] has been built. In this case you can define a @doWithApplicationContext@ closure property.{hidden}
+
+[ApplicationContext|api:org.springframework.context.ApplicationContext]が構築された後での実行時設定を行うことが有用である場合があります。そのためには@doWithApplicationContext@クロージャプロパティを定義します。
 
 {code:java}
 class SimplePlugin {
