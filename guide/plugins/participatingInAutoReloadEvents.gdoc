@@ -54,7 +54,7 @@ class ServicesGrailsPlugin {
 
 {hidden}These objects are available to help you apply the appropriate changes based on what changed. In the "Services" example above, a new service bean is re-registered with the @ApplicationContext@ when one of the service classes changes.{hidden}
 
-何が変更されたかによって異なるような適切な変更をするためには、これらのオブジェクトが有用です。前述の"サービス"の例においては、サービスクラスが変更されたとき、新しいサービスビーンが@ApplicationContext@において再登録されます。
+何が変更されたかによって異なる適切な変更をするためには、これらのオブジェクトが利用可能です。前述のサービスの例においては、サービスクラスが変更されたとき、新しいサービスビーンが@ApplicationContext@において再登録されます。
 
 {hidden}h4. Influencing Other Plugins{hidden}
 
@@ -62,11 +62,11 @@ h4. 他のプラグインに影響を及ぼす
 
 {hidden}In addition to reacting to changes, sometimes a plugin needs to "influence" another.{hidden}
 
-変更対してリアクションすることに加えて、プラグインは他のプラグインに「影響を及ぼす」必要があるときがあります。
+変更に対してリアクションするのに加え、プラグインは他のプラグインに「影響を及ぼす」必要があるときがあります。
 
 {hidden}Take for example the Services and Controllers plugins. When a service is reloaded, unless you reload the controllers too, problems will occur when you try to auto-wire the reloaded service into an older controller Class.{hidden}
 
-サービスとコントローラのプラグインを例にとりましょう。サービスがリロードされた場合、コントローラもリロードするのでなければ、リロードされたサービスを古いコントローラクラスにオートワイヤ(auto-wire)するときに問題が発生するでしょう。
+サービスとコントローラのプラグインを例にとりましょう。サービスがリロードされた場合、コントローラもリロードしなければ、リロードされたサービスを古いコントローラクラスにオートワイヤ(auto-wire)するときに問題が発生するでしょう。
 
 {hidden}To get around this, you can specify which plugins another plugin "influences". This means that when one plugin detects a change, it will reload itself and then reload its influenced plugins. For example consider this snippet from the @ServicesGrailsPlugin@:{hidden}
 
@@ -82,7 +82,7 @@ h4. 他のプラグインを観察する
 
 {hidden}If there is a particular plugin that you would like to observe for changes but not necessary watch the resources that it monitors you can use the "observe" property:{hidden}
 
-変更を観察したい特別なプラグインがあり、そのプラグインが監視するリソースを監視する必要がないなら、「observe」プロパティを使うことができます:
+変更を観察したい特定のプラグインがあり、そのプラグインが監視するリソースを監視する必要がないなら、「observe」プロパティを使うことができます:
 
 {code:java}
 def observe = ["controllers"]
@@ -94,7 +94,7 @@ def observe = ["controllers"]
 
 {hidden}It is also possible for a plugin to observe all loaded plugins by using a wildcard:{hidden}
 
-ワイルドカードを使ってすべてのプラグインの変更を監視することも可能です:
+ワイルドカードを使えば、すべてのプラグインの変更を監視することも可能です:
 
 {code:java}
 def observe = ["*"]
@@ -102,4 +102,4 @@ def observe = ["*"]
 
 {hidden}The Logging plugin does exactly this so that it can add the @log@ property back to _any_ artefact that changes while the application is running.{hidden}
 
-ロギングプラグインはちょうどこのようなことを行なっています。アプリの実行中に@log@プロパティを任意のアーテファクトに追加し、アーテファクトを変更します。
+ロギングプラグインはちょうどこのようなことを行なっており、アプリの実行中に変更があった _任意の_ アーティファクトに@log@プロパティを設定し直しています。

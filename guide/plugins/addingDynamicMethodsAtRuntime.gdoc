@@ -7,7 +7,7 @@ Grailsプラグインでは、Grails管理下および他のクラスに対し�
 
 {hidden}For Grails-managed classes like controllers, tag libraries and so forth you can add methods, constructors etc. using the "ExpandoMetaClass":http://groovy.codehaus.org/ExpandoMetaClass mechanism by accessing each controller's [MetaClass|api:groovy.lang.MetaClass]:{hidden}
 
-コントローラやタグライブラリなどのようなGrails管理下のクラスについては、それぞれのコントローラの[MetaClass|api:groovy.lang.MetaClass]を"ExpandoMetaClass":http://groovy.codehaus.org/ExpandoMetaClassの機構でアクセスすることによって、メソッドやコンストラクタなどを追加できます:
+コントローラやタグライブラリなどのようなGrails管理下のクラスについては、それぞれのコントローラの[MetaClass|api:groovy.lang.MetaClass]を "ExpandoMetaClass":http://groovy.codehaus.org/ExpandoMetaClass の機構でアクセスすることによって、メソッドやコンストラクタなどを追加できます:
 
 {code:java}
 class ExamplePlugin {

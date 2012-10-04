@@ -8,7 +8,7 @@ Grailsプラグインはpost-install設定を行なったり、アプリケー�
 
 {hidden}@_Install.groovy@ is executed after the plugin has been installed and @_Upgrade.groovy@ is executed each time the user upgrades the application (but not the plugin) with [upgrade|commandLine] command.{hidden}
 
-@_Install.groovy@はプラグインが実行された後に実行され、@_Upgrade.groovy@コマンドはアプリケーションが [upgrade|commandLine]コマンドで更新するたびに実行されます(プラグインがupgradeされる時ではありません)。
+@_Install.groovy@はプラグインがインストールされた後に実行され、@_Upgrade.groovy@コマンドはアプリケーションが [upgrade|commandLine]コマンドで更新されるたびに実行されます(プラグインをupgradeコマンドで更新した時ではありません)。
 
 {hidden}These scripts are [Gant|guide:commandLine] scripts, so you can use the full power of Gant. An addition to the standard Gant variables there is also a @pluginBasedir@ variable which points at the plugin installation basedir.{hidden}
 
@@ -34,13 +34,12 @@ h4. イベントをスクリプトで処理する
 
 {hidden}It is also possible to hook into command line scripting events. These are events triggered during execution of Grails target and plugin scripts.{hidden}
 
-コマンドラインスクリプト中のイベントをフックすることもできます。Grailsのターゲットとプラグインスクリプトの実行中に発生するイベントがあります。
+コマンドラインスクリプトを実行中のイベントをフックすることもできます。Grailsターゲットとプラグインスクリプトの実行中に発生するイベントがあります。
 
 {hidden}For example, you can hook into status update output (i.e. "Tests passed", "Server running") and the creation of files or artefacts.{hidden}
 
-例えば、状態の変更イベント("テストがパスしたとき"や"サーバが実行開始"など)や、ファイルやアーテファクトの作成イベントなどにもフックすることができます。
+例えば、状態の変更イベント(「テストがパスしたとき」や「サーバが実行開始」など)や、ファイルやアーテファクトの生成イベントなどにもフックすることができます。
 
 {hidden}A plugin just has to provide an @_Events.groovy@ script to listen to the required events. Refer the documentation on [Hooking into Events|guide:events] for further information.{hidden}
 
-プラグインが必要なイベントをlistenするために必要なのは@_Events.groovy@スクリプトを提供することだけです。より詳しい情報については、[イベントをフックする|guide:events]を参照してください。
-
+プラグインが必要なイベントをlistenするために必要なのは、@_Events.groovy@スクリプトを提供することだけです。より詳しい情報については、[イベントをフックする|guide:events]を参照してください。

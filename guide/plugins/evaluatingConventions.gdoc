@@ -41,7 +41,7 @@ for (controllerClass in application.controllerClasses) {
 
 {hidden}The @GrailsClass@ interface has a number of useful methods that let you further evaluate and work with the conventions. These include:{hidden}
 
-@GrailsClass@インターフェースは、規約に関して評価や処理をもっと容易にするための、以下のような便利なメソッド群を持っています:
+@GrailsClass@インターフェースは、規約に関する評価や処理をさらに容易にするための、以下のような便利なメソッド群を持っています:
 
 {hidden}
 * @getPropertyValue@ - Gets the initial value of the given property on the class

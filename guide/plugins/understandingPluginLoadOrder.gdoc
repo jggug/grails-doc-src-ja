@@ -4,7 +4,7 @@ h4. プラグインの依存性制御
 
 {hidden}Plugins often depend on the presence of other plugins and can adapt depending on the presence of others. This is implemented with two properties. The first is called @dependsOn@. For example, take a look at this snippet from the Hibernate plugin:{hidden}
 
-プラグインはしばしば他のプラグインの存在に依存しますが、他のプラグインの存在についての依存性に適応することができます。これは2つのプロパティで行うことができます。1つ目は@dependsOn@というプロパティで、Hibernateプラグインにある以下のコード断片を見て下さい:
+プラグインはしばしば他のプラグインの存在に依存しますが、他のプラグインの存在についての依存性に適応することができます。これは2つのプロパティで行うことができます。1つ目は@dependsOn@というプロパティですが、Hibernateプラグインにある以下のコード断片を見て下さい:
 
 {code:java}
 class HibernateGrailsPlugin {
@@ -20,15 +20,15 @@ class HibernateGrailsPlugin {
 
 {hidden}The Hibernate plugin is dependent on the presence of four plugins: the @dataSource@, @domainClass@, @i18n@ and @core@ plugins.{hidden}
 
-Hibernateプラグインは4つのプラグインに依存しています: @dataSource@, @domainClass@, @i18n@ @core@プラグインです。
+Hibernateプラグインは4つのプラグインに依存しています: @dataSource@、@domainClass@、@i18n@そして@core@プラグインです。
 
 {hidden}The dependencies will be loaded before the Hibernate plugin and if all dependencies do not load, then the plugin will not load.{hidden}
 
-この依存性は、Hibernateプラグインの前に読み込まれます。すべての依存プラグインがロードされなければ、プラグインはロードされません。
+依存しているプラグインは、Hibernateプラグインの前に読み込まれます。すべての依存プラグインがロードされなければ、プラグインはロードされません。
 
 {hidden}The @dependsOn@ property also supports a mini expression language for specifying version ranges. A few examples of the syntax can be seen below:{hidden}
 
-@dependsOn@プロパティはバージョンの範囲を指定するためのミニ式言語をサポートしています。以下は例です：
+@dependsOn@プロパティはバージョン範囲を指定するためのミニ式言語をサポートしています。以下は例です：
 
 {code:java}
 def dependsOn = [foo: "* > 1.0"]
@@ -38,7 +38,7 @@ def dependsOn = [foo: "1.0 > *"]
 
 {hidden}When the wildcard * character is used it denotes "any" version. The expression syntax also excludes any suffixes such as -BETA, -ALPHA etc. so for example the expression "1.0 > 1.1" would match any of the following versions:{hidden}
 
-ワイルドカード文字*が任意のバージョンを表わすために使われます。また、この式のシンタックスは、-BETAや-ALPHAといった接尾辞を除外します。なので例えば "1.0 > 1.1" は以下のバージョンにマッチします。
+ワイルドカード文字*が任意のバージョンを表わすために使われます。また、この式のシンタックスは、「-BETA」や「-ALPHA」といった接尾辞を除外します。なので例えば「1.0 > 1.1」は以下のバージョンにマッチします。
 
 * 1.1
 * 1.0
@@ -52,7 +52,7 @@ h4. ロード順序の制御
 
 {hidden}Using @dependsOn@ establishes a "hard" dependency in that if the dependency is not resolved, the plugin will give up and won't load.  It is possible though to have a weaker dependency using the @loadAfter@ and @loadBefore@ properties:{hidden}
 
-@dependsOn@は、依存性が解決されなければプラグインはロードをあきらめるような「ハード依存性」を確立します。@loadAfter@と@loadBefore@プロパティを使うことで「より弱い依存性」を使うこともできます。
+@dependsOn@は、依存性が解決されなければプラグインのロードをあきらめるような「ハード依存性」を確立します。@loadAfter@と@loadBefore@プロパティを使うことで「より弱い依存性」を使うこともできます。
 
 {code:java}
 def loadAfter = ['controllers']
@@ -60,7 +60,7 @@ def loadAfter = ['controllers']
 
 {hidden}Here the plugin will be loaded after the @controllers@ plugin if it exists, otherwise it will just be loaded. The plugin can then adapt to the presence of the other plugin, for example the Hibernate plugin has this code in its @doWithSpring@ closure:{hidden}
 
-ここではプラグインは存在すれば@controllers@プラグインがロードされた後にロードされます。 さもなければ(@controllers@プラグインが存在しなければ)、単にロードされます。プラグインは他のプラグインの存在に適応します。たとえば、Hibernateプラグインは@doWithSpring@クロージャで以下を行っています:
+ここでは、もし@controllers@プラグインが存在すれば、それがロードされた後に、このプラグインがロードされます。 さもなければ(@controllers@プラグインが存在しなければ)、このプラグインは単にロードされます。プラグインは他のプラグインの存在に適応します。たとえば、Hibernateプラグインは@doWithSpring@クロージャで以下を行っています:
 
 {code:java}
 if (manager?.hasGrailsPlugin("controllers")) {
@@ -88,7 +88,7 @@ h4. スコープと環境
 
 {hidden}It's not only plugin load order that you can control. You can also specify which environments your plugin should be loaded in and which scopes (stages of a build). Simply declare one or both of these properties in your plugin descriptor:{hidden}
 
-制御できるのはプラグインのロード順だけではありません。プラグインがどの環境にロードされるか、あるいはどのスコープ(ビルドの各段階)でロードされるかを指定することもできます。このためにはそれぞれのプロパティを宣言するだけです。
+制御できるのはプラグインのロード順だけではありません。プラグインがどの環境にロードされるか、あるいはどのスコープ(ビルドの各段階)でロードされるかを指定することもできます。やり方は、それぞれのプロパティをプラグインディスクリプタ中に宣言するだけです。
 
 {code}
 def environments = ['development', 'test', 'myCustomEnv']
@@ -97,7 +97,7 @@ def scopes = [excludes:'war']
 
 {hidden}In this example, the plugin will only load in the 'development' and 'test' environments. Nor will it be packaged into the WAR file, because it's excluded from the 'war' phase. This allows @development-only@ plugins to not be packaged for production use.{hidden}
 
-この例では、プラグインは'development'と'test'環境のときだけロードされます。また、warフェイズからは除外設定されているので、WARファイルにパッケージされません。こうすることで、@development-only@のプラグインは、実運用時にはパッケージされないようにできます。
+この例では、プラグインは「development」と「test」環境のときだけロードされます。また、warフェイズからは除外設定されているので、WARファイル中にはパッケージされません。こうすることで、@development-only@のプラグインは、実運用時にはパッケージされないようにできます。
 
 {hidden}The full list of available scopes are defined by the enum [BuildScope|api:grails.util.BuildScope], but here's a summary:{hidden}
 
@@ -119,7 +119,7 @@ def scopes = [excludes:'war']
 
 {hidden}Both properties can be one of:{hidden}
 
-いずれのプロパティも以下が設定できます。
+いずれのプロパティにも以下のうち1つを設定することができます。
 
 {hidden}
 * a string - a sole inclusion
@@ -141,7 +141,7 @@ def environments = "test"
 
 {hidden}will only include the plugin in the test environment, whereas{hidden}
 
-はテスト環境のみを含むプラグインです。これに対して
+という指定の場合、テスト環境のみでプラグインが含められます。これに対して
 
 {code}
 def environments = ["development", "test"]
@@ -149,7 +149,7 @@ def environments = ["development", "test"]
 
 {hidden}will include it in both the development _and_ test environments. Finally,{hidden}
 
-はdevelopment _ と _ test環境を含みます。最後に
+はdevelopment _と_ test環境の両方を含みます。最後に
 
 {code}
 def environments = [includes: ["development", "test"]]
