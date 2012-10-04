@@ -274,7 +274,7 @@ plugins:
   understandingPluginLoadOrder: プラグインのロード順を理解する
   artefactApi:
     title: アーテファクトAPI
-    queryingArtefacts: 使用可能なアーテファクトを探す
+    queryingArtefacts: 使用可能なアーテファクトの検索
     customArtefacts: アーテファクト型の追加
   binaryPlugins: バイナリープラグイン
 webServices:
