@@ -1,6 +1,6 @@
 {hidden}Plugins can easily provide their own artefacts so that they can easily find out what implementations are available and take part in reloading. All you need to do is create an @ArtefactHandler@ implementation and register it in your main plugin class:{hidden}
 
-プラグインでは、どんな実装が利用可能かわかり、リローディングの過程に参加することができるような、固有のアーテファクトを簡単に提供することができます。しなければならないのは、@ArtefactHandler@の実装を生成し、メインプラグインクラスで登録することだけです:
+プラグインでは、どんな実装が利用できるかわかり、自動リロードの過程に組込むことができるような、自分自身のアーテファクトを簡単に提供することができます。そのためにやるべきことは、@ArtefactHandler@の実装を生成し、メインのプラグインクラス中に登録しておくことだけです:
 
 {code}
 class MyGrailsPlugin {
@@ -15,15 +15,15 @@ class MyGrailsPlugin {
 
 {hidden}So, what does an artefact handler look like? Well, put simply it is an implementation of the [ArtefactHandler|api:org.codehaus.groovy.grails.commons.ArtefactHandler] interface. To make life a bit easier, there is a skeleton implementation that can readily be extended: [ArtefactHandlerAdapter|api:org.codehaus.groovy.grails.commons.ArtefactHandlerAdapter].{hidden}
 
-では、アーテファクトハンドラは、どのようなものでしょうか？ここでは単に[ArtefactHandler|api:org.codehaus.groovy.grails.commons.ArtefactHandler]インターフェースを実装するものということにしておきます。人生をちょっとだけ簡単にするために、extendsすればすぐ使えるスケルトン実装[ArtefactHandlerAdapter|api:org.codehaus.groovy.grails.commons.ArtefactHandlerAdapter]があります。
+それでは、アーテファクトハンドラは、どのようなものでしょうか？ここでは単に[ArtefactHandler|api:org.codehaus.groovy.grails.commons.ArtefactHandler]インターフェースを実装するものということにしておきます。利便のため、extendsすればすぐ使えるスケルトン実装[ArtefactHandlerAdapter|api:org.codehaus.groovy.grails.commons.ArtefactHandlerAdapter]も用意されています。
 
 {hidden}In addition to the handler itself, every new artefact needs a corresponding wrapper class that implements [GrailsClass|api:org.codehaus.groovy.grails.commons.GrailsClass]. Again, skeleton implementations are available such as [AbstractInjectableGrailsClass|api:org.codehaus.groovy.grails.commons.AbstractInjectableGrailsClass], which is particularly useful as it turns your artefact into a Spring bean that is auto-wired, just like controllers and services.{hidden}
 
-ハンドラ自身に加えて、新しいアーテファクトは、[GrailsClass|api:org.codehaus.groovy.grails.commons.GrailsClass]をimplementsする対応するラッパークラスを必要とします。こちらも[AbstractInjectableGrailsClass|api:org.codehaus.groovy.grails.commons.AbstractInjectableGrailsClass]などのスケルトン実装が利用可能です。これはあなたのアーテファクトを、コントローラやサービスのようにオートワイヤ可能なSpringビーンにしてくれるので特に便利でしょう。
+ハンドラそれ自身に加えて、新しいアーテファクトは、[GrailsClass|api:org.codehaus.groovy.grails.commons.GrailsClass]をimplementsする対応するラッパークラスを必要とします。こちらも[AbstractInjectableGrailsClass|api:org.codehaus.groovy.grails.commons.AbstractInjectableGrailsClass]などのスケルトン実装が利用可能です。これはあなたのアーテファクトを、コントローラやサービスのようにオートワイヤ可能なSpringビーンにしてくれるので特に便利でしょう。
 
 {hidden}The best way to understand how both the handler and wrapper classes work is to look at the Quartz plugin:{hidden}
 
-ハンドラとラッパーの動作を理解するのにベストなやり方は、Quartz pluginを読んでみることです:
+ハンドラとラッパーの動作を理解するのにベストなやり方は、Quartz pluginのコードを読んでみることです:
 
 * [GrailsJobClass|http://github.com/nebolsin/grails-quartz/blob/master/src/java/grails/plugins/quartz/GrailsJobClass.java]
 * [DefaultGrailsJobClass|http://github.com/nebolsin/grails-quartz/blob/master/src/java/grails/plugins/quartz/DefaultGrailsJobClass.java]
