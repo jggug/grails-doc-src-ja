@@ -1,8 +1,13 @@
-h4. The Basics
+{hidden}h4. The Basics{hidden}
+h4. 基本的な考え方
 
-Grails plugins let you register dynamic methods with any Grails-managed or other class at runtime. This work is done in a @doWithDynamicMethods@ closure.
+{hidden}Grails plugins let you register dynamic methods with any Grails-managed or other class at runtime. This work is done in a @doWithDynamicMethods@ closure.{hidden}
 
-For Grails-managed classes like controllers, tag libraries and so forth you can add methods, constructors etc. using the "ExpandoMetaClass":http://groovy.codehaus.org/ExpandoMetaClass mechanism by accessing each controller's [MetaClass|api:groovy.lang.MetaClass]:
+Grailsプラグインでは、Grails管理下および他のクラスに対して、実行時にダイナミックメソッドを登録することができます。これは@doWithDynamicMethods@クロージャで行ないます。
+
+{hidden}For Grails-managed classes like controllers, tag libraries and so forth you can add methods, constructors etc. using the "ExpandoMetaClass":http://groovy.codehaus.org/ExpandoMetaClass mechanism by accessing each controller's [MetaClass|api:groovy.lang.MetaClass]:{hidden}
+
+コントローラやタグライブラリなどのようなGrails管理下のクラスについては、それぞれのコントローラの[MetaClass|api:groovy.lang.MetaClass]を "ExpandoMetaClass":http://groovy.codehaus.org/ExpandoMetaClass の機構でアクセスすることによって、メソッドやコンストラクタなどを追加できます:
 
 {code:java}
 class ExamplePlugin {
@@ -14,9 +19,13 @@ class ExamplePlugin {
 }
 {code}
 
-In this case we use the implicit application object to get a reference to all of the controller classes' MetaClass instances and add a new method called @myNewMethod@ to each controller. If you know beforehand the class you wish the add a method to you can simply reference its @metaClass@ property.
+{hidden}In this case we use the implicit application object to get a reference to all of the controller classes' MetaClass instances and add a new method called @myNewMethod@ to each controller. If you know beforehand the class you wish the add a method to you can simply reference its @metaClass@ property.{hidden}
 
-For example we can add a new method @swapCase@ to @java.lang.String@:
+この場合、暗黙のapplicationオブジェクトを使い、すべてのコントローラクラスのMetaClassの参照を取得し、それぞれのコントローラに@myNewMethod@という新規メソッドを追加しています。メソッドを追加したいクラスが予め判っていれば、その@metaClass@プロパティを単純に参照できます。
+
+{hidden}For example we can add a new method @swapCase@ to @java.lang.String@:{hidden}
+
+例えば、@swapCase@メソッドを@java.lang.String@クラスに追加できます:
 
 {code:java}
 class ExamplePlugin {
@@ -37,9 +46,13 @@ class ExamplePlugin {
 }
 {code}
 
-h4. Interacting with the ApplicationContext
+{hidden}h4. Interacting with the ApplicationContext{hidden}
 
-The @doWithDynamicMethods@ closure gets passed the Spring @ApplicationContext@ instance. This is useful as it lets you interact with objects within it. For example if you were implementing a method to interact with Hibernate you could use the @SessionFactory@ instance in combination with a @HibernateTemplate@:
+h4. アプリケーションコンテキストとの相互作用
+
+{hidden}The @doWithDynamicMethods@ closure gets passed the Spring @ApplicationContext@ instance. This is useful as it lets you interact with objects within it. For example if you were implementing a method to interact with Hibernate you could use the @SessionFactory@ instance in combination with a @HibernateTemplate@:{hidden}
+
+@doWithDynamicMethods@クロージャにはSpringの@ApplicationContext@インスタンスが渡されます。これはその中のオブジェクトとやりとりできるので便利です。例えば、Hibernateと相互作用するメソッドを定義しているなら、@SessionFactory@インスタンスと@HibernateTemplate@を組合せて使うことができます:
 
 {code:java}
 import org.springframework.orm.hibernate3.HibernateTemplate
@@ -60,7 +73,9 @@ class ExampleHibernatePlugin {
 }
 {code}
 
-Also because of the autowiring and dependency injection capability of the Spring container you can implement more powerful dynamic constructors that use the application context to wire dependencies into your object at runtime:
+{hidden}Also because of the autowiring and dependency injection capability of the Spring container you can implement more powerful dynamic constructors that use the application context to wire dependencies into your object at runtime:{hidden}
+
+Springコンテナにはオートワイアリング(autowiring)と依存性注入(DI)機能があるので、依存性を実行時に解決するのにアプリケーションコンテキストを使用する、より強力なダイナミックコンストラクタをあなたのオブジェクトに実装することもできます:
 
 {code:java}
 class MyConstructorPlugin {
@@ -75,4 +90,6 @@ class MyConstructorPlugin {
 }
 {code}
 
-Here we actually replace the default constructor with one that looks up prototyped Spring beans instead!
+{hidden}Here we actually replace the default constructor with one that looks up prototyped Spring beans instead!{hidden}
+
+ここでは、デフォルトコンストラクタを、prototypeのSpringビーンをルックアップするようなコンストラクタに実際に置き換えています。

@@ -1,4 +1,6 @@
-As as mentioned previously, a plugin is basically a regular Grails application with a plugin descriptor. However when installed, the structure of a plugin differs slightly. For example, take a look at this plugin directory structure:
+{hidden}As as mentioned previously, a plugin is basically a regular Grails application with a plugin descriptor. However when installed, the structure of a plugin differs slightly. For example, take a look at this plugin directory structure:{hidden}
+
+すでに述べてきているように、プラグインは基本的にはプラグインディスクリプタが付随した通常のGrailsアプリケーションです。しかしながら、インストールされるときにはプラグインの構造は少し異なってきます。例えば、以下のプラグイン構造を見てみましょう:
 
 {code:java}
 + grails-app
@@ -14,18 +16,30 @@ As as mentioned previously, a plugin is basically a regular Grails application w
      + js
      + css{code}
 
-When a plugin is installed the contents of the @grails-app@ directory will go into a directory such as @plugins/example-1.0/grails-app@. They *will not* be copied into the main source tree. A plugin never interferes with a project's primary source tree.
+{hidden}When a plugin is installed the contents of the @grails-app@ directory will go into a directory such as @plugins/example-1.0/grails-app@. They *will not* be copied into the main source tree. A plugin never interferes with a project's primary source tree.{hidden}
 
-Dealing with static resources is slightly different. When developing a plugin, just like an application, all static resources go in the @web-app@ directory. You can then link to static resources just like in an application. This example links to a JavaScript source:
+プラグインがインストールされたときには、@grails-app@ディレクトリの内容は@plugins/example-1.0/grails-app@に入ります。これらはメインアプリのソースツリーにはインストールされ*ません*。プラグインはプロジェクト本体側のソースツリーには決して干渉しないのです。
+
+{hidden}Dealing with static resources is slightly different. When developing a plugin, just like an application, all static resources go in the @web-app@ directory. You can then link to static resources just like in an application. This example links to a JavaScript source:{hidden}
+
+静的リソースの処理は、少しだけ異なってきます。プラグインをあたかもアプケーションのように開発する際、すべての静的リソースは@web-app@ディレクトリに入ります。静的リソースをアプリケーションからリンクすることもできます。以下の例ではJavaScriptソースをリンクしています:
 
 {code:xml}
 <g:resource dir="js" file="mycode.js" />
 {code}
 
-When you run the plugin in development mode the link to the resource will resolve to something like @/js/mycode.js@. However, when the plugin is installed into an application the path will automatically change to something like @/plugin/example-0.1/js/mycode.js@ and Grails will deal with making sure the resources are in the right place.
+{hidden}When you run the plugin in development mode the link to the resource will resolve to something like @/js/mycode.js@. However, when the plugin is installed into an application the path will automatically change to something like @/plugin/example-0.1/js/mycode.js@ and Grails will deal with making sure the resources are in the right place.{hidden}
 
-There is a special @pluginContextPath@ variable that can be used whilst both developing the plugin and when in the plugin is installed into the application to find out what the correct path to the plugin is.
+プラグインを開発モード(development mode)で実行するときは、このようなリソースへのリンクは@/js/mycode.js@などに解決されます。しかし、プラグインがアプリケーションにインストールされたときは、パスは自動的に@/plugin/example-0.1/js/mycode.js@のように自動的に変換され、Grailsはリソースを正しく扱うことができます。
 
-At runtime the @pluginContextPath@ variable will either evaluate to an empty string or @/plugins/example@ depending on whether the plugin is running standalone or has been installed in an application
+{hidden}There is a special @pluginContextPath@ variable that can be used whilst both developing the plugin and when in the plugin is installed into the application to find out what the correct path to the plugin is.{hidden}
 
-Java and Groovy code that the plugin provides within the lib and @src/java@ and @src/groovy@ directories will be compiled into the main project's @web-app/WEB-INF/classes@ directory so that they are made available at runtime.
+プラグイン開発モードと、プラグインがアプリケーションにインストールされている場合のいずれにおいても、plugin.jsの正しいパスを見付けるのに、そのための@pluginContextPath@変数を使用できます。
+
+{hidden}At runtime the @pluginContextPath@ variable will either evaluate to an empty string or @/plugins/example@ depending on whether the plugin is running standalone or has been installed in an application{hidden}
+
+スタンドアローン実行中かアプリケーションにインストールされているかによって、@pluginContextPath@変数は空文字列もしくは@/plugins/example@のいずれかに実行時に評価されます。
+
+{hidden}Java and Groovy code that the plugin provides within the lib and @src/java@ and @src/groovy@ directories will be compiled into the main project's @web-app/WEB-INF/classes@ directory so that they are made available at runtime.{hidden}
+
+プラグインが提供する、libや@src/java@や@src/groovy@ディレクトリ配下にあるJavaやGroovyコードは、実行時に利用できるようにメインプロジェクトの@web-app/WEB-INF/classes@ディレクトリ配下にコンパイルされます。

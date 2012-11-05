@@ -267,14 +267,14 @@ plugins:
   understandingPluginStructure: プラグイン構造を理解する
   providingBasicArtefacts: 基本アーティファクトの提供
   evaluatingConventions: 規約の評価
-  hookingIntoBuildEvents: ビルドイベントフック
+  hookingIntoBuildEvents: ビルドイベントのフック
   hookingIntoRuntimeConfiguration: ランタイム設定へのフック
-  addingDynamicMethodsAtRuntime: 起動時のダイナミックメソッド追加
+  addingDynamicMethodsAtRuntime: 実行時のダイナミックメソッド追加
   participatingInAutoReloadEvents: 自動リロードイベントへの参加
   understandingPluginLoadOrder: プラグインのロード順を理解する
   artefactApi:
     title: アーテファクトAPI
-    queryingArtefacts: 使用可能なアーテファクトを探す
+    queryingArtefacts: 使用可能なアーテファクトの検索
     customArtefacts: アーテファクト型の追加
   binaryPlugins: バイナリープラグイン
 webServices:
