@@ -1,10 +1,12 @@
-h4. Adding a new Script
+{hidden}h4. Adding a new Script{hidden}
 
-A plugin can add a new script simply by providing the relevant Gant script in its scripts directory:
+{hidden}A plugin can add a new script simply by providing the relevant Gant script in its scripts directory:{hidden}
+
+プラグインのscriptディレクトリ配下に関連するGantスクリプトを置くことで、プラグインは新しいスクリプトを追加することができます:
 
 {code:java}
 + MyPlugin.groovy
-   + scripts     <-- additional scripts here
+   + scripts     <-- ここにスクリプトを追加する
    + grails-app
         + controllers
         + services
@@ -12,38 +14,58 @@ A plugin can add a new script simply by providing the relevant Gant script in it
     + lib
 {code}
 
-h4. Adding a new grails-app artifact (Controller, Tag Library, Service, etc.)
+{hidden}h4. Adding a new grails-app artifact (Controller, Tag Library, Service, etc.){hidden}
 
-A plugin can add new artifacts by creating the relevant file within the @grails-app@ tree. Note that the plugin is loaded from where it is installed and not copied into the main application tree.
+h4. Grails-appアーテファクト(Controller, Tag Library, Service, 他)の追加
+
+
+{hidden}A plugin can add new artifacts by creating the relevant file within the @grails-app@ tree. Note that the plugin is loaded from where it is installed and not copied into the main application tree.{hidden}
+
+@grails-app@配下のツリーに関連するファイルを置いておくことで、プラグインは新しいアーテファクトを追加することができます。プラグインはインストールされた場所から読み込まれるのであって、メインアプリのツリー中にコピーされるわけではないことに留意して下さい。
 
 {code:java}
 + ExamplePlugin.groovy
    + scripts
    + grails-app
-        + controllers  <-- additional controllers here
-        + services <-- additional services here
-        + etc.  <-- additional XXX here
+        + controllers  <-- コントローラを追加するのはここ。
+        + services <-- サービスを追加するのはここ。
+        + etc.  <-- 他も同様。
     + lib
 {code}
 
-h4. Providing Views, Templates and View resolution
+{hidden}h4. Providing Views, Templates and View resolution{hidden}
+h4. ビューとテンプレートの提供、そしてビューの解決
 
-When a plugin provides a controller it may also provide default views to be rendered. This is an excellent way to modularize your application through plugins. Grails' view resolution mechanism will first look for the view in the application it is installed into and if that fails will attempt to look for the view within the plugin. This means that you can override views provided by a plugin by creating corresponding GSPs in the application's @grails-app/views@ directory.
+{hidden}When a plugin provides a controller it may also provide default views to be rendered. This is an excellent way to modularize your application through plugins. Grails' view resolution mechanism will first look for the view in the application it is installed into and if that fails will attempt to look for the view within the plugin. This means that you can override views provided by a plugin by creating corresponding GSPs in the application's @grails-app/views@ directory.{hidden}
 
-For example, consider a controller called @BookController@ that's provided by an 'amazon' plugin. If the action being executed is @list@, Grails will first look for a view called @grails-app/views/book/list.gsp@ then if that fails it will look for the same view relative to the plugin.
+プラグインがコントローラを提供するときは、レンダリングされるデフォルトのビューを提供しても構いません。これはアプリケーションをプラグインに分割するのに優れた方法です。
 
-However if the view uses templates that are also provided by the plugin then the following syntax may be necessary:
+Grailsのビュー解決機構は、最初にプラグインがインストールされた親アプリケーション中のビューを探し、見付からなければプラグイン自身のビューを探してみます。これが意味するのは、アプリケーションの@grails-app/views@ディレクトリ中に対応するGSPを定義しておくことで、プラグインが提供するビューを上書きすることができるということです。
+
+{hidden}For example, consider a controller called @BookController@ that's provided by an 'amazon' plugin. If the action being executed is @list@, Grails will first look for a view called @grails-app/views/book/list.gsp@ then if that fails it will look for the same view relative to the plugin.{hidden}
+
+例えば、「アマゾン」プラグインが提供する@BookController@を考えてみて下さい。もし@list@アクションが実行されたなら、Grailsは最初に@grails-app/views/book/list.gsp@を検索し、それに失敗した場合にプラグインディレクトリから相対的に同じ位置にあるビューを検索します。
+
+{hidden}However if the view uses templates that are also provided by the plugin then the following syntax may be necessary:{hidden}
+
+しかしながら、同じくプラグインが提供するテンプレートをビューが使用しているときには、以下の構文が必要になります:
 
 {code}
 <g:render template="fooTemplate" plugin="amazon"/>
 {code}
 
-Note the usage of the @plugin@ attribute, which contains the name of the plugin where the template resides. If this is not specified then Grails will look for the template relative to the application.
+{hidden}Note the usage of the @plugin@ attribute, which contains the name of the plugin where the template resides. If this is not specified then Grails will look for the template relative to the application.{hidden}
 
-h4. Excluded Artefacts
+@plugin@属性でテンプレートがあるプラグインの名前を指定することに注意下さい。もしこれがなければ、Grailsはアプリケーション相対でテンプレートを探します。
 
-By default Grails excludes the following files during the packaging process:
+{hidden}h4. Excluded Artefacts{hidden}
+h4. アーテファクトを除外する
 
+{hidden}By default Grails excludes the following files during the packaging process:{hidden}
+
+デフォルトでは、Grailsはプラグインのパッケージングの過程で以下のファイルを除外します:
+
+{hidden}
 * @grails-app/conf/BootStrap.groovy@
 * @grails-app/conf/BuildConfig.groovy@ (although it is used to generate @dependencies.groovy@)
 * @grails-app/conf/Config.groovy@
@@ -54,18 +76,48 @@ By default Grails excludes the following files during the packaging process:
 * Everything within @/web-app/plugins/\*\*@
 * Everything within @/test/\*\*@
 * SCM management files within @\*\*/.svn/\*\*@ and @\*\*/CVS/\*\*@
+{hidden}
 
-If your plugin requires files under the @web-app/WEB-INF@ directory it is recommended that you modify the plugin's @scripts/_Install.groovy@ Gant script to install these artefacts into the target project's directory tree.
+* @grails-app/conf/BootStrap.groovy@
+* @grails-app/conf/BuildConfig.groovy@ (この情報は@dependencies.groovy@の生成に用いられるが、BuildConfig自体は含められない)
+* @grails-app/conf/Config.groovy@
+* @grails-app/conf/DataSource.groovy@ (その他の@*DataSource.groovy@も同様)
+* @grails-app/conf/UrlMappings.groovy@
+* @grails-app/conf/spring/resources.groovy@
+* @/web-app/WEB-INF@中のすべて
+* @/web-app/plugins/\*\*@中のすべて
+* @/test/\*\*@中のすべて
+* @\*\*/.svn/\*\*@と@\*\*/CVS/\*\*@中のSCMが管理するファイル
 
-In addition, the default @UrlMappings.groovy@ file is excluded to avoid naming conflicts, however you are free to add a UrlMappings definition under a different name which *will* be included. For example a file called @grails-app/conf/BlogUrlMappings.groovy@ is fine.
+{hidden}If your plugin requires files under the @web-app/WEB-INF@ directory it is recommended that you modify the plugin's @scripts/_Install.groovy@ Gant script to install these artefacts into the target project's directory tree.{hidden}
 
-The list of excludes is extensible with the @pluginExcludes@ property:
+もしプラグインが@web-app/WEB-INF@ディレクトリ配下のファイルを必要とするなら、プラグインディレクトリの@scripts/_Install.groovy@Gantスクリプトを修正し、それらのアーテファクトをターゲットのプロジェクトのディレクトリツリーにコピーするようにすることをお勧めします。
 
+{hidden}In addition, the default @UrlMappings.groovy@ file is excluded to avoid naming conflicts, however you are free to add a UrlMappings definition under a different name which *will* be included. For example a file called @grails-app/conf/BlogUrlMappings.groovy@ is fine.{hidden}
+
+加えて、名前衝突を避けるため、デフォルトでは@UrlMappings.groovy@ファイルは除外されていますが、「UrlMapping」が含まれる異なる名前のUrlMappings定義を追加するのは構いません。例えば、@grails-app/conf/BlogUrlMappings.groovy@などの名前にしておくと良いでしょう。
+
+{hidden}The list of excludes is extensible with the @pluginExcludes@ property:{hidden}
+
+除外リストは@pluginExcludes@プロパティで拡張することができます:
+
+{hidden}
 {code}
 // resources that are excluded from plugin packaging
 def pluginExcludes = [
     "grails-app/views/error.gsp"
 ]
 {code}
+{hidden}
 
-This is useful for example to include demo or test resources in the plugin repository, but not include them in the final distribution.
+{code}
+// プラグインのパッケージングからは除外するリソース
+def pluginExcludes = [
+    "grails-app/views/error.gsp"
+]
+{code}
+
+
+{hidden}This is useful for example to include demo or test resources in the plugin repository, but not include them in the final distribution.{hidden}
+
+この指定は、デモやテスト用リソースとしてプラグインのソースリポジトリには含めたいが、プラグインとしての最終配布物には含めたくない、という場合に有用でしょう。

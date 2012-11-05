@@ -1,6 +1,9 @@
-h4. Monitoring Resources for Changes
+{hidden}h4. Monitoring Resources for Changes{hidden}
+h4. リソース変更の監視
 
-Often it is valuable to monitor resources for changes and perform some action when they occur. This is how Grails implements advanced reloading of application state at runtime. For example, consider this simplified snippet from the Grails @ServicesPlugin@:
+{hidden}Often it is valuable to monitor resources for changes and perform some action when they occur. This is how Grails implements advanced reloading of application state at runtime. For example, consider this simplified snippet from the Grails @ServicesPlugin@:{hidden}
+
+リソース変更を監視し、変更された場合に何らかのアクションを実行することが便利なときがあります。この方法を用いて、Grailsではアプリケーションの状態が実行時に変化したときに高度なリローディングを行っています。例えば、@ServicesPlugin@のにあるものを単純化した以下のコード断片を見てください:
 
 {code:java}
 class ServicesGrailsPlugin {
@@ -27,44 +30,76 @@ class ServicesGrailsPlugin {
 }
 {code}
 
-First it defines @watchedResources@ as either a String or a List of strings that contain either the references or patterns of the resources to watch. If the watched resources specify a Groovy file, when it is changed it will automatically be reloaded and passed into the @onChange@ closure in the @event@ object.
+{hidden}First it defines @watchedResources@ as either a String or a List of strings that contain either the references or patterns of the resources to watch. If the watched resources specify a Groovy file, when it is changed it will automatically be reloaded and passed into the @onChange@ closure in the @event@ object.{hidden}
 
-The @event@ object defines a number of useful properties:
+最初に@watchedResources@変数を定義していますが、これは監視対象としたいリソースへの参照もしくはパターンを含む、文字列もしくは文字列のリストです。もし監視されるリソースがGroovyファイルを指定しているのであれば、それが変更されたときには自動的にリロードが実行されます。そして、@onChange@クロージャが呼び出され、Groovyファイルはその引数である@event@オブジェクト中に設定されます:
 
+{hidden}The @event@ object defines a number of useful properties:{hidden}
+
+@event@オブジェクトは多数の有用なプロパティを含んでいます:
+
+{hidden}
 * @event.source@ - The source of the event, either the reloaded @Class@ or a Spring @Resource@
 * @event.ctx@ - The Spring @ApplicationContext@ instance
 * @event.plugin@ - The plugin object that manages the resource (usually @this@)
 * @event.application@ - The @GrailsApplication@ instance
 * @event.manager@ - The @GrailsPluginManager@ instance
+{hidden}
 
-These objects are available to help you apply the appropriate changes based on what changed. In the "Services" example above, a new service bean is re-registered with the @ApplicationContext@ when one of the service classes changes.
+* @event.source@ - イベントの発生元。リロードされた@Class@もしくはSpring @Resource@。
+* @event.ctx@ - Spring @ApplicationContext@インスタンス
+* @event.plugin@ - このリソースを管理しているプラグインオブジェクト(通常@this@)。
+* @event.application@ - @GrailsApplication@インスタンス
+* @event.manager@ - @GrailsPluginManager@インスタンス
 
-h4. Influencing Other Plugins
+{hidden}These objects are available to help you apply the appropriate changes based on what changed. In the "Services" example above, a new service bean is re-registered with the @ApplicationContext@ when one of the service classes changes.{hidden}
 
-In addition to reacting to changes, sometimes a plugin needs to "influence" another.
+何が変更されたかによって異なる適切な変更をするためには、これらのオブジェクトが利用可能です。前述のサービスの例においては、サービスクラスが変更されたとき、新しいサービスビーンが@ApplicationContext@において再登録されます。
 
-Take for example the Services and Controllers plugins. When a service is reloaded, unless you reload the controllers too, problems will occur when you try to auto-wire the reloaded service into an older controller Class.
+{hidden}h4. Influencing Other Plugins{hidden}
 
-To get around this, you can specify which plugins another plugin "influences". This means that when one plugin detects a change, it will reload itself and then reload its influenced plugins. For example consider this snippet from the @ServicesGrailsPlugin@:
+h4. 他のプラグインに影響を及ぼす
+
+{hidden}In addition to reacting to changes, sometimes a plugin needs to "influence" another.{hidden}
+
+変更に対してリアクションするのに加え、プラグインは他のプラグインに「影響を及ぼす」必要があるときがあります。
+
+{hidden}Take for example the Services and Controllers plugins. When a service is reloaded, unless you reload the controllers too, problems will occur when you try to auto-wire the reloaded service into an older controller Class.{hidden}
+
+サービスとコントローラのプラグインを例にとりましょう。サービスがリロードされた場合、コントローラもリロードしなければ、リロードされたサービスを古いコントローラクラスにオートワイヤ(auto-wire)するときに問題が発生するでしょう。
+
+{hidden}To get around this, you can specify which plugins another plugin "influences". This means that when one plugin detects a change, it will reload itself and then reload its influenced plugins. For example consider this snippet from the @ServicesGrailsPlugin@:{hidden}
+
+この問題を回避するために、どのプラグインが他のプラグインに「影響を及ぼす」のかを指定することができます。これが意味するのは、あるプラグインが変更を検出したとき、そのプラグイン自身がリロードされた後に、それが「影響を及ぼしている」プラグインもリロードされるということです。例えば、@ServicesGrailsPlugin@にある以下のコード断片を考えてみましょう:
 
 {code:java}
 def influences = ['controllers']
 {code}
 
-h4. Observing other plugins
+{hidden}h4. Observing other plugins{hidden}
 
-If there is a particular plugin that you would like to observe for changes but not necessary watch the resources that it monitors you can use the "observe" property:
+h4. 他のプラグインを観察する
+
+{hidden}If there is a particular plugin that you would like to observe for changes but not necessary watch the resources that it monitors you can use the "observe" property:{hidden}
+
+変更を観察したい特定のプラグインがあり、そのプラグインが監視するリソースを監視する必要がないなら、「observe」プロパティを使うことができます:
 
 {code:java}
 def observe = ["controllers"]
 {code}
 
-In this case when a controller is changed you will also receive the event chained from the controllers plugin.
+{hidden}In this case when a controller is changed you will also receive the event chained from the controllers plugin.{hidden}
 
-It is also possible for a plugin to observe all loaded plugins by using a wildcard:
+この場合、コントローラが変更されたとき、あなたのプラグインもコントローラプラグインから連鎖したイベントを受け取ります。
+
+{hidden}It is also possible for a plugin to observe all loaded plugins by using a wildcard:{hidden}
+
+ワイルドカードを使えば、すべてのプラグインの変更を監視することも可能です:
 
 {code:java}
 def observe = ["*"]
 {code}
 
-The Logging plugin does exactly this so that it can add the @log@ property back to _any_ artefact that changes while the application is running.
+{hidden}The Logging plugin does exactly this so that it can add the @log@ property back to _any_ artefact that changes while the application is running.{hidden}
+
+ロギングプラグインはちょうどこのようなことを行なっており、アプリの実行中に変更があった _任意の_ アーティファクトに@log@プロパティを設定し直しています。
