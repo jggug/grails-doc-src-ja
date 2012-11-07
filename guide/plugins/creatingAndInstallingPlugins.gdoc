@@ -86,17 +86,10 @@ You can also provide additional information about your plugin using several spec
 {hidden}
 
 * @title@ - このプラグインを説明する短い一文。
-<<<<<<< HEAD
 * @version@ - このプラグインのバージョン。例えば「0.1」「0.2-SNAPSHOT」「1.1.4」などの有効な値。
 * @grailsVersion@ - プラグインがサポートするGrailsのバージョンを、バージョン範囲で指定する。例えば「1.2 > *」(これは「1.2以上」であることを示す)
 * @author@ - プラグインの開発者名
 * @authorEmail@ - プラグイン開発者に連絡するためのe-mailアドレス
-=======
-* @version@ - このプラグインのバージョン。例えば「0.1」、「0.2-SNAPSHOT」、「1.1.4」などの有効な値。
-* @grailsVersion@ - プラグインがサポートするGrailsのバージョンを、バージョン範囲で指定する。例えば「1.2 > *」(これは「1.2以上」であることを示す)
-* @author@ - プラグインの開発者名
-* @authorEmail@ - プラグイン開発者にコンタクトするためのe-mailアドレス
->>>>>>> update merge
 * @description@ - 複数行に渡るプラグイン機能のフル説明
 * @documentation@ - プラグインのドキュメントへのURL
 
@@ -144,11 +137,7 @@ grails package-plugin
 This will create a zip file of the plugin starting with @grails-@ then the plugin name and version. For example with the example plugin created earlier this would be @grails-example-0.1.zip@. The @package-plugin@ command will also generate a @plugin.xml@ file which contains machine-readable information about plugin's name, version, author, and so on.
 {hidden}
 
-<<<<<<< HEAD
 これで「@grails-@」で始まり「プラグイン名+バージョン」が続くファイル名で、このプラグインのzipファイルが作成されます。例えば、先ほど作成したexampleプラグインでは@grails-example-0.1.zip@が作成されます。@package-plugin@コマンドはプラグインに関するマシンリーダブルな情報(プラグイン名やバージョン、作者など)を含む@plugin.xml@ファイルも生成します。
-=======
-これで「@grails-@」で始まり、「プラグイン名+バージョン」が続くファイル名で、このプラグインのzipファイルが作成されます。例えば、先ほど作成したexampleプラグインでは@grails-example-0.1.zip@が作成されます。@package-plugin@コマンドはプラグインに関するマシンリーダブルな情報(プラグイン名やバージョン、作者など)を含む@plugin.xml@ファイルも生成します。
->>>>>>> update merge
 
 {hidden}
 Once you have a plugin distribution file you can navigate to a Grails project and run:
@@ -210,11 +199,7 @@ Although the [create-plugin|commandLine] command creates certain files for you s
 If you need artefacts within @WEB-INF@ it is recommended you use the @_Install.groovy@ script (covered later), which is executed when a plugin is installed, to provide such artefacts. In addition, although @UrlMappings.groovy@ is excluded you are allowed to include a @UrlMappings@ definition with a different name, such as @MyPluginUrlMappings.groovy@.
 {hidden}
 
-<<<<<<< HEAD
 アーテファクトを@WEB-INF@に含める必要がある場合には、プラグインインストール時に実行されるスクリプトである@_Install.groovy@スクリプト(後述)を使用することがお勧めです。なお、除外対象アーティファクトである@UrlMappings.groovy@は除外されますが、@UrlMappings@情報は「@MyPluginUrlMappings.groovy@」などの異なる名前にしておけば、含めることができます。
-=======
-もし、アーテファクトを@WEB-INF@に含める必要があるならば、プラグインがインストールされるときに実行されるスクリプトである@_Install.groovy@スクリプト(後述)を使用することがお勧めです。なお、除外対象アーティファクトである@UrlMappings.groovy@は除外されますが、@UrlMappings@情報は「@MyPluginUrlMappings.groovy@」などの異なる名前にしておけば、含めることができます。
->>>>>>> update merge
 
 {hidden}
 h4. Specifying Plugin Locations
@@ -226,11 +211,7 @@ h4. プラグイン位置の指定
 An application can load plugins from anywhere on the file system, even if they have not been installed. Specify the location of the (unpacked) plugin in the application's @grails-app/conf/BuildConfig.groovy@ file:
 {hidden}
 
-<<<<<<< HEAD
 アプリケーションは、ファイルシステム上の任意の場所にあるプラグインをロードできますし、インストールしていないプラグインをロードすることさえも可能です。そのためには、アプリケーションの@grails-app/conf/BuildConfig.groovy@設定ファイルに、パッケージされていないプラグインのディレクトリを以下のように指定します:
-=======
-アプリケーションは、ファイルシステム上の任意の場所にあるプラグインをロードできますし、インストールしていないプラグインさえもロードすることも可能です。そのためには、アプリケーションの@grails-app/conf/BuildConfig.groovy@設定ファイルに、パッケージされていないプラグインのディレクトリを以下のように指定します:
->>>>>>> update merge
 
 {hidden}
 {code:java}
@@ -261,17 +242,10 @@ This is particularly useful in two cases:
 * You have split an application into a set of plugins and an application, all in the same "super-project" directory.
 {hidden}
 
-<<<<<<< HEAD
 これが特に便利なのは、以下の2つの場合です:
 
 * 開発中のプラグインを、パッケージ化とインストールをスキップして、実アプリケーションにすぐに組み込んでテストしたいとき。
 * アプリケーションが複数のプラグイン群に分割されており、それらすべてが同じ「スーパープロジェクト」ディレクトリ配下にある場合。
-=======
-パッケージ化していないプラグインをこのようにアプリから呼び出すことが特に便利なのは、以下の2つの場合です:
-
-* 開発中のプラグインを、パッケージ化とインストールせずに実アプリケーションに組み込んでテストしたいとき。
-* アプリケーションが複数のプラグイン群に分割されており、それらすべてが「スーパープロジェクト」ディレクトリにある場合。
->>>>>>> update merge
 
 {hidden}
 h4. Global plugins
@@ -283,11 +257,7 @@ h4. グローバルプラグイン
 Plugins can also be installed globally for all applications for a particular version of Grails using the @\-global@ flag, for example:
 {hidden}
 
-<<<<<<< HEAD
 @grails insatll-plugin@コマンドの実行時に@\-global@オプションを指定すると、プラグインは特定バージョンのGrailsごとに「グローバルに」インストールすることができます(訳注:@\-global@を指定しないと、プラグインはアプリごとにインストールされる。つまり複数のアプリであれば、それぞれ用にプラグインが別個にコピーされる)。以下は例です:
-=======
-@grails insatll-plugin@コマンドの実行時に、@\-global@オプションを指定すると、プラグインは特定バージョンのGrailsのアプリケーション間で共有されるように、グローバルにインストールすることができます(訳注:@\-global@を指定しないとプラグインはアプリごとにインストールされる。複数のアプリであれば、それぞれにプラグインのコピーが別にインストールされる)。以下は例です:
->>>>>>> update merge
 
 {code}
 grails install-plugin webtest -global
