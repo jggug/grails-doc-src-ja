@@ -2,7 +2,10 @@ h1. stats
 
 h2. 目的 {hidden}Purpose{hidden}
 
+アプリケーション内のファイル数や行数など、基本的な統計情報を表示します。
+{hidden}
 Displays basic statistics about the current Grails application, including number of files, line count and so on
+{hidden}
 
 h2. 使用例 {hidden}Examples{hidden}
 
