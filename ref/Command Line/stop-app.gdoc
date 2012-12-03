@@ -1,0 +1,19 @@
+h1. stop-app
+
+h2. 目的 {hidden}Purpose{hidden}
+
+Stops the Grails container started as a background process using [Forked Mode|guide:forkedMode]
+
+
+h2. 使用例 {hidden}Examples{hidden}
+
+{code:java}
+grails stop-app
+{code}
+
+h2. 詳細 {hidden}Description{hidden}
+
+Usage:
+{code:java}
+grails stop-app
+{code}

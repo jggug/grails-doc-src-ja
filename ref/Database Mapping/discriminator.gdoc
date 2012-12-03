@@ -23,6 +23,7 @@ class PodCast extends Content {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @discriminator(string/map)@{hidden}
 使用方法: {hidden}Usage:{hidden} @discriminator(string/map)@
 
 引数: {hidden}Arguments:{hidden}

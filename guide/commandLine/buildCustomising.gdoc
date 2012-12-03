@@ -45,6 +45,7 @@ userHome | The user's home directory.
 grailsHome | The location of the Grails installation in use (may be @null@).
 grailsVersion | The version of Grails being used by the project.
 grailsEnv | The current Grails environment.
+config | The configuration settings defined in the project's @BuildConfig.groovy@ file. Access properties in the same way as you access runtime settings: @grailsSettings.config.foo.bar.hello@.
 compileDependencies | A list of compile-time project dependencies as @File@ instances.
 testDependencies | A list of test-time project dependencies as @File@ instances.
 runtimeDependencies | A list of runtime-time project dependencies as @File@ instances.
@@ -58,6 +59,7 @@ userHome | ユーザーのホームディレクトリ。
 grailsHome | 使用中のGrailsのインストール先（@null@の場合あり）。
 grailsVersion | プロジェクトで使用されているGrailsのバージョン。
 grailsEnv | 現在のGrails環境。
+config | プロジェクトの @BuildConfig.groovy@ に定義された設定。ランタイム時と同様にプロパティにアクセスできます: @grailsSettings.config.foo.bar.hello@
 compileDependencies | コンパイル時のプロジェクト依存関係のFileインスタンスのリスト。
 testDependencies | テスト時のプロジェクト依存関係のFileインスタンスのリスト。
 runtimeDependencies | 実行時のプロジェクト依存関係のFileインスタンスのリスト。
@@ -95,7 +97,7 @@ h3. 使用可能なビルド設定 {hidden}Available build settings {hidden}
  grails.server.port.http | Port to run the embedded servlet container on ("run-app" and "run-war"). Integer.
  grails.server.port.https | Port to run the embedded servlet container on for HTTPS ("run-app \-\-https" and "run-war \-\-https"). Integer.
  grails.config.base.webXml | Path to a custom web.xml file to use for the application (alternative to using the web.xml template).
- grails.compiler.dependencies | Legacy approach to adding extra dependencies to the compiler classpath. Set it to a closure containing "fileset()" entries. These entries will be processed by an @AntBuilder@ so the syntax is the Groovy form of the corresponding XML elements in an Ant build file, e.g. @fileset(dir: "$basedir/lib", include: "\*\*/\*.class)@.
+ grails.compiler.dependencies | Legacy approach to adding extra dependencies to the compiler classpath. Set it to a closure containing "fileset()" entries. These entries will be processed by an @AntBuilder@ so the syntax is the Groovy form of the corresponding XML elements in an Ant build file, e.g. @fileset(dir: "$basedir/lib", includes: "\*\*/\*.class")@.
  grails.testing.patterns | A list of Ant path patterns that let you control which files are included in the tests. The patterns should not include the test case suffix, which is set by the next property.
  grails.testing.nameSuffix | By default, tests are assumed to have a suffix of "Tests". You can change it to anything you like but setting this option. For example, another common suffix is "Test".
  grails.project.war.file | A string containing the file path of the generated WAR file, along with its full name (include extension). For example, "target/my-app.war".
@@ -121,3 +123,6 @@ h3. 使用可能なビルド設定 {hidden}Available build settings {hidden}
  grails.project.web.xml | Grailsがweb.xmlを生成する場所の指定。
 {table}
 
+h3. リローディングエージェントキャッシュディレクトリ{hidden}Reloading Agent Cache Directory{hidden}
+
+Grails uses an agent based reloading system in the development environment that allows source code changes to be picked up while the application is running.  This reloading agent caches information needed to carry out the reloading efficiently.  By default this information is stored under @\<USER_HOME_DIR\>\/.grails\/.slcache\/@.  The @GRAILS_AGENT_CACHE_DIR@ environment variable may be assigned a value to cause this cache information to be stored somewhere else.  Note that this is an operating system environment variable, not a JVM system property or a property which may be defined in @BuildConfig.groovy@.  This setting must be defined as an environment variable because the agent cache directory must be configured very early in the JVM startup process, before any Grails code is executed.

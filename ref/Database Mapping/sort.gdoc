@@ -17,6 +17,7 @@ class Book {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @sort(string/map)@{hidden}
 使用方法: {hidden}Usage:{hidden} @sort(string/map)@
 
 By default results are sorted by creation date, and you can specify the column to order by in a query:

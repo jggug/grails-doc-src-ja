@@ -19,6 +19,7 @@ class Author {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @association_name(fetch:string)@{hidden}
 使用方法: {hidden}Usage:{hidden} @association_name(fetch:string)@
 
 引数: {hidden}Arguments:{hidden}

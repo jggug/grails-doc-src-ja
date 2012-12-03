@@ -17,6 +17,7 @@ class Book {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @version(string/boolean)@{hidden}
 使用方法: {hidden}Usage:{hidden} @version(string/boolean)@
 
 By default GORM is configured with [optimistic locking|guide:locking] enabled. You can disable this by calling the @version@ method with an argument of @false@:

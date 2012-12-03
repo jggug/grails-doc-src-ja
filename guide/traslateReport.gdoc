@@ -2,18 +2,11 @@
 h1. Document Translation Report.
 
 * *File Count* - 266
-* *Done* - 131
-* *TODO* - 133
+* *Done* - 143
+* *TODO* - 121
 * *Not found or new* - 2
 
 h2. Original document updated after translation.:
-
-*./guide/theWebLayer/gsp/tags/tagVariablesAndScopes.gdoc*
-
-{code}
-15 : The assigned value can also be a bean from the applicationContext:
-18 : <g:set var="bookService" bean="bookService" />
-{code}
 
 *./guide/gettingStarted/aHelloWorldExample.gdoc*
 
@@ -32,66 +25,6 @@ h2. Original document updated after translation.:
 46 : The result will look something like this:
 50 : This is the Grails intro page which is rendered by the @grails-app/view/index.gsp@ file. It detects the presence of your controllers and provides links to them. You can click on the "HelloController" link to see our custom page containing the text "Hello World\!". Voila\! You have your first working Grails application.
 52 : One final thing: a controller can contain many actions, each of which corresponds to a different page (ignoring AJAX at this point). Each page is accessible via a unique URL that is composed from the controller name and the action name: /<appname>/<controller>/<action>. This means you can access the Hello World page via [/helloworld/hello/index|http://localhost:8080/helloworld/hello/index], where 'hello' is the controller name (remove the 'Controller' suffix from the class name and lower-case the first letter) and 'index' is the action name. But you can also access the page via the same URL without the action name: this is because 'index' is the _default action_. See the end of the [controllers and actions|guide:understandingControllersAndActions] section of the user guide to find out more on default actions.
-{code}
-
-*./guide/theWebLayer/controllers/dataBinding.gdoc*
-
-{code}
-182: Since "bogusValue" cannot be converted to type int, the value of accountType will be zero, the controller's @errors.hasErrors()@ will be true, the controller's @errors.errorCount@ will be equal to 1 and the controller's @errors.getFieldError('accountType')@ will contain the corresponding error.
-272: bindData(p, params, [include: ['firstName', 'lastName']])
-{code}
-
-*./guide/gettingStarted/ide.gdoc*
-
-{code}
-5  : IntelliJ IDEA comes in two flavours; the open source "Community Edition" and the commercial "Ultimate Edition".
-6  : Both offers support for Groovy, but only Ultimate Edition offers Grails support.
-8  : With Ultimate Edition, there is no need to use the @grails integrate-with --intellij@ command, as Ultimate Edition understands Grails projects natively. Just open the project with @File -> New Project -> Create project from existing sources@.
-10 : You can still use Community Edition for Grails development, but you will miss out on all the Grails specific features like automatic classpath management, GSP editor and quick access to Grails commands.
-11 : To integrate Grails with Community Edition run the following command to generate appropriate project files:
-{code}
-
-*./guide/upgradingFromPreviousVersionsOfGrails.gdoc*
-
-{code}
-3  : * @environment@ bean added by Spring 3.1, which will be auto-wired into properties of the same name.
-31 : * @beforeValidate()@ may be called two or more times during a request, for example once on save() and once just before the view is rendered.
-65 : Spring 3.1 adds a new bean with the name 'environment'. It's of type @Environment@ (in package @org.springframework.core.env@) and it will automatically be autowired into properties with the same name. This seems to cause particular problems with domain classes that have an @environment@ property. In this case, adding the method:
-67 : void setEnvironment(org.springframework.core.env.Environment env) \{\}
-69 : works around the problem.
-88 :         // Add HSQLDB as a runtime dependency
-206: As of Grails 2.0, constrained properties in command object classes are no longer nullable by default.  Nullable command object properties must be explicitly configured as such in the same way that nullable persistent properties in domain classes are configured.
-{code}
-
-*./guide/theWebLayer/taglibs/simpleTags.gdoc*
-
-{code}
-1  : As demonstrated in the previous example it is easy to write simple tags that have no body and just output content. Another example is a @dateFormat@ style tag:
-{code}
-
-*./guide/theWebLayer/webflow/flowExecutionEvents.gdoc*
-
-{code}
-20 : <g:form>
-26 : The form automatically submits back to the @shoppingCart@ flow. The name attribute of each [submitButton|tags] tag signals which event will be triggered. If you don't have a form you can also trigger an event with the [link|tags] tag as follows:
-29 : <g:link event="checkout" />\{code\}
-31 : \{note\}
-32 : Prior to 2.0.0, it was required to specify the controller and/or action in forms and links, which caused the url to change when entering a subflow state. When the controller and action are not specified,
-33 : all url's are relative to the main flow execution url, which makes your flows reusable as subflows and prevents issues with the browser's back button.
-34 : \{note\}
-{code}
-
-*./guide/commandLine/buildCustomising.gdoc*
-
-{code}
-29 : config | The configuration settings defined in the project's @BuildConfig.groovy@ file. Access properties in the same way as you access runtime settings: @grailsSettings.config.foo.bar.hello@.
-72 : Grails uses an agent based reloading system in the development environment that allows source code changes to be picked up while the application is running.  This reloading agent caches information needed to carry out the reloading efficiently.  By default this information is stored under @\<USER_HOME_DIR\>\/.grails\/.slcache\/@.  The @GRAILS_AGENT_CACHE_DIR@ environment variable may be assigned a value to cause this cache information to be stored somewhere else.  Note that this is an operating system environment variable, not a JVM system property or a property which may be defined in @BuildConfig.groovy@.  This setting must be defined as an environment variable because the agent cache directory must be configured very early in the JVM startup process, before any Grails code is executed.
-{code}
-
-*./guide/services/dependencyInjectionServices.gdoc*
-
-{code}
-57 : The default bean name which is associated with a service can be problematic if there are multiple services with the same name defined in different packages.  For example consider the situation where an application defines a service class named @com.demo.ReportingService@ and the application uses a plugin named @ReportingUtilities@ and that plugin provides a service class named @com.reporting.util.ReportingService@.  The default bean name for each of those would be @reportingService@ so they would conflict with each other.  Grails manages this by changing the default bean name for services provided by plugins by prefixing the bean name with the plugin name.  In the scenario described above the @reportingService@ bean would be an instance of the @com.demo.ReportingService@ class defined in the application and the @reportingUtilitiesReportingService@ bean would be an instance of the @com.reporting.util.ReportingService@ class provided by the @ReportingUtilities@ plugin.  For all service beans provided by plugins, if there are no other services with the same name within the application or other plugins in the application then a bean alias will be created which does not include the plugin name and that alias points to the bean referred to by the name that does include the plugin name prefix.  For example, if the @ReportingUtilities@ plugin provides a service named @com.reporting.util.AuthorService@ and there is no other @AuthorService@ in the application or in any of the plugins that the application is using then there will be a bean named @reportingUtilitiesAuthorService@ which is an instance of this @com.reporting.util.AuthorService@ class and there will be a bean alias defined in the context named @authorService@ which points to that same bean.
 {code}
 
 h2. Not done.
@@ -180,18 +113,6 @@ h2. Not done.
 * ../en/guide/hibernate/mappingWithHibernateAnnotations.gdoc
 * ../en/guide/hibernate/usingHibernateXMLMappingFiles.gdoc
 * ../en/guide/links.yml
-* ../en/guide/plugins/addingDynamicMethodsAtRuntime.gdoc
-* ../en/guide/plugins/artefactApi.gdoc
-* ../en/guide/plugins/artefactApi/customArtefacts.gdoc
-* ../en/guide/plugins/artefactApi/queryingArtefacts.gdoc
-* ../en/guide/plugins/evaluatingConventions.gdoc
-* ../en/guide/plugins/hookingIntoBuildEvents.gdoc
-* ../en/guide/plugins/hookingIntoRuntimeConfiguration.gdoc
-* ../en/guide/plugins/participatingInAutoReloadEvents.gdoc
-* ../en/guide/plugins/providingBasicArtefacts.gdoc
-* ../en/guide/plugins/repositories.gdoc
-* ../en/guide/plugins/understandingPluginLoadOrder.gdoc
-* ../en/guide/plugins/understandingPluginStructure.gdoc
 * ../en/guide/rewriteRules.txt
 * ../en/guide/scaffolding.gdoc
 * ../en/guide/security.gdoc

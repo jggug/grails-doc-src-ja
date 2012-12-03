@@ -22,6 +22,7 @@ class Book {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @association_name(updateable: boolean)@{hidden}
 使用方法: {hidden}Usage:{hidden} @association_name(updateable: boolean)@
 
 Useful in general where you don't want to update a value (or include the column in the generated SQL) during a @save()@.

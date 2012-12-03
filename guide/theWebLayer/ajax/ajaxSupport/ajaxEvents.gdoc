@@ -29,17 +29,17 @@
 * @onLoaded@ - レスポンスの読み込み完了時に呼び出すJavaScriptファンクション
 * @onComplete@ - リモートファンクションが完全に完了(更新を含む)したら呼び出すJavaScriptファンクション
 
-{hidden}If you need a reference to the @XmlHttpRequest@ object you can use the implicit event parameter @e@ to obtain it:{hidden}
-@XmlHttpRequest@オブジェクトを参照する場合は、以下のように、@e@等のイベントパラメータ使用して取得します:
+{hidden}If you need a reference to the @XmlHttpRequest@ object you can use the implicit event parameter @event@ to obtain it:{hidden}
+@XmlHttpRequest@オブジェクトを参照する場合は、以下のように、@event@等のイベントパラメータ使用して取得します:
 
 {code:xml}
 <g:javascript>
-    function fireMe(e) {
-        alert("XmlHttpRequest = " + e)
+    function fireMe(event) {
+        alert("XmlHttpRequest = " + event)
     }
 }
 </g:javascript>
 <g:remoteLink action="example"
               update="success"
-              onSuccess="fireMe(e)">Ajax Link</g:remoteLink>
+              onSuccess="fireMe(event)">Ajax Link</g:remoteLink>
 {code}

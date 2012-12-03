@@ -18,6 +18,7 @@ class Book {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @dynamicInsert(boolean)@{hidden}
 使用方法: {hidden}Usage:{hidden} @dynamicInsert(boolean)@
 
 By default Hibernate generates all queries at startup and caches them. This helps performance since insert, update, and delete queries don't have to be dynamically generated at runtime. However, there are certain circumstances where dynamic queries are useful.

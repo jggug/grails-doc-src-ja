@@ -26,6 +26,7 @@ class Thumbnail {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @association_name(ignoreNotFound: boolean)@{hidden}
 使用方法: {hidden}Usage:{hidden} @association_name(ignoreNotFound: boolean)@
 
 When the data in the database is corrupt and a foreign key references a non existent record, Hibernate will complain with a "No row with the given identifier exists" message. For example, a @LegacyCdDomain@ record may have a reference to a @Thumbnail@ record with an ID of 1234, but the database may no longer contain a @Thumbnail@ with that ID.

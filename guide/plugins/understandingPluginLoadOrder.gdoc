@@ -72,6 +72,8 @@ if (manager?.hasGrailsPlugin("controllers")) {
 }
 {code}
 
+{hidden}Here the Hibernate plugin will only register an @OpenSessionInViewInterceptor@ if the @controllers@ plugin has been loaded. The @manager@ variable is an instance of the [GrailsPluginManager|api:org.codehaus.groovy.grails.plugins.GrailsPluginManager] interface and it provides methods to interact with other plugins.{hidden}
+
 ここではHibernateプラグインは、@controllers@プラグインがロードされてれば、@OpenSessionInViewInterceptor@だけを登録します。@manager@変数は[GrailsPluginManager|api:org.codehaus.groovy.grails.plugins.GrailsPluginManager]インターフェースのインスタンスであり、他のプラグインと相互作用するためのメソッドを提供しています。
 
 {hidden}You can also use the @loadBefore@ property to specify one or more plugins that your plugin should load before:{hidden}

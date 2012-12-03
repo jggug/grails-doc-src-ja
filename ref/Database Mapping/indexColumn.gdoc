@@ -25,6 +25,7 @@ neo.save(flush: true)
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @association_name(indexColumn:map)@{hidden}
 使用方法: {hidden}Usage:{hidden} @association_name(indexColumn:map)@
 
 引数: {hidden}Arguments:{hidden}

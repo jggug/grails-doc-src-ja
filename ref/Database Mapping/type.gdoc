@@ -37,6 +37,7 @@ class Book {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @association_name(type:string/class)@{hidden}
 使用方法: {hidden}Usage:{hidden} @association_name(type:string/class)@
 
 Hibernate will attempt to automatically select the appropriate database type from the field typed based on configuration in the @Dialect@ class that is being used. But you can override the defaults if necessary. For example @String@ values are mapped by default to @varchar(255)@ columns. To store larger @String@ values you can use a @text@ type instead:

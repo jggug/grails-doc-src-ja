@@ -14,6 +14,12 @@ GSPでは変数を[set|tags]タグで定義することができます:
 </g:set>
 {code}
 
+{hidden}The assigned value can also be a bean from the applicationContext:{hidden}
+applicationContextにあるビーンを変数定義することも可能です。
+{code:xml}
+<g:set var="bookService" bean="bookService" />
+{code}
+
 {hidden}Variables can also be placed in one of the following scopes:{hidden}
 変数は以下のいずれかのスコープに定義することができます:
 {hidden}

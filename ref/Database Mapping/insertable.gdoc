@@ -22,6 +22,7 @@ class Book {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @association_name(insertable: boolean)@{hidden}
 使用方法: {hidden}Usage:{hidden} @association_name(insertable: boolean)@
 
 Useful in general where you don't want to set an initial value (or include the column in the generated SQL) during an initial @save()@.

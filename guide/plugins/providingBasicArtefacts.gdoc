@@ -3,7 +3,7 @@
 {hidden}A plugin can add a new script simply by providing the relevant Gant script in its scripts directory:{hidden}
 
 プラグインのscriptディレクトリ配下に関連するGantスクリプトを置くことで、プラグインは新しいスクリプトを追加することができます:
-
+{hidden}   + scripts     <-- additional scripts here{hidden}
 {code:java}
 + MyPlugin.groovy
    + scripts     <-- ここにスクリプトを追加する
@@ -23,6 +23,11 @@ h4. Grails-appアーテファクト(Controller, Tag Library, Service, 他)の追
 
 @grails-app@配下のツリーに関連するファイルを置いておくことで、プラグインは新しいアーテファクトを追加することができます。プラグインはインストールされた場所から読み込まれるのであって、メインアプリのツリー中にコピーされるわけではないことに留意して下さい。
 
+{hidden}
+        + controllers  <-- additional controllers here
+        + services <-- additional services here
+        + etc.  <-- additional XXX here
+{hidden}
 {code:java}
 + ExamplePlugin.groovy
    + scripts

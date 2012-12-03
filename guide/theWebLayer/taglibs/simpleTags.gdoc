@@ -1,4 +1,4 @@
-{hidden}As demonstrated it the previous example it is easy to write simple tags that have no body and just output content. Another example is a @dateFormat@ style tag:{hidden}
+{hidden}As demonstrated in the previous example it is easy to write simple tags that have no body and just output content. Another example is a @dateFormat@ style tag:{hidden}
 前の説明で、簡単にコンテンツを出力するタグは簡単に記述できると説明しました。他の例として@dateFormat@タグを紹介します:
 
 {code:java}

@@ -19,6 +19,7 @@ class Book {
 
 h2. 詳細 {hidden}Description{hidden}
 
+{hidden}Usage: @association_name(lazy: boolean)@{hidden}
 使用方法: {hidden}Usage:{hidden} @association_name(lazy: boolean)@
 
 By default GORM single-ended associations are lazy in that when you load a domain instance, an associated domain is not loaded until accessed. Hibernate creates a dynamic proxy by subclassing the domain class and proxying all methods and property access.

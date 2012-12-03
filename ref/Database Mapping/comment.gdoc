@@ -1,0 +1,23 @@
+h1. comment
+
+h2. 目的 {hidden}Purpose{hidden}
+
+Sets the comment to use when generating the table's creation SQL (DDL).
+
+h2. 使用例 {hidden}Examples{hidden}
+
+{code:java}
+class Book {
+   static mapping = {
+      comment "your comment here"
+   }
+}
+{code}
+
+h2. 詳細 {hidden}Description{hidden}
+
+Usage: @comment(string)@
+
+Arguments:
+
+* @comment@ - The comment
