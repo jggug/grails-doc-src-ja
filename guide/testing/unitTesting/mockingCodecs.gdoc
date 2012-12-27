@@ -1,7 +1,15 @@
+{hidden}
 The @GrailsUnitTestMixin@ provides a @mockCodec@ method for mocking [custom codecs|guide:codecs] which may be invoked while a unit test is running.
+{hidden}
+
+@GrailsUnitTestMixin@は[カスタムコーデック|guide:codecs]のモックを生成するための@mockCodec@メソッドを提供しています。このメソッドはUnitテストの実施中に呼び出される可能性があります。
 
 {code:java}
 mockCodec(MyCustomCodec)
 {code}
 
+{hidden}
 Failing to mock a codec which is invoked while a unit test is running may result in a MissingMethodException.
+{hidden}
+
+コーデックのモック生成に失敗している場合は、Unitテストが@MissingMethodException@で終了する可能性があります。
