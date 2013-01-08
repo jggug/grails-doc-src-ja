@@ -1,30 +1,42 @@
-Automated testing is a key part of Grails. Hence, Grails provides many ways to making testing easier from low level unit testing to high level functional tests. This section details the different capabilities that Grails offers for testing.
+{hidden}Automated testing is a key part of Grails. Hence, Grails provides many ways to making testing easier from low level unit testing to high level functional tests. This section details the different capabilities that Grails offers for testing.{hidden}
+自動化テストはGrailsにおいて重要な機能です。GrailsでUnitテストから機能テストまで、簡単にテスト生成できる様々な方法を提供しています。この章ではGrailsがテストのために提供している機能について詳しく説明します。
 
-{note}
+{hidden}{note}
 Grails 1.3.x and below used the @grails.test.GrailsUnitTestCase@ class hierarchy for testing in a JUnit 3 style. Grails 2.0.x and above deprecates these test harnesses in favour of mixins that can be applied to a range of different kinds of tests (JUnit 3, Junit 4, Spock etc.) without subclassing
+{note}{hidden}
+{note}
+Grails 1.3.X以下のバージョンでは、JUnit 3スタイルのテストのために@grails.test.GrailsUnitTestCase@のクラスを継承するようになっていましたが、Grails 2.0.X 以上のバージョンではサブクラスを作ることなく異なる種類のテスト(Junit 3, Junit4, Spock など)を実施可能なMixinsベースのテストを推奨しています。
 {note}
 
-The first thing to be aware of is that all of the @create-\*@ and @generate-\*@ commands create @unit@ or @integration@ tests automatically. For example if you run the [create-controller|commandLine] command as follows:
+{hidden}The first thing to be aware of is that all of the @create-\*@ and @generate-\*@ commands create @unit@ or @integration@ tests automatically. For example if you run the [create-controller|commandLine] command as follows:{hidden}
+まずはじめに全ての@create-\*@や@generate-\*@のコマンドは@unit@もしくは@integration@テストを自動的に生成します。例えば、[create-controller|commandLine]コマンドを以下のように実行したとします。:
 
 {code:java}
 grails create-controller com.acme.app.simple
 {code}
 
-Grails will create a controller at @grails-app/controllers/com/acme/app/SimpleController.groovy@, and also a unit test at @test/unit/com/acme/app/SimpleControllerTests.groovy@. What Grails won't do however is populate the logic inside the test! That is left up to you.
+{hidden}Grails will create a controller at @grails-app/controllers/com/acme/app/SimpleController.groovy@, and also a unit test at @test/unit/com/acme/app/SimpleControllerTests.groovy@. What Grails won't do however is populate the logic inside the test! That is left up to you.{hidden}
+Grailsは@grails-app/controllers/com/acme/app/SimpleController.groovy@にコントローラを、@test/unit/com/acme/app/SimpleControllerTests.groovy@にUnitテストを作ります。しかしながら、Grailsはテストの中のロジックは作成しません！それはあなたに任されています。
 
-{note}
+{hidden}{note}
 The default class name suffix is @Tests@ but as of Grails 1.2.2, the suffix of @Test@ is also supported.
+{note}{hidden}
+{note}
+デフォルトのクラス名の最後には@Tests@を付けます。しかし、Grails 1.2.2からは@Test@のサフィックスもサポートしています。
 {note}
 
-h4. Running Tests
+{hidden}h4. Running Tests{hidden}
+h4. テストの実行
 
-Tests are run with the [test-app|commandLine] command:
+{hidden}Tests are run with the [test-app|commandLine] command:{hidden}
+テストは[test-app|commandLine]コマンドにより実行されます。:
 
 {code:java}
 grails test-app
 {code}
 
-The command will produce output such as:
+{hidden}The command will produce output such as:{hidden}
+このコマンドは以下のような出力を行います。:
 
 {code:java}
 -------------------------------------------------------
@@ -36,114 +48,146 @@ Unit Tests Completed in 464ms ...
 Tests failed: 0 errors, 1 failures
 {code}
 
-whilst showing the reason for each test failure.
+{hidden}whilst showing the reason for each test failure.{hidden}
+それぞれのテストの失敗理由が表示されます。
 
-{note}
+{hidden}{note}
 You can force a clean before running tests by passing @-clean@ to the @test-app@ command.
+{note}{hidden}
+{note}
+@test-app@コマンドに@-clean@を付与することにより、テスト実行前に強制的にテスト実行環境をクリーンにすることができます。
 {note}
 
-Grails writes both plain text and HTML test reports to the @target/test-reports@ directory, along with the original XML files. The HTML reports are generally the best ones to look at.
+{hidden}Grails writes both plain text and HTML test reports to the @target/test-reports@ directory, along with the original XML files. The HTML reports are generally the best ones to look at.{hidden}
+Garilsは@target/test-reports@ディレクトリにオリジナルのXMLファイルとともにプレインテキストとHTMLのテストレポートの両方を出力します。最も見栄えがよいのはHTMLレポートです。
 
-Using Grails' [interactive mode|guide:interactiveMode] confers some distinct advantages when executing tests. First, the tests will execute significantly faster on the second and subsequent runs. Second, a shortcut is available to open the HTML reports in your browser:
+{hidden}Using Grails' [interactive mode|guide:interactiveMode] confers some distinct advantages when executing tests. First, the tests will execute significantly faster on the second and subsequent runs. Second, a shortcut is available to open the HTML reports in your browser:{hidden}
+Grailsの[対話モード|guide:interactiveMode]をテスト実行時に使うことにはいくつかのメリットがあります。まず2回目以降のテスト実行が大幅に高速化されます。次にHTMLレポートをブラウザで開くショートカットが利用可能になります。:
 
 {code:java}
 open test-report
 {code}
 
-You can also run your unit tests from within most IDEs.
+{hidden}You can also run your unit tests from within most IDEs.{hidden}
+またほとんどのIDEで@unit@テストを実行できます。
 
-h4. Targeting Tests
+{hidden}h4. Targeting Tests{hidden}
+h4. テストを指定する
 
-You can selectively target the test(s) to be run in different ways. To run all tests for a controller named @SimpleController@ you would run:
+{hidden}You can selectively target the test(s) to be run in different ways. To run all tests for a controller named @SimpleController@ you would run:{hidden}
+いくつかのやり方でテストを指定することができます。@SimpleController@と名付けられたコントローラの全てのテストを実行したい場合には以下のように指定します。:
 
 {code}
 grails test-app SimpleController
 {code}
 
-This will run any tests for the class named @SimpleController@. Wildcards can be used...
+{hidden}This will run any tests for the class named @SimpleController@. Wildcards can be used...{hidden}
+以下のコマンドは@SimpleController@という名前に対応する全てのテストを実行します。ワイルドカードを利用することも可能です。:
 
 {code}
 grails test-app *Controller
 {code}
 
-This will test all classes ending in @Controller@. Package names can optionally be specified...
+{hidden}This will test all classes ending in @Controller@. Package names can optionally be specified...{hidden}
+以下は@Controller@でクラス名が終わる全てのクラスのテストを実行します。パッケージ名も指定可能です。
 
 {code}
 grails test-app some.org.*Controller
 {code}
 
-or to run all tests in a package...
+{hidden}or to run all tests in a package...{hidden}
+この例では、パッケージ内の全てのテストを実行します。
 
 {code}
 grails test-app some.org.*
 {code}
 
-or to run all tests in a package including subpackages...
+{hidden}or to run all tests in a package including subpackages...{hidden}
+この例では、あるサブパッケージを含むパッケージの全てのテストを実行します。
 
 {code}
 grails test-app some.org.**.*
 {code}
 
-You can also target particular test methods...
+{hidden}You can also target particular test methods...{hidden}
+特定のテストメソッドだけを指定することもできます。
 
 {code}
 grails test-app SimpleController.testLogin
 {code}
 
-This will run the @testLogin@ test in the @SimpleController@ tests. You can specify as many patterns in combination as you like...
+{hidden}This will run the @testLogin@ test in the @SimpleController@ tests. You can specify as many patterns in combination as you like...{hidden}
+以下のコマンドは@SimpleController@テストの中にある@testLogin@テストを実行します。いくつかのパターンを組合せて好きなように指定できます。
 
 {code}
 grails test-app some.org.* SimpleController.testLogin BookController
 {code}
 
-h4. Targeting Test Types and/or Phases
+{hidden}h4. Targeting Test Types and/or Phases{hidden}
+h4. テスト種別かテストフェーズの両方、またはどちらかによるテストの指定
 
-In addition to targeting certain tests, you can also target test _types_ and/or _phases_ by using the @phase:type@ syntax.
+{hidden}In addition to targeting certain tests, you can also target test _types_ and/or _phases_ by using the @phase:type@ syntax.{hidden}
+あるテストを指定するのに加えて、@テストフェーズ:テスト種別@の記法により _テスト種別_ と _テストフェーズ_ の両方、またはどちらかを指定できます。
 
-{note}
+{hidden}{note}
 Grails organises tests by phase and by type. A test phase relates to the state of the Grails application during the tests, and the type relates to the testing mechanism.
 
 Grails comes with support for 4 test phases (@unit@, @integration@, @functional@ and @other@) and JUnit test types for the @unit@ and @integration@ phases. These test types have the same name as the phase.
 
 Testing plugins may provide new test phases or new test types for existing phases. Refer to the plugin documentation.
+{note}{hidden}
+{note}
+Grailsはテストフェーズとテスト種別によりテストを体系化しています。テストフェーズはGrailsアプリケーションにおけるどの状態のテストを行っているかを表しており、テスト種別はテストを行う機構に関連しています。
+
+Grailsは4つのテストフェーズ(@unit@, @integration@, @functional@そして@other@)と@unit@と@integration@の各テストフェーズに対応したJUnitのテスト種別をサポートしています。これらのテスト種別はそのテストフェーズと同じ名前になっています。
+
+テストプラグインにより既存のテストフェーズに新しいテストフェーズもしくはテスト種別を追加することができます。詳しくはプラグインのドキュメントを参照してください。
 {note}
 
-To execute the JUnit @integration@ tests you can run:
+{hidden}To execute the JUnit @integration@ tests you can run:{hidden}
+JUnitの@integration@テストを実行するには以下のように実行します:
 
 {code}
 grails test-app integration:integration
 {code}
 
-Both @phase@ and @type@ are optional. Their absence acts as a wildcard. The following command will run all test types in the @unit@ phase:
+{hidden}Both @phase@ and @type@ are optional. Their absence acts as a wildcard. The following command will run all test types in the @unit@ phase:{hidden}
+@テストフェーズ@と@テスト種別@の指定は任意です。もし指定をしなかった場合には全てが該当します。以下のコマンドでは@unit@テストフェーズの全てのテスト種別のテストを実行します。:
 
 {code}
 grails test-app unit:
 {code}
 
-The Grails [Spock Plugin|http://grails.org/plugin/spock] is one plugin that adds new test types to Grails. It adds a @spock@ test type to the @unit@, @integration@ and @functional@ phases. To run all spock tests in all phases you would run the following:
+{hidden}The Grails [Spock Plugin|http://grails.org/plugin/spock] is one plugin that adds new test types to Grails. It adds a @spock@ test type to the @unit@, @integration@ and @functional@ phases. To run all spock tests in all phases you would run the following:{hidden}
+Grails [Spock Plugin|http://grails.org/plugin/spock]プラグインを用いることでGrailsで新しいテスト種別が使えるようになります。@spock@テスト種別が@unit@、@integration@そして@functional@テストフェーズで使えるようになります。全てのてすとフェーズで全ての@spock@テストを実行するには次のように実行します。:
 
 {code}
 grails test-app :spock
 {code}
 
-To run the all of the spock tests in the @functional@ phase you would run...
+{hidden}To run the all of the spock tests in the @functional@ phase you would run...{hidden}
+@functional@フェーズの全ての@spock@テストを実行するには次のように実行します。
 
 {code}
 grails test-app functional:spock
 {code}
 
-More than one pattern can be specified...
+{hidden}More than one pattern can be specified...{hidden}
+1つ以上のテストパターンを指定できます。
 
 {code}
 grails test-app unit:spock integration:spock
 {code}
 
-h4. Targeting Tests in Types and/or Phases
+{hidden}h4. Targeting Tests in Types and/or Phases{hidden}
+h4. テスト種別とテストフェーズの両方、もしくはどちらかでテストを指定
 
-Test and type/phase targetting can be applied at the same time:
+{hidden}Test and type/phase targetting can be applied at the same time:{hidden}
+名前によるテスト指定とテスト種別やテストフェーズによるテスト指定は同時に適応可能です。:
 
 {code}
 grails test-app integration: unit: some.org.**.*
 {code}
 
-This would run all tests in the @integration@ and @unit@ phases that are in the package @some.org@ or a subpackage.
+{hidden}This would run all tests in the @integration@ and @unit@ phases that are in the package @some.org@ or a subpackage.{hidden}
+この例では、@some.org@のパッケージかサブパッケージの中で@integration@と@unit@フェーズの全てのテストが実行されるでしょう。
