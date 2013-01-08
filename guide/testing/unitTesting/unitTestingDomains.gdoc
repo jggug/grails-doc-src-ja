@@ -1,29 +1,73 @@
+{hidden}
 h4. Overview
+{hidden}
+h4. 概要
 
+{hidden}
 {note}
 The mocking support described here is best used when testing non-domain artifacts that use domain classes, to let you focus on testing the artifact without needing a database. But when testing persistence it's best to use integration tests which configure Hibernate and use a database.
 {note}
+{hidden}
 
+{note}
+モック機能のサポートは、非ドメインクラスがドメインクラスを使用している場合に、データベースを必要とせず、テストに集中できるという意味では最適な方法です。しかし、ドメインの永続化のテストを行いたい場合はHibernateとデータベースを使用するIntegrationテストが最適な方法です。
+{note}
+
+{hidden}
 Domain class interaction can be tested without involving a database connection using @DomainClassUnitTestMixin@. This implementation mimics the behavior of GORM against an in-memory @ConcurrentHashMap@ implementation. Note that this has limitations compared to a real GORM implementation. The following features of GORM for Hibernate can only be tested within an integration test:
+{hidden}
 
+ドメインクラスとしての振る舞いは@DomainClassUnitTestMixin@を使用することで、データベースを必要とせずにテストを行うことができます。この実装はGORMの振る舞いを擬似した、メモリ上の@ConcurrentHashMap@です。この実装は実際のGORMの動作と比べて制限があることに注意してください。以下のHibernateに対するGORMの機能はIntegrationテストでのみテストできます。
+
+{hidden}
 * String-based HQL queries
 * composite identifiers
 * dirty checking methods
 * any direct interaction with Hibernate
+{hidden}
 
+* 文字列ベースのHQLクエリ
+* 複合主キー
+* dirtyチェックメソッド
+* Hibernateの直接操作
+
+{hidden}
 However a large, commonly-used portion of the GORM API can be mocked using @DomainClassUnitTestMixin@ including:
+{hidden}
 
+上記以外の、よく使用されるGORM APIの大部分は@DomainClassUnitTestMixin@を使用することでモック化することができます。
+
+{hidden}
 * Simple persistence methods like @save()@, @delete()@ etc.
 * Dynamic Finders
 * Named Queries
 * Query-by-example
 * GORM Events
+{hidden}
 
+* @save()@や@delete()@といった永続化メソッド
+* ダイナミックファインダー
+* 名前付きクエリ
+* Exampleによるクエリ
+* GORMのイベント
+
+{hidden}
 If something isn't supported then @GrailsUnitTestMixin@'s @mockFor@ method can come in handy to mock the missing pieces. Alternatively you can write an integration test which bootstraps the complete Grails environment at a cost of test execution time.
+{hidden}
 
+もしサポートされてないない部分があった場合でも、@GrailsUnitTestMixin@の@mockFor@メソッドを使用することで足りない部分をモック化することができます。または、テストの実行時間はかかりますが、完全にGrails環境が立ち上がるIntegrationテストを使用することもできます。
+
+{hidden}
 h4. The Basics
+{hidden}
 
+h4. 基本
+
+{hidden}
 @DomainClassUnitTestMixin@ is typically used in combination with testing either a controller, service or tag library where the domain is a mock collaborator defined by the @Mock@ annotation:
+{hidden}
+
+@DomainClassUnitTestMixin@は、通常コントローラやサービス、またはタグライブラリといった、@Mock@アノテーションでドメインがモックとして協調動作する必要がある場所で使用されます。
 
 {code:java}
 import grails.test.mixin.*
@@ -35,7 +79,11 @@ class SimpleControllerTests {
 }
 {code}
 
+{hidden}
 The example above tests the @SimpleController@ class and mocks the behavior of the @Simple@ domain class as well. For example consider a typical scaffolded @save@ controller action:
+{hidden}
+
+上記の例では@SimpleController@のテストで@Simple@ドメインクラスとして振る舞うモックを宣言しています。例えば典型的なスキャフォルドで生成されたコントローラの@save@アクションについて考えてみます。
 
 {code:java}
 class BookController {
@@ -55,7 +103,11 @@ class BookController {
 }
 {code}
 
+{hidden}
 Tests for this action can be written as follows:
+{hidden}
+
+このアクションに対するテストは次のように書けます。
 
 {code:java}
 import grails.test.mixin.*
@@ -84,7 +136,11 @@ class BookControllerTests {
 }
 {code}
 
+{hidden}
 @Mock@ annotation also supports a list of mock collaborators if you have more than one domain to mock:
+{hidden}
+
+複数のドメインのモックが必要な場合は@Mock@アノテーションにリストで指定することができます。
 
 {code:java}
 @TestFor(BookController)
@@ -94,7 +150,11 @@ class BookControllerTests {
 }
 {code}
 
+{hidden}
 Alternatively you can also use the @DomainClassUnitTestMixin@ directly with the @TestMixin@ annotation:
+{hidden}
+
+別の方法として@TestMixin@アノテーションに直接@DomainClassUnitTestMixin@を指定する方法もあります。
 
 {code:java}
 import grails.test.mixin.domain.DomainClassUnitTestMixin
@@ -106,7 +166,11 @@ class BookControllerTests {
 }
 {code}
 
+{hidden}
 And then call the @mockDomain@ method to mock domains during your test:
+{hidden}
+
+そしてテストの中でドメインをモック化する@mockDomain@メソッドを呼び出します。
 
 {code:java}
 void testSave() {
@@ -115,7 +179,11 @@ void testSave() {
 }
 {code}
 
+{hidden}
 The @mockDomain@ method also includes an additional parameter that lets you pass a Map of Maps to configure a domain, which is useful for fixture-like data:
+{hidden}
+
+@mockDomain@メソッドは、ドメインを構築するマップの一覧を与えることで、データのフィクスチャを生成するような使い方もできます。
 
 {code:java}
 void testSave() {
@@ -126,13 +194,31 @@ void testSave() {
 }
 {code}
 
+{hidden}
 h4. Testing Constraints
+{hidden}
 
+h4. 制約のテスト
+
+{hidden}
 Your constraints contain logic and that logic is highly susceptible to bugs - the kind of bugs that can be tricky to track down (particularly as by default @save()@ doesn't throw an exception when it fails). If your answer is that it's too hard or fiddly, that is no longer an excuse. Enter the @mockForConstraintsTests()@ method.
+{hidden}
 
+制約にロジックが含まれている場合は、そのロジックは非常にバグを生みやすく、またそのバグの追跡は簡単なものではありません(特にデフォルトで@save()@が処理が失敗した場合でも例外をスローしないということもあります)。もしそのような面倒な解析に時間を取られたくない場合は、@mockForConstraintsTests()@メソッドを使用してください。
+
+{hidden}
 This method is like a much reduced version of the @mockDomain()@ method that simply adds a @validate()@ method to a given domain class. All you have to do is mock the class, create an instance with populated data, and then call @validate()@. You can then access the @errors@ property to determine if validation failed. So if all we are doing is mocking the @validate()@ method, why the optional list of test instances? That is so that we can test the @unique@ constraint as you will soon see.
+{hidden}
 
+このメソッドは@mockDoman()@メソッドの縮小版のようなもので、単に与えられたドメインクラスに対して@validate()@メソッドを追加します。やるべきことはクラスをモック化し、必要なデータと共にインスタンスを生成して、@validate()@を呼び出すだけです。@errors@プロパティを参照することで、検証が失敗したかどうかを確かめられます。
+
+また、なぜ@mockForConstraintsTests()@に追加でテスト用のインスタンスが指定できるようになっているのでしょうか？モック化された@validate@メソッドを呼ぶだけならば必要なさそうですが、これは@unique@制約のテストを行えるようにするためです。
+
+{hidden}
 So, suppose we have a simple domain class:
+{hidden}
+
+次のようなドメインクラスがあったとします。
 
 {code:java}
 class Book {
@@ -147,7 +233,11 @@ class Book {
 }
 {code}
 
+{hidden}
 Don't worry about whether the constraints are sensible (they're not!), they are for demonstration only. To test these constraints we can do the following:
+{hidden}
+
+この制約は単なる例で、本来この制約が正しいかどうかは気にしないでください。この制約のテストは次のように行えます。
 
 {code:java}
 @TestFor(Book)
@@ -181,6 +271,14 @@ class BookTests {
 }
 {code}
 
+{hidden}
 You can probably look at that code and work out what's happening without any further explanation. The one thing we will explain is the way the @errors@ property is used. First, is a real Spring @Errors@ instance, so you can access all the properties and methods you would normally expect. Second, this particular @Errors@ object also has map/property access as shown. Simply specify the name of the field you are interested in and the map/property access will return the name of the constraint that was violated. Note that it is the constraint name, not the message code (as you might expect).
+{hidden}
 
+おそらくコードを見れば、特に説明しなくても何が起きているのが想像できると思います。そのひとつは@errors@プロパティの使用方法です。これは本物のSpringの@Errors@インスタンスで、既存のプロパティとメソッドにアクセス可能かつ、マップ/プロパティ形式でアクセスすることができる特別な@Errors@オブジェクトです。この機能は単に確認したいフィールドの名前をマップ/プロパティ形式で指定すると制約違反のあった名前を返します。返す値は制約の名前で、メッセージコードの値ではないことに注意してください。
+
+{hidden}
 That's it for testing constraints. One final thing we would like to say is that testing the constraints in this way catches a common error: typos in the "constraints" property name! It is currently one of the hardest bugs to track down normally, and yet a unit test for your constraints will highlight the problem straight away.
+{hidden}
+
+制約に関してはここまでです。最後に言いたいことは"constraints"という名前のタイプミスを見つけられるということです！これは通常発見するのが非常に難しいバグですが、制約のテストを行うことですぐに問題を明らかにできます。
