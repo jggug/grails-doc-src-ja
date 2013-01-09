@@ -1,9 +1,21 @@
-Domain classes are core to any business application. They hold state about business processes and hopefully also implement behavior. They are linked together through relationships; one-to-one, one-to-many, or many-to-many.
+{hidden}Domain classes are core to any business application. They hold state about business processes and hopefully also implement behavior. They are linked together through relationships; one-to-one, one-to-many, or many-to-many.{hidden}
 
-GORM is Grails' object relational mapping (ORM) implementation. Under the hood it uses Hibernate 3 (a very popular and flexible open source ORM solution) and thanks to the dynamic nature of Groovy with its static and dynamic typing, along with the convention of Grails, there is far less configuration involved in creating Grails domain classes.
+ドメインクラスは業務アプリケーションの中心です。
+それらは業務プロセスについての状態や振る舞いを保持します。
+また、それらは一対一、一対多、多対多などの関連を通して結びつけられます。
 
-You can also write Grails domain classes in Java. See the section on Hibernate Integration for how to write domain classes in Java but still use dynamic persistent methods. Below is a preview of GORM in action:
+{hidden}GORM is Grails' object relational mapping (ORM) implementation. Under the hood it uses Hibernate 3 (a very popular and flexible open source ORM solution) and thanks to the dynamic nature of Groovy with its static and dynamic typing, along with the convention of Grails, there is far less configuration involved in creating Grails domain classes.{hidden}
 
+GORMは、Grailsのオブジェクトリレーショナルマッピング(ORM)の実装です。
+その裏では、広く使われていて柔軟性の高いオープンソースORMであるHibernate 3を利用しています。
+Grailsの規約と、静的・動的型付けというGroovyのダイナミックな特性のおかげで、Grailsのドメインクラスに必要となる設定はほとんどありません。
+
+{hidden}You can also write Grails domain classes in Java. See the section on Hibernate Integration for how to write domain classes in Java but still use dynamic persistent methods. Below is a preview of GORM in action:{hidden}
+
+GrailsのドメインクラスをJavaで書くこともできます。
+Javaでドメインクラスを書いて、動的な永続化メソッドも使えるようにする方法については、[GrailsとHibernate|guide:hibernate]のセクションを参照してください。
+
+以下は、GORMのサンプルコードです:
 {code}
 def book = Book.findByTitle("Groovy in Action")
 
