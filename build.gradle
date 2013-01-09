@@ -53,6 +53,9 @@ task _copyApiDocs(type: Copy) {
 task _publishGuide_ja(type: grails.doc.gradle.PublishGuide, dependsOn: ['_copyResourcesDirFromGrailsDoc', '_copyApiDocs']) {
     sourceDir = projectDir
     resourcesDir = buildResourcesDir
+
+    def propFile = new File(_grailsHome, "build.properties")
+    if(propFile.exists()) propertiesFiles = [ propFile ]
 }
 
 task easyDocs_ja {
