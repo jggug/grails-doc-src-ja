@@ -1,0 +1,70 @@
+// usage: gradle -q -Dgrails.home=<GRAILS_HOME> -Dgrails.doc=<GRAILS_DOC_PROJECT_DIR> clean easyDocs_ja
+
+//----------------------------
+// System properties
+
+// -Ddisable.groovydocs=true
+System.properties['disable.groovydocs'] = 'true'
+
+// -Dgrails.home=$GRAILS_HOME
+ext._grailsHome = System.properties['grails.home'] ?: System.env['GRAILS_HOME'] ?: "${System.properties['user.home']}/.gvm/grails/current"
+
+// -Dgrails.doc=$GRAILS_DOC_PROJECT_DIR
+ext.grailsDocProjectDir = file(System.properties["grails.doc"] ?: System.env["GRAILS_DOC_PROJECT_DIR"] ?: "../grails-doc")
+if (!grailsDocProjectDir.exists()) {
+    println "WARN: The directory of grails-doc ${grailsDocProjectDir.path} not found."
+    execCommand(["git", "clone", "https://github.com/jggug/grails-doc.git"], new File(".."))
+    ext.grailsDocProjectDir = file("../grails-doc")
+}
+
+//----------------------------
+// Projct variables
+
+ext.buildResourcesDir = file("${buildDir.path}/copied-resources")
+
+//----------------------------
+// Includes
+
+apply from: "${grailsDocProjectDir.path}/build.gradle"
+
+// for using grails.doc.gradle.PublishGuide
+buildscript {
+    repositories {
+        mavenRepo url: "http://repo.grails.org/grails/core"
+    }
+    dependencies {
+        classpath "org.grails:grails-docs:2.2.0"
+    }
+}
+
+//----------------------------
+// Tasks
+
+task _copyResourcesDirFromGrailsDoc(type: Copy) {
+    from "${grailsDocProjectDir.path}/resources"
+    into buildResourcesDir
+}
+
+task _copyApiDocs(type: Copy) {
+    from "${_grailsHome}/doc/api"
+    into "${buildDir.path}/docs/api"
+}
+
+task _publishGuide_ja(type: grails.doc.gradle.PublishGuide, dependsOn: ['_copyResourcesDirFromGrailsDoc', '_copyApiDocs']) {
+    sourceDir = projectDir
+    resourcesDir = buildResourcesDir
+}
+
+task easyDocs_ja {
+    dependsOn '_publishGuide_ja'
+}
+
+defaultTasks 'easyDocs_ja'
+
+//----------------------------
+// Helpers
+
+def execCommand(List command, File currentDir = null) {
+    println "Executing '${command.join(' ')}' at ${currentDir?.canonicalPath ?: 'current dir'} ..."
+    println command.execute([], currentDir).text
+}
