@@ -1,11 +1,24 @@
+{hidden}
 Scaffolding lets you auto-generate a whole application for a given domain class including:
+{hidden}
+スカッフォルドは以下を含むドメインクラスの完全なアプリケーションを自動生成します。
 
+{hidden}
 * The necessary [views|guide:gsp]
 * Controller actions for create/read/update/delete (CRUD) operations
+{hidden}
+* 必要な[ビュー|guide:gsp]
+* 作成/参照/更新/削除(CRUD)処理のコントローラアクション
 
+{hidden}
 h4. Dynamic Scaffolding
+{hidden}
+h4. 動的スカッフォルド
 
+{hidden}
 The simplest way to get started with scaffolding is to enable it with the @scaffold@ property. Set the @scaffold@ property in the controller to @true@ for the @Book@ domain class:
+{hidden}
+スカッフォルドを利用する一番シンプルな方法は@scaffold@プロパティを設定することです。以下は@Book@ドメインクラスのコントローラにて@scaffold@プロパティを@true@に設定しています。
 
 {code:java}
 class BookController {
@@ -13,7 +26,10 @@ class BookController {
 }
 {code}
 
+{hidden}
 This works because the @BookController@ follows the same naming convention as the @Book@ domain class. To scaffold a specific domain class we could reference the class directly in the scaffold property:
+{hidden}
+これが動作するのは@BookController@が@Book@ドメインクラスと同じ命名規則に従っているためです。特定のドメインクラスに対してスカッフォルドを利用する場合、以下の様に@scaffold@プロパティからそのクラスを直接参照できます。
 
 {code:java}
 class SomeController {
@@ -21,8 +37,20 @@ class SomeController {
 }
 {code}
 
+{hidden}
 With this configured, when you start your application the actions and views will be auto-generated at runtime. The following actions are dynamically implemented by default by the runtime scaffolding mechanism:
+{hidden}
+この設定により、アプリケーション実行時にアクションとビューが自動生成されます。以下のアクションはデフォルトで実行時に動的生成されます。
 
+{hidden}
+* list
+* show
+* edit
+* delete
+* create
+* save
+* update
+{hidden}
 * list
 * show
 * edit
@@ -31,11 +59,20 @@ With this configured, when you start your application the actions and views will
 * save
 * update
 
+{hidden}
 A CRUD interface will also be generated. To access this open @http://localhost:8080/app/book@ in a browser.
+{hidden}
+CRUDインターフェイスもまた生成されます。これらにアクセスするにはブラウザから@http://localhost:8080/app/book@を開いてください。
 
+{hidden}
 If you prefer to keep your domain model in Java and [mapped with Hibernate|guide:hibernate] you can still use scaffolding, simply import the domain class and set its name as the @scaffold@ argument.
+{hidden}
+Javaと[Hibernateマップ|guide:hibernate]のドメインモデルを保ったままスカッフォルドを使いたい場合は、そのドメインクラスをインポートしその名前を@scaffold@の引数に設定してください。
 
+{hidden}
 You can add new actions to a scaffolded controller, for example:
+{hidden}
+以下例のように、スカッフォルドのコントローラに新たなアクションを追加することができます。
 
 {code:java}
 class BookController {
@@ -53,7 +90,10 @@ class BookController {
 }
 {code}
 
+{hidden}
 You can also override the scaffolded actions:
+{hidden}
+スカッフォルドのアクションを上書きすることもできます。
 
 {code:java}
 class BookController {
@@ -75,17 +115,32 @@ class BookController {
 }
 {code}
 
+{hidden}
 All of this is what is known as "dynamic scaffolding" where the CRUD interface is generated dynamically at runtime.
+{hidden}
+これらはCRUDインターフェイスが実行時に動的に生成される"動的スカッフォルド"として知られています。
 
+{hidden}
 {note}
 By default, the size of text areas in scaffolded views is defined in the CSS, so adding 'rows' and 'cols' attributes will have no effect.
 
 Also, the standard scaffold views expect model variables of the form @<propertyName>InstanceList@ for collections and @<propertyName>Instance@ for single instances. It's tempting to use properties like 'books' and 'book', but those won't work.
 {note}
+{hidden}
+{note}
+デフォルトではスカッフォルドで生成されるビューのテキストエリアのサイズはCSSで定義されているため、'rows'や'cols'属性追加は無効です。
+また標準的なスカッフォルドのビューはコレクションには@<propertyName>InstanceList@書式の変数モデルを期待し、シングルインスタンスには@<propertyName>Instance@を期待します。'books'や'book'といったプロパティを使ってみたくなるかもしれませんが、うまく機能しません。
+{note}
 
+{hidden}
 h4. Customizing the Generated Views
+{hidden}
+h4. 生成されるビューのカスタマイズ
 
+{hidden}
 The views adapt to [Validation constraints|guide:constraints]. For example you can change the order that fields appear in the views simply by re-ordering the constraints in the builder:
+{hidden}
+ビューは[バリデーション制約|guide:constraints]に従います。例えばビルダー内の制約順序を入れ替えるだけで、簡単にビュー上のフィールド表示順序を入れ替えることができます。
 
 {code:java}
 def constraints = {
@@ -94,7 +149,10 @@ def constraints = {
 }
 {code}
 
+{hidden}
 You can also get the generator to generate lists instead of text inputs if you use the @inList@ constraint:
+{hidden}
+また@inList@制約を使うとテキスト入力の代わりにリストを生成することができます。
 
 {code:java}
 def constraints = {
@@ -104,7 +162,10 @@ def constraints = {
 }
 {code}
 
+{hidden}
 Or if you use the @range@ constraint on a number:
+{hidden}
+あるいは以下のように数字と共に@range@制約を使用することもできます。
 
 {code:java}
 def constraints = {
@@ -112,7 +173,10 @@ def constraints = {
 }
 {code}
 
+{hidden}
 Restricting the size with a constraint also effects how many characters can be entered in the generated view:
+{hidden}
+以下のような制約によるサイズ制限は、生成されたビュー内で何文字入力できるかに影響します。
 
 {code:java}
 def constraints = {
@@ -120,34 +184,58 @@ def constraints = {
 }
 {code}
 
+{hidden}
 h4. Static Scaffolding
+{hidden}
+h4. 静的スカッフォルド
 
+{hidden}
 Grails also supports "static" scaffolding.
+{hidden}
+Grailsは"静的な"スカッフォルドもサポートします。
 
+{hidden}
 The above scaffolding features are useful but in real world situations it's likely that you will want to customize the logic and views. Grails lets you generate a controller and the views used to create the above interface from the command line. To generate a controller type:
+{hidden}
+前述したスカッフォルドの機能は便利ですが、現実的にはそのロジックとビューをカスタマイズしたくなることでしょう。Grailsでは、前述のCRUDインターフェースを表示するためのコントローラとビューを、静的なファイルとしてコマンドラインから生成することができます。
 
 {code:java}
 grails generate-controller Book
 {code}
 
+{hidden}
 or to generate the views:
+{hidden}
+ビューを生成するには以下の通りです。
 
 {code:java}
 grails generate-views Book
 {code}
 
+{hidden}
 or to generate everything:
+{hidden}
+すべて生成するには以下の通りです。
 
 {code:java}
 grails generate-all Book
 {code}
 
+{hidden}
 If you have a domain class in a package or are generating from a [Hibernate mapped class|guide:hibernate] remember to include the fully qualified package name:
+{hidden}
+パッケージ内にドメインクラスがある場合、または[Hibernateマップクラス|guide:hibernate]から生成する場合は完全修飾パッケージ名で指定することを忘れないでください。
 
 {code:java}
 grails generate-all com.bookstore.Book
 {code}
 
+{hidden}
 h4. Customizing the Scaffolding templates
+{hidden}
+h4. スカッフォルドテンプレートのカスタマイズ
 
+{hidden}
 The templates used by Grails to generate the controller and views can be customized by installing the templates with the [install-templates|commandLine] command.
+{hidden}
+Grailsでコントローラやビューを生成するのに使用されているテンプレートはテンプレートをインストールすることによりカスタマイズできます。テンプレートのインストールは[install-templates|commandLine]コマンドを使用してください。
