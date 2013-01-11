@@ -1,6 +1,8 @@
-h4. SQL injection
+{hidden}h4. SQL injection{hidden}
+h4. SQLインジェクション
 
-Hibernate, which is the technology underlying GORM domain classes, automatically escapes data when committing to database so this is not an issue. However it is still possible to write bad dynamic HQL code that uses unchecked request parameters. For example doing the following is vulnerable to HQL injection attacks:
+{hidden}Hibernate, which is the technology underlying GORM domain classes, automatically escapes data when committing to database so this is not an issue. However it is still possible to write bad dynamic HQL code that uses unchecked request parameters. For example doing the following is vulnerable to HQL injection attacks:{hidden}
+GORMドメインクラスの基盤であるHibernateは、データベースにコミットする際に自動的にデータをエスケープ処理するので、これは問題にはならないでしょう。しかしながら、未チェックなリクエストパラメータを用いた、よくない動的HQLコードを書いてしまうこともできてしまいます。例えば、以下のようなコードはHQLインジェクション攻撃に対して脆弱です:
 
 {code:java}
 def vulnerable() {
@@ -8,7 +10,8 @@ def vulnerable() {
 }
 {code}
 
-or the analagous call using a GString:
+{hidden}or the analagous call using a GString:{hidden}
+また、GStringを使用した以下のような呼び出しも同様です:
 
 {code:java}
 def vulnerable() {
@@ -16,7 +19,8 @@ def vulnerable() {
 }
 {code}
 
-Do *not* do this. Use named or positional parameters instead to pass in parameters:
+{hidden}Do *not* do this. Use named or positional parameters instead to pass in parameters:{hidden}
+パラメータをそのまま渡すのではなく、必ず位置パラメータまたは名前付きパラメータを使うようにしましょう:
 
 {code:java}
 def safe() {
@@ -25,7 +29,8 @@ def safe() {
 }
 {code}
 
-or
+{hidden}or{hidden}
+または、次のように書くこともできます:
 
 {code:java}
 def safe() {
@@ -34,45 +39,70 @@ def safe() {
 }
 {code}
 
-h4. Phishing
+{hidden}h4. Phishing{hidden}
+h4. フィッシング
 
-This really a public relations issue in terms of avoiding hijacking of your branding and a declared communication policy with your customers. Customers need to know how to identify valid emails.
+{hidden}This really a public relations issue in terms of avoiding hijacking of your branding and a declared communication policy with your customers. Customers need to know how to identify valid emails.{hidden}
+あなたとお客様との間で交わされたコミュニケーションポリシーのもと、あなたのブランドのハイジャックを防ぐという観点から、これはまさしく広報の問題です。顧客には、(不正な発信元でない)真正なEメールであることをどう見分けるか、知らせておく必要があります。
 
-h4. XSS - cross-site scripting injection
+{hidden}h4. XSS - cross-site scripting injection{hidden}
+h4. XSS - クロスサイトスクリプティングインジェクション
 
-It is important that your application verifies as much as possible that incoming requests were originated from your application and not from another site. Ticketing and page flow systems can help this and Grails' support for "Spring Web Flow":http://www.springsource.org/webflow includes security like this by default.
+{hidden}It is important that your application verifies as much as possible that incoming requests were originated from your application and not from another site. Ticketing and page flow systems can help this and Grails' support for "Spring Web Flow":http://www.springsource.org/webflow includes security like this by default.{hidden}
+要求されたリクエストがあなたのアプリケーションのものであり、他のサイトからではないということを、できる限り検証することが重要です。チケットシステムやページ遷移システムによる支援や、Grailsの"Spring Web Flow":http://www.springsource.org/webflow サポートは、デフォルトでこのようなセキュリティ対策を含んでいます。
 
-It is also important to ensure that all data values rendered into views are escaped correctly. For example when rendering to HTML or XHTML you must call [encodeAsHTML|guide:codecs] on every object to ensure that people cannot maliciously inject JavaScript or other HTML into data or tags viewed by others. Grails supplies several [Dynamic Encoding Methods|guide:codecs] for this purpose and if your output escaping format is not supported you can easily write your own codec.
+{hidden}It is also important to ensure that all data values rendered into views are escaped correctly. For example when rendering to HTML or XHTML you must call [encodeAsHTML|guide:codecs] on every object to ensure that people cannot maliciously inject JavaScript or other HTML into data or tags viewed by others. Grails supplies several [Dynamic Encoding Methods|guide:codecs] for this purpose and if your output escaping format is not supported you can easily write your own codec.{hidden}
+ビューにレンダリングされる全てのデータが、確実に、正しくエスケープ処理されることもまた、重要です。例えば、HTMLまたはXHTMLをレンダリングする際、他人が見ることができるデータやタグに対して、JavaScriptや他のHTMLを悪意を持って挿入することができないよう、確実に全てのオブジェクトで[encodeAsHTML|guide:codecs]を呼び出す必要があります。Grailsでは、こうした目的のために、いくつかの[動的なエンコード機能|guide:codecs]を提供しています。また、あなたが必要とするエスケープ処理がサポートされていない場合にも、必要なコーデックを容易に書くことができます。
 
-You must also avoid the use of request parameters or data fields for determining the next URL to redirect the user to. If you use a @successURL@ parameter for example to determine where to redirect a user to after a successful login, attackers can imitate your login procedure using your own site, and then redirect the user back to their own site once logged in, potentially allowing JavaScript code to then exploit the logged-in account on the site.
+{hidden}You must also avoid the use of request parameters or data fields for determining the next URL to redirect the user to. If you use a @successURL@ parameter for example to determine where to redirect a user to after a successful login, attackers can imitate your login procedure using your own site, and then redirect the user back to their own site once logged in, potentially allowing JavaScript code to then exploit the logged-in account on the site.{hidden}
+ユーザのリダイレクト先URLを決めるためにリクエストパラメータやデータフィールドを使うこともまた、避けなければなりません。ログイン成功後、ユーザをどこへリダイレクトするか決定するために、例えば、あなたが@successURL@パラメータを使うような場合、攻撃者は、あなた自身のサイトを利用してログイン手順を偽装し、ユーザがログインしようとしたときに攻撃者自身のサイトにリダイレクトさせることができてしまいます。これは、潜在的に、サイト上のログインアカウントを悪用するJavaScriptコードを許していることになります。
 
-h4. Cross-site request forgery
+{hidden}h4. Cross-site request forgery{hidden}
+h4. クロスサイトリクエストフォージェリ
 
-CSRF involves unauthorized commands being transmitted from a user that a website trusts. A typical example would be another website embedding a link to perform an action on your website if the user is still authenticated.
+{hidden}CSRF involves unauthorized commands being transmitted from a user that a website trusts. A typical example would be another website embedding a link to perform an action on your website if the user is still authenticated.{hidden}
+CSRFは、ウェブサイト上の正規ユーザから、承認されていないコマンド送信を引き起こします。認証されている状態のユーザが、別のウェブサイト内に埋め込まれたリンクによって、あなたのウェブサイト上で意図しないアクションを引き起こすようなものが典型的な例です。
 
-The best way to decrease risk against these types of attacks is to use the @useToken@ attribute on your forms. See [Handling Duplicate Form Submissions|guide:formtokens] for more information on how to use it. An additional measure would be to not use remember-me cookies.
+{hidden}The best way to decrease risk against these types of attacks is to use the @useToken@ attribute on your forms. See [Handling Duplicate Form Submissions|guide:formtokens] for more information on how to use it. An additional measure would be to not use remember-me cookies.{hidden}
+こうした攻撃のリスクを軽減する最良の方法は、フォームに@useToken@属性を使うことです。使い方についての詳細は、[フォーム二重送信のハンドリング|guide:formtokens]を参照してください。加えて、「次回からパスワードの入力を省略する」というような機能を提供するクッキーを使わないことも対策の一つです。
 
-h4. HTML/URL injection
+{hidden}h4. HTML/URL injection{hidden}
+h4. HTML/URLインジェクション
 
-This is where bad data is supplied such that when it is later used to create a link in a page, clicking it will not cause the expected behaviour, and may redirect to another site or alter request parameters.
+{hidden}This is where bad data is supplied such that when it is later used to create a link in a page, clicking it will not cause the expected behaviour, and may redirect to another site or alter request parameters.{hidden}
+これは、悪意のあるデータが与えられ、後にあるページにおいてリンクの生成に使用されると、クリックしても期待するような動作にならない事象を指します。そして、別のサイトにリダイレクトされたり、要求パラメータを改ざんされたりする可能性もあります。
 
-HTML/URL injection is easily handled with the [codecs|guide:codecs] supplied by Grails, and the tag libraries supplied by Grails all use [encodeAsURL|guide:codecs] where appropriate. If you create your own tags that generate URLs you will need to be mindful of doing this too.
+{hidden}HTML/URL injection is easily handled with the [codecs|guide:codecs] supplied by Grails, and the tag libraries supplied by Grails all use [encodeAsURL|guide:codecs] where appropriate. If you create your own tags that generate URLs you will need to be mindful of doing this too.{hidden}
+HTML/URLインジェクションは、Grailsが提供する[コーデック|guide:codecs]により、容易に対処できます。また、Grailsが提供しているタグライブラリは、全て適切なところで[encodeAsURL|guide:codecs]を使います。もし、URLを生成するようなタグを自分で作成するのなら、この対処も意識しておく必要があるでしょう。
 
-h4. Denial of service
+{hidden}h4. Denial of service{hidden}
+h4. サービス妨害
 
-Load balancers and other appliances are more likely to be useful here, but there are also issues relating to excessive queries for example where a link is created by an attacker to set the maximum value of a result set so that a query could exceed the memory limits of the server or slow the system down. The solution here is to always sanitize request parameters before passing them to dynamic finders or other GORM query methods:
+{hidden}Load balancers and other appliances are more likely to be useful here, but there are also issues relating to excessive queries for example where a link is created by an attacker to set the maximum value of a result set so that a query could exceed the memory limits of the server or slow the system down. The solution here is to always sanitize request parameters before passing them to dynamic finders or other GORM query methods:{hidden}
+ここでは、負荷分散装置やその他のアプライアンスが、より有用でしょう。ですが、サーバのメモリ容量を超えること、あるいはシステムを遅くさせることを目的に、結果の最大値を書き換えた超過クエリを発行するようなリンクを攻撃者が作成する、といった課題もあります。これに対する解決法は、ダイナミックファインダーやその他のGROMクエリメソッドにリクエストパラメータを渡す前に、常にサニタイズすることです:
 
+{hidden}
 {code:java}
 def safeMax = Math.max(params.max?.toInteger(), 100) // limit to 100 results
 return Book.list(max:safeMax)
 {code}
+{hidden}
+{code:java}
+def safeMax = Math.max(params.max?.toInteger(), 100) // 結果を100件に制限する
+return Book.list(max:safeMax)
+{code}
 
-h4. Guessable IDs
+{hidden}h4. Guessable IDs{hidden}
+h4. 推測可能なID
 
-Many applications use the last part of the URL as an "id" of some object to retrieve from GORM or elsewhere. Especially in the case of GORM these are easily guessable as they are typically sequential integers.
+{hidden}Many applications use the last part of the URL as an "id" of some object to retrieve from GORM or elsewhere. Especially in the case of GORM these are easily guessable as they are typically sequential integers.{hidden}
+多くのアプリケーションで、URLの最後の部分を、GORMや他のところから取り出す何らかのオブジェクトのIDとして利用するでしょう。特にGORMの場合、これらは容易に推測可能です。なぜならそれは、一般的にシーケンシャルな整数だからです。
 
-Therefore you must assert that the requesting user is allowed to view the object with the requested id before returning the response to the user.
+{hidden}Therefore you must assert that the requesting user is allowed to view the object with the requested id before returning the response to the user.{hidden}
+それゆえ、ユーザにレスポンスを返す前に、要求しているユーザが、要求されているIDのオブジェクトを見ることができるか必ず検証するべきです。
 
-Not doing this is "security through obscurity" which is inevitably breached, just like having a default password of "letmein" and so on.
+{hidden}Not doing this is "security through obscurity" which is inevitably breached, just like having a default password of "letmein" and so on.{hidden}
+これをしないということは "security through obscurity(※脆弱性をユーザーから隠せば、悪用は防げるという考え)" であり、すなわち "letmein" のようなデフォルトパスワードを使うのと同様、そのうち破られることになるでしょう。
 
-You must assume that every unprotected URL is publicly accessible one way or another.
+{hidden}You must assume that every unprotected URL is publicly accessible one way or another.{hidden}
+いずれにせよ、全ての保護されていないURLは、当然誰からもアクセス可能であると考えなければなりません。
