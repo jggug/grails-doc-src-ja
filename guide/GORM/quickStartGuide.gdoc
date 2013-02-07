@@ -17,7 +17,6 @@ grails create-domain-class helloworld.Person
 package helloworld
 
 class Person {
-
 }
 {code}
 
@@ -27,14 +26,13 @@ class Person {
 {note}
 
 {hidden}You can customize the class by adding properties:{hidden}
-プロパティを追加することでドメインクラスをカスタマイズできます。	
+プロパティを追加することでドメインクラスをカスタマイズできます。
 
 {code}
 class Person {
     String name
     Integer age
     Date lastVisit
-
 }
 {code}
 
