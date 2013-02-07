@@ -1,14 +1,17 @@
-A domain class can be created with the [create-domain-class|commandLine] command:
+{hidden}A domain class can be created with the [create-domain-class|commandLine] command:{hidden}
+以下のように[create-domain-class|commandLine]コマンドでドメインクラスを作成できます。
 
 {code}
 grails create-domain-class helloworld.Person
 {code}
 
 {note}
-If no package is specified with the create-domain-class script, Grails automatically uses the application name as the package name.
+{hidden}If no package is specified with the create-domain-class script, Grails automatically uses the application name as the package name.{hidden}
+パッケージ名を指定しない場合、自動的にアプリケーション名をパッケージ名として使用します。
 {note}
 
-This will create a class at the location @grails-app/domain/helloworld/Person.groovy@ such as the one below:
+{hidden}This will create a class at the location @grails-app/domain/helloworld/Person.groovy@ such as the one below:{hidden}
+コマンドを実行すると@grails-app/domain/helloworld/Person.groovy@に以下のようなドメインクラスを作成します。
 
 {code}
 package helloworld
@@ -18,10 +21,12 @@ class Person {
 {code}
 
 {note}
-If you have the @dbCreate@ property set to "update", "create" or "create-drop" on your [DataSource|guide:dataSource], Grails will automatically generate/modify the database tables for you.
+{hidden}If you have the @dbCreate@ property set to "update", "create" or "create-drop" on your [データソース|guide:dataSource], Grails will automatically generate/modify the database tables for you.{hidden}
+[データソース|guide:dataSource]の@dbCreate@プロパティに"update", "create" または "create-drop"が設定されている場合は、ドメインクラスに対応したデータベースのテーブルを自動的に作成/修正します。
 {note}
 
-You can customize the class by adding properties:
+{hidden}You can customize the class by adding properties:{hidden}
+プロパティを追加することでドメインクラスをカスタマイズできます。
 
 {code}
 class Person {
@@ -31,10 +36,12 @@ class Person {
 }
 {code}
 
-Once you have a domain class try and manipulate it with the [shell|commandLine] or [console|commandLine] by typing:
+{hidden}Once you have a domain class try and manipulate it with the [shell|commandLine] or [console|commandLine] by typing:{hidden}
+[shell|commandLine]や[console|commandLine]上で、作成したドメインクラスを操作できます。
 
 {code}
 grails console
 {code}
 
-This loads an interactive GUI where you can run Groovy commands with access to the Spring ApplicationContext, GORM, etc.
+{hidden}This loads an interactive GUI where you can run Groovy commands with access to the Spring ApplicationContext, GORM, etc.{hidden}
+このコマンドはGroovyコードを実行可能なインタラクティブなGUIを起動します。GroovyコードからSpring ApplicationContextやGORMなどを使用できます。
