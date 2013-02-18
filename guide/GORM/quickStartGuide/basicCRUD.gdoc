@@ -1,47 +1,61 @@
-Try performing some basic CRUD (Create/Read/Update/Delete) operations.
+{hidden}Try performing some basic CRUD (Create/Read/Update/Delete) operations.{hidden}
+いくつかの単純なCRUD操作(作成/参照/更新/削除)を実行してみましょう。
 
-h4. Create
+{hidden}h4. Create{hidden}
+h4. 作成
 
-To create a domain class use Map constructor to set its properties and call [save|domainClasses]:
+{hidden}To create a domain class use Map constructor to set its properties and call [save|domainClasses]:{hidden}
+ドメインクラスを作成するにはマップコンストラクタでプロパティをセットし、[save|domainClasses]メソッドを呼び出します。
 
 {code}
 def p = new Person(name: "Fred", age: 40, lastVisit: new Date())
 p.save()
 {code}
 
-The [save|domainClasses] method will persist your class to the database using the underlying Hibernate ORM layer.
+{hidden}The [save|domainClasses] method will persist your class to the database using the underlying Hibernate ORM layer.{hidden}
+上記の[save|domainClasses]メソッドはHibernateのORM層を通じてドメインクラスをデータベースに永続化します。
 
-h4. Read
+{hidden}h4. Read{hidden}
+h4. 参照
 
-Grails transparently adds an implicit @id@ property to your domain class which you can use for retrieval:
+{hidden}Grails transparently adds an implicit @id@ property to your domain class which you can use for retrieval:{hidden}
+Grailsはユーザが特に意識しなくても暗黙的な@id@プロパティをドメインクラスの永続化時に付与します。この@id@によって検索時にドメインクラスを一意に識別することができます。
 
 {code}
 def p = Person.get(1)
 assert 1 == p.id
 {code}
 
-This uses the [get|domainClasses] method that expects a database identifier to read the @Person@ object back from the database.
-You can also load an object in a read-only state by using the [read|domainClasses] method:
+{hidden}This uses the [get|domainClasses] method that expects a database identifier to read the @Person@ object back from the database.{hidden}
+この[get|domainClasses]メソッドは引数にデータベースの主キーを受け取り、データベースから主キーに対応する@Person@オブジェクトを返します。
+{hidden}You can also load an object in a read-only state by using the [read|domainClasses] method:{hidden}
+[read|domainClasses]メソッドを使用することで、読み取り専用でオブジェクトを参照することができます。
 
 {code:java}
 def p = Person.read(1)
 {code}
 
-In this case the underlying Hibernate engine will not do any dirty checking and the object will not be persisted. Note that
-if you explicitly call the [save|domainClasses] method then the object is placed back into a read-write state.
+{hidden}In this case the underlying Hibernate engine will not do any dirty checking and the object will not be persisted. Note that{hidden}
+{hidden}if you explicitly call the [save|domainClasses] method then the object is placed back into a read-write state.{hidden}
+読み取り専用でオブジェクトを参照した場合は、下層のHibernateはdirtyチェックと永続化処理を行いません。
+しかし、[save|domainClasses]メソッドを明示的に呼び出した時は、オブジェクトは読み書き可能な状態に戻るということに留意してください。
 
-In addition, you can also load a proxy for an instance by using the [load|domainClasses] method:
+{hidden}In addition, you can also load a proxy for an instance by using the [load|domainClasses] method:{hidden}
+さらに[load|domainClasses]メソッドを使用することで、プロキシインスタンスを参照することができます。
 
 {code:java}
 def p = Person.load(1)
 {code}
 
-This incurs no database access until a method other than getId() is called. Hibernate then initializes the proxied instance, or
-throws an exception if no record is found for the specified id.
+{hidden}This incurs no database access until a method other than getId() is called. Hibernate then initializes the proxied instance, or{hidden}
+{hidden}throws an exception if no record is found for the specified id.{hidden}
+このプロキシインスタンスはgetId()メソッド以外の何らかのメソッドを呼び出すまでデータベースにアクセスしません。getId()メソッド以外の何らかのメソッドを呼び出した時に、Hibernateがプロキシインスタンスを初期化します。対象の主キーを持つレコードが見つからなかった場合は例外が投げられます。
 
-h4. Update
+{hidden}h4. Update{hidden}
+h4. 更新
 
-To update an instance, change some properties and then call [save|domainClasses] again:
+{hidden}To update an instance, change some properties and then call [save|domainClasses] again:{hidden}
+インスタンスを更新するには、いずれかのプロパティを変更した後で作成と同じように[save|domainClasses]メソッドを使用します。
 
 {code}
 def p = Person.get(1)
@@ -49,9 +63,11 @@ p.name = "Bob"
 p.save()
 {code}
 
-h4. Delete
+{hidden}h4. Delete{hidden}
+h4. 削除
 
-To delete an instance use the [delete|domainClasses] method:
+{hidden}To delete an instance use the [delete|domainClasses] method:{hidden}
+インスタンスを削除するには[delete|domainClasses]メソッドを使用します。
 
 {code}
 def p = Person.get(1)
