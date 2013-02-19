@@ -1,2 +1,3 @@
-Relationships define how domain classes interact with each other. Unless specified explicitly at both ends, a relationship exists only in the direction it is defined.
+{hidden}Relationships define how domain classes interact with each other. Unless specified explicitly at both ends, a relationship exists only in the direction it is defined.{hidden}
+ドメインクラスがどのように相互作用するのかを関連として定義します。両側のドメインクラスで明確に関連が定義されていない限り、関連はそれが定義された方向にだけ存在します。
 
