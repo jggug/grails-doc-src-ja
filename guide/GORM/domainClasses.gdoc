@@ -1,14 +1,18 @@
-When building Grails applications you have to consider the problem domain you are trying to solve. For example if you were building an [Amazon|http://www.amazon.com/]-style bookstore you would be thinking about books, authors, customers and publishers to name a few.
+{hidden}When building Grails applications you have to consider the problem domain you are trying to solve. For example if you were building an [Amazon|http://www.amazon.com/]-style bookstore you would be thinking about books, authors, customers and publishers to name a few.{hidden}
+Grailsアプリケーションを構築するときは、解決しようとしている問題のドメインについて深く考える必要があります。例えば、[Amazon|http://www.amazon.com/]のような書店を構築する場合のドメインをいくつか挙げるなら、本、著者、購入者、そして出版社などについて考えることになるでしょう。
 
-These are modeled in GORM as Groovy classes, so a @Book@ class may have a title, a release date, an ISBN number and so on. The next few sections show how to model the domain in GORM.
+{hidden}These are modeled in GORM as Groovy classes, so a @Book@ class may have a title, a release date, an ISBN number and so on. The next few sections show how to model the domain in GORM.{hidden}
+そのようなドメインはGroovyのクラスとしてGORM内でモデル化されており、@Book@クラスはタイトル、出版日、ISBNコードなどを持つでしょう。以降のいくつかの節でGORM内でどのようにドメインをモデル化すればよいかをお見せします。
 
-To create a domain class you run the [create-domain-class|commandLine] command as follows:
+{hidden}To create a domain class you run the [create-domain-class|commandLine] command as follows:{hidden}
+ドメインクラスを作成するために、次のように[create-domain-class|commandLine]コマンドを実行します。
 
 {code}
 grails create-domain-class org.bookstore.Book
 {code}
 
-The result will be a class at @grails-app/domain/org/bookstore/Book.groovy@:
+{hidden}The result will be a class at @grails-app/domain/org/bookstore/Book.groovy@:{hidden}
+@grails-app/domain/org/bookstore/Book.groovy@クラスが作成されます。
 
 {code}
 package org.bookstore
@@ -17,9 +21,11 @@ class Book {
 }
 {code}
 
-This class will map automatically to a table in the database called @book@ (the same name as the class). This behaviour is customizable through the [ORM Domain Specific Language|guide:ormdsl]
+{hidden}This class will map automatically to a table in the database called @book@ (the same name as the class). This behaviour is customizable through the [ORM Domain Specific Language|guide:ormdsl]{hidden}
+このクラスは自動的にデータベースの@book@テーブル(作成したクラスと同じ名前)と対応付けられます。この動作は[ORMのドメイン固有言語|guide:ormdsl]によってカスタマイズできます。
 
-Now that you have a domain class you can define its properties as Java types. For example:
+{hidden}Now that you have a domain class you can define its properties as Java types. For example:{hidden}
+先ほど作成したドメインクラスに、Javaの型を持つプロパティを定義することができます。例：
 
 {code}
 package org.bookstore
@@ -31,4 +37,5 @@ class Book {
 }
 {code}
 
-Each property is mapped to a column in the database, where the convention for column names is all lower case separated by underscores. For example @releaseDate@ maps onto a column @release_date@. The SQL types are auto-detected from the Java types, but can be customized with [Constraints|guide:constraints] or the [ORM DSL|guide:ormdsl].
+{hidden}Each property is mapped to a column in the database, where the convention for column names is all lower case separated by underscores. For example @releaseDate@ maps onto a column @release_date@. The SQL types are auto-detected from the Java types, but can be customized with [Constraints|guide:constraints] or the [ORM DSL|guide:ormdsl].{hidden}
+定義した各プロパティは規約として、大文字はアンダースコアをつけて小文字にしたデータベースのカラムに対応付けられます。例えば、@releaseDate@プロパティは@release_date@カラムに対応付けられます。SQLの型はJavaの型から自動的に判別されますが、[Constraints|guide:constraints]や[ORMのドメイン固有言語|guide:ormdsl]によってカスタマイズすることができます。
