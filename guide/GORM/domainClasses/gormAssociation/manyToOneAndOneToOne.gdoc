@@ -1,4 +1,5 @@
-A many-to-one relationship is the simplest kind, and is defined with a property of the type of another domain class. Consider this example:
+{hidden}A many-to-one relationship is the simplest kind, and is defined with a property of the type of another domain class. Consider this example:{hidden}
+多対1の関連は最も単純で、他のドメインクラス型のプロパティとして定義されます。次のような例を考えてみましょう。
 
 h5. Example A
 
@@ -13,7 +14,8 @@ class Nose {
 }
 {code}
 
-In this case we have a unidirectional many-to-one relationship from @Face@ to @Nose@. To make this relationship bidirectional define the other side as follows (and see the section on controlling the ends of the association just below):
+{hidden}In this case we have a unidirectional many-to-one relationship from @Face@ to @Nose@. To make this relationship bidirectional define the other side as follows (and see the section on controlling the ends of the association just below):{hidden}
+この場合は、@Face@から@Nose@への単方向の多対1の関連が存在しています。この関連を双方向にする場合は、もう片方のクラスを次のように定義します。(加えて本項最後の関連の両端をコントロールするの項を参照してください。)
 
 h5. Example B
 
@@ -29,26 +31,37 @@ class Nose {
 }
 {code}
 
-In this case we use the @belongsTo@ setting to say that @Nose@ "belongs to" @Face@. The result of this is that we can create a @Face@, attach a @Nose@ instance to it and when we save or delete the @Face@ instance, GORM will save or delete the @Nose@. In other words, saves and deletes will cascade from @Face@ to the associated @Nose@:
+{hidden}In this case we use the @belongsTo@ setting to say that @Nose@ "belongs to" @Face@. The result of this is that we can create a @Face@, attach a @Nose@ instance to it and when we save or delete the @Face@ instance, GORM will save or delete the @Nose@. In other words, saves and deletes will cascade from @Face@ to the associated @Nose@:{hidden}
+この場合@belongsTo@を設定することで、@Nose@"が"@Face@に"属している"ということを表現しています。結果として、@Nose@インスタンスを保持する@Face@インスタンスを作成し、その@Face@インスタンスをsave、deleteした場合、GORMは@Nose@のsave、deleteを自動的に行います。別の言い方をすれば、saveとdeleteが@Face@から関連した@Nose@へcascadeします。
 
 {code}
 new Face(nose:new Nose()).save()
 {code}
 
-The example above will save both face and nose. Note that the inverse _is not_ true and will result in an error due to a transient @Face@:
+{hidden}The example above will save both face and nose. Note that the inverse _is not_ true and will result in an error due to a transient @Face@:{hidden}
+上記の例はfaceとnoseの両方を作成します。双方向の関連を持っていますが、faceとnoseの対応を逆にした場合は@Face@が保存されず、意図しない動作となる点に注意してください。
 
-{code}
+{hidden}{code}
 new Nose(face:new Face()).save() // will cause an error
+{code}{hidden}
+{code}
+new Nose(face:new Face()).save() // 意図しない動作 Noseは保存されるが、Faceは保存されない
 {code}
 
-Now if we delete the @Face@ instance, the @Nose@ will go too:
+{hidden}Now if we delete the @Face@ instance, the @Nose@ will go too:{hidden}
+次に@Face@インスタンスを削除すると、@Nose@も削除される例です:
 
-{code}
+{hidden}{code}
 def f = Face.get(1)
 f.delete() // both Face and Nose deleted
+{code}{hidden}
+{code}
+def f = Face.get(1)
+f.delete() // FaseとNose両方が削除される
 {code}
 
-To make the relationship a true one-to-one, use the @hasOne@ property on the owning side, e.g. @Face@:
+{hidden}To make the relationship a true one-to-one, use the @hasOne@ property on the owning side, e.g. @Face@:{hidden}
+本当の1対1の関連を作る場合、関連を保持する側に@hasOne@プロパティを使います。@Face@の例:
 
 h5. Example C
 
@@ -64,9 +77,11 @@ class Nose {
 }
 {code}
 
-Note that using this property puts the foreign key on the inverse table to the previous example, so in this case the foreign key column is stored in the @nose@ table inside a column called @face_id@. Also, @hasOne@ only works with bidirectional relationships.
+{hidden}Note that using this property puts the foreign key on the inverse table to the previous example, so in this case the foreign key column is stored in the @nose@ table inside a column called @face_id@. Also, @hasOne@ only works with bidirectional relationships.{hidden}
+1つ前のExample Bでは、@face@テーブルに@nose@テーブルへの外部キーが生成されますが、このプロパティを使用すると外部キーが作成されるテーブルが逆になる点に注意してください。この例だと、@nose@テーブルに@face_id@カラムが追加されます。@hasOne@も双方向の関連としてのみ動作します。
 
-Finally, it's a good idea to add a unique constraint on one side of the one-to-one relationship:
+{hidden}Finally, it's a good idea to add a unique constraint on one side of the one-to-one relationship:{hidden}
+最後に、1対1関連の片側にユニーク制約を付加しておくと良いでしょう。
 
 {code}
 class Face {
@@ -84,9 +99,11 @@ class Nose {
 }
 {code}
 
-h5. Controlling the ends of the association
+{hidden}h5. Controlling the ends of the association{hidden}
+h5. 関連の両端をコントロールする    
 
-Occasionally you may find yourself with domain classes that have multiple properties of the same type. They may even be self-referential, i.e. the association property has the same type as the domain class it's in. Such situations can cause problems because Grails may guess incorrectly the type of the association. Consider this simple class:
+{hidden}Occasionally you may find yourself with domain classes that have multiple properties of the same type. They may even be self-referential, i.e. the association property has the same type as the domain class it's in. Such situations can cause problems because Grails may guess incorrectly the type of the association. Consider this simple class:{hidden}
+時々、同じ種類のプロパティを複数持つドメインクラスを作成することがあるでしょう。自己参照を持つ場合さえあります。例えば、関連するプロパティの種類が、自分自身の種類と同じドメインクラスなどです。 そのような状態が問題となる場合があります。これはGrailsが関連の種類を誤って推測するために起こりえます。次のシンプルなクラスについて考えてみましょう:
 
 {code}
 class Person {
@@ -99,9 +116,11 @@ class Person {
 }
 {code}
 
-As far as Grails is concerned, the @parent@ and @supervisor@ properties are two directions of the same association. So when you set the @parent@ property on a @Person@ instance, Grails will automatically set the @supervisor@ property on the other @Person@ instance. This may be what you want, but if you look at the class, what we in fact have are two unidirectional relationships.
+{hidden}As far as Grails is concerned, the @parent@ and @supervisor@ properties are two directions of the same association. So when you set the @parent@ property on a @Person@ instance, Grails will automatically set the @supervisor@ property on the other @Person@ instance. This may be what you want, but if you look at the class, what we in fact have are two unidirectional relationships.{hidden}
+Grailsの動作としては、@parent@プロパティと@supervisor@プロパティを2方向の同じ関連として扱います。つまり、@Person@インスタンスAの@parent@プロパティに@Person@インスタンスBを格納した時、Grailsは自動的に@Person@インスタンスBの@supervisor@プロパティに@Person@インスタンスAを格納します。 これは期待した動作かもしれません。しかしクラスを見れば、むしろ2つの単方向の関連を持つことを期待するでしょう。
 
-To guide Grails to the correct mapping, you can tell it that a particular association is unidirectional through the @mappedBy@ property:
+{hidden}To guide Grails to the correct mapping, you can tell it that a particular association is unidirectional through the @mappedBy@ property:{hidden}
+正しいマッピングをGrailsに伝えるために、 @mappedBy@プロパティを使用して特定の関連が単方向であることを示すことができます:
 
 {code}
 class Person {
@@ -116,8 +135,12 @@ class Person {
 }
 {code}
 
-You can also replace "none" with any property name of the target class. And of course this works for normal domain classes too, not just self-referential ones. Nor is the @mappedBy@ property limited to many-to-one and one-to-one associations: it also works for one-to-many and many-to-many associations as you'll see in the next section.
+{hidden}You can also replace "none" with any property name of the target class. And of course this works for normal domain classes too, not just self-referential ones. Nor is the @mappedBy@ property limited to many-to-one and one-to-one associations: it also works for one-to-many and many-to-many associations as you'll see in the next section.{hidden}
+対象クラスのどんなプロパティ名も"none"に置き換えることができます。もちろん自己参照の時だけではなく一般的なドメインクラスに対してもこの方法は動作します。そして@mappedBy@プロパティは多対1と1対1関連だけに限定されていません。次項でわかるように、1対多と多対多の関連の場合も動作します。
 
-{warning}
+{hidden}{warning}
 If you have a property called "none" on your domain class, this approach won't work currently! The "none" property will be treated as the reverse direction of the association (or the "back reference"). Fortunately, "none" is not a common domain class property name.
+{warning}{hidden}
+{warning}
+ドメインクラスに"none"という名前のプロパティがある場合はこの方法は上手く動きません！ "none"プロパティは反対方向、あるいは後方への参照として扱われます。 "none"はプロパティ名としては珍しい名前のため、特に気にする必要はないでしょう。
 {warning}
