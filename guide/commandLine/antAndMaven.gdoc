@@ -321,7 +321,7 @@ By reading the @pom.xml@ file you can do an initial @mvn install@ from the paren
 h4. Grailsコマンドをフェーズに追加する {hidden}Adding Grails commands to phases {hidden}
 
 {hidden}The standard POM created for you by Grails already attaches the appropriate core Grails commands to their corresponding build phases, so "compile" goes in the "compile" phase and "war" goes in the "package" phase. That doesn't help though when you want to attach a plugin's command to a particular phase. The classic example is functional tests. How do you make sure that your functional tests (using which ever plugin you have decided on) are run during the "integration-test" phase?{hidden}
-Grailsが作成した標準のPOMファイルは、Grailsのビルドフェーズに対応したコアコマンドに適切に付属しています。"compile" は "compile"フェーズに、"war" は "package"フェーズに。特定のフェーズにプラグインコマンドを付属させたい場合には役立ちません。古典的な例は、機能テストです。どうやって機能テストが統合テストフェーズの間に（あなた使用しているどんなプラグインを使った場合でも）実行されるのかを確かめるのでしょうか？
+Grailsが作成した標準のPOMファイルは、Grailsのビルドフェーズに対応したコアコマンドに適切に付属しています。"compile" は "compile"フェーズに、"war" は "package"フェーズに。特定のフェーズにプラグインコマンドを付属させたい場合には役立ちません。古典的な例は、Functionalテストです。どうやってFunctionalテストが統合テストフェーズの間に（あなた使用しているどんなプラグインを使った場合でも）実行されるのかを確かめるのでしょうか？
 
 {hidden}Fear not: all things are possible. In this case, you can associate the command to a phase using an extra "execution" block:{hidden}
 恐れる必要はありません、すべて可能です。この場合には、"execution"ブロックを追加してフェーズに関連付けることができます。
