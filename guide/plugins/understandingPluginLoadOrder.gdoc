@@ -114,7 +114,7 @@ def scopes = [excludes:'war']
 {code}
 
 * @test@ - テスト実行時
-* @functional-test@ - 機能テスト実行時
+* @functional-test@ - ファンクショナルテスト実行時
 * @run@ - run-appもしくはrun-war時
 * @war@ - アプリケーションがWARファイルにパッケージ化されたとき
 * @all@ - 全てのスコープに適用されるプラグイン(デフォルト)

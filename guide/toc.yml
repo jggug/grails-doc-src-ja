@@ -235,16 +235,16 @@ services:
 testing:
   title: テスト
   unitTesting:
-    title: Unitテスト
-    unitTestingControllers: コントローラUnitテスト
-    unitTestingTagLibraries: タグライブラリUnitテスト
-    unitTestingDomains: ドメインUnitテスト
-    unitTestingFilters: フィルタUnitテスト
-    unitTestingURLMappings: URLマッピングUnitテスト
+    title: ユニットテスト
+    unitTestingControllers: コントローラユニットテスト
+    unitTestingTagLibraries: タグライブラリユニットテスト
+    unitTestingDomains: ドメインユニットテスト
+    unitTestingFilters: フィルタユニットテスト
+    unitTestingURLMappings: URLマッピングユニットテスト
     mockingCollaborators: モッキングコラボレータ
     mockingCodecs: Mocking Codecs
   integrationTesting: 統合テスト
-  functionalTesting: 機能テスト
+  functionalTesting: ファンクショナルテスト
 i18n:
   title: 国際化
   understandingMessageBundles: メッセージバンドルを理解する
