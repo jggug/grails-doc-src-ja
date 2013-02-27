@@ -1,4 +1,5 @@
-Functional tests involve making HTTP requests against the running application and verifying the resultant behaviour. Grails does not ship with any support for writing functional tests directly, but there are several plugins available for this.
+{hidden}Functional tests involve making HTTP requests against the running application and verifying the resultant behaviour. Grails does not ship with any support for writing functional tests directly, but there are several plugins available for this.{hidden}
+機能テストは実行中のアプリケーションに対してHTTPリクエストを行い、結果として得られた振る舞いを検証します。Grailsは機能テストを書くための直接的なサポートは提供しませんが、機能テストのためのいくつかのプラグインが利用可能です。
 
 * @Canoo Webtest@ - "http://grails.org/plugin/webtest":http://grails.org/plugin/webtest
 * @G-Func@ - "http://grails.org/plugin/functional-test":http://grails.org/plugin/functional-test
@@ -6,54 +7,72 @@ Functional tests involve making HTTP requests against the running application an
 * @Selenium-RC@ - "http://grails.org/plugin/selenium-rc":http://grails.org/plugin/selenium-rc
 * @WebDriver@ - "http://grails.org/plugin/webdriver":http://grails.org/plugin/webdriver
 
-Consult the documentation for each plugin for its capabilities.
+{hidden}Consult the documentation for each plugin for its capabilities.{hidden}
+それぞれのプラグインでできることはドキュメントを参照してください。
 
-h4. Common Options
+{hidden}h4. Common Options{hidden}
+h4. 共通オプション
 
-There are options that are common to all plugins that control how the Grails application is launched, if at all.
+{hidden}There are options that are common to all plugins that control how the Grails application is launched, if at all.{hidden}
+全てのプラグインに共通のGrailsアプリケーションの起動を制御するオプションがあります。
 
-h5. inline
+{hidden}h5. inline{hidden}
+h5. inlineオプション
 
-The @-inline@ option specifies that the grails application should be started inline (i.e. like @run-app@).
+{hidden}The @-inline@ option specifies that the grails application should be started inline (i.e. like @run-app@).{hidden}
+@-inline@オプションが指定されるとGrailsアプリケーションがインライン起動されます(例えば@run-app@のような)。
 
-*This option is implicitly set unless the @baseUrl@ or @war@ options are set*
+{hidden}*This option is implicitly set unless the @baseUrl@ or @war@ options are set*{hidden}
+*@-inline@オプションは@-baseUrl@か@-war@のどちらかが設定されていないと、暗黙的に有効になります*
 
-h5. war
+{hidden}h5. war{hidden}
+h5. warオプション
 
-The @-war@ option specifies that the grails application should be packaged as a war and started. This is useful as it tests your application in a production-like state, but it has a longer startup time than the @-inline@ option. It also runs the war in a forked JVM, meaning that you cannot access any internal application objects.
+{hidden}The @-war@ option specifies that the grails application should be packaged as a war and started. This is useful as it tests your application in a production-like state, but it has a longer startup time than the @-inline@ option. It also runs the war in a forked JVM, meaning that you cannot access any internal application objects.{hidden}
+@-war@オプションを指定すると、Grailsアプリケーションはwarファイルにパッケージ化した後に起動されます。このオプションはアプリケーションを実際にプロダクトと同じ状態でテストすることができるので便利です。しかし、@-inline@オプションよりも起動に時間がかかります。また、warで起動するとフォークされたJVM上で実行されます。これは内部のオブジェクトにアクセスできないことを意味しています。
 
 {code:java}
 grails test-app functional: -war
 {code}
 
-Note that the same build/config options for the [run-war|commandLine] command apply to functional testing against the WAR.
+{hidden}Note that the same build/config options for the [run-war|commandLine] command apply to functional testing against the WAR.{hidden}
+[run-war|commandLine]コマンドで利用可能なビルドまたは設定オプションが、warファイルに対する機能テストでも使用できます。
 
-h5. https
+{hidden}h5. https{hidden}
+h5. httpsオプション
 
-The @-https@ option results in the application being able to receive https requests as well as http requests. It is compatible with both the @-inline@ and @-war@ options.
+{hidden}The @-https@ option results in the application being able to receive https requests as well as http requests. It is compatible with both the @-inline@ and @-war@ options.{hidden}
+@-https@オプションはhttpリクエストと同様にアプリケーションがhttpsリクエストを受け付けられるようにします。このオプションは@-inline@と@-war@の両方のオプションと一緒に使うことができます。
 
 {code:java}
 grails test-app functional: -https
 {code}
 
-Note that this does not change the test _base url_ to be https, it will still be http unless the @-httpsBaseUrl@ option is also given.
+{hidden}Note that this does not change the test _base url_ to be https, it will still be http unless the @-httpsBaseUrl@ option is also given.{hidden}
+@-https@オプションを使っていてもテストで使われる _base url_ はhttpsにはなりません。@-httpsBaseUrl@をあわせて指定しない限りhttpのままとなります。
 
-h5. httpsBaseUrl
+{hidden}h5. httpsBaseUrl{hidden}
+h5. httpsBaseUrlオプション
 
-The @-httpsBaseUrl@ causes the implicit base url to be used for tests to be a https url.
+{hidden}The @-httpsBaseUrl@ causes the implicit base url to be used for tests to be a https url.{hidden}
+@-httpsBaseUrl@オプションを使えば暗黙的に設定されている _base url_ がテスト時にhttpsのURLとして使われます。
 
 {code:java}
 grails test-app functional: -httpsBaseUrl
 {code}
 
-This option is ignored if the @-baseUrl@ option is specified.
+{hidden}This option is ignored if the @-baseUrl@ option is specified.{hidden}
+@-httpsBaseUrl@オプションは@-baseUrl@オプションが指定されると無視されます。
 
-h5. baseUrl
+{hidden}h5. baseUrl{hidden}
+h5. baseUrlオプション
 
-The @baseUrl@ option allows the base url for tests to be specified.
+{hidden}The @baseUrl@ option allows the base url for tests to be specified.{hidden}
+@-baseUrl@オプションによりテスト実施時の _base url_ を指定することができます。
 
 {code:java}
 grails test-app functional: -baseUrl=http://mycompany.com/grailsapp
 {code}
 
-This option will prevent the local grails application being started unless @-inline@ or @-war@ are given as well. To use a custom base url but still test against the local Grails application you *must* specify one of either the @-inline@ or @-war@ options.
+{hidden}This option will prevent the local grails application being started unless @-inline@ or @-war@ are given as well. To use a custom base url but still test against the local Grails application you *must* specify one of either the @-inline@ or @-war@ options.{hidden}
+@-baseUrl@オプションが指定されていると、ローカル環境でのGrailsアプリケーションを@-inline@や@-war@を指定しないで起動することができなくなります。ローカル環境でのGrailsアプリケーションで _base url_ を指定するには、*必ず*@-inline@か@-war@のどちらかのオプションを指定する必要があります。
