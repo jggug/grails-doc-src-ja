@@ -1,16 +1,20 @@
 {hidden}Typically, dependencies are constant. That is, for a given combination of @group@, @name@ and @version@ the jar (or plugin) that it refers to will never change. The Grails dependency management system uses this fact to cache dependencies in order to avoid having to download them from the source repository each time. Sometimes this is not desirable. For example, many developers use the convention of a _snapshot_ (i.e. a dependency with a version number ending in “-SNAPSHOT”) that can change from time to time while still retaining the same version number. We call this a "changing dependency".{hidden}
-基本的に、依存関係は不変です。ここでの不変とは、ある特定の{0}グループ{/0}、{1}名前{/1}、{2}バージョン{/2}の組み合わせが参照するjar（もしくはプラグイン）は変化することはない、ということです。Grailsの依存関係管理システムは、ソースリポジトリから逐一ダウンロードすることを回避するために、依存性キャッシュ（cache dependency）を利用しています。時に、この仕様には不都合が生じます。例えば、多くの開発者は慣習的に{3}スナップショット{/3}（つまり、バージョン番号が”-SNAPSHOT”で終わる依存関係）を使っています。この{3}スナップショット{/3}は同一のバージョン番号を保持しつつ、変更される可能性があります。我々はこのことを”変化する依存関係”と呼んでいます。
+基本的に、依存関係は不変です。ここでの不変とは、ある特定の@グループ@、@名前@、@バージョン@の組み合わせが参照するjar（もしくはプラグイン）は変化することはない、ということです。Grailsの依存関係管理システムは、ソースリポジトリから逐一ダウンロードすることを回避するために、依存性キャッシュ（cache dependency）を利用しています。時に、この仕様には不都合が生じます。例えば、多くの開発者は慣習的にスナップショット（つまり、バージョン番号が”-SNAPSHOT”で終わる依存関係）を使っています。このスナップショットは同一のバージョン番号を保持しつつ、変更される可能性があります。我々はこのことを”変化する依存関係”と呼んでいます。
 
 {hidden}Whenever you have a changing dependency, Grails will always check the remote repository for a new version. More specifically, when a changing dependency is encountered during dependency resolution its last modified timestamp in the local cache is compared against the last modified timestamp in the dependency repositories. If the version on the remote server is deemed to be newer than the version in the local cache, the new version will be downloaded and used.{hidden}
 変化する依存関係を持つ度に、Grailsは新しいバージョンのリモートリポジトリをチェックします。具体的には、依存関係の解決中に変化する依存関係に遭遇した場合、ローカルキャッシュ内の最終更新タイムスタンプは依存関係のリポジトリ内の最終更新タイムスタンプと比較されます。リモートサーバ上のバージョンがローカルキャッシュ内のバージョンよりも新しい場合、新しいバージョンがダウンロードされ、使用されます。
 
+{hidden}
 {info}
-{hidden}Be sure to read the next section on “Dependency Resolution Caching” in addition to this one as it affects changing dependencies.{hidden}
-変化する依存関係に影響のある説明として、当節に加えて、"依存性解決キャッシュ"については次のセクションを必ずお読みください。
+Be sure to read the next section on “Dependency Resolution Caching” in addition to this one as it affects changing dependencies.
+{info}
+{hidden}
+{info}
+変化する依存関係に作用する、依存関係解決キャッシングについて、次のセクションを必ずお読みください。
 {info}
 
 {hidden}All dependencies (jars and plugins) with a version number ending in @-SNAPSHOT@ are *implicitly* considered to be changing by Grails. You can also explicitly specify that a dependency is changing by setting the changing flag in the dependency DSL:{hidden}
-Grailsは｛1}暗黙的{/1}に、バージョン番号が{0}-SNAPSHOT{/0}で終わるすべての依存関係（jarファイルもしくはプラグイン）を、変更されたものとみなす。また、明示的に依存DSLクエリー言語に変更フラグを設定することにより、依存関係が変化していることを指定できます。
+Grailsは*暗黙的に*バージョン番号が@-SNAPSHOT@で終わるすべての依存関係（jarファイルもしくはプラグイン）を、変更されたものとみなす。また、明示的に依存DSLクエリー言語に変更フラグを設定することにより、依存関係が変化していることを指定できます。
 
 {code}
 runtime ('org.my:lib:1.2.3') {
@@ -36,7 +40,7 @@ grails.project.dependency.resolution = {
 {code}
 
 {hidden}In this example we are using the local maven repository and a remote network maven repository. Assuming that the local Grails dependency and the local Maven cache do not contain the dependency but the remote repository does, when we perform dependency resolution the following actions will occur:{hidden}
-この例では、ローカルのMavenリポジトリとリモートネットワークのMavenリポジトリを使用しています。ローカルGrailsの依存関係とローカルMavenキャッシュには該当する依存関係が含まれていませんが、リモートリポジトリには含まれています。我々が依存関係解決を実行するときに、以下が実行されます：
+この例では、ローカルのMavenリポジトリとリモートネットワークのMavenリポジトリを使用しています。ローカルGrailsの依存関係とローカルMavenキャッシュには該当する依存関係が含まれていませんが、リモートリポジトリには含まれています。我々が依存関係解決を実行するときに、以下が実行されます:
 
 {hidden}* maven local repository is searched, dependency not found{hidden}
 * Mavenローカルリポジトリが検索されますが、依存関係は見つかりません。
@@ -44,10 +48,10 @@ grails.project.dependency.resolution = {
 * Mavenネットワークリポジトリが検索され、依存関係がキャッシュにダウンロードされ、使用されます。
 
 {hidden}Note that the repositories are checked in the order they are defined in the @BuildConfig.groovy@ file. {hidden}
-リポジトリは{0}BuildConfig.groovy{/0}のファイルに定義されている順にチェックされることに注意してください。
+リポジトリは@BuildConfig.groovy@のファイルに定義されている順にチェックされることに注意してください。
 
 {hidden}If we perform dependency resolution again without the dependency changing on the remote server, the following will happen:{hidden}
-リモートサーバー上の依存関係が変化していない状態で、再び依存関係解決を行う場合、次の処理が実行されます：
+リモートサーバー上の依存関係が変化していない状態で、再び依存関係解決を行う場合、次の処理が実行されます:
 
 {hidden}* maven local repository is searched, dependency not found{hidden}
 * Mavenローカルリポジトリが検索されますが、依存関係は見つかりません。
@@ -55,7 +59,7 @@ grails.project.dependency.resolution = {
 * Mavenネットワークリポジトリが検索され、キャッシュ内バージョンと同じ”年齢”の依存関係が見つかりますが、更新（すなわちダウンロード）はされません。
 
 {hidden}Later on, a new version of @mylib 1.0-SNAPSHOT@ is published changing the version on the server. The next time we perform dependency resolution, the following will happen:{hidden}
-サーバー上のバージョンが変更された新しい{0}mylib 1.0-SNAPSHOT{/0}が公開された後、依存関係の解決を実行した場合、以下の処理が行われます。
+サーバー上のバージョンが変更された新しい@mylib 1.0-SNAPSHOT@が公開された後、依存関係の解決を実行した場合、以下の処理が行われます:
 
 {hidden}* maven local repository is searched, dependency not found{hidden}
 * Mavenローカルリポジトリが検索されますが、依存関係は見つかりません。
@@ -66,7 +70,7 @@ grails.project.dependency.resolution = {
 ここまで、すべてが正常に機能しています。
 
 {hidden}Now we want to test some local changes to the @mylib@ library. To do this we build it locally and install it to the local Maven cache (how doesn't particularly matter). The next time we perform a dependency resolution, the following will occur:{hidden}
-ここで、{0}mylib{/0}ライブラリのローカル上での変更をテストしたい場合を考えてみます。これを行うには、ライブラリをローカル上でビルドし、ローカルなMavenキャッシュにインストールします（方法は特に重要ではありません）。この状態で、依存関係の解決を実行した場合、以下のようになります。
+ここで、@mylib@ライブラリのローカル上での変更をテストしたい場合を考えてみます。これを行うには、ライブラリをローカル上でビルドし、ローカルなMavenキャッシュにインストールします（方法は特に重要ではありません）。この状態で、依存関係の解決を実行した場合、以下のようになります。
 
 {hidden}* maven local repository is searched, dependency is found to newer than version in the cache so will be updated (i.e. downloaded to the cache){hidden}
 * Mavenのローカルリポジトリが検索され、キャッシュ内のバージョンよりも新しい依存関係が見つかるため、更新（つまり、キャッシュにダウンロード）されます。
@@ -77,7 +81,7 @@ grails.project.dependency.resolution = {
 これは、期待通りの結果です。
 
 {hidden}Later on, a new version of @mylib 1.0-SNAPSHOT@ is published changing the version on the server. The next time we perform dependency resolution, the following will happen:{hidden}
-サーバー上のバージョンが変更された新しい{0}mylib 1.0-SNAPSHOT{/0}が公開された後、依存関係の解決を実行した場合、以下の処理が行われます。
+サーバー上のバージョンが変更された新しい@mylib 1.0-SNAPSHOT@が公開された後、依存関係の解決を実行した場合、以下の処理が行われます。
 
 {hidden}* maven local repository is searched, dependency is found to be the same “age” as the version in the cache so will not be updated (i.e. downloaded){hidden}
 * Mavenローカルリポジトリが検索され、キャッシュ内バージョンと同じ”年齢”の依存関係が見つかりますが、更新（すなわちダウンロード）はされません。
@@ -88,20 +92,20 @@ grails.project.dependency.resolution = {
 これは望ましい結果ではない可能性があります。最新の公開された（ネットワークリポジトリの）スナップショットと同期をとらず、ローカルのMavenリポジトリのバージョンを使用し続けます。
 
 {hidden}The rule to remember is this: when resolving a dependency, Grails will stop searching as soon as it finds a repository that has the dependency at the specified version number. It will *not* continue searching all repositories trying to find a more recently modified instance.{hidden}
-覚えておくべきルール：依存関係を解決するときに、Grailsはできるだけ早く、バージョン番号の指定された依存関係を持つリポジトリを見つけ、検索を終了します。より最新のインスタンスを検索するためにすべてのリポジトリを検索し続けることは{0}しません{/0}。
+覚えておくべきルール:依存関係を解決するときに、Grailsはできるだけ早く、バージョン番号の指定された依存関係を持つリポジトリを見つけ、検索を終了します。より最新のインスタンスを検索するためにすべてのリポジトリを検索し続けることは@しません@。
 
 {hidden}To remedy this situation (i.e. build against the _newer_ version of @mylib 1.0-SNAPSHOT@ in the remote repository), you can either:{hidden}
-この状況を改善するために（すなわちリモートリポジトリ内の、{0}より新しい{/0}バージョンの{1}mylib 1.0-SNAPSHOT{/1}をビルドするために）、次のいずれかを実行できます：
+この状況を改善するために（すなわちリモートリポジトリ内の、より新しいバージョンの@mylib 1.0-SNAPSHOT@をビルドするために）、次のいずれかを実行できます:
 
 {hidden}* Delete the version from the local maven repository, or{hidden}
 * ローカルのMavenリポジトリからバージョンを削除する
 {hidden}* Reorder the repositories in the @BuildConfig.groovy@ file{hidden}
-* {0}BuildConfig.groovy{/0}ファイル内のリポジトリの順序を変更する
+* @BuildConfig.groovy@ファイル内のリポジトリの順序を変更する
 
 {hidden}Where possible, prefer deleting the version from the local maven repository. In general, when you have finished building against a locally built SNAPSHOT always try to clear it from the local maven repository.{hidden}
 可能であれば、ローカルのMavenリポジトリからバージョンを削除することが望ましいでしょう。通常は、ローカルスナップショットのビルドが終了したら、常にローカルのMavenリポジトリからクリアしましょう。
 
 {note}
 {hidden}This changing dependency behaviour is an unmodifiable characteristic of the underlying dependency management system that Grails uses, Apache Ivy. It is currently not possible to have Ivy search all repositories to look for newer versions (in terms of modification date) of the same dependency (i.e. the same combination of @group@, @name@ and @version@).{hidden}
-この変化する依存関係の挙動は、Grailsの依存関係管理システムの基礎となっているApache Ivyの変更不可能な特性です。現在のところIvyは、すべてのリポジトリを検索し、同じ依存関係（すなわち等しい{0}グループ{/0}、{1}名前{/1}、{2}バージョン{/2}の組み合わせ）野中から（修正日付の面で）より新しいバージョンのものを探すことはできません。
+この変化する依存関係の挙動は、Grailsの依存関係管理システムの基礎となっているApache Ivyの変更不可能な特性です。現在のところIvyは、すべてのリポジトリを検索し、同じ依存関係（すなわち等しい@グループ@、@名前@、@バージョン@の組み合わせ）の中から（修正日付の面で）より新しいバージョンのものを探すことはできません。
 {note}
