@@ -1,1 +1,2 @@
-If you need more advanced functionality beyond simple authentication such as authorization, roles etc. then you should consider using one of the available security plugins.
+{hidden}If you need more advanced functionality beyond simple authentication such as authorization, roles etc. then you should consider using one of the available security plugins.{hidden}
+認可やロールなど、単純な認証以上の機能が必要な場合、以下のようなセキュリティプラグインの利用を検討してください。
