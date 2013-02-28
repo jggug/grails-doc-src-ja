@@ -244,7 +244,7 @@ testing:
     mockingCollaborators: モッキングコラボレータ
     mockingCodecs: Mocking Codecs
   integrationTesting: 統合テスト
-  functionalTesting: 機能テスト
+  functionalTesting: Functionalテスト
 i18n:
   title: 国際化
   understandingMessageBundles: メッセージバンドルを理解する
