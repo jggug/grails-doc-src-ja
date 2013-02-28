@@ -321,13 +321,13 @@ def processBook() {
 }
 {code}
 
-h4. Unitテストフレームワーク {hidden}Unit Test Framework {hidden}
+h4. ユニットテストフレームワーク {hidden}Unit Test Framework {hidden}
 
 {hidden}Grails 2 introduces a new unit testing framework that is simpler and behaves more consistently than the old one. The old framework based on the @GrailsUnitTestCase@ class hierarchy is still available for backwards compatibility, but it does not work with the new annotations.{hidden}
-Grails 2では、古い仕様より単純でかつ安定した、新しいUnitテストフレームワークを実装しています。下位互換として@GrailsUnitTestCase@クラス階層をベースとした古いフレームワークも使用可能です。但し、新しい仕組みのアノテーションとは平行利用できません。
+Grails 2では、古い仕様より単純でかつ安定した、新しいユニットテストフレームワークを実装しています。下位互換として@GrailsUnitTestCase@クラス階層をベースとした古いフレームワークも使用可能です。但し、新しい仕組みのアノテーションとは平行利用できません。
 
 {hidden}Migrating unit tests to the new approach is non-trivial, but recommended. Here are a set of mappings from the old style to the new:{hidden}
-新しい仕組みのUnitテストへの移行は大変ですが推奨します。以下は古い仕組みから新しい仕組みへ更新する方法です:
+新しい仕組みのユニットテストへの移行は大変ですが推奨します。以下は古い仕組みから新しい仕組みへ更新する方法です:
 
 {hidden}
 # Remove @extends *UnitTestCase@ and add a @\@TestFor@ annotation to the class if you're testing a core artifact (controller, tag lib, domain class, etc.) or @\@TestMixin(GrailsUnitTestMixin)@ for non-core artifacts and non-artifact classes.

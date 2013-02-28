@@ -140,7 +140,7 @@ grails.mime.file.extensions = false
 h4. コンテントネゴシエーションをテスト {hidden}Testing Content Negotiation {hidden}
 
 {hidden}To test content negotiation in a unit or integration test (see the section on [Testing|guide:testing]) you can either manipulate the incoming request headers:{hidden}
-Unitテストまたは統合テスト([テスト|guide:testing]のセクションを参照)でコンテントネゴシエーションをテストする際に、入ってくるリクエストヘッダを操作することができます:
+ユニットテストまたは統合テスト([テスト|guide:testing]のセクションを参照)でコンテントネゴシエーションをテストする際に、入ってくるリクエストヘッダを操作することができます:
 
 {code:java}
 void testJavascriptOutput() {
