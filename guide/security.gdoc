@@ -1,12 +1,22 @@
-Grails is no more or less secure than Java Servlets. However, Java servlets (and hence Grails) are extremely secure and largely immune to common buffer overrun and malformed URL exploits due to the nature of the Java Virtual Machine underpinning the code.
+{hidden}Grails is no more or less secure than Java Servlets. However, Java servlets (and hence Grails) are extremely secure and largely immune to common buffer overrun and malformed URL exploits due to the nature of the Java Virtual Machine underpinning the code.{hidden}
+Grailsは、Javaサーブレットと同等にセキュアであり、Javaサーブレットと比べてどちらが安全、というものではありません。とは言え、Javaサーブレット(そしてGrails)は、コードを支えるJava仮想マシンの性質によって極めて安全で、一般的なバッファオーバーランや不正な形式のURLエクスプロイトに対して、多くの場合影響を受けません。
 
-Web security problems typically occur due to developer naivety or mistakes, and there is a little Grails can do to avoid common mistakes and make writing secure applications easier to write.
+{hidden}Web security problems typically occur due to developer naivety or mistakes, and there is a little Grails can do to avoid common mistakes and make writing secure applications easier to write.{hidden}
+Web上でのセキュリティ問題は、開発者の知識の無さやうっかりミスにより起こることが多いでしょう。そこで、よくあるミスを防ぎ、安全なアプリケーションとしてよりコーディングしやすくするために、Grailsでは次のようなちょっとした機能を提供します。
 
-h4. What Grails Automatically Does
+{hidden}h4. What Grails Automatically Does{hidden}
+h4. Grailsが自動的に行うこと
 
-Grails has a few built in safety mechanisms by default.
+{hidden}Grails has a few built in safety mechanisms by default.{hidden}
+Grailsには、安全性を保つためデフォルトでいくつかのメカニズムが内蔵されています。
 
+{hidden}
 # All standard database access via [GORM|guide:GORM] domain objects is automatically SQL escaped to prevent SQL injection attacks
 # The default [scaffolding|guide:scaffolding] templates HTML escape all data fields when displayed
 # Grails link creating tags ([link|tags], [form|tags], [createLink|tags], [createLinkTo|tags] and others) all use appropriate escaping mechanisms to prevent code injection
 # Grails provides [codecs|guide:codecs] to let you trivially escape data when rendered as HTML, JavaScript and URLs to prevent injection attacks here.
+{hidden}
+# [GORM|guide:GORM]経由でのすべての標準的なデータベースアクセスにおける、SQLインジェクション攻撃を防ぐための自動的なエスケープ処理
+# デフォルトの[スカッフォルド|guide:scaffolding]テンプレートのHTMLにおける、すべてのデータフィールドに対する表示時のエスケープ処理
+# Grailsのリンク作成タグ([link|tags]、[form|tags]、[createLink|tags]、[createLinkTo|tags]他)における、コードインジェクションを防ぐための適切なエスケープ機構
+# GrailsでHTML、JavaScript、URLをレンダリングする際の、データを手軽にエスケープ処理しインジェクション攻撃を防ぐ[コーデック|guide:codecs]の提供
