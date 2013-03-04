@@ -1,12 +1,15 @@
-Grails has no default mechanism for authentication as it is possible to implement authentication in many different ways. It is however, easy to implement a simple authentication mechanism using either [interceptors|guide:interceptors] or [filters|guide:filters]. This is sufficient for simple use cases but it's highly preferable to use an established security framework, for example by using the [Spring Security|guide:springSecurity] or the [Shiro|guide:shiro] plugin.
+{hidden}Grails has no default mechanism for authentication as it is possible to implement authentication in many different ways. It is however, easy to implement a simple authentication mechanism using either [interceptors|guide:interceptors] or [filters|guide:filters]. This is sufficient for simple use cases but it's highly preferable to use an established security framework, for example by using the [Spring Security|guide:springSecurity] or the [Shiro|guide:shiro] plugin.{hidden}
+認証は様々な方法で実装することができるため、Grailsではデフォルトの認証メカニズムを提供していません。[インターセプター|guide:interceptors]や[フィルタ|guide:filters]を使用することで、単純な認証であれば簡単に実装することができます。これらの機能は多くのユースケースにおいて十分ですが、実績のあるセキュリティフレームワークを使用することがより望ましいでしょう。セキュリティフレームワークには、例えば[Spring Security|guide:springSecurity]や[Shiro|guide:shiro]プラグインなどがあります。
 
-Filters let you apply authentication across all controllers or across a URI space. For example you can create a new set of filters in a class called @grails-app/conf/SecurityFilters.groovy@ by running:
+{hidden}Filters let you apply authentication across all controllers or across a URI space. For example you can create a new set of filters in a class called @grails-app/conf/SecurityFilters.groovy@ by running:{hidden}
+フィルタを使うと、すべてのコントローラやURI空間に対して認証を適用できます。例えば、以下のコマンドを実行することで、@grails-app/conf/SecurityFilters.groovy@というクラスに新しいフィルタセットが生成されます:
 
 {code}
 grails create-filters security
 {code}
 
-and implement your interception logic there:
+{hidden}and implement your interception logic there:{hidden}
+このクラスに、インターセプターのロジックを実装します:
 
 {code:java}
 class SecurityFilters {
@@ -23,9 +26,11 @@ class SecurityFilters {
 }
 {code}
 
-Here the @loginCheck@ filter intercepts execution _before_ all actions except @login@ are executed, and if there is no user in the session then redirect to the @login@ action.
+{hidden}Here the @loginCheck@ filter intercepts execution _before_ all actions except @login@ are executed, and if there is no user in the session then redirect to the @login@ action.{hidden}
+この例では、@loginCheck@フィルタがすべてのアクションの実行前にインターセプトされます。ただし、セッションにユーザが存在しない状態で@login@以外のアクションが呼び出された場合は、@login@アクションにリダイレクトされます。
 
-The @login@ action itself is simple too:
+{hidden}The @login@ action itself is simple too:{hidden}
+@login@アクションの実装も簡単です:
 
 {code:java}
 def login() {
