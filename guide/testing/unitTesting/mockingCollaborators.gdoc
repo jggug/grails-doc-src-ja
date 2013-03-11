@@ -1,12 +1,21 @@
+{hidden}
 Beyond the specific targeted mocking APIs there is also an all-purpose @mockFor()@ method that is available when using the @TestFor@ annotation. The signature of @mockFor@ is:
+{hidden}
+ドメインをモックするなど特定の目的をもったモックAPIの他に、汎用的に使える@mockFor()@メソッドがあります。これは@TestFor@アノテーションを使用している場合にも使用できます。@mockFor@は以下のように使用します。
 
 {code:java}
 mockFor(class, loose = false)
 {code}
 
+{hidden}
 This is general-purpose mocking that lets you set up either strict or loose demands on a class.
+{hidden}
+@mockFor@を使用したモックでは、demand(要求)がstrict(厳密)、またはloose(緩やか)のどちらであるかを指定する必要があります。
 
+{hidden}
 This method is surprisingly intuitive to use. By default it will create a strict mock control object (one for which the order in which methods are called is important) that you can use to specify demands:
+{hidden}
+デフォルトではstrictなモック制御オブジェクト(メソッドの呼び出し順序をチェックする)として生成し、demandを次のように指定します。
 
 {code:java}
 
@@ -15,13 +24,25 @@ strictControl.demand.someMethod(0..2) { String arg1, int arg2 -> ... }
 strictControl.demand.static.aStaticMethod {-> ... }
 {code}
 
+{hidden}
 Notice that you can mock static as well as instance methods by using the "static" property. You then specify the name of the method to mock, with an optional range argument. This range determines how many times you expect the method to be called, and if the number of invocations falls outside of that range (either too few or too many) then an assertion error will be thrown. If no range is specified, a default of "1..1" is assumed, i.e. that the method must be called exactly once.
+{hidden}
+"static"プロパティを使用することで、インスタンスメソッド同様にstaticなメソッドをモックすることができます。また、モックするメソッドには、必要に応じてrange(範囲)を引数に指定できます。このrangeは期待するメソッドの呼び出し回数を表しており、もし呼び出し回数がこの範囲を外れた場合(多すぎたり、少なすぎたりした場合)は、アサーションエラーがスローされます。rangeを指定しなかった場合は、デフォルトで"1..1"が指定され、メソッドが1度だけ呼び出されること意味しています。
 
+{hidden}
 The last part of a demand is a closure representing the implementation of the mock method. The closure arguments must match the number and types of the mocked method, but otherwise you are free to add whatever you want in the body.
+{hidden}
+demandの最後の引数は、モックの実装を表すクロージャです。クロージャの引数は、モックするメソッドの引数の数と型が一致している必要がありますが、それ以外は自由に中身を実装できます。
 
+{hidden}
 Call @mockControl.createMock()@ to get an actual mock instance of the class that you are mocking. You can call this multiple times to create as many mock instances as you need. And once you have executed the test method, call @mockControl.verify()@ to check that the expected methods were called.
+{hidden}
+モッククラスの定義が完了した後に、@mockControl.createMock()@メソッドを呼ぶことで、モックインスタンスを作成します。複数のモックインスタンスが必要な場合は、必要なだけこのメソッドを呼び出すことで、複数のモックインスタンスが作成できます。また期待するメソッドの呼び出しを検証するには@mockControl.verify()@を呼び出してください。
 
+{hidden}
 Grails mocks also provide a @demandExplicit@ method that can be used in place of demand.  This will check the mocked class's metaClass and throw an ExplicitDemandException if a method with that name and signature doesn't exist. For example, given the service:
+{hidden}
+Grailsのモックは、demandの代わりに@demandExplicit@メソッドも提供しています。これはモックするクラスのmetaClassをチェックし、もしそのメソッドの名前、シグネチャが存在しない場合に、ExplicitDemandExceptionをスローします。例えば次のようなサービスがあるとします。
 
 {code:java}
 class MyService {
@@ -29,26 +50,42 @@ class MyService {
 }
 {code}
 
+{hidden}
 The following mocking works the same as demand
+{hidden}
+demandと同じようにモックできます。
+
 {code:java}
 def strictControl = mockFor(MyService)
 //Works just like the demand method since method signature exists on the class
 strictControl.demandExplicit.someMethod(1) { String arg1  }
 {code}
 
+{hidden}
 While this mocking throws an ExplicitDemandException when the test is run.
+{hidden}
+以下はメソッドのシグネイチャが存在しないため、テストを実行した際にExplicitDemandExceptionをスローします。
 {code:java}
 def strictControl = mockFor(MyService)
 //Throws ExplicitDemandException because method signature doesn't exist
 strictControl.demandExplicit.someMethod(1) { String arg1, String arg2  }
 {code}
 
+{hidden}
 Using demandExplicit should be the preferred method for mocking as it is more likely to catch issues when changing method signatures.  Use demand when the method to be mocked is added dynamically, otherwise use demandExplicit.
+{hidden}
+demandExplicitを使用することで、メソッドのシグネチャを変更した際に、問題を検出しやすくなります。このため、動的に追加されるメソッドに対してはdemandを使用し、そうでなければdemandExplicitを使用してください。
 
+{hidden}
 Lastly, the call:
+{hidden}
+最後に以下のコードを見てください。
 
 {code:java}
 def looseControl = mockFor(MyService, true)
 {code}
 
+{hidden}
 will create a mock control object that has only loose expectations, i.e. the order that methods are invoked does not matter.
+{hidden}
+これはlooseなモック制御オブジェクトを作成します。別の言い方をすると、これにより呼び出し順序をチェックしなくなります。
