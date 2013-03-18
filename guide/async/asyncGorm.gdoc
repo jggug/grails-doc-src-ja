@@ -63,7 +63,7 @@ When using GORM async each promise is executed in a different thread. Since the 
 GORMを非同期に使用する場合、promiseはそれぞれ別々のスレッドで実行されます。またHibernateのセッションはスレッドセーフではないため、スレッドごとに新しいセッションをバインドします。
 
 {hidden}
-This is an important consideration when using GORM async (particularily with Hibernate as the persistence engine). The objects returned from asynchronous queries will be detached entities.
+This is an important consideration when using GORM async (particularly with Hibernate as the persistence engine). The objects returned from asynchronous queries will be detached entities.
 {hidden}
 非同期にGORMを使用する場合は、この点に十分考慮する必要があります(特に永続化エンジンにHibernateを使用する場合)。特に非同期クエリから返されるオブジェクトは、デタッチされたエンティティであることに注意をしてください。
 
@@ -92,7 +92,7 @@ person.firstName = "Bart"
 {code}
 
 {hidden}
-Note that @merge()@ is called first because it may refresh the object from the cache or database, which would result in the change being lost. In general it is not recommended to read and write objects in different threads and you should avoid this technique unless absolutely necessariy.
+Note that @merge()@ is called first because it may refresh the object from the cache or database, which would result in the change being lost. In general it is not recommended to read and write objects in different threads and you should avoid this technique unless absolutely necessary.
 {hidden}
 まず始めに@merge()@を呼びだしています。これはキャッシュまたはデータベースのデータが再読み込みされ、それまでに行った変更が失われてしまうためです。また一般的に異なるスレッド間でオブジェクトを読み書きすることは推奨されません。もし必要がない限り、この方法は絶対に避けるべきです。
 
