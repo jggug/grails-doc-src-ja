@@ -1,24 +1,51 @@
+{hidden}
 If you are deploying to a Servlet 3.0 container such as Tomcat 7 and above then it is possible to deal with responses asynchronously.
+{hidden}
+もしアプリケーションをTomcat 7のようなServlet 3.0対応のコンテナにデプロイしている場合は、非同期にレスポンスを返すことが可能です。
 
+{hidden}
 In general for controller actions that execute quickly there is little benefit in handling requests asynchronously. However, for long running controller actions it is extremely beneficial.
+{hidden}
+一般的にコントローラのアクションがすぐに完了するような場合は、非同期にリクエストを処理してもほとんど効果はありません。しかし、アクションに長い時間がかかる場合は、非常に効果があります。
 
+{hidden}
 The reason being that with an asynchronous / non-blocking response, the one thread == one request == one response relationship is broken. The container can keep a client response open and active, and at the same time return the thread back to the container to deal with another request, improving scalability.
+{hidden}
+非同期/ノンブロッキングのレスポンスでは、1スレッド == 1リクエスト == 1レンスポンスの関係が成りたたなくなります。これはクライアントとの接続を保ちつつ、他のリクエストを処理するためにスレッドをコンテナに返すことで、スケーラビリティを向上させるためです。
 
+{hidden}
 For example, if you have 70 available container threads and an action takes a minute to complete, if the actions are not executed in a non-blocking fashion the likelihood of all 70 threads being occupied and the container not being able to respond is quite high and you should consider asynchronous request processing.
+{hidden}
+例えば、もしコンテナが70のスレッドを使用可能で、アクションを処理するのに1分かかるとします。もしこのアクションをノンブロッキングで実行しない場合は、70のスレッドすべてを占有し、レスポンスを返せない状態になる可能性が非常に高くなります。このような場合は、非同期にリクエストを処理することを考える必要があります。
 
+{hidden}
 Since Grails 2.3, Grails features a simplified API for creating asynchronous responses built on the @Promise@ mechism discussed previously.
+{hidden}
+Grails 2.3からは、これまでに説明してきた@Promise@の仕組みを使い、簡単に非同期レスポンスが作成できるAPIを提供しています。
 
+{hidden}
 The implementation is based on Servlet 3.0 async so to enable the async features you need to set your servlet target version to 3.0 in BuildConfig.groovy: 
+{hidden}
+実装はServlet 3.0の非同期処理をベースにしており、この非同期機能を有効にするにはBuildConfig.groovyでサーブレットの対象バージョンを3.0に設定する必要があります。
 
 {code}
 grails.servlet.version = "3.0"
 {code}
 
+{hidden}
 h4. Async Models
+{hidden}
+h4. 非同期モデル
 
+{hidden}
 A typical activity in a Grails controller is to produce a model (a map of key/value pairs) that can be rendered by a view.
+{hidden}
+Grailsのコントローラにおける役割の一つは、ビューに表示するモデル(キーと値のマップ)を生成することです。
 
+{hidden}
 If the model takes a while to produce then the server could arrive at a blocking state, impacting scalability. You tell Grails to build the model asynchronously by returning a @grails.async.PromiseMap@ via the @Promises.tasks@ method:
+{hidden}
+もしこのモデルの生成に時間がかかる場合は、サーバが他のリクエスト処理をブロックする状態となり、スケーラビリティに影響を与えます。このような場合は、@Promises.tasks@メソッドを使用し@grails.async.PromiseMap@を返すことで非同期にモデルを生成できます。
 
 {code}
 import static grails.async.Promises.*
@@ -32,7 +59,10 @@ def index() {
 }
 {code}
 
+{hidden}
 Grails will handle the response asynchronously, waiting for the promises to complete before rendering the view. The equivalent synchronous action of the above is:
+{hidden}
+Grailsはビューをレンダリングする前にpromiseの処理を待ち合わせることで、非同期にレスポンスを処理します。もし、これを同期的に処理した場合は以下のようになります。
 
 {code}
 def index() {
@@ -43,7 +73,10 @@ def index() {
 }
 {code}
 
+{hidden}
 You can even render different view by passing the @PromiseMap@ to the @model@ attribute of the @render@ method:
+{hidden}
+また異なるビューを使用してリンダリングを行いたい場合は、@render@メソッドの@model@属性に@PromiseMap@を設定します。
 
 {code}
 import static grails.async.Promises.*
@@ -54,9 +87,15 @@ def index() {
 }
 {code}
 
+{hidden}
 h4. Async Response Rendering
+{hidden}
+h4. 非同期レスポンスのレンダリング
 
+{hidden}
 You can also write to the response asynchronously using promises in Grails 2.3 and above:
+{hidden}
+Grails 2.3ではpromiseを使用して、非同期にレスポンスを書くこともできます。
 
 {code}
 import static grails.async.Promises.*
@@ -73,6 +112,12 @@ class StockController {
 }
 {code}
 
+{hidden}
 The above example using Yahoo Finance to query stock prices, executing asynchronously and only rendering the response once the result has been obtained. This is done by returning a @Promise@ instance from the controller action.
+{hidden}
+上記の例では、株価を参照するためにYahoo Financeを使用して、非同期に処理を実行しつつ結果が得られた時点でレスポンスをレンダリングしています。このように動作させるには、コントローラのアクションから@Promise@インスタンスを返します。
 
+{hidden}
 If the Yahoo URL is unresponsive the original request thread will not be blocked and the container will not become unresponsive.
+{hidden}
+このようにすることで、YahooのURLがレスポンスを返さない場合にも、元のスレッドがブロッキングされず、またコンテナが応答しないということもなく処理できます。

@@ -1,8 +1,17 @@
+{hidden}
 In addition to the higher level async features discussed earlier in the section, you can access the raw Servlet 3.0 asynchronous API from a Grails application.
+{hidden}
+これまでに説明してきた、より高レベルな非同期機能に加えて、GrailsのアプリケーションからServlet 3.0の非同期APIに直接アクセスすることもできます。
 
+{hidden}
 h4. Servlet 3.0 Asynchronous Rendering
+{hidden}
+h4. Servlet 3.0の非同期レンダリング
 
+{hidden}
 You can render content (templates, binary data etc.) in an asynchronous manner by calling the @startAsync@ method which returns an instance of the Servlet 3.0 @AsyncContext@. Once you have a reference to the @AsyncContext@ you can use Grails' regular render method to render content:
+{hidden}
+非同期にコンテンツ(テンプレートやバイナリなど)のレンダリングには、Servlet 3.0の@AsyncContext@インスタンスを返す、@startAsync@を使用します。このメソッドを使用して@AsyncContext@への参照を取得したら、あとは通常のrenderメソッドを使用してコンテンツをレンダリングするだけです。
 
 {code}
 def index() {
@@ -15,11 +24,20 @@ def index() {
 }
 {code}
 
+{hidden}
 Note that you must call the @complete()@ method to terminate the connection. 
+{hidden}
+接続を終了するには、@complete@メソッドを呼び出す必要があることに注意してください。
 
+{hidden}
 h4. Resuming an Async Request
+{hidden}
+h4. 非同期リクエストの再開
 
+{hidden}
 You resume processing of an async request (for example to delegate to view rendering) by using the @dispatch@ method of the @AsyncContext@ class:
+{hidden}
+非同期リクエストの処理(例えばビューをレンダリングするために処理を委譲する)を再開するには、@AsyncContext@クラスの@dispatch@メソッドを使用します。
 
 {code}
 def index() {
