@@ -1,5 +1,6 @@
 introduction:
   title: イントロダクション
+  whatsNew23: Grails 2.3の新機能
   whatsNew22: Grails 2.2の新機能
   whatsNew21: Grails 2.1の新機能
   whatsNew:
@@ -44,7 +45,7 @@ conf:
   configExternalized: 設定の外部化
   versioning: バージョニング
   docengine: プロジェクト・ドキュメント
-  ivy:
+  dependencyResolution:
     title: 依存性解決
     configurationsAndDependencies: 設定と依存
     dependencyRepositories: 依存管理リポジトリ
@@ -135,7 +136,7 @@ theWebLayer:
     commandObjects: コマンドオブジェクト
     formtokens: フォーム二重送信のハンドリング
     typeConverters: シンプルタイプコンバータ
-    asynchronousRequestProcessing: 非同期リクエスト処理
+    asynchronousRequestProcessing: 非同期リクエスト処理(OLD)
   gsp:
     title: Groovyサーバーページ
     GSPBasics:
@@ -216,6 +217,13 @@ theWebLayer:
     ajaxWithGWT: GWTを使用したAjax
     ajaxOnTheServer: Ajax使用時のサーバサイド
   contentNegotiation: コンテントネゴシエーション
+async:
+  title: 非同期プログラミング 
+  promises: Promises 
+  asyncGorm: 非同期GORM
+  asyncRequests: 非同期リクエストハンドリング
+  grailsEvents: GrailsイベントAPI
+  asyncServletApi: Servlet 3.0 Async
 validation:
   title: バリデーション
   constraints: 制約を宣言
