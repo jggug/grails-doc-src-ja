@@ -1,6 +1,14 @@
+{hidden}
 h4. The Basics
+{hidden}
 
+h4. 基本
+
+{hidden}
 You use the @grails.test.mixin.TestFor@ annotation to unit test controllers. Using @TestFor@ in this manner activates the @grails.test.mixin.web.ControllerUnitTestMixin@ and its associated API. For example:
+{hidden}
+
+コントローラUnitテストには、@grails.test.mixin.TestFor@アノテーションを使用します。このように@TestFor@を使用することで、@grails.test.mixin.web.ControllerUnitTestMixin@とその関連APIが有効になります。
 
 {code:java}
 import grails.test.mixin.TestFor
@@ -13,13 +21,27 @@ class SimpleControllerTests {
 }
 {code}
 
+{hidden}
 Adding the @TestFor@ annotation to a controller causes a new @controller@ field to be automatically created for the controller under test.
+{hidden}
 
+@TestFor@アノテーションにコントローラを追加することにより、@controller@フィールドにテスト対象のコントローラが自動的に生成されます。
+
+{hidden}
 {note}
 The @TestFor@ annotation will also automatically annotate any public methods starting with "test" with JUnit 4's @Test annotation. If any of your test method don't start with "test" just add this manually
 {note}
+{hidden}
 
+{note}
+@TestFor@アノテーションは"test"から始まるパブリックなメソッドに自動的にJUnit4の@Testアノテーションを付与します。もしテストメソッドが"test"で始まらない場合は@Testアノテーションを手動で付与してください。
+{note}
+
+{hidden}
 To test the simplest "Hello World"-style example you can do the following:
+{hidden}
+
+最もシンプルなHello World形式のテストは次の通りです。
 
 {code:java}
 // Test class
@@ -38,9 +60,17 @@ void testHello() {
 }
 {code}
 
+{hidden}
 The @response@ object is an instance of @GrailsMockHttpServletResponse@ (from the package @org.codehaus.groovy.grails.plugins.testing@) which extends Spring's @MockHttpServletResponse@ class and has a number of useful methods for inspecting the state of the response.
+{hidden}
 
+@response@オブジェクトは、@GrailsMockHttpServletResponse@（@org.codehaus.groovy.grails.plugins.testing@パッケージに含まれている）のインスタンスです。Springの@MockHttpServletResponse@クラスを継承しており、レスポンスの状態を調べる便利なメソッドを定義しています。
+
+{hidden}
 For example to test a redirect you can use the @redirectedUrl@ property:
+{hidden}
+
+例えば、リダイレクトをテストするには@redirectedUrl@プロパティを使用できます。
 
 {code:java}
 // Test class
@@ -60,7 +90,11 @@ void testIndex() {
 }
 {code}
 
+{hidden}
 Many actions make use of the parameter data associated with the request. For example, the 'sort', 'max', and 'offset' parameters are quite common. Providing these in the test is as simple as adding appropriate values to a special @params@ variable:
+{hidden}
+
+ほとんどのアクションはリクエストに設定されたパラメータを使用します。例えば、'sort'、'max'、'offset'といったパラメータが一般的です。これらのパラメータをテストで利用するには@params@変数に値を代入するだけで簡単に設定できます。
 
 {code:java}
 void testList() {
@@ -73,7 +107,11 @@ void testList() {
 }
 {code}
 
+{hidden}
 You can even control what type of request the controller action sees by setting the @method@ property of the mock request:
+{hidden}
+
+リクエストの@method@プロパティにリクエストタイプを設定することにより、リクエストタイプ毎のコントローラのアクションを確認できます。
 
 {code:java}
 void testSave() {
@@ -83,7 +121,11 @@ void testSave() {
 }
 {code}
 
+{hidden}
 This is particularly important if your actions do different things depending on the type of the request. Finally, you can mark a request as AJAX like so:
+{hidden}
+
+リクエストタイプに応じてアクションが違った挙動をする場合、これは非常に重要です。さらに、次のようにAjaxとしてリクエストを作ることもできます。
 
 {code:java}
 void testGetPage() {
@@ -94,11 +136,23 @@ void testGetPage() {
 }
 {code}
 
+{hidden}
 You only need to do this though if the code under test uses the @xhr@ property on the request.
+{hidden}
 
+テスト対象コードのリクエストで@xhr@プロパティを使用してたとしても、これを実行するだけです。
+
+{hidden}
 h4. Testing View Rendering
+{hidden}
 
+h4. ビューのレンダリングテスト
+
+{hidden}
 To test view rendering you can inspect the state of the controller's @modelAndView@ property (an instance of @org.springframework.web.servlet.ModelAndView@) or you can use the @view@ and @model@ properties provided by the mixin:
+{hidden}
+
+コントローラの@modelAndView@プロパティ（@org.springframework.web.servlet.ModelAndView@のインスタンス）、または、Mixinで提供されている@view@と@model@プロパティを使用することにより、ビューのレンダリングをテストすることができます。
 
 {code:java}
 // Test class
@@ -119,13 +173,29 @@ void testIndex() {
 }
 {code}
 
+{hidden}
 Note that the view string is the absolute view path, so it starts with a '/' and will include path elements, such as the directory named after the action's controller.
+{hidden}
 
+viewの文字列は絶対パスであることに注意してください。これは、'/'から始まり、動作するコントローラの名前から決まるディレクトリ名などがパスとして含まれます。
+
+{hidden}
 h4. Testing Template Rendering
+{hidden}
 
+h4. テンプレートレンダリングテスト
+
+{hidden}
 Unlike view rendering, template rendering will actually attempt to write the template directly to the response rather than returning a @ModelAndView@ hence it requires a different approach to testing.
+{hidden}
 
+テンプレートのレンダリングは@ModelAndView@を返すのではなく、レスポンスにテンプレートの内容を直接書き込みます。そのため、ビューのレンダリングとは異なるテストのアプローチが必要になります。
+
+{hidden}
 Consider the following controller action:
+{hidden}
+
+次のコントローラアクションを見てください。
 
 {code:java}
 class SimpleController {
@@ -135,7 +205,11 @@ class SimpleController {
 }
 {code}
 
+{hidden}
 In this example the controller will look for a template in @grails-app/views/simple/_snippet.gsp@. You can test this as follows:
+{hidden}
+
+この例では、コントローラは@grails-app/views/simple/_snippet.gsp@にあるテンプレートを探します。そして、次のようにテストをします。
 
 {code:java}
 void testDisplay() {
@@ -144,7 +218,11 @@ void testDisplay() {
 }
 {code}
 
+{hidden}
 However, you may not want to render the real template, but just test that is was rendered. In this case you can provide mock Groovy Pages:
+{hidden}
+
+テンプレートをレンダリングしたくない場合にも、テストでは実際にテンプレートがレンダリングされます。このような場合はGroovy Pagesのモックが使用できます。
 
 {code:java}
 void testDisplay() {
@@ -154,9 +232,17 @@ void testDisplay() {
 }
 {code}
 
+{hidden}
 h4. Testing Actions Which Return A Map
+{hidden}
 
+h4. マップを返すアクションをテスト
+
+{hidden}
 When a controller action returns a @java.util.Map@ that @Map@ may be inspected directly to assert that it contains the expected data:
+{hidden}
+
+コントローラアクションが@java.util.Map@を返す場合は、@Map@に期待したデータが含まれているか直接検証できます。
 
 {code:java}
 class SimpleController {
@@ -181,9 +267,17 @@ class SimpleControllerTests {
 {code}
 
 
+{hidden}
 h4. Testing XML and JSON Responses
+{hidden}
 
+h4. XMLとJSONレスポンスのテスト
+
+{hidden}
 XML and JSON response are also written directly to the response. Grails' mocking capabilities provide some conveniences for testing XML and JSON response. For example consider the following action:
+{hidden}
+
+XMLとJSONのレスポンスもまた、直接レスポンスに書き込まれます。Grailsのモック機構は、XMLとJSONのレスポンスをテストするために便利な機能をいくつか提供しています。
 
 {code:java}
 def renderXml() {
@@ -193,7 +287,11 @@ def renderXml() {
 }
 {code}
 
+{hidden}
 This can be tested using the @xml@ property of the response:
+{hidden}
+
+次の例は、レスポンスの@xml@プロパティを使ってテストしています。
 
 {code:java}
 void testRenderXml() {
@@ -203,9 +301,17 @@ void testRenderXml() {
 }
 {code}
 
+{hidden}
 The @xml@ property is a parsed result from Groovy's "XmlSlurper":http://groovy.codehaus.org/Reading+XML+using+Groovy's+XmlSlurper class which is very convenient for parsing XML.
+{hidden}
 
+@xml@プロパティは、XMLをパースするためにとても便利なGroovyの"XmlSlurper":http://groovy.codehaus.org/Reading+XML+using+Groovys+XmlSlurper でパースされた結果です。
+
+{hidden}
 Testing JSON responses is pretty similar, instead you use the @json@ property:
+{hidden}
+
+@json@プロパティを使うだけで、JSONレスポンスのテストもかなり似ています。
 
 {code:java}
 // controller action
@@ -228,11 +334,23 @@ void testRenderJson() {
 
 {code}
 
+{hidden}
 The @json@ property is an instance of @org.codehaus.groovy.grails.web.json.JSONElement@ which is a map-like structure that is useful for parsing JSON responses.
+{hidden}
 
+@json@プロパティは、JSONレスポンスをパースするために便利な@org.codehaus.groovy.grails.web.json.JSONElement@のインスタンスでマップライクな構造をもっています。
+
+{hidden}
 h4. Testing XML and JSON Requests
+{hidden}
 
+h4. XMLとJSONリクエストのテスト
+
+{hidden}
 Grails provides various convenient ways to automatically parse incoming XML and JSON packets. For example you can bind incoming JSON or XML requests using Grails' data binding:
+{hidden}
+
+Grailsは、入力されるXMLとJSONパケットを自動的にパースするためのいろいろな便利な方法を提供しています。例えば、入力されるJSONかXMLリクエストをGrailsのデータバインディングを使ってバインドできます。
 
 {code}
 def consumeBook() {
@@ -242,7 +360,11 @@ def consumeBook() {
 }
 {code}
 
+{hidden}
 To test this Grails provides an easy way to specify an XML or JSON packet via the @xml@ or @json@ properties. For example the above action can be tested by specifying a String containing the XML:
+{hidden}
+
+次のテストでは、@xml@や@json@プロパティを用いてXMLやJSONリクエストを設定しています。例えば、上記のアクションはXMLの文字列を設定することによってテストができます。
 
 {code}
 void testConsumeBookXml() {
@@ -253,7 +375,11 @@ void testConsumeBookXml() {
 }
 {code}
 
+{hidden}
 Or alternatively a domain instance can be specified and it will be auto-converted into the appropriate XML request:
+{hidden}
+
+もしくは、ドメインインスタンスを設定することで、適切なXMLリクエストに自動変換してテストをします。
 
 {code}
 void testConsumeBookXml() {
@@ -264,7 +390,11 @@ void testConsumeBookXml() {
 }
 {code}
 
+{hidden}
 The same can be done for JSON requests:
+{hidden}
+
+JSONリクエストでも同じようにテストできます。
 
 {code}
 void testConsumeBookJson() {
@@ -275,7 +405,11 @@ void testConsumeBookJson() {
 }
 {code}
 
+{hidden}
 If you prefer not to use Grails' data binding but instead manually parse the incoming XML or JSON that can be tested too. For example consider the controller action below:
+{hidden}
+
+もし、Grailsのデータバインディングを使用したくない場合は、入力されるXMLまたはJSONを手動でパースする必要がありますが、このような場合も同じようにテストできます。次のコントローラアクションを見てください。
 
 {code}
 def consume() {
@@ -290,7 +424,11 @@ def consume() {
 }
 {code}
 
+{hidden}
 To test the XML request you can specify the XML as a string:
+{hidden}
+
+XMLリクエストをテストするためには、XMLの文字列を設定します。
 
 {code}
 void testConsumeXml() {
@@ -302,7 +440,11 @@ void testConsumeXml() {
 }
 {code}
 
+{hidden}
 And, of course, the same can be done for JSON:
+{hidden}
+
+もちろん、同じことがJSONでもできます。
 
 {code}
 void testConsumeJson() {
@@ -313,9 +455,17 @@ void testConsumeJson() {
 }
 {code}
 
+{hidden}
 h4. Testing Spring Beans
+{hidden}
 
+h4. Springビーンのテスト
+
+{hidden}
 When using @TestFor@ only a subset of the Spring beans available to a running Grails application are available. If you wish to make additional beans available you can do so with the @defineBeans@ method of @GrailsUnitTestMixin@:
+{hidden}
+
+@TestFor@を使用した場合は、Grailsアプリケーションを実行するのに必要なSpringビーンのサブセットだけが利用できます。もし、利用できるビーンを追加したい場合は、@GrailsUnitTestMixin@の@defineBeans@メソッドを使うことにより、ビーンを追加できます。
 
 {code:java}
 class SimpleController {
@@ -338,7 +488,11 @@ void testBeanWiring() {
 }
 {code}
 
+{hidden}
 The controller is auto-wired by Spring just like in a running Grails application. Autowiring even occurs if you instantiate subsequent instances of the controller:
+{hidden}
+
+コントローラは実行中のGrailsアプリケーションのように、Springによって自動的にビーンが注入されます。もしコントローラを後でインスタンス化した場合も自動的に注入されます。
 
 {code:java}
 void testAutowiringViaNew() {
@@ -354,9 +508,17 @@ void testAutowiringViaNew() {
 }
 {code}
 
+{hidden}
 h4. Testing Mime Type Handling
+{hidden}
 
+h4. MIME Typeの制御のテスト
+
+{hidden}
 You can test mime type handling and the @withFormat@ method quite simply by setting the response's @format@ attribute:
+{hidden}
+
+MIME Typeの制御と@withFormat@メソッドは、レスポンスの@format@属性を設定することにより簡単にテストができます。
 
 {code:java}
 // controller action
@@ -382,9 +544,17 @@ void testSayHello() {
 }
 {code}
 
+{hidden}
 h4. Testing Duplicate Form Submissions
+{hidden}
 
+h4. フォームの２重送信テスト
+
+{hidden}
 Testing duplicate form submissions is a little bit more involved. For example if you have an action that handles a form such as:
+{hidden}
+
+フォームの２重送信のテストは少し複雑になります。例えば、次のようなフォームを処理するアクションがあるとします。
 
 {code:java}
 def handleForm() {
@@ -396,7 +566,11 @@ def handleForm() {
 }
 {code}
 
+{hidden}
 you want to verify the logic that is executed on a good form submission and the logic that is executed on a duplicate submission. Testing the bad submission is simple. Just invoke the controller:
+{hidden}
+
+ここでフォームの送信が成功する場合と、２重送信となる場合のロジックを検証したいとします。２重送信となる場合のテストは、単にコントローラをすることで簡単に実行できます。
 
 {code:java}
 void testDuplicateFormSubmission() {
@@ -405,7 +579,11 @@ void testDuplicateFormSubmission() {
 }
 {code}
 
+{hidden}
 Testing the successful submission requires providing an appropriate @SynchronizerToken@:
+{hidden}
+
+フォームの送信が成功する場合のテストは適切な@SynchronizerToken@が必要となります。
 
 {code:java}
 import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerToken
@@ -420,7 +598,11 @@ void testValidFormSubmission() {
 }
 {code}
 
+{hidden}
 If you test both the valid and the invalid request in the same test be sure to reset the response between executions of the controller:
+{hidden}
+
+もし、有効/無効のリクエストを両方ともテストしたい場合、コントローラのメソッド実行の間で、レスポンスをリセットしてください。
 
 {code:java}
 controller.handleForm() // first execution
@@ -430,9 +612,17 @@ response.reset()
 controller.handleForm() // second execution
 {code}
 
+{hidden}
 h4. Testing File Upload
+{hidden}
 
+h4. ファイルアップロードのテスト
+
+{hidden}
 You use the @GrailsMockMultipartFile@ class to test file uploads. For example consider the following controller action:
+{hidden}
+
+ファイルアップロードをテストするためには、@GrailsMockMultipartFile@クラスを使います。例えば、次のコントローラアクションを見てください。
 
 {code:java}
 def uploadFile() {
@@ -441,7 +631,11 @@ def uploadFile() {
 }
 {code}
 
+{hidden}
 To test this action you can register a @GrailsMockMultipartFile@ with the request:
+{hidden}
+
+このアクションをテストするには、リクエストに@GrailsMockMultipartFile@を設定してください。
 
 {code:java}
 void testFileUpload() {
@@ -453,11 +647,23 @@ void testFileUpload() {
 }
 {code}
 
+{hidden}
 The @GrailsMockMultipartFile@ constructor arguments are the name and contents of the file. It has a mock implementation of the @transferTo@ method that simply records the @targetFileLocation@ and doesn't write to disk.
+{hidden}
 
+@GrailsMockMultipartFile@のコンストラクタの引数はファイル名とファイルの内容です。これは@transferTo@のモック実装をもっており、ファイルには書き込まずに@targetFileLocation@として値を保持します。
+
+{hidden}
 h4. Testing Command Objects
+{hidden}
 
+h4. Commnadオブジェクトのテスト
+
+{hidden}
 Special support exists for testing command object handling with the @mockCommandObject@ method. For example consider the following action:
+{hidden}
+
+@mockCommandObject@メソッドにはCommandオブジェクトの処理をテストするための特別な機能があります。例えば、次のアクションを見てください。
 
 {code:java}
 def handleCommand(SimpleCommand simple) {
@@ -470,7 +676,11 @@ def handleCommand(SimpleCommand simple) {
 }
 {code}
 
+{hidden}
 To test this you mock the command object, populate it and then validate it as follows:
+{hidden}
+
+これをテストするために、次のようにCommandオブジェクトをモック化した上で、データを投入して検証してください。
 
 {code:java}
 void testInvalidCommand() {
@@ -484,9 +694,17 @@ void testInvalidCommand() {
 }
 {code}
 
+{hidden}
 h4. Testing Calling Tag Libraries
+{hidden}
 
+h4. タグライブラリの呼び出しテスト
+
+{hidden}
 You can test calling tag libraries using @ControllerUnitTestMixin@, although the mechanism for testing the tag called varies from tag to tag. For example to test a call to the @message@ tag, add a message to the @messageSource@. Consider the following action:
+{hidden}
+
+タグごとに必要となるテストの方法は異なりますが、タグライブラリの呼びしは@ControllerUnitTestMixin@を使用することでテストできます。例えば、@message@タグを呼び出すテストでは、@messageSource@にメッセージを加えます。次のアクションを見てください。
 
 {code:java}
 def showMessage() {
@@ -494,7 +712,11 @@ def showMessage() {
 }
 {code}
 
+{hidden}
 This can be tested as follows:
+{hidden}
+
+これは次のようにテストをします。
 
 {code:java}
 void testRenderBasicTemplateWithTags() {
