@@ -1,6 +1,14 @@
+{hidden}
 h4. The Basics
+{hidden}
 
+h4. 基本
+
+{hidden}
 Testing URL mappings can be done with the @TestFor@ annotation testing a particular URL mappings class. For example to test the default URL mappings you can do the following:
+{hidden}
+
+URLマッピングをテストするには、@TestFor@アノテーションを使用します。例えば、デフォルトのURLマッピングをテストするためには次のように使用します。
 
 {code:java}
 import org.example.AuthorController
@@ -13,21 +21,52 @@ class UrlMappingsTests {
 }
 {code}
 
+{hidden}
 As you can see, any controller that is the target of a URL mapping that you're testing _must_ be added to the @\@Mock@ annotation.
+{hidden}
 
+上記のように、テストを実施するURLマッピングの対象となるコントローラには@Mock@アノテーションを追加しなければなりません。
+
+{hidden}
 {note}
 Note that since the default @UrlMappings@ class is in the default package your test must also be in the default package
 {note}
+{hidden}
 
+{note}
+@UrlMappings@クラスがデフォルトパッケージの中にあるので、あなたが実行するテストもデフォルトパッケージの中になければいけません。
+{note}
+
+{hidden}
 With that done there are a number of useful methods that are defined by the @grails.test.mixin.web.UrlMappingsUnitTestMixin@ for testing URL mappings. These include:
+{hidden}
 
+URLマッピングをテストするために@grails.test.mixin.web.UrlMappingsUnitTestMixin@には以下のような便利なメソッドが定義されています。
+
+{hidden}
 * @assertForwardUrlMapping@ - Asserts a URL mapping is forwarded for the given controller class (note that controller will need to be defined as a mock collaborate for this to work)
+{hidden}
+* @assertForwardUrlMapping@ - 指定したコントローラクラスにフォワードするURLマッピングを検証する（コントローラはモックコラボレータとして定義される必要があることに注意してください）
+{hidden}
 * @assertReverseUrlMapping@ - Asserts that the given URL is produced when reverse mapping a link to a given controller and action
+{hidden}
+* @assertReverseUrlMapping@ - 指定したURLが、与えられたコントローラとアクションからリバースマッピングしたリンクとして生成されるか検証する
+{hidden}
 * @assertUrlMapping@ - Asserts a URL mapping is valid for the given URL. This combines the @assertForwardUrlMapping@ and @assertReverseUrlMapping@ assertions
+{hidden}
+* @assertUrlMapping@ - 指定したURLに対応するURLマッピングの妥当性を検証する。これは、@assertForwardUrlMapping@と@assertReverseUrlMapping@を組み合わせたものです。
 
+{hidden}
 h4. Asserting Forward URL Mappings
+{hidden}
 
+h4. URLマッピングの転送の検証
+
+{hidden}
 You use @assertForwardUrlMapping@ to assert that a given URL maps to a given controller. For example, consider the following URL mappings:
+{hidden}
+
+指定したURLが、期待したコントローラにマップされるか検証するために@assertForwardUrlMapping@が使用できます。例えば、以下のようなURLマッピングについて考えてみます。
 
 {code:java}
 static mappings = {
@@ -36,7 +75,11 @@ static mappings = {
 }
 {code}
 
+{hidden}
 The following test can be written to assert these URL mappings:
+{hidden}
+
+このようなURLマッピングのテストは次のように書けます。
 
 {code:java}
 void testUrlMappings() {
@@ -54,13 +97,31 @@ void testUrlMappings() {
 }
 {code}
 
+{hidden}
 h4. Assert Reverse URL Mappings
+{hidden}
 
+h4. URLマッピングのリバース検証
+
+{hidden}
 You use @assertReverseUrlMapping@ to check that correct links are produced for your URL mapping when using the @link@ tag in GSP views. An example test is largely identical to the previous listing except you use @assertReverseUrlMapping@ instead of @assertForwardUrlMapping@. Note that you can combine these 2 assertions with @assertUrlMapping@.
+{hidden}
 
+GSPのビューで@link@タグを使用した場合に、URLマッピングから生成されるリンクを確認(チェック)するために@assertReverseUrlMapping@を使用できます。
+@assertReverseUrlMapping@の代わりに@assertForwardUrlMapping@を使用する以外は上記の例とほとんど同じです。
+@assertUrlMapping@はこれら2つのアサーションを組み合わせた検証が出来ます。
+
+{hidden}
 h4. Simulating Controller Mapping
+{hidden}
 
+h4. コントローラのマッピングをシミュレート
+
+{hidden}
 In addition to the assertions to check the validity of URL mappings you can also simulate mapping to a controller by using your @UrlMappings@ as a mock collaborator and the @mapURI@ method. For example:
+{hidden}
+
+URLマッピングの妥当性をチェックするためのアサーションに加えて、@UrlMappings@をモックとして指定し@mapURI@メソッドを使用することで、コントローラへのマッピングをシミュレートすることができます。
 
 {code:java}
 @TestFor(SimpleController)

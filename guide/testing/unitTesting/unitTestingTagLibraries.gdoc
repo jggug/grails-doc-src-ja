@@ -1,6 +1,14 @@
+{hidden}
 h4. The Basics
+{hidden}
 
+h4. 基本
+
+{hidden}
 Tag libraries and GSP pages can be tested with the @grails.test.mixin.web.GroovyPageUnitTestMixin@ mixin. To use the mixin declare which tag library is under test with the @TestFor@ annotation:
+{hidden}
+
+タグライブラリとGSPは、@grails.test.mixin.web.GroovyPageUnitTestMixin@のMixinでテストできます。Mixinを使用するために、タグライブラリを@TestFor@アノテーションの中に宣言します。
 
 {code:java}
 @TestFor(SimpleTagLib)
@@ -9,7 +17,11 @@ class SimpleTagLibTests {
 }
 {code}
 
+{hidden}
 Note that if you are testing invocation of a custom tag from a controller you can combine the @ControllerUnitTestMixin@ and the @GroovyPageUnitTestMixin@ using the @Mock@ annotation:
+{hidden}
+
+もし、コントローラからカスタムタグの呼び出しをテストする場合、@Mock@アノテーションを使用して@ControllerUnitTestMixin@と@GroovyPageUnitTestMixin@を組み合わせることができます。
 
 {code:java}
 @TestFor(SimpleController)
@@ -19,9 +31,17 @@ class GroovyPageUnitTestMixinTests {
 }
 {code}
 
+{hidden}
 h4. Testing Custom Tags
+{hidden}
 
+h4. カスタムタグのテスト
+
+{hidden}
 The core Grails tags don't need to be enabled during testing, however custom tag libraries do. The @GroovyPageUnitTestMixin@ class provides a @mockTagLib()@ method that you can use to mock a custom tag library. For example consider the following tag library:
+{hidden}
+
+Grailsコアのタグはテスト中に有効にする必要はありませんが、カスタムタグライブラリは有効にする必要があります。@GroovyPageUnitTestMixin@クラスは、カスタムタグライブラリをモック化するために使える@mockTagLib()@メソッドを提供しています。
 
 {code:java}
 class SimpleTagLib {
@@ -38,7 +58,11 @@ class SimpleTagLib {
 }
 {code}
 
+{hidden}
 You can test this tag library by using @TestFor@ and supplying the name of the tag library:
+{hidden}
+
+@TestFor@を使用し、タグライブラリの名前を記載することによって、上記のタグライブラリをテストできます。
 
 {code:java}
 @TestFor(SimpleTagLib)
@@ -51,7 +75,11 @@ class SimpleTagLibTests {
 }
 {code}
 
+{hidden}
 Alternatively, you can use the @TestMixin@ annotation and mock multiple tag libraries using the @mockTagLib()@ method:
+{hidden}
+
+代わりに、@TestMixin@アノテーションと@mockTagLib()@メソッドにより、複数のタグライブラリをモック化することができます。
 
 {code:java}
 @grails.test.mixin.TestMixin(GroovyPageUnitTestMixin)
@@ -67,7 +95,11 @@ class MultipleTagLibraryTests {
 }
 {code}
 
+{hidden}
 The @GroovyPageUnitTestMixin@ provides convenience methods for asserting that the template output equals or matches an expected value.
+{hidden}
+
+@GroovyPageUnitTestMixin@はテンプレート出力が期待した値と同じであることを検証するために便利なメソッドを提供しています。
 
 {code:java}
 @grails.test.mixin.TestMixin(GroovyPageUnitTestMixin)
@@ -83,13 +115,25 @@ class MultipleTagLibraryTests {
 }
 {code}
 
+{hidden}
 h4. Testing View and Template Rendering
+{hidden}
 
+h4. 表示とテンプレートのレンダリングテスト
+
+{hidden}
 You can test rendering of views and templates in @grails-app/views@ via the @render(Map)@ method provided by @GroovyPageUnitTestMixin@ :
+{hidden}
+
+@GroovyPageUnitTestMixin@で提供されている@render(Map)@メソッドを使って@grails-app/views@内にあるビューとテンプレートのレンダリングをテストできます。
 
 {code:java}
 def result = render(template: "/simple/hello")
 assert result == "Hello World"
 {code}
 
+{hidden}
 This will attempt to render a template found at the location @grails-app/views/simple/_hello.gsp@. Note that if the template depends on any custom tag libraries you need to call @mockTagLib@ as described in the previous section.
+{hidden}
+
+これは、@grails-app/views/simple/_hello.gsp@に配置されているテンプレートをレンダリングします。もしテンプレートがいくつかのカスタムタグライブラリに依存している場合、前の節で記載した@mockTagLib@を呼び出す必要があります。
