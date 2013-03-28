@@ -1,10 +1,15 @@
-Grails domain classes can be mapped onto many legacy schemas with an Object Relational Mapping DSL (domain specific language). The following sections takes you through what is possible with the ORM DSL.
+{hidden}Grails domain classes can be mapped onto many legacy schemas with an Object Relational Mapping DSL (domain specific language). The following sections takes you through what is possible with the ORM DSL.{hidden}
+GrailsのドメインクラスはObject Relation Mapping DSL(Domain Specific Language; ドメイン特化言語)を利用して、多くのレガシースキーマにマッピングさせることができます。
+この後に続くセクションでは、ORM DSLを使って何ができるかをひとつひとつ見ていきます。
 
 {note}
-None of this is necessary if you are happy to stick to the conventions defined by GORM for table names, column names and so on. You only needs this functionality if you need to tailor the way GORM maps onto legacy schemas or configures caching
+{hidden}None of this is necessary if you are happy to stick to the conventions defined by GORM for table names, column names and so on. You only needs this functionality if you need to tailor the way GORM maps onto legacy schemas or configures caching{hidden}
+もしあなたがGORMが定めるテーブル名やカラム名などの規約で満足しているのであれば、これはまったく必要ありません。
+GORMをレガシースキーマにマッピングしたり、キャッシュを設定したりするようなカスタマイズが必要な場合にのみ、この機能が必要となります。
 {note}
 
-Custom mappings are defined using a static @mapping@ block defined within your domain class:
+{hidden}Custom mappings are defined using a static @mapping@ block defined within your domain class:{hidden}
+カスタムマッピングは、ドメインクラス内で定義されるstaticな@mapping@ブロックを利用して設定します:
 
 {code:java}
 class Person {
@@ -16,7 +21,8 @@ class Person {
 }
 {code}
 
-You can also configure global mappings in Config.groovy (or an external config file) using this setting:
+{hidden}You can also configure global mappings in Config.groovy (or an external config file) using this setting:{hidden}
+Config.groovy内（または外部設定ファイル）で、グローバルマッピングを設定することもできます:
 
 {code:java}
 grails.gorm.default.mapping = {
@@ -25,4 +31,6 @@ grails.gorm.default.mapping = {
 }
 {code}
 
-It has the same syntax as the standard @mapping@ block but it applies to all your domain classes! You can then override these defaults within the @mapping@ block of a domain class.
+{hidden}It has the same syntax as the standard @mapping@ block but it applies to all your domain classes! You can then override these defaults within the @mapping@ block of a domain class.{hidden}
+これは通常の@mapping@ブロックと同じシンタックスを持ちますが、すべてのドメインクラスに適用されます。
+更に、ドメインクラスの@mapping@内でこれらのデフォルト設定を上書きすることもできます。
