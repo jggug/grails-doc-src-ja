@@ -1,18 +1,23 @@
-An example of the [delete|domainClasses] method can be seen below:
+{hidden}An example of the [delete|domainClasses] method can be seen below:{hidden}
+[delete|domainClasses]メソッドの使用例を以下に示します:
 
 {code}
 def p = Person.get(1)
 p.delete()
 {code}
 
-As with saves, Hibernate will use transactional write-behind to perform the delete; to perform the delete in-place you can use the @flush@ argument:
+{hidden}As with saves, Hibernate will use transactional write-behind to perform the delete; to perform the delete in-place you can use the @flush@ argument:{hidden}
+saveメソッドの時と同様に、deleteメソッド実行時にも、Hibernateはトランザクション内で遅延書き込みを行います。その場で削除を実行したい場合には、名前付き引数@flush@を使うことができます:
 
 {code}
 def p = Person.get(1)
 p.delete(flush: true)
 {code}
 
-Using the @flush@ argument lets you catch any errors that occur during a delete. A common error that may occur is if you violate a database constraint, although this is normally down to a programming or schema error. The following example shows how to catch a @DataIntegrityViolationException@ that is thrown when you violate the database constraints:
+{hidden}Using the @flush@ argument lets you catch any errors that occur during a delete. A common error that may occur is if you violate a database constraint, although this is normally down to a programming or schema error. The following example shows how to catch a @DataIntegrityViolationException@ that is thrown when you violate the database constraints:{hidden}
+@flush@引数を使うことによって、削除にともなって発生する可能性のあるエラーに対処する必要が出てきます。
+このタイミングで発生する、よくあるエラーの1つに、データベースの制約違反があります。
+このエラーは、プログラミングやデータベーススキーマの間違いに起因することが多いのですが、その時に発生する例外@DataIntegrityViolationException@をキャッチする例を以下に示します:
 
 {code:java}
 def p = Person.get(1)
@@ -26,12 +31,13 @@ catch (org.springframework.dao.DataIntegrityViolationException e) {
 }
 {code}
 
-Note that Grails does not supply a @deleteAll@ method as deleting data is discouraged and can often be avoided through boolean flags/logic.
+{hidden}Note that Grails does not supply a @deleteAll@ method as deleting data is discouraged and can often be avoided through boolean flags/logic.{hidden}
+なお、Grailsは@deleteAll@メソッドは提供しておらず、そのような削除の方法は推奨されていません。代わりに、削除されたかどうか判定するためのフラグやロジックを用意するなどの方法を検討してください。
 
-If you really need to batch delete data you can use the [executeUpdate|domainClasses] method to do batch DML statements:
+{hidden}If you really need to batch delete data you can use the [executeUpdate|domainClasses] method to do batch DML statements:{hidden}
+もし、どうしてもデータの一括削除が必要な場合は[executeUpdate|domainClasses]メソッドを利用してください。このメソッドを使えば、以下のように一括でデータ操作を行うDML文を発行することができます:
 
 {code}
 Customer.executeUpdate("delete Customer c where c.name = :oldName",
                        [oldName: "Fred"])
 {code}
-
