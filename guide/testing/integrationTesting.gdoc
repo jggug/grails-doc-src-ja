@@ -1,6 +1,8 @@
-Integration tests differ from unit tests in that you have full access to the Grails environment within the test. Grails uses an in-memory H2 database for integration tests and clears out all the data from the database between tests.
+{hidden}Integration tests differ from unit tests in that you have full access to the Grails environment within the test. Grails uses an in-memory H2 database for integration tests and clears out all the data from the database between tests.{hidden}
+インテグレーションテストはGrails実行環境にフルアクセス可能なところが、ユニットテストとは異なっています。GrailsはインテグレーションテストのためにインメモリのH2データベースを使用するので、テスト毎にデータベースの全てのデータは消去されます。
 
-One thing to bear in mind is that logging is enabled for your application classes, but it is different from logging in tests. So if you have something like this:
+{hidden}One thing to bear in mind is that logging is enabled for your application classes, but it is different from logging in tests. So if you have something like this:{hidden}
+一つ心にとめておいて欲しいことは、テスト対象のアプリケーションクラスのロギングを有効にしたとしても、アプリケーション内で有効なロギングは、テスト内で有効なロギングとは異なります。もし、テスト中にログを取りたいならば以下のように記述します:
 
 {code:java}
 class MyServiceTests extends GroovyTestCase {
@@ -11,11 +13,14 @@ class MyServiceTests extends GroovyTestCase {
 }
 {code}
 
-the "starting tests" message is logged using a different system than the one used by the application. The @log@ property in the example above is an instance of @java.util.logging.Logger@ (inherited from the base class, not injected by Grails), which doesn't have the same methods as the @log@ property injected into your application artifacts. For example, it doesn't have @debug()@ or @trace()@ methods, and the equivalent of @warn()@ is in fact @warning()@.
+{hidden}the "starting tests" message is logged using a different system than the one used by the application. The @log@ property in the example above is an instance of @java.util.logging.Logger@ (inherited from the base class, not injected by Grails), which doesn't have the same methods as the @log@ property injected into your application artifacts. For example, it doesn't have @debug()@ or @trace()@ methods, and the equivalent of @warn()@ is in fact @warning()@.{hidden}
+"starting tests"のメッセージはアプリケーションが使っているのとは異なるロガーによりログが記録されます。上の例における@log@のプロパティには@java.util.logging.Logger@のインスタンスが設定され(Grailsによって注入されるのではなく、ベースクラスから継承される)、アプリケーション側で注入される@log@プロパティと同じメソッドは持っていません。例えば、@debug()@や@trace()@メソッドがなく、@warn()@(と同じ意味を持つもの)が@warning()@になります。
 
-h4. Transactions
+{hidden}h4. Transactions{hidden}
+h4. トランザクション
 
-Integration tests run inside a database transaction by default, which is rolled back at the end of the each test. This means that data saved during a test is not persisted to the database. Add a @transactional@ property to your test class to check transactional behaviour:
+{hidden}Integration tests run inside a database transaction by default, which is rolled back at the end of the each test. This means that data saved during a test is not persisted to the database. Add a @transactional@ property to your test class to check transactional behaviour:{hidden}
+インテグレーションテストはデフォルトでデータベーストランザクションの中で実行され、テスト毎にテストの最後でロールバックされます。つまり、テスト中に保存したデータはデータベースには永続化されないことを意味します。また、@transactional@プロパティをテストクラスに追加することで、トランザクション制御を抑止することができます:
 
 {code}
 class MyServiceTests extends GroovyTestCase {
@@ -27,13 +32,17 @@ class MyServiceTests extends GroovyTestCase {
 }
 {code}
 
-Be sure to remove any persisted data from a non-transactional test, for example in the @tearDown@ method, so these tests don't interfere with standard transactional tests that expect a clean database.
+{hidden}Be sure to remove any persisted data from a non-transactional test, for example in the @tearDown@ method, so these tests don't interfere with standard transactional tests that expect a clean database.{hidden}
+トランザクション管理されていないテストでは、クリーンなデータベースを期待している通常のテストに影響を与えないよう、@tearDown@メソッドなどで、永続化されたすべてのデータを削除するようにしてください。
 
-h4. Testing Controllers
+{hidden}h4. Testing Controllers{hidden}
+h4. コントローラのテスト
 
-To test controllers you first have to understand the Spring Mock Library.
+{hidden}To test controllers you first have to understand the Spring Mock Library.{hidden}
+コントローラをテストするためには、まずSpringモックライブラリを理解する必要があります。
 
-Grails automatically configures each test with a [MockHttpServletRequest|api:org.springframework.mock.web.MockHttpServletRequest], [MockHttpServletResponse|api:org.springframework.mock.web.MockHttpServletResponse], and [MockHttpSession|api:org.springframework.mock.web.MockHttpSession] that you can use in your tests. For example consider the following controller:
+{hidden}Grails automatically configures each test with a [MockHttpServletRequest|api:org.springframework.mock.web.MockHttpServletRequest], [MockHttpServletResponse|api:org.springframework.mock.web.MockHttpServletResponse], and [MockHttpSession|api:org.springframework.mock.web.MockHttpSession] that you can use in your tests. For example consider the following controller:{hidden}
+Grailsは[MockHttpServletRequest|api:org.springframework.mock.web.MockHttpServletRequest]、[MockHttpServletResponse|api:org.springframework.mock.web.MockHttpServletResponse]、[MockHttpSession|api:org.springframework.mock.web.MockHttpSession]をテストで使えるように自動的に設定します。例えば、以下のコントローラを考えてみましょう:
 
 {code:java}
 class FooController {
@@ -47,7 +56,8 @@ class FooController {
     }
 }{code}
 
-The tests for this would be:
+{hidden}The tests for this would be:{hidden}
+このテストは次のようになるでしょう:
 
 {code:java}
 class FooControllerTests extends GroovyTestCase {
@@ -66,15 +76,20 @@ class FooControllerTests extends GroovyTestCase {
 }
 {code}
 
-In the above case @response@ is an instance of @MockHttpServletResponse@ which we can use to obtain the generated content with @contentAsString@ (when writing to the response) or the redirected URL. These mocked versions of the Servlet API are completely mutable (unlike the real versions) and hence you can set properties on the request such as the @contextPath@ and so on.
+{hidden}In the above case @response@ is an instance of @MockHttpServletResponse@ which we can use to obtain the generated content with @contentAsString@ (when writing to the response) or the redirected URL. These mocked versions of the Servlet API are completely mutable (unlike the real versions) and hence you can set properties on the request such as the @contextPath@ and so on.{hidden}
+上記の@response@は@MockHttpServletResponse@のインスタンスです。このインスタンスでは、レスポンスを書き出すときであれば@contentAsString@により生成されたコンテンツが取得でき、リダイレクトの場合はリダイレクトされたURLが取得できます。これらのServlet APIのモックバージョンは(実際のAPIとは異なり)何でも変更可能で、@contextPath@などリクエストのプロパティについても設定可能です。
 
-Grails *does not* invoke [interceptors|guide:interceptors] or servlet filters when calling actions during integration testing. You should test interceptors and filters in isolation, using [functional testing|guide:functionalTesting] if necessary.
+{hidden}Grails *does not* invoke [interceptors|guide:interceptors] or servlet filters when calling actions during integration testing. You should test interceptors and filters in isolation, using [functional testing|guide:functionalTesting] if necessary.{hidden}
+Grailsはインテグレーションテスト実行中にアクションを呼ぶ際、*決して*[インターセプター|guide:interceptors]やサーブレットフィルターを実行しません。もしテストが必要なら、[ファンクショナルテスト|guide:functionalTesting]を使ってインターセプターやフィルターを個別にテストする必要があります。
 
-h4. Testing Controllers with Services
+{hidden}h4. Testing Controllers with Services{hidden}
+h4. サービスを伴うコントローラのテスト
 
-If your controller references a service (or other Spring beans), you have to explicitly initialise the service from your test.
+{hidden}If your controller references a service (or other Spring beans), you have to explicitly initialise the service from your test.{hidden}
+もしコントローラがサービス(もしくは他のSpringビーン)を参照しているなら、テストにおいて明示的にサービスを初期化する必要があります。
 
-Given a controller using a service:
+{hidden}Given a controller using a service:{hidden}
+サービスを使うコントローラがあるとします:
 
 {code:java}
 class FilmStarsController {
@@ -85,7 +100,8 @@ class FilmStarsController {
     }
 }{code}
 
-The test for this would be:
+{hidden}The test for this would be:{hidden}
+このテストは次のようになるでしょう:
 
 {code:java}
 class FilmStarsTests extends GroovyTestCase {
@@ -98,11 +114,14 @@ class FilmStarsTests extends GroovyTestCase {
     }
 }{code}
 
-h4. Testing Controller Command Objects
+{hidden}h4. Testing Controller Command Objects{hidden}
+h4. コマンドオブジェクトを使っているコントローラのテスト
 
-With command objects you just supply parameters to the request and it will automatically do the command object work for you when you call your action with no parameters:
+{hidden}With command objects you just supply parameters to the request and it will automatically do the command object work for you when you call your action with no parameters:{hidden}
+コマンドオブジェクトを使っていて引数を指定せずアクションを呼び出す場合でも、リクエストにただパラメータを設定するだけで、自動的にコマンドオブジェクトは動作し設定されます:
 
-Given a controller using a command object:
+{hidden}Given a controller using a command object:{hidden}
+コマンドオブジェクトを使っているコントローラがあるとします:
 
 {code:java}
 class AuthenticationController {
@@ -111,7 +130,8 @@ class AuthenticationController {
     }
 }{code}
 
-You can then test it like this:
+{hidden}You can then test it like this:{hidden}
+この場合このようにテストできます:
 
 {code:java}
 def controller = new AuthenticationController()
@@ -121,11 +141,14 @@ controller.params.passwordConfirm = "secret"
 controller.signup()
 {code}
 
-Grails auto-magically sees your call to @signup()@ as a call to the action and populates the command object from the mocked request parameters. During controller testing, the @params@ are mutable with a mocked request supplied by Grails.
+{hidden}Grails auto-magically sees your call to @signup()@ as a call to the action and populates the command object from the mocked request parameters. During controller testing, the @params@ are mutable with a mocked request supplied by Grails.{hidden}
+Grailsはアクション呼び出しの@signup()@を呼び出しているのを見て、モック化されたリクエストパラメータからなんと自動的にコマンドオブジェクトに値を渡してくれます。ちなみに、コントローラのテストにおいて、Grailsが用意したモック化されたリクエストの@params@は変更可能です。
 
-h4. Testing Controllers and the render Method
+{hidden}h4. Testing Controllers and the render Method{hidden}
+h4. コントローラとレンダーメソッドのテスト
 
-The [render|controllers] method lets you render a custom view at any point within the body of an action. For instance, consider the example below:
+{hidden}The [render|controllers] method lets you render a custom view at any point within the body of an action. For instance, consider the example below:{hidden}
+[レンダー|controllers]メソッドはアクション定義のあらゆる場所においてカスタムビューをレンダリングできます。例えば、下記の例を考えてみましょう:
 
 {code:java}
 def save() {
@@ -139,7 +162,8 @@ def save() {
 }
 {code}
 
-In the above example the result of the model of the action is not available as the return value, but instead is stored within the @modelAndView@ property of the controller. The @modelAndView@ property is an instance of Spring MVC's [ModelAndView|http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/ModelAndView.html] class and you can use it to the test the result of an action:
+{hidden}In the above example the result of the model of the action is not available as the return value, but instead is stored within the @modelAndView@ property of the controller. The @modelAndView@ property is an instance of Spring MVC's [ModelAndView|http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/ModelAndView.html] class and you can use it to the test the result of an action:{hidden}
+上記の例ではアクションにおけるモデルの結果は戻り値としては得られませんが、コントローラの@modelAndView@プロパティの中には保存されています。@modelAndView@プロパティはSpring MVCの[ModelAndView|http://static.springsource.org/spring/docs/3.0.x/javadoc-api/org/springframework/web/servlet/ModelAndView.html]クラスで、アクションの結果をテストするのに利用できます:
 
 {code:java}
 def bookController = new BookController()
@@ -147,9 +171,11 @@ bookController.save()
 def model = bookController.modelAndView.model.book
 {code}
 
-h4. Simulating Request Data
+{hidden}h4. Simulating Request Data{hidden}
+h4. リクエストデータをシミュレートする
 
-You can use the Spring [MockHttpServletRequest|api:org.springframework.mock.web.MockHttpServletRequest] to test an action that requires request data, for example a REST web service. For example consider this action which performs data binding from an incoming request:
+{hidden}You can use the Spring [MockHttpServletRequest|api:org.springframework.mock.web.MockHttpServletRequest] to test an action that requires request data, for example a REST web service. For example consider this action which performs data binding from an incoming request:{hidden}
+例えば、REST Webサービスのようなリクエストデータが必要なアクションをテストする場合、Spring [MockHttpServletRequest|api:org.springframework.mock.web.MockHttpServletRequest]を使うことができます。例として、入力されたリクエストからデータバインディングを実行するこのアクションを考えてみましょう:
 
 {code:java}
 def create() {
@@ -157,7 +183,8 @@ def create() {
 }
 {code}
 
-To simulate the 'book' parameter as an XML request you could do something like the following:
+{hidden}To simulate the 'book' parameter as an XML request you could do something like the following:{hidden}
+XMLリクエストとしての'book'引数をシミュレートするには、次のように実行できるでしょう:
 
 {code:java}
 void testCreateWithXML() {
@@ -179,7 +206,8 @@ void testCreateWithXML() {
 }
 {code}
 
-The same can be achieved with a JSON request:
+{hidden}The same can be achieved with a JSON request:{hidden}
+JSONリクエストについても同じように実現できます:
 
 {code:java}
 void testCreateWithJSON() {
@@ -196,21 +224,31 @@ void testCreateWithJSON() {
 }
 {code}
 
-{note}
+{hidden}{note}
 With JSON don't forget the @class@ property to specify the name the target type to bind to. In XML this is implicit within the name of the @<book>@ node, but this property is required as part of the JSON packet.
+{note}{hidden}
+{note}
+JSONを用いる場合、@class@プロパティにて結びつけるターゲットの型の名前を指定することを忘れてはいけません。XMLでは暗黙的に@<book>@ノードの名前が使われますが、JSONではこのプロパティがJSONパケットの一部として必要になります。
 {note}
 
-For more information on the subject of REST web services see the section on [REST|guide:REST].
+{hidden}For more information on the subject of REST web services see the section on [REST|guide:REST].{hidden}
+RESTウェブサービスについてのさらなる情報については、[REST|guide:REST]のセクションを参照してください。
 
-h4. Testing Web Flows
+{hidden}h4. Testing Web Flows{hidden}
+h4. Webフローのテスト
 
-Testing [Web Flows|guide:webflow] requires a special test harness called @grails.test.WebFlowTestCase@ which subclasses Spring Web Flow's [AbstractFlowExecutionTests|api:org.springframework.webflow.test.execution.AbstractFlowExecutionTests] class.
+{hidden}Testing [Web Flows|guide:webflow] requires a special test harness called @grails.test.WebFlowTestCase@ which subclasses Spring Web Flow's [AbstractFlowExecutionTests|api:org.springframework.webflow.test.execution.AbstractFlowExecutionTests] class.{hidden}
+[Webフロー|guide:webflow]のテストは Spring Web Flowの [AbstractFlowExecutionTests|api:org.springframework.webflow.test.execution.AbstractFlowExecutionTests]クラスのサブクラスである@grails.test.WebFlowTestCase@と呼ばれる特別なテストハーネスが必要になります。
 
-{note}
+{hidden}{note}
 Subclasses of @WebFlowTestCase@ *must* be integration tests
+{note}{hidden}
+{note}
+@WebFlowTestCase@のサブクラスは、*必ず*インテグレーションテストでなければなりません。
 {note}
 
-For example given this simple flow:
+{hidden}For example given this simple flow:{hidden}
+例えばこのようなシンプルなフローがあるとします:
 
 {code}
 class ExampleController {
@@ -242,8 +280,9 @@ class ExampleController {
 }
 {code}
 
-You need to tell the test harness what to use for the "flow definition". This is done via overriding the abstract @getFlow@
- method:
+{hidden}You need to tell the test harness what to use for the "flow definition". This is done via overriding the abstract @getFlow@
+ method:{hidden}
+抽象メソッド@getFlow@をオーバライドすることにより、"フロー定義"を使っていることをテストハーネスに知らせる必要があります:
 
 {code}
 import grails.test.WebFlowTestCase
@@ -254,7 +293,8 @@ class ExampleFlowTests extends WebFlowTestCase {
 }
 {code}
 
-You can specify the flow id by overriding the @getFlowId@ method, otherwise the default is @test@:
+{hidden}You can specify the flow id by overriding the @getFlowId@ method, otherwise the default is @test@:{hidden}
+@getFlowId@メソッドをオーバライドして、フローIDを指定することができます。指定しないならデフォルトとして@test@が使われます:
 {code}
 import grails.test.WebFlowTestCase
 
@@ -264,7 +304,8 @@ class ExampleFlowTests extends WebFlowTestCase {
 }
 {code}
 
-If the flow under test calls any subflows, these (or mocks) must be registered before the calling the flow:
+{hidden}If the flow under test calls any subflows, these (or mocks) must be registered before the calling the flow:{hidden}
+テストするフローがサブフローを呼び出す場合は、フローを呼び出す前にこれらフロー(もしくはモック)が登録済みでなければなりません:
 {code}
 protected void setUp() {
     super.setUp()
@@ -281,7 +322,8 @@ protected void setUp() {
 }
 {code}
 
-Then you kick off the flow with the @startFlow@ method:
+{hidden}Then you kick off the flow with the @startFlow@ method:{hidden}
+次に@startFlow@メソッドによりフローを開始します:
 
 {code}
 void testExampleFlow() {
@@ -290,7 +332,8 @@ void testExampleFlow() {
 }
 {code}
 
-Use the @signalEvent@ method to trigger an event:
+{hidden}Use the @signalEvent@ method to trigger an event:{hidden}
+イベントのトリガーを引くために@signalEvent@を使います:
 
 {code}
 void testExampleFlow() {
@@ -301,11 +344,14 @@ void testExampleFlow() {
 }
 {code}
 
-Here we have signaled to the flow to execute the event "go" which causes a transition to the "next" state. In the example a transition action placed a @hello@ variable into the flow scope.
+{hidden}Here we have signaled to the flow to execute the event "go" which causes a transition to the "next" state. In the example a transition action placed a @hello@ variable into the flow scope.{hidden}
+ここで、"next"の状態への遷移を引き起こす"go"イベントを実行するためにフローにシグナルを送ります。この例では、遷移アクションが@hello@変数をフローのスコープに設定します。
 
-h4. Testing Tag Libraries
+{hidden}h4. Testing Tag Libraries{hidden}
+h4. タグライブラリのテスト
 
-Testing tag libraries is simple because when a tag is invoked as a method it returns its result as a string (technically a @StreamCharBuffer@ but this class implements all of the methods of @String@). So for example if you have a tag library like this:
+{hidden}Testing tag libraries is simple because when a tag is invoked as a method it returns its result as a string (technically a @StreamCharBuffer@ but this class implements all of the methods of @String@). So for example if you have a tag library like this:{hidden}
+タグライブラリのテストはタグがメソッドとして実行された結果として文字列(技術的には@String@の全てのメソッドを実装した@StreamCharBuffer@となります)が返されるので単純です。例えば、タグライブラリのテストはこのようになります:
 
 {code:java}
 class FooTagLib {
@@ -322,7 +368,8 @@ class FooTagLib {
 }
 {code}
 
-The tests would look like:
+{hidden}The tests would look like:{hidden}
+テストはこのようになるでしょう:
 
 {code:java}
 class FooTagLibTests extends GroovyTestCase {
@@ -341,19 +388,27 @@ class FooTagLibTests extends GroovyTestCase {
 }
 {code}
 
-Notice that for the second example, @testBodyTag@, we pass a block that returns the body of the tag. This is convenient to representing the body as a String.
+{hidden}Notice that for the second example, @testBodyTag@, we pass a block that returns the body of the tag. This is convenient to representing the body as a String.{hidden}
+2番目の@testBodyTag@の例を見てください。この例ではタグのボディを返すブロックを渡しています。これはタグ本体を文字列として表現するのに便利です。
 
-h4. Testing Tag Libraries with GroovyPagesTestCase
+{hidden}h4. Testing Tag Libraries with GroovyPagesTestCase{hidden}
+h4. GroovyPagesTestCaseを用いたタグライブラリのテスト
 
-In addition to doing simple testing of tag libraries like in the above examples, you can also use the @grails.test.GroovyPagesTestCase@ class to test tag libraries with integration tests.
+{hidden}In addition to doing simple testing of tag libraries like in the above examples, you can also use the @grails.test.GroovyPagesTestCase@ class to test tag libraries with integration tests.{hidden}
+上記例のように単純なタグライブラリのテストに加えて、インテグレーションテストで@grails.test.GroovyPagesTestCase@クラスを用いたタグライブラリのテストが可能です。
 
-The @GroovyPagesTestCase@ class is a subclass of the standard @GroovyTestCase@ class and adds utility methods for testing the output of GSP rendering.
+{hidden}The @GroovyPagesTestCase@ class is a subclass of the standard @GroovyTestCase@ class and adds utility methods for testing the output of GSP rendering.{hidden}
+@GroovyPagesTestCase@クラスは標準的な@GroovyTestCase@クラスのサブクラスであり、GSPレンダリングの出力をテストするためのユーティリティメソッドが追加されています。
 
-{note}
+{hidden}{note}
 @GroovyPagesTestCase@ can only be used in an integration test.
+{note}{hidden}
+{note}
+@GroovyPagesTestCase@はインテグレーションテストの中だけで使えます。
 {note}
 
-For example, consider this date formatting tag library:
+{hidden}For example, consider this date formatting tag library:{hidden}
+例えば、この日付フォーマットに関するタグライブラリを考えてみましょう:
 
 {code}
 import java.text.SimpleDateFormat
@@ -365,7 +420,8 @@ class FormatTagLib {
 }
 {code}
 
-This can be easily tested as follows:
+{hidden}This can be easily tested as follows:{hidden}
+次のように簡単にテストできます:
 
 {code}
 class FormatTagLibTests extends GroovyPagesTestCase {
@@ -379,7 +435,8 @@ class FormatTagLibTests extends GroovyPagesTestCase {
 }
 {code}
 
-You can also obtain the result of a GSP using the @applyTemplate@ method of the @GroovyPagesTestCase@ class:
+{hidden}You can also obtain the result of a GSP using the @applyTemplate@ method of the @GroovyPagesTestCase@ class:{hidden}
+@GroovyPagesTestCase@クラスの@applyTemplate@メソッドを使ったGSPの結果も得ることもできます:
 
 {code}
 class FormatTagLibTests extends GroovyPagesTestCase {
@@ -395,9 +452,11 @@ class FormatTagLibTests extends GroovyPagesTestCase {
 }
 {code}
 
-h4. Testing Domain Classes
+{hidden}h4. Testing Domain Classes{hidden}
+h4. ドメインクラスのテスト
 
-Testing domain classes is typically a simple matter of using the [GORM API|guide:GORM], but there are a few things to be aware of. Firstly, when testing queries you often need to "flush" to ensure the correct state has been persisted to the database. For example take the following example:
+{hidden}Testing domain classes is typically a simple matter of using the [GORM API|guide:GORM], but there are a few things to be aware of. Firstly, when testing queries you often need to "flush" to ensure the correct state has been persisted to the database. For example take the following example:{hidden}
+ドメインクラスのテストは一般的には[GORM API|guide:GORM]を使った簡単なやり方で可能ですが、いくつか注意すべきことがあります。まず最初に、クエリをテストするときにはデータベースに正しい状態で確実に保存されるように、頻繁に"フラッシュ"をする必要があります。例えば、次の例を見てみましょう:
 
 {code:java}
 void testQuery() {
@@ -410,7 +469,8 @@ void testQuery() {
 }
 {code}
 
-This test will fail because calling [save|domainClasses] does not actually persist the @Book@ instances when called. Calling @save@ only indicates to Hibernate that at some point in the future these instances should be persisted. To commit changes immediately you "flush" them:
+{hidden}This test will fail because calling [save|domainClasses] does not actually persist the @Book@ instances when called. Calling @save@ only indicates to Hibernate that at some point in the future these instances should be persisted. To commit changes immediately you "flush" them:{hidden}
+このテストは[save|domainClasses]を呼び出していても、@Book@インスタンスが呼び出されたときには実際には保存されていないので失敗するでしょう。@save@を呼び出しても単にHibernateに未来のある時点でインスタンスが保存されるべきであることを示唆するだけです。ただちに変更をコミットするためには"フラッシュ"をします:
 
 {code:java}
 void testQuery() {
@@ -423,4 +483,5 @@ void testQuery() {
 }
 {code}
 
-In this case since we're passing the argument @flush@ with a value of @true@ the updates will be persisted immediately and hence will be available to the query later on.
+{hidden}In this case since we're passing the argument @flush@ with a value of @true@ the updates will be persisted immediately and hence will be available to the query later on.{hidden}
+このケースでは引数@flush@に@true@を渡しているので、データの更新はただちに保存され、後のクエリでも利用可能になります。
