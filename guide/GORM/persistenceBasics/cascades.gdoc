@@ -1,10 +1,14 @@
-It is critical that you understand how cascading updates and deletes work when using GORM. The key part to remember is the @belongsTo@ setting which controls which class "owns" a relationship.
+{hidden}It is critical that you understand how cascading updates and deletes work when using GORM. The key part to remember is the @belongsTo@ setting which controls which class "owns" a relationship.{hidden}
+GORMを使うにあたって、カスケード更新とカスケード削除がどのように動作するか理解しておくことは非常に重要です。特に、クラス間の所有関係を制御する@belongsTo@設定については覚えておく必要があります。
 
-Whether it is a one-to-one, one-to-many or many-to-many, defining @belongsTo@ will result in updates cascading from the owning class to its dependant (the other side of the relationship), and for many-/one-to-one and one-to-many relationships deletes will also cascade.
+{hidden}Whether it is a one-to-one, one-to-many or many-to-many, defining @belongsTo@ will result in updates cascading from the owning class to its dependant (the other side of the relationship), and for many-/one-to-one and one-to-many relationships deletes will also cascade.{hidden}
+2つのドメインクラス間の関連が1対1、1対多、多対多のいずれの場合でも、@belongsTo@を定義することで、所有者のクラスから、所有されているクラス(関連の他方)に対して更新がカスケードします。また、多対1、1対1、1対多の場合は、削除も同様にカスケードします。
 
-If you _do not_ define @belongsTo@ then no cascades will happen and you will have to manually save each object (except in the case of the one-to-many, in which case saves will cascade automatically if a new instance is in a @hasMany@ collection).
+{hidden}If you _do not_ define @belongsTo@ then no cascades will happen and you will have to manually save each object (except in the case of the one-to-many, in which case saves will cascade automatically if a new instance is in a @hasMany@ collection).{hidden}
+@belongsTo@を定義 _しない_ 場合はカスケードしないため、関連するオブジェクトを1つ1つsaveしなければなりません(ただし、1対多の場合だけは例外です。このケースでは@hasMeny@コレクション内に新しいインスタンスが有れば保存が自動的にカスケードします)。
 
-Here is an example:
+{hidden}Here is an example:{hidden}
+以下に例を示します:
 
 {code}
 class Airport {
@@ -20,7 +24,8 @@ class Flight {
 }
 {code}
 
-If I now create an @Airport@ and add some @Flight@s to it I can save the @Airport@ and have the updates cascaded down to each flight, hence saving the whole object graph:
+{hidden}If I now create an @Airport@ and add some @Flight@s to it I can save the @Airport@ and have the updates cascaded down to each flight, hence saving the whole object graph:{hidden}
+ここで、新規に@Airport@インスタンスを生成し、そこに@Flight@インスタンスをいくつか追加してみます。その後に@Airport@インスタンスを保存すると、各@Flight@インスタンスにも保存がカスケードし、結果として、@Airport@を起点とするオブジェクトグラフ全体が保存されることになります:
 
 {code}
 new Airport(name: "Gatwick")
@@ -29,16 +34,20 @@ new Airport(name: "Gatwick")
         .save()
 {code}
 
-Conversely if I later delete the @Airport@ all @Flight@s associated with it will also be deleted:
+{hidden}Conversely if I later delete the @Airport@ all @Flight@s associated with it will also be deleted:{hidden}
+今度は@Airport@インスタンスを削除してみます。すると、削除がカスケードするため、関連している全ての@Flight@インスタンスも合わせて削除されます:
 
 {code}
 def airport = Airport.findByName("Gatwick")
 airport.delete()
 {code}
 
-However, if I were to remove @belongsTo@ then the above cascading deletion code *would not work*. To understand this better take a look at the summaries below that describe the default behaviour of GORM with regards to specific associations. Also read [part 2|http://blog.springsource.com/2010/07/02/gorm-gotchas-part-2/] of the GORM Gotchas series of articles to get a deeper understanding of relationships and cascading.
+{hidden}However, if I were to remove @belongsTo@ then the above cascading deletion code *would not work*. To understand this better take a look at the summaries below that describe the default behaviour of GORM with regards to specific associations. Also read [part 2|http://blog.springsource.com/2010/07/02/gorm-gotchas-part-2/] of the GORM Gotchas series of articles to get a deeper understanding of relationships and cascading.{hidden}
+ところが、@bilongsTo@ の定義が削除されている状態で、上記に記載した削除のコードを実行した場合は、カスケード削除は*動作しません*。以降では、この事象をより良く理解できるように、それぞれの関連に対するGORMのデフォルトの振る舞いを説明します。
+関連とカスケードについて、更に深く理解したい場合には、[GORM Gotchas (Part 2)|http://blog.springsource.com/2010/07/02/gorm-gotchas-part-2/]も参照してください。
 
-h5. Bidirectional one-to-many with belongsTo
+{hidden}h5. Bidirectional one-to-many with belongsTo{hidden}
+h5. 双方向1対多関係でbelongsToが定義されている場合
 
 {code}
 class A { static hasMany = [bees: B] }
@@ -48,9 +57,12 @@ class A { static hasMany = [bees: B] }
 class B { static belongsTo = [a: A] }
 {code}
 
-In the case of a bidirectional one-to-many where the many side defines a @belongsTo@ then the cascade strategy is set to "ALL" for the one side and "NONE" for the many side.
+{hidden}In the case of a bidirectional one-to-many where the many side defines a @belongsTo@ then the cascade strategy is set to "ALL" for the one side and "NONE" for the many side.{hidden}
+双方向1対多関係で、かつ「多」側に@belongsTo@が定義されている場合は、Hibernateのカスケード戦略として「1」側に"ALL"が、「多」側に"NONE"が、それぞれ設定されます。
 
-h5. Unidirectional one-to-many
+{hidden}h5. Unidirectional one-to-many{hidden}
+h5. 単方向1対多関係の場合
+
 
 {code}
 class A { static hasMany = [bees: B] }
@@ -60,9 +72,11 @@ class A { static hasMany = [bees: B] }
 class B {  }
 {code}
 
-In the case of a unidirectional one-to-many where the many side defines no belongsTo then the cascade strategy is set to "SAVE-UPDATE".
+{hidden}In the case of a unidirectional one-to-many where the many side defines no belongsTo then the cascade strategy is set to "SAVE-UPDATE".{hidden}
+単方向1対多関係で、かつ「多」側に@belongsTo@が定義されていない場合は、Hibernateのカスケード戦略として"SAVE-UPDATE"が設定されます。
 
-h5. Bidirectional one-to-many, no belongsTo
+{hidden}h5. Bidirectional one-to-many, no belongsTo{hidden}
+h5. 双方向1対多関係でbelongsToが定義されていない場合
 
 {code}
 class A { static hasMany = [bees: B] }
@@ -72,9 +86,11 @@ class A { static hasMany = [bees: B] }
 class B { A a }
 {code}
 
-In the case of a bidirectional one-to-many where the many side does not define a @belongsTo@ then the cascade strategy is set to "SAVE-UPDATE" for the one side and "NONE" for the many side.
+{hidden}In the case of a bidirectional one-to-many where the many side does not define a @belongsTo@ then the cascade strategy is set to "SAVE-UPDATE" for the one side and "NONE" for the many side.{hidden}
+双方向1対多関係で、かつ「多」側に@belongsTo@が定義されていない場合は、Hibernateのカスケード戦略として「1」側に"SAVE-UPDATE"が、「多」側に"NONE"が、それぞれ設定されます。
 
-h5. Unidirectional one-to-one with belongsTo
+{hidden}h5. Unidirectional one-to-one with belongsTo{hidden}
+h5. 単方向1対1関係でbelongsToが定義されている場合
 
 {code}
 class A {  }
@@ -84,6 +100,8 @@ class A {  }
 class B { static belongsTo = [a: A] }
 {code}
 
-In the case of a unidirectional one-to-one association that defines a @belongsTo@ then the cascade strategy is set to "ALL" for the owning side of the relationship (A->B) and "NONE" from the side that defines the @belongsTo@ (B->A)
+{hidden}In the case of a unidirectional one-to-one association that defines a @belongsTo@ then the cascade strategy is set to "ALL" for the owning side of the relationship (A->B) and "NONE" from the side that defines the @belongsTo@ (B->A){hidden}
+単方向1対1関係で@belongsTo@が定義されている場合は、Hibernateのカスケード戦略として、所有者側(上記の例ではAがBを所有しているのでA)に"ALL"が、@belongsTo@が定義されている側(上記の例ではB)に"NONE"が、それぞれ設定されます。
 
-Note that if you need further control over cascading behaviour, you can use the [ORM DSL|guide:ormdsl].
+{hidden}Note that if you need further control over cascading behaviour, you can use the [ORM DSL|guide:ormdsl].{hidden}
+なお、カスケードの振る舞いについて、ここに書かれている内容を超える制御が必要な場合は、[ORM DSL|guide:ormdsl]を利用してください。
