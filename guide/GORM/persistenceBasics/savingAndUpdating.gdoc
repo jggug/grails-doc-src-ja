@@ -1,18 +1,23 @@
-An example of using the [save|domainClasses] method can be seen below:
+{hidden}An example of using the [save|domainClasses] method can be seen below:{hidden}
+[save|domainClasses]メソッドの利用例を以下に示します:
 
 {code}
 def p = Person.get(1)
 p.save()
 {code}
 
-This save will be not be pushed to the database immediately - it will be pushed when the next flush occurs. But there are occasions when you want to control when those statements are executed or, in Hibernate terminology, when the session is "flushed". To do so you can use the flush argument to the save method:
+{hidden}This save will be not be pushed to the database immediately - it will be pushed when the next flush occurs. But there are occasions when you want to control when those statements are executed or, in Hibernate terminology, when the session is "flushed". To do so you can use the flush argument to the save method:{hidden}
+このようにsaveメソッドを呼び出しても、データベースへの即時反映は行われず、変更内容は保留されます。保留された内容をデータベースに反映する操作のことを、Hibernateの用語では「フラッシュ」と呼びますが、フラッシュが発生した時に、それまで保留されていた全ての変更内容がデータベースに反映されます。もし、saveメソッドの呼び出しと同時にフラッシュしたい場合には、名前付き引数@flush@を使って、以下のようにしてください:
 
 {code}
 def p = Person.get(1)
 p.save(flush: true)
 {code}
 
-Note that in this case _all_ pending SQL statements including previous saves, deletes, etc. will be synchronized with the database. This also lets you catch any exceptions, which is typically useful in highly concurrent scenarios involving [optimistic locking|guide:locking]:
+{hidden}Note that in this case _all_ pending SQL statements including previous saves, deletes, etc. will be synchronized with the database. This also lets you catch any exceptions, which is typically useful in highly concurrent scenarios involving [optimistic locking|guide:locking]:{hidden}
+この形式のsaveメソッドの呼び出しによって、保留されていた _全て_ のSQL(以前にflush指定なしに呼び出されたsaveメソッドやdeleteメソッドを含む)が発行され、データベースと同期することになります。
+SQL発行に伴い発生する可能性のある例外は、このタイミングで必要に応じてキャッチしてください。たとえば、[楽観的ロック|guide:locking]利用時に競合が発生した場合の例外は、ここでキャッチします。
+
 
 {code}
 def p = Person.get(1)
@@ -24,7 +29,10 @@ catch (org.springframework.dao.DataIntegrityViolationException e) {
 }
 {code}
 
-Another thing to bear in mind is that Grails [validates|guide:validation] a domain instance every time you save it. If that validation fails the domain instance will _not_ be persisted to the database. By default, @save()@ will simply return @null@ in this case, but if you would prefer it to throw an exception you can use the @failOnError@ argument:
+{hidden}Another thing to bear in mind is that Grails [validates|guide:validation] a domain instance every time you save it. If that validation fails the domain instance will _not_ be persisted to the database. By default, @save()@ will simply return @null@ in this case, but if you would prefer it to throw an exception you can use the @failOnError@ argument:{hidden}
+saveメソッドに関して、もうひとつ注意すべきことがあります。ドメインインスタンスはsaveされる度に[バリデーション|guide:validation]が実行されますが、バリデーションに失敗した場合は、データベースへの反映は _行われません_。
+バリデーションに失敗したとき、@save()@メソッドは、デフォルトでは@null@を返します。例外を発生させたい場合には、名前付き引数@failOnError@を使って、以下のようにしてください:
+
 
 {code}
 def p = Person.get(1)
@@ -36,6 +44,8 @@ catch (ValidationException e) {
 }
 {code}
 
-You can even change the default behaviour with a setting in @Config.groovy@, as described in the [section on configuration|guide:configGORM]. Just remember that when you are saving domain instances that have been bound with data provided by the user, the likelihood of validation exceptions is quite high and you won't want those exceptions propagating to the end user.
+{hidden}You can even change the default behaviour with a setting in @Config.groovy@, as described in the [section on configuration|guide:configGORM]. Just remember that when you are saving domain instances that have been bound with data provided by the user, the likelihood of validation exceptions is quite high and you won't want those exceptions propagating to the end user.{hidden}
+@failOnError@引数を省略した時のデフォルト動作は、@Config.groovy@の設定により変更することができます。具体的な変更方法は[「設定」の章|guide:configGORM]に記載されています。ただし、エンドユーザの入力値を格納しているドメインインスタンスをsaveするケースでは、バリデーション例外が発生する可能性は非常に高く、かつ、例外をエンドユーザに直接表示することは避けたいと思うことが多いでしょう。その点を踏まえて、デフォルト動作を決定するようにしてください。
 
-You can find out more about the subtleties of saving data in [this article|http://blog.springsource.com/2010/06/23/gorm-gotchas-part-1/] - a must read!
+{hidden}You can find out more about the subtleties of saving data in [this article|http://blog.springsource.com/2010/06/23/gorm-gotchas-part-1/] - a must read!{hidden}
+データのsaveにかかわる、より細かい点については[こちらの記事|http://blog.springsource.com/2010/06/23/gorm-gotchas-part-1/]が詳しいです。是非読んでみてください！
