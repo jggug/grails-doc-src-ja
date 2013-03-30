@@ -1,15 +1,19 @@
-Although constraints are covered in the [Validation|guide:constraints] section, it is important to mention them here as some of the constraints can affect the way in which the database schema is generated.
+{hidden}Although constraints are covered in the [Validation|guide:constraints] section, it is important to mention them here as some of the constraints can affect the way in which the database schema is generated.{hidden}
+制約については[バリデーション|guide:constraints]のセクションでカバーしていますが、いくつかの制約はデータベーススキーマの生成にも影響を与えるため、ここで言及しておくことは重要です。
 
-Where feasible, Grails uses a domain class's constraints to influence the database columns generated for the corresponding domain class properties.
+{hidden}Where feasible, Grails uses a domain class's constraints to influence the database columns generated for the corresponding domain class properties.{hidden}
+ドメインクラスのプロパティごとに対応するデータベースのカラムを生成するときにも、可能であれば、Grailsは制約を利用します。
 
-Consider the following example.  Suppose we have a domain model with the following properties:
+{hidden}Consider the following example.  Suppose we have a domain model with the following properties:{hidden}
+次のような例を考えてみます。以下のプロパティを持ったドメインクラスを仮定します:
 
 {code}
 String name
 String description
 {code}
 
-By default, in MySQL, Grails would define these columns as
+{hidden}By default, in MySQL, Grails would define these columns as{hidden}
+デフォルトで、MySQL上では、Grailsは次のようなカラムを定義します。
 
 {table}
 Column | Data Type
@@ -17,14 +21,19 @@ name | varchar(255)
 description | varchar(255)
 {table}
 
-But perhaps the business rules for this domain class state that a description can be up to 1000 characters in length.  If that were the case, we would likely define the column as follows _if_ we were creating the table with an SQL script.
+{hidden}But perhaps the business rules for this domain class state that a description can be up to 1000 characters in length.  If that were the case, we would likely define the column as follows _if_ we were creating the table with an SQL script.{hidden}
+しかし、このドメインクラスに対するビジネスルールでは、@description@は1000文字まで入力したいかもしれません。
+その場合、_もし_ SQLスクリプトでテーブルを作成しているなら、たぶん次のようにカラムを定義するでしょう。
 
 {table}
 Column | Data Type
 description | TEXT
 {table}
 
-Chances are we would also want to have some application-based validation to make sure we don't exceed that 1000 character limit _before_ we persist any records.  In Grails, we achieve this validation with [constraints|guide:constraints].  We would add the following constraint declaration to the domain class.
+{hidden}Chances are we would also want to have some application-based validation to make sure we don't exceed that 1000 character limit _before_ we persist any records.  In Grails, we achieve this validation with [constraints|guide:constraints].  We would add the following constraint declaration to the domain class.{hidden}
+ひょっとすると、レコードに永続化する _前に_ 1000文字の上限を超えないか確認できるように、アプリケーションベースのバリデーションも欲しくなるかもしれません。
+Grailsではこのバリデーションは[制約|guide:constraints]で達成できます。
+次のような制約の宣言をドメインクラスに追加します。
 
 {code}
 static constraints = {
@@ -32,64 +41,96 @@ static constraints = {
 }
 {code}
 
-This constraint would provide both the application-based validation we want and it would also cause the schema to be generated as shown above.  Below is a description of the other constraints that influence schema generation.
+{hidden}This constraint would provide both the application-based validation we want and it would also cause the schema to be generated as shown above.  Below is a description of the other constraints that influence schema generation.{hidden}
+この制約は、欲しかったアプリケーションベースのバリデーションを提供するだけでなく、前述したような1000文字分を格納できるスキーマも生成してくれます。
+以下は、スキーマ生成に影響するその他の制約の説明です。
 
-h4. Constraints Affecting String Properties
+{hidden}h4. Constraints Affecting String Properties{hidden}
+h4. 文字列型プロパティに影響する制約
 
 * [inList|constraints]
 * [maxSize|constraints]
 * [size|constraints]
 
-If either the @maxSize@ or the @size@ constraint is defined, Grails sets the maximum column length based on the constraint value.
+{hidden}If either the @maxSize@ or the @size@ constraint is defined, Grails sets the maximum column length based on the constraint value.{hidden}
+@maxSize@と@size@制約のどちらかが定義されると、Grailsは制約の値に従ってカラムの最大長を設定します。
 
-In general, it's not advisable to use both constraints on the same domain class property.  However, if both the @maxSize@ constraint and the @size@ constraint are defined, then Grails sets the column length to the minimum of the @maxSize@ constraint and the upper bound of the size constraint.  (Grails uses the minimum of the two, because any length that exceeds that minimum will result in a validation error.)
+{hidden}In general, it's not advisable to use both constraints on the same domain class property.  However, if both the @maxSize@ constraint and the @size@ constraint are defined, then Grails sets the column length to the minimum of the @maxSize@ constraint and the upper bound of the size constraint.  (Grails uses the minimum of the two, because any length that exceeds that minimum will result in a validation error.){hidden}
 
-If the @inList@ constraint is defined (and the @maxSize@ and the @size@ constraints are not defined), then Grails sets the maximum column length based on the length of the longest string in the list of valid values.  For example, given a list including values "Java", "Groovy", and "C++", Grails would set the column length to 6 (i.e., the number of characters in the string "Groovy").
+一般的に、@maxSize@制約と@size@制約を同時に同じドメインクラスのプロパティに適用することは推奨されません。
+しかし、もしそれらが同時に定義された場合には、Grailsは@maxSize@制約の値と@size@制約の上限値の小さい方の値をカラムの長さとしてセットします。
+（Grailsがその2つの値の最小値を利用するのは、その最小値を超える長さであれば結局バリデーションエラーになるためです。）
 
-h4. Constraints Affecting Numeric Properties
+{hidden}If the @inList@ constraint is defined (and the @maxSize@ and the @size@ constraints are not defined), then Grails sets the maximum column length based on the length of the longest string in the list of valid values.  For example, given a list including values "Java", "Groovy", and "C++", Grails would set the column length to 6 (i.e., the number of characters in the string "Groovy").{hidden}
+
+@inList@制約が定義された場合（@maxSize@と@size@制約は定義されていないとする）、Grailsは有効な値のリストの中でもっとも長い文字列長を元にカラムの長さをセットします。
+例えば、"Java", "Groovy", "C++"を含むリストが与えられた場合、Grailsはカラムの長さを6（すなわち、"Groovy"の文字数）にセットします。
+
+{hidden}h4. Constraints Affecting Numeric Properties{hidden}
+h4. 数値型プロパティに影響する制約
 
 * [min|constraints]
 * [max|constraints]
 * [range|constraints]
 
-If the @max@, @min@, or @range@ constraint is defined, Grails attempts to set the column precision based on the constraint value.  (The success of this attempted influence is largely dependent on how Hibernate interacts with the underlying DBMS.)
+{hidden}If the @max@, @min@, or @range@ constraint is defined, Grails attempts to set the column precision based on the constraint value.  (The success of this attempted influence is largely dependent on how Hibernate interacts with the underlying DBMS.){hidden}
+@max@や@min@, @range@制約が定義されると、Grailsは制約の値に基づいた精度（有効桁数）をカラムにセットしようと試みます。
+(その試みが成功するかどうかは、Hibernateが裏にあるDBMSとどのように相互作用するかに大きく依存します。)
 
-In general, it's not advisable to combine the pair @min@/@max@ and @range@ constraints together on the same domain class property.  However, if both of these constraints is defined, then Grails uses the minimum precision value from the constraints.  (Grails uses the minimum of the two, because any length that exceeds that minimum precision will result in a validation error.)
+{hidden}In general, it's not advisable to combine the pair @min@/@max@ and @range@ constraints together on the same domain class property.  However, if both of these constraints is defined, then Grails uses the minimum precision value from the constraints.  (Grails uses the minimum of the two, because any length that exceeds that minimum precision will result in a validation error.){hidden}
+
+一般的に、@min@/@max@のペアと@range@制約を同時に同一のドメインクラスプロパティに適用することは推奨されません。
+しかし、もしそれらが同時に定義された場合には、Grailsは制約から算出される精度の内で最も小さい精度を使います。
+（Grailsがそれらの最小精度を利用するのは、その最小精度を超える場合は結局バリデーションエラーになるためです。）
 
 * [scale|constraints]
 
-If the scale constraint is defined, then Grails attempts to set the column [scale|constraints] based on the constraint value.  This rule only applies to floating point numbers (i.e., @java.lang.Float@, @java.Lang.Double@, @java.lang.BigDecimal@, or subclasses of @java.lang.BigDecimal@). The success of this attempted influence is largely dependent on how Hibernate interacts with the underlying DBMS.
+{hidden}If the scale constraint is defined, then Grails attempts to set the column [scale|constraints] based on the constraint value.  This rule only applies to floating point numbers (i.e., @java.lang.Float@, @java.Lang.Double@, @java.lang.BigDecimal@, or subclasses of @java.lang.BigDecimal@). The success of this attempted influence is largely dependent on how Hibernate interacts with the underlying DBMS.{hidden}
+@scale@制約が定義されると、Grailsは制約の値に基づいた[scale|constraints]をカラムにセットしようと試みます。
+このルールは浮動小数点型（すなわち、@java.lang.Float@, @java.Lang.Double@, @java.lang.BigDecimal@、または、@java.lang.BigDecimal@のサブクラスのいずれか）の場合にのみ適用されます。
+その試みが成功するかどうかは、Hibernateが裏にあるDBMSとどのように相互作用するかに大きく依存します。
 
-The constraints define the minimum/maximum numeric values, and Grails derives the maximum number of digits for use in the precision. Keep in mind that specifying only one of @min@/@max@ constraints will not affect schema generation (since there could be large negative value of property with max:100, for example), unless the specified constraint value requires more digits than default Hibernate column precision is (19 at the moment). For example:
+{hidden}The constraints define the minimum/maximum numeric values, and Grails derives the maximum number of digits for use in the precision. Keep in mind that specifying only one of @min@/@max@ constraints will not affect schema generation (since there could be large negative value of property with max:100, for example), unless the specified constraint value requires more digits than default Hibernate column precision is (19 at the moment). For example:{hidden}
+@max@/@min@や@range@制約では、最大/最小の数値を定義します。そして、そこからGrailsは精度として利用するための最大桁数を算出します。
+指定された制約値がHibernateのデフォルトカラム精度（現在は19）よりも多くの桁数を必要とする場合を除いて、@min@制約と@max@制約のどちらかひとつだけを指定しても、スキーマ生成には影響しないことを覚えておいてください。
+（なぜなら、例えば@max:100@を指定したとしても、大きな負の数も許容されるため、必要な精度は確定できないからです。）
+
+例えば:
 
 {code}
 someFloatValue max: 1000000, scale: 3
 {code}
 
-would yield:
+{hidden}would yield:{hidden}
+は、次のようになります。
 
 {code}
 someFloatValue DECIMAL(19, 3) // precision is default
 {code}
 
-but
+{hidden}but{hidden}
+しかし、
 
 {code}
 someFloatValue max: 12345678901234567890, scale: 5
 {code}
 
-would yield:
+{hidden}would yield:{hidden}
+は、次のようになります。
+
 {code}
 someFloatValue DECIMAL(25, 5) // precision = digits in max + scale
 {code}
 
-and
+{hidden}and{hidden}
+そして、
 
 {code}
 someFloatValue max: 100, min: -100000
 {code}
 
-would yield:
+{hidden}would yield:{hidden}
+は、次のようになります。
 
 {code}
 someFloatValue DECIMAL(8, 2) // precision = digits in min + default scale
