@@ -1,6 +1,8 @@
-The previous example configuration assumes you want the same config for all environments: production, test, development etc.
+{hidden}The previous example configuration assumes you want the same config for all environments: production, test, development etc.{hidden}
+これまでの例ではすべての環境（production, test, developmentなど）で同じ設定を行うことを想定していました。
 
-Grails' DataSource definition is "environment aware", however, so you can do:
+{hidden}Grails' DataSource definition is "environment aware", however, so you can do:{hidden}
+Grailsのデータソース定義では環境ごとの設定が可能になっています。
 
 {code}
 dataSource {
