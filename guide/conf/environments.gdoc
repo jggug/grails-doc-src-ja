@@ -1,6 +1,8 @@
-h4. Per Environment Configuration
+{hidden}h4. Per Environment Configuration{hidden}
+h4. 環境ごとの設定
 
-Grails supports the concept of per environment configuration. The @Config.groovy@, @DataSource.groovy@, and @BootStrap.groovy@ files in the @grails-app/conf@ directory can use per-environment configuration using the syntax provided by [ConfigSlurper|http://groovy.codehaus.org/ConfigSlurper]. As an example consider the following default @DataSource@ definition provided by Grails:
+{hidden}Grails supports the concept of per environment configuration. The @Config.groovy@, @DataSource.groovy@, and @BootStrap.groovy@ files in the @grails-app/conf@ directory can use per-environment configuration using the syntax provided by [ConfigSlurper|http://groovy.codehaus.org/ConfigSlurper]. As an example consider the following default @DataSource@ definition provided by Grails:{hidden}
+Grailsは環境ごとで設定値を変更する概念をサポートしています。@grails-app/conf@ディレクトリ内の@Config.groovy@, @DataSource.groovy@,@BootStrap.groovy@ファイルは[ConfigSlurper|http://groovy.codehaus.org/ConfigSlurper]によって提供される構文を使用して、環境ごとの設定を行うことができます。次の例では、Grailsによって与えられるデフォルトの@DataSource@定義について記述しています。
 
 {code:java}
 dataSource {
@@ -31,31 +33,38 @@ environments {
 }
 {code}
 
-Notice how the common configuration is provided at the top level and then an @environments@ block specifies per environment settings for the @dbCreate@ and @url@ properties of the @DataSource@.
+{hidden}Notice how the common configuration is provided at the top level and then an @environments@ block specifies per environment settings for the @dbCreate@ and @url@ properties of the @DataSource@.{hidden}
+一般的な構成として、共通的な設定はトップレベルで提供され、@environments@ブロックには@DataSource@の@dbCreate@や@url@プロパティを環境ごとに指定している様子がわかります。
 
-h4. Packaging and Running for Different Environments
+{hidden}h4. Packaging and Running for Different Environments{hidden}
+h4. 異なる環境のパッケージングと実行
 
-Grails' [command line|guide:commandLine] has built in capabilities to execute any command within the context of a specific environment. The format is:
+{hidden}Grails' [command line|guide:commandLine] has built in capabilities to execute any command within the context of a specific environment. The format is:{hidden}
+Grailsの[コマンドライン|guide:commandLine]は、特定の環境下で、任意のコマンドを実行する機能が組み込まれています。そのフォーマットは以下となります。
 
 {code:java}
 grails [environment] [command name]
 {code}
 
-In addition, there are 3 preset environments known to Grails: @dev@, @prod@, and @test@ for @development@, @production@ and @test@. For example to create a WAR for the @test@ environment you wound run:
+{hidden}In addition, there are 3 preset environments known to Grails: @dev@, @prod@, and @test@ for @development@, @production@ and @test@. For example to create a WAR for the @test@ environment you wound run:{hidden}
+加えて、Grailsでは@dev@,@prod@,@test@(@development@,@production@,@test@)といった、あらかじめ定義されている３つの環境が知られています。例えば、@test@環境でWARを作成するには、以下のように実行します。
 
 {code:java}
 grails test war
 {code}
 
-To target other environments you can pass a @grails.env@ variable to any command:
+{hidden}To target other environments you can pass a @grails.env@ variable to any command:{hidden}
+上記の３つ以外の環境をターゲットにするには、任意のコマンドに@grails.env@変数を渡すことで実現できます。
 
 {code:java}
 grails -Dgrails.env=UAT run-app
 {code}
 
-h4. Programmatic Environment Detection
+{hidden}h4. Programmatic Environment Detection{hidden}
+h4. プログラマチック環境検出
 
-Within your code, such as in a Gant script or a bootstrap class you can detect the environment using the [Environment|api:grails.util.Environment] class:
+{hidden}Within your code, such as in a Gant script or a bootstrap class you can detect the environment using the [Environment|api:grails.util.Environment] class:{hidden}
+Gantスクリプトやbootstrapクラスのコード内では[Environment|api:grails.util.Environment]クラスを使って、環境を検出できます。
 
 {code:java}
 import grails.util.Environment
@@ -72,9 +81,11 @@ switch (Environment.current) {
 }
 {code}
 
-h4. Per Environment Bootstrapping
+{hidden}h4. Per Environment Bootstrapping{hidden}
+h4. 環境ごとのブートストラップ
 
-It's often desirable to run code when your application starts up on a per-environment basis. To do so you can use the @grails-app/conf/BootStrap.groovy@ file's support for per-environment execution:
+{hidden}It's often desirable to run code when your application starts up on a per-environment basis. To do so you can use the @grails-app/conf/BootStrap.groovy@ file's support for per-environment execution:{hidden}
+アプリケーションの起動時に、環境に基づいたコードを実行することが望ましい場合があります。そのためには、@grails-app/conf/BootStrap.groovy@ファイルの環境ごとの実行サポートを使います。
 
 {code}
 def init = { ServletContext ctx ->
@@ -90,9 +101,11 @@ def init = { ServletContext ctx ->
 }
 {code}
 
-h4. Generic Per Environment Execution
+{hidden}h4. Generic Per Environment Execution{hidden}
+ジェネリックな環境の実行
 
-The previous @BootStrap@ example uses the @grails.util.Environment@ class internally to execute. You can also use this class yourself to execute your own environment specific logic:
+{hidden}The previous @BootStrap@ example uses the @grails.util.Environment@ class internally to execute. You can also use this class yourself to execute your own environment specific logic:{hidden}
+以前の@BootStrap@の例では、内部的に@grails.util.Environment@クラスを使用して実行しています。独自の環境ロジックを実行するために、このクラスを以下のように使うこともできます。
 
 {code}
 Environment.executeForCurrentEnvironment {
