@@ -2,7 +2,7 @@
 
 ドメインクラスは業務アプリケーションの中心です。
 それらは業務プロセスについての状態や振る舞いを保持します。
-また、それらは一対一、一対多、多対多などの関連を通して結びつけられます。
+また、それらは1対1、1対多、多対多などの関連を通して結びつけられます。
 
 {hidden}GORM is Grails' object relational mapping (ORM) implementation. Under the hood it uses Hibernate 3 (a very popular and flexible open source ORM solution) and thanks to the dynamic nature of Groovy with its static and dynamic typing, along with the convention of Grails, there is far less configuration involved in creating Grails domain classes.{hidden}
 
