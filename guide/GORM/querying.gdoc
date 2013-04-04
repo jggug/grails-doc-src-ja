@@ -1,45 +1,63 @@
-GORM supports a number of powerful ways to query from dynamic finders, to criteria to Hibernate's object oriented query language HQL. Depending on the complexity of the query you have the following options in order of flexibility and power:
+{hidden}GORM supports a number of powerful ways to query from dynamic finders, to criteria to Hibernate's object oriented query language HQL. Depending on the complexity of the query you have the following options in order of flexibility and power:{hidden}
+GORMはダイナミックファインダーやHibernateのオブジェクト指向クエリー言語HQLなど、多くの便利な方法を提供します。クエリーの複雑さを考慮して、以下のような選択肢から選択することができます。上位にある選択肢ほど柔軟性と利便性が高くなります。
 
+{hidden}
 * Dynamic Finders
 * Where Queries
 * Criteria Queries
 * Hibernate Query Language (HQL)
+{hidden}
 
-In addition, Groovy's ability to manipulate collections with "GPath":http://groovy.codehaus.org/GPath and methods like sort, findAll and so on combined with GORM results in a powerful combination.
+* ダイナミックファインダー
+* Whereクエリー
+* クライテリアクエリー
+* Hibernateクエリー言語 (HQL)
 
-However, let's start with the basics.
+{hidden}In addition, Groovy's ability to manipulate collections with "GPath":http://groovy.codehaus.org/GPath and methods like sort, findAll and so on combined with GORM results in a powerful combination.{hidden}
+さらに、Groovyの機能であるコレクション操作機能 "GPath":http://groovy.codehaus.org/Japanese+GPath と、GORMの持つsortやfindAllなどのメソッドの組み合わせは、すばらしい結果をもたらします。
 
-h4. Listing instances
+{hidden}However, let's start with the basics.{hidden}
+まずは、基本的な使い方から始めましょう。
 
-Use the [list|domainClasses] method to obtain all instances of a given class:
+{hidden}h4. Listing instances{hidden}
+h4. インスタンスの一覧取得
+
+{hidden}Use the [list|domainClasses] method to obtain all instances of a given class:{hidden}
+対象のクラスのすべてのインスタンスを取得するには、[list|domainClasses]を使います。:
 
 {code}
 def books = Book.list()
 {code}
 
-The [list|domainClasses] method supports arguments to perform pagination:
+{hidden}The [list|domainClasses] method supports arguments to perform pagination:{hidden}
+以下の様に、[list|domainClasses]メソッドは、行数を指定するための引数をサポートします。:
 
 {code}
 def books = Book.list(offset:10, max:20)
 {code}
 
-as well as sorting:
+{hidden}as well as sorting:{hidden}
+同様に、ソートを行う場合は以下の通りです。:
 
 {code}
 def books = Book.list(sort:"title", order:"asc")
 {code}
 
-Here, the @sort@ argument is the name of the domain class property that you wish to sort on, and the @order@ argument is either @asc@ for *asc*ending or @desc@ for *desc*ending.
+{hidden}Here, the @sort@ argument is the name of the domain class property that you wish to sort on, and the @order@ argument is either @asc@ for *asc*ending or @desc@ for *desc*ending.{hidden}
+ここで、@sort@はソート対象にしたいドメインクラスのプロパティを指定します。@order@は@asc@であれば昇順(*asc*ending)、@desc@であれば降順(*desc*ending)となります。
 
-h4. Retrieval by Database  Identifier
+{hidden}h4. Retrieval by Database  Identifier{hidden}
+h4. データベースのIDによる取得
 
-The second basic form of retrieval is by database identifier using the [get|domainClasses] method:
+{hidden}The second basic form of retrieval is by database identifier using the [get|domainClasses] method:{hidden}
+次の検索の基本形は、データベースのIDを利用して、[get|domainClasses]メソッドで取得する方法です。:
 
 {code}
 def book = Book.get(23)
 {code}
 
-You can also obtain a list of instances for a set of identifiers using [getAll|domainClasses]:
+{hidden}You can also obtain a list of instances for a set of identifiers using [getAll|domainClasses]:{hidden}
+また、複数のIDの組み合わせを指定して[getAll|domainClasses]を使う事で、インスタンスの一覧を取得することもできます。:
 
 {code}
 def books = Book.getAll(23, 93, 81)
