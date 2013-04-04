@@ -1,6 +1,8 @@
-GORM supports the concept of *dynamic finders*. A dynamic finder looks like a static method invocation, but the methods themselves don't actually exist in any form at the code level.
+{hidden}GORM supports the concept of *dynamic finders*. A dynamic finder looks like a static method invocation, but the methods themselves don't actually exist in any form at the code level.{hidden}
+GORMは*ダイナミックファインダー*のコンセプトをサポートしています。ダイナミックファインダーは静的メソッドの呼び出しのように利用できますが、対象クラスの実際のコード上にはそのようなコードは存在しません。
 
-Instead, a method is auto-magically generated using code synthesis at runtime, based on the properties of a given class. Take for example the @Book@ class:
+{hidden}Instead, a method is auto-magically generated using code synthesis at runtime, based on the properties of a given class. Take for example the @Book@ class:{hidden}
+それどころか、そのメソッドは与えられたクラスのプロパティに応じ、コードの実行時に自動でコードが生成されます。以下に@Book@クラスの例をあげます。:
 
 {code}
 class Book {
@@ -16,7 +18,10 @@ class Author {
 }
 {code}
 
+{hidden}
 The @Book@ class has properties such as @title@, @releaseDate@ and @author@. These can be used by the [findBy|domainClasses] and [findAllBy|domainClasses] methods in the form of "method expressions":
+{hidden}
+@Book@クラスは@title@や@releaseDate@、@auther@などのプロパティを持ちます。これらのプロパティは"メソッド表現方式"を用いて、[findBy|domainClasses]や[findAllBy|domainClasses]メソッド内で使用することができます。
 
 {code}
 def book = Book.findByTitle("The Stand")
@@ -30,15 +35,18 @@ book = Book.findByReleaseDateGreaterThan(someDate)
 book = Book.findByTitleLikeOrReleaseDateLessThan("%Something%", someDate)
 {code}
 
-h4. Method Expressions
+{hidden}h4. Method Expressions{hidden}
+h4. メソッド表現方式によるメソッド名の指定
 
-A method expression in GORM is made up of the prefix such as [findBy|domainClasses] followed by an expression that combines one or more properties. The basic form is:
+{hidden}A method expression in GORM is made up of the prefix such as [findBy|domainClasses] followed by an expression that combines one or more properties. The basic form is:{hidden}
+GORMでは、[findBy|domainClasses]に続けて1つ以上のプロパティ名を組み合わせたメソッド名の形式で呼び出す事により、特定のプロパティに対して検索をかけることができます。基本的な書式は以下の通りです。:
 
 {code}
 Book.findBy([Property][Comparator][Boolean Operator])?[Property][Comparator]
 {code}
 
-The tokens marked with a '?' are optional. Each comparator changes the nature of the query. For example:
+{hidden}The tokens marked with a '?' are optional. Each comparator changes the nature of the query. For example:{hidden}
+'?' 以降はオプションとなります。比較演算子によって、自然な文体でクエリーを書く事が出来るようになります。以下はその例です。:
 
 {code}
 def book = Book.findByTitle("The Stand")
@@ -46,10 +54,13 @@ def book = Book.findByTitle("The Stand")
 book =  Book.findByTitleLike("Harry Pot%")
 {code}
 
-In the above example the first query is equivalent to equality whilst the latter, due to the @Like@ comparator, is equivalent to a SQL @like@ expression.
+{hidden}In the above example the first query is equivalent to equality whilst the latter, due to the @Like@ comparator, is equivalent to a SQL @like@ expression.{hidden}
+上の例では、1つ目のクエリーは指定された文字列と@title@が一致するものを検索します。2番目の@Like@比較演算子を使ったクエリーは、SQLの@like@表現と同様の検索を行います。
 
-The possible comparators include:
+{hidden}The possible comparators include:{hidden}
+利用できる比較演算子には以下が含まれます。：
 
+{hidden}
 * @InList@ - In the list of given values
 * @LessThan@ - less than a given value
 * @LessThanEquals@ - less than or equal a give value
@@ -61,8 +72,22 @@ The possible comparators include:
 * @Between@ - Between two values (requires two arguments)
 * @IsNotNull@ - Not a null value (doesn't take an argument)
 * @IsNull@ - Is a null value (doesn't take an argument)
+{hidden}
 
-Notice that the last three require different numbers of method arguments compared to the rest, as demonstrated in the following example:
+* @InList@ - パラメータの値のリストのいずれかに一致する
+* @LessThan@ - パラメータの値よりも小さい
+* @LessThanEquals@ - パラメータの値より小さいか、等しい
+* @GreaterThan@ - パラメータの値より大きい
+* @GreaterThanEquals@ - パラメータの値より大きいか、等しい
+* @Like@ - SQL文の Like句と同様
+* @Ilike@ - 上の@Like@の同類だが、アルファベットの大文字と小文字の差を無視する
+* @NotEqual@ - パラメータの値と等しくない
+* @Between@ - 2つの値の範囲内である (2つのパラメータが必要)
+* @IsNotNull@ - Nullではない (パラメータ不要)
+* @IsNull@ - Nullである (パラメータ不要)
+
+{hidden}Notice that the last three require different numbers of method arguments compared to the rest, as demonstrated in the following example:{hidden}
+最後の3つのメソッドの引数の数が、他のメソッドと違うのに気が付きましたか？ 以下にサンプルコードを示します。:
 
 {code}
 def now = new Date()
@@ -73,27 +98,33 @@ books = Book.findAllByReleaseDateIsNull()
 books = Book.findAllByReleaseDateIsNotNull()
 {code}
 
-h4. Boolean logic (AND/OR)
+{hidden}h4. Boolean logic (AND/OR){hidden}
+h4. AND/ORによる複数条件
 
-Method expressions can also use a boolean operator to combine two or more criteria:
+{hidden}Method expressions can also use a boolean operator to combine two or more criteria:{hidden}
+メソッド表現方式では、ANDやORを利用して複数のクライテリアを結合することもできます。:
 
 {code}
 def books = Book.findAllByTitleLikeAndReleaseDateGreaterThan(
                       "%Java%", new Date() - 30)
 {code}
 
-In this case we're using @And@ in the middle of the query to make sure both conditions are satisfied, but you could equally use @Or@:
+{hidden}In this case we're using @And@ in the middle of the query to make sure both conditions are satisfied, but you could equally use @Or@:{hidden}
+この例では２つの条件を共に満たすように@And@を使いましたが、同様のやり方で@Or@を使うこともできます:
 
 {code}
 def books = Book.findAllByTitleLikeOrReleaseDateGreaterThan(
                       "%Java%", new Date() - 30)
 {code}
 
-You can combine as many criteria as you like, but they must all be combined with @And@ or all @Or@. If you need to combine @And@ and @Or@ or if the number of criteria creates a very long method name, just convert the query to a [Criteria|guide:criteria] or [HQL|guide:hql] query.
+{hidden}You can combine as many criteria as you like, but they must all be combined with @And@ or all @Or@. If you need to combine @And@ and @Or@ or if the number of criteria creates a very long method name, just convert the query to a [Criteria|guide:criteria] or [HQL|guide:hql] query.{hidden}
+GORMでは、好きなだけのクライテリアを@And@や@Or@を使用して結合することができます。また、メソッド名があまりにも長くなりすぎてしまったときは、クエリーを[Criteria|guide:criteria]や[HQL|guide:hql]に変換することもできます。
 
-h4. Querying Associations
+{hidden}h4. Querying Associations{hidden}
+h4. クエリーと関連
 
-Associations can also be used within queries:
+{hidden}Associations can also be used within queries:{hidden}
+ドメインクラス同士の関連はクエリーの中でも利用することが出来ます。:
 
 {code}
 def author = Author.findByName("Stephen King")
@@ -101,11 +132,14 @@ def author = Author.findByName("Stephen King")
 def books = author ? Book.findAllByAuthor(author) : []
 {code}
 
-In this case if the @Author@ instance is not null we use it in a query to obtain all the @Book@ instances for the given @Author@.
+{hidden}In this case if the @Author@ instance is not null we use it in a query to obtain all the @Book@ instances for the given @Author@.{hidden}
+上記のようなケースでは、@Author@インスタンスがNullの場合は空の集合を返し、そうでない場合はパラメータに指定した@Author@が持つ全ての@Book@インスタンスを取得します。
 
-h4. Pagination and Sorting
+{hidden}h4. Pagination and Sorting{hidden}
+h4. ページングとソート
 
-The same pagination and sorting parameters available on the [list|domainClasses] method can also be used with dynamic finders by supplying a map as the final parameter:
+{hidden}The same pagination and sorting parameters available on the [list|domainClasses] method can also be used with dynamic finders by supplying a map as the final parameter:{hidden}
+ダイナミックファインダーのパラメータの末尾に追加のパラメータを指定する事で、ページングとソートを行うことが出来ます。:
 
 {code}
 def books = Book.findAllByTitleLike("Harry Pot%",
