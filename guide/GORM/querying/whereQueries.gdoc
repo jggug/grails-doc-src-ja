@@ -1,8 +1,11 @@
-The @where@ method, introduced in Grails 2.0, builds on the support for [Detached Criteria|guide:detachedCriteria] by providing an enhanced, compile-time checked query DSL for common queries. The @where@ method is more flexible than dynamic finders, less verbose than criteria and provides a powerful mechanism to compose queries.
+{hidden}The @where@ method, introduced in Grails 2.0, builds on the support for [Detached Criteria|guide:detachedCriteria] by providing an enhanced, compile-time checked query DSL for common queries. The @where@ method is more flexible than dynamic finders, less verbose than criteria and provides a powerful mechanism to compose queries.{hidden}
+Grails 2.0から実装された@where@メソッドは[Detached Criteria|guide:detachedCriteria]の拡張であり、コンパイル時に型チェックなどを実施することが出来るDSLクエリー言語を実現しています。また、@where@メソッドはダイナミックファインダーより柔軟で、クライテリアよりは冗長ではないクエリー作成のメカニズムを提供します。
 
-h4. Basic Querying
+{hidden}h4. Basic Querying{hidden}
+h4. 基本の構文
 
-The @where@ method accepts a closure that looks very similar to Groovy's regular collection methods. The closure should define the logical criteria in regular Groovy syntax, for example:
+{hidden}The @where@ method accepts a closure that looks very similar to Groovy's regular collection methods. The closure should define the logical criteria in regular Groovy syntax, for example:{hidden}
+@where@メソッドはGroovyのコレクションの標準的なメソッドによく似たを受け取ります。このクロージャは標準的なGroovyの文法に従います。例えば以下の通りです。:
 
 {code}
 def query = Person.where {
@@ -11,7 +14,8 @@ def query = Person.where {
 Person bart = query.find()
 {code}
 
-The returned object is a @DetachedCriteria@ instance, which means it is not associated with any particular database connection or session. This means you can use the @where@ method to define common queries at the class level:
+{hidden}The returned object is a @DetachedCriteria@ instance, which means it is not associated with any particular database connection or session. This means you can use the @where@ method to define common queries at the class level:{hidden}
+@where@メソッドから返ってくるのは@DetachedCriteria@のインスタンスです。つまり、この段階では特定のデータベース接続やセッションと紐づいているわけではありません。そのため、共通的なクエリーをクラスレベルで定義したい場合にも@where@メソッドを追加して対応する事が出来ます。:
 
 {code}
 class Person {
@@ -26,7 +30,8 @@ Person.simpsons.each {
 }
 {code}
 
-Query execution is lazy and only happens upon usage of the [DetachedCriteria|guide:detachedCriteria] instance. If you want to execute a where-style query immediately there are variations of the @findAll@ and @find@ methods to accomplish this:
+{hidden}Query execution is lazy and only happens upon usage of the [DetachedCriteria|guide:detachedCriteria] instance. If you want to execute a where-style query immediately there are variations of the @findAll@ and @find@ methods to accomplish this:{hidden}
+実際のクエリーは[DetachedCriteria|guide:detachedCriteria]インスタンスの使用時に遅れて実行されます。もし即座にwhere形式のクエリーを実行したい場合、以下のように@findAll@や@find@メソッドの引数として指定してください。:
 
 {code}
 def results = Person.findAll {
@@ -38,9 +43,10 @@ def results = Person.findAll(sort:"firstName") {
 Person p = Person.find { firstName == "Bart" }
 {code}
 
-Each Groovy operator maps onto a regular criteria method. The following table provides a map of Groovy operators to methods:
+{hidden}Each Groovy operator maps onto a regular criteria method. The following table provides a map of Groovy operators to methods:{hidden}
+Groovyで利用できる比較演算子のいずれもクライテリアのメソッドとしてマッピングされています。以下の表はGroovyの比較演算子とクライテリアのメソッドのマッピング表です。:
 
-{table}
+{hidden}{table}
 Operator | Criteria Method | Description
 *==* | eq | Equal to
 *!=* | ne | Not equal to
@@ -51,9 +57,22 @@ Operator | Criteria Method | Description
 *in* | inList | Contained within the given list
 *==~* | like | Like a given string
 *=~* | ilike | Case insensitive like
+{table}{hidden}
+{table}
+比較演算子 | クライテリアのメソッド | 説明
+*==* | eq | 一致する
+*!=* | ne | 一致しない
+*>* | gt | より大きい
+*<* | lt | より小さい
+*>=* | ge | 以上
+*<=* | le | 以下
+*in* | inList | 指定されたリストのいずれかと一致する
+*==~* | like | 指定された文字列とのLike比較
+*=~* | ilike | 指定された文字列とのLike比較(大文字小文字の違いを無視)
 {table}
 
-It is possible use regular Groovy comparison operators and logic to formulate complex queries:
+{hidden}It is possible use regular Groovy comparison operators and logic to formulate complex queries:{hidden}
+Groovyの比較演算子と論理演算子を使う事で複雑なクエリを構成することが出来ます。:
 
 {code}
 def query = Person.where {
@@ -62,7 +81,9 @@ def query = Person.where {
 def results = query.list(sort:"firstName")
 {code}
 
-The Groovy regex matching operators map onto like and ilike queries unless the expression on the right hand side is a @Pattern@ object, in which case they map onto an @rlike@ query:
+{hidden}The Groovy regex matching operators map onto like and ilike queries unless the expression on the right hand side is a @Pattern@ object, in which case they map onto an @rlike@ query:{hidden}
+Groovyの正規表現マッチング演算子は@like@と@ilike@メソッドにマッピングされます。もし右側が@Pattern@オブジェクトになっていれば、@rlike@メソッドにマッピングされます。:
+
 
 {code}
 def query = Person.where {
@@ -70,11 +91,17 @@ def query = Person.where {
 }
 {code}
 
+{hidden}
 {note}
 Note that @rlike@ queries are only supported if the underlying database supports regular expressions
 {note}
+{hidden}
+{note}
+@rlike@クエリーは正規表現をサポートしているデータベースでのみ利用できることに注意してください。
+{note}
 
-A @between@ criteria query can be done by combining the @in@ keyword with a range:
+{hidden}A @between@ criteria query can be done by combining the @in@ keyword with a range:{hidden}
+@between@クライテリアクエリーは@in@による範囲指定で同様の結果を得る事が出来ます。:
 
 {code}
 def query = Person.where {
@@ -82,7 +109,8 @@ def query = Person.where {
 }
 {code}
 
-Finally, you can do @isNull@ and @isNotNull@ style queries by using @null@ with regular comparison operators:
+{hidden}Finally, you can do @isNull@ and @isNotNull@ style queries by using @null@ with regular comparison operators:{hidden}
+@isNull@や@isNotNull@を条件にしたい場合、@null@キーワードと比較演算子を使う事で条件指定する事が出来ます。:
 
 {code}
 def query = Person.where {
@@ -90,9 +118,11 @@ def query = Person.where {
 }
 {code}
 
-h4. Query Composition
+{hidden}h4. Query Composition{hidden}
+h4. クエリーの構成
 
-Since the return value of the @where@ method is a [DetachedCriteria|guide:detachedCriteria] instance you can compose new queries from the original query:
+{hidden}Since the return value of the @where@ method is a [DetachedCriteria|guide:detachedCriteria] instance you can compose new queries from the original query:{hidden}
+@where@メソッドの戻り値は[DetachedCriteria|guide:detachedCriteria]インスタンスです。戻り値の[DetachedCriteria|guide:detachedCriteria]インスタンスを元に、さらに条件を追加したクエリーを作成することが出来ます。:
 
 {code}
 def query = Person.where {
@@ -104,7 +134,8 @@ def bartQuery = query.where {
 Person p = bartQuery.find()
 {code}
 
-Note that you cannot pass a closure defined as a variable into the @where@ method unless it has been explicitly cast to a @DetachedCriteria@ instance. In other words the following will produce an error:
+{hidden}Note that you cannot pass a closure defined as a variable into the @where@ method unless it has been explicitly cast to a @DetachedCriteria@ instance. In other words the following will produce an error:{hidden}
+明示的に@DetachedCriteria@インスタンスとしてキャストされていない限り、@where@メソッドのパラメータとして渡すことは出来ない事に注意してください。以下のような例ではエラーが発生します。:
 
 {code}
 def callable = {
@@ -113,7 +144,8 @@ def callable = {
 def query = Person.where(callable)
 {code} 
 
-The above must be written as follows:
+{hidden}The above must be written as follows:{hidden}
+上記の例は以下のように修正する必要があります。:
 
 {code}
 import grails.gorm.DetachedCriteria
@@ -124,11 +156,14 @@ def callable = {
 def query = Person.where(callable)
 {code}
 
-As you can see the closure definition is cast (using the Groovy @as@ keyword) to a [DetachedCriteria|guide:detachedCriteria] instance targeted at the @Person@ class.
+{hidden}As you can see the closure definition is cast (using the Groovy @as@ keyword) to a [DetachedCriteria|guide:detachedCriteria] instance targeted at the @Person@ class.{hidden}
+上記のようにGroovyの@as@キーワードを使えば、クロージャの定義を@Person@クラス向けの[DetachedCriteria|guide:detachedCriteria]インスタンスとしてキャストする事が出来ます。
 
-h4. Conjunction, Disjunction and Negation
+{hidden}h4. Conjunction, Disjunction and Negation{hidden}
+h4. 論理積、論理和と否定
 
-As mentioned previously you can combine regular Groovy logical operators (@||@ and @&&@) to form conjunctions and disjunctions:
+{hidden}As mentioned previously you can combine regular Groovy logical operators (@||@ and @&&@) to form conjunctions and disjunctions:{hidden}
+既に記載したように、論理積や論理和を指定するためにGroovyの論理演算子(@||@や@&&@)を組み合わせる事が出来ます。:
 
 {code}
 def query = Person.where {
@@ -136,7 +171,8 @@ def query = Person.where {
 }
 {code}
 
-You can also negate a logical comparison using @!@:
+{hidden}You can also negate a logical comparison using @!@:{hidden}
+また、論理演算子の比較結果を@!@を使って否定する事もできます。:
 
 {code}
 def query = Person.where {
@@ -144,9 +180,11 @@ def query = Person.where {
 }
 {code}
 
-h4. Property Comparison Queries
+{hidden}h4. Property Comparison Queries{hidden}
+h4. プロパティの比較クエリー
 
-If you use a property name on both the left hand and right side of a comparison expression then the appropriate property comparison criteria is automatically used:
+{hidden}If you use a property name on both the left hand and right side of a comparison expression then the appropriate property comparison criteria is automatically used:{hidden}
+比較式の両辺にプロパティ名を指定した場合、適切なプロパティの比較クライテリアが自動的に使用されます。:
 
 {code}
 def query = Person.where {
@@ -154,9 +192,10 @@ def query = Person.where {
 }
 {code}
 
-The following table described how each comparison operator maps onto each criteria property comparison method:
+{hidden}The following table described how each comparison operator maps onto each criteria property comparison method:{hidden}
+以下の表は比較演算子とクライテリアのプロパティ比較メソッドの対応表です。:
 
-{table}
+{hidden}{table}
 Operator | Criteria Method | Description
 *==* | eqProperty | Equal to
 *!=* | neProperty | Not equal to
@@ -164,11 +203,23 @@ Operator | Criteria Method | Description
 *<* | ltProperty | Less than
 *>=* | geProperty | Greater than or equal to
 *<=* | leProperty | Less than or equal to
+{table}{hidden}
+
+{table}
+演算子 | クライテリアのメソッド | 説明
+*==* | eqProperty | 一致する
+*!=* | neProperty | 一致しない
+*>* | gtProperty | より大きい
+*<* | ltProperty | より小さい
+*>=* | geProperty | 以上
+*<=* | leProperty | 以下
 {table}
 
-h4. Querying Associations
+{hidden}h4. Querying Associations{hidden}
+h4. 関連を利用したクエリー
 
-Associations can be queried by using the dot operator to specify the property name of the association to be queried:
+{hidden}Associations can be queried by using the dot operator to specify the property name of the association to be queried:{hidden}
+ピリオド演算子を使用すれば、関連先のプロパティ名を指定することが出来ます。:
 
 {code}
 def query = Pet.where {
@@ -176,7 +227,8 @@ def query = Pet.where {
 }
 {code}
 
-You can group multiple criterion inside a closure method call where the name of the method matches the association name:
+{hidden}You can group multiple criterion inside a closure method call where the name of the method matches the association name:{hidden}
+クロージャメソッド呼出の内部において、関連の名前に一致する複数のクライテリアをグループ化する事ができます。:
 
 {code}
 def query = Person.where {
@@ -184,7 +236,8 @@ def query = Person.where {
 }
 {code}
 
-This technique can be combined with other top-level criteria:
+{hidden}This technique can be combined with other top-level criteria:{hidden}
+同様に上位レベルのクライテリアと結合する事も出来ます。:
 
 {code}
 def query = Person.where {
@@ -192,7 +245,8 @@ def query = Person.where {
 }
 {code}
 
-For collection associations it is possible to apply queries to the size of the collection:
+{hidden}For collection associations it is possible to apply queries to the size of the collection:{hidden}
+1対多の関連ではコレクションのサイズをクエリーに利用する事が出来ます。:
 
 {code}
 def query = Person.where {
@@ -200,9 +254,10 @@ def query = Person.where {
 }
 {code}
 
-The following table shows which operator maps onto which criteria method for each size() comparison:
+{hidden}The following table shows which operator maps onto which criteria method for each size() comparison:{hidden}
+以下の表は演算子とsize()との比較に利用されるクライテリアのメソッドの対応表です。:
 
-{table}
+{hidden}{table}
 Operator | Criteria Method | Description
 *==* | sizeEq | The collection size is equal to
 *!=* | sizeNe | The collection size is not equal to
@@ -210,12 +265,24 @@ Operator | Criteria Method | Description
 *<* | sizeLt | The collection size is less than
 *>=* | sizeGe | The collection size is greater than or equal to
 *<=* | sizeLe | The collection size is less than or equal to
+{table}{hidden}
+
+{table}
+演算子 | クライテリアのメソッド | 説明
+*==* | sizeEq | コレクションのサイズが等しい
+*!=* | sizeNe | コレクションのサイズが等しくない
+*>* | sizeGt | コレクションのサイズより大きい
+*<* | sizeLt | コレクションのサイズより小さい
+*>=* | sizeGe | コレクションのサイズ以上
+*<=* | sizeLe | コレクションのサイズ以下
 {table}
 
 
-h4. Subqueries
+{hidden}h4. Subqueries{hidden}
+h4. サブクエリー
 
-It is possible to execute subqueries within where queries. For example to find all the people older than the average age the following query can be used:
+{hidden}It is possible to execute subqueries within where queries. For example to find all the people older than the average age the following query can be used:{hidden}
+Whereクエリーの内部ではサブクエリーを実行する事が出来ます。たとえば、平均より大きいageを持つPersonを検索するには以下のようになります。:
 
 {code}
 final query = Person.where {
@@ -223,9 +290,10 @@ final query = Person.where {
 }
 {code}
 
-The following table lists the possible subqueries:
+{hidden}The following table lists the possible subqueries:{hidden}
+以下の表は利用可能なサブクエリーのリストです。:
 
-{table}
+{hidden}{table}
 Method | Description
 *avg* | The average of all values
 *sum* | The sum of all values
@@ -233,9 +301,22 @@ Method | Description
 *min* | The minimum value
 *count* | The count of all values
 *property* | Retrieves a property of the resulting entities
+{table}{hidden}
+
+{table}
+メソッド | 説明
+*avg* | 全ての値の平均
+*sum* | 全ての値の合計
+*max* | 最大値
+*min* | 最小値
+*count* | 全ての値の個数
+*property* | 結果のエンティティのプロパティを取得する。
 {table}
 
+{hidden}
 You can apply additional criteria to any subquery by using the @of@ method and passing in a closure containing the criteria:
+{hidden}
+任意のサブクエリーに@of@メソッドを使い、クライテリアが含まれているクロージャを渡すことによって、追加のクライテリアを指定することが出来ます。:
 
 {code}
 def query = Person.where {
@@ -243,7 +324,10 @@ def query = Person.where {
 }
 {code}
 
+{hidden}
 Since the @property@ subquery returns multiple results, the criterion used compares all results. For example the following query will find all people younger than people with the surname "Simpson":
+{hidden}
+@property@サブクエリーが複数の結果を返すため、クライテリアは全ての結果との比較に利用されます。たとえば、以下の例では姓が"Simpson"である人よりも若い人を検索しています。:
 
 {code}
 Person.where {
@@ -252,11 +336,13 @@ Person.where {
 {code}
 
 
-h4. Other Functions
+{hidden}h4. Other Functions{hidden}
+h4. その他の機能
 
-There are several functions available to you within the context of a query. These are summarized in the table below:
+{hidden}There are several functions available to you within the context of a query. These are summarized in the table below:{hidden}
+クエリーのコンテキストの中で利用できるいくつかの機能が他にもあります。以下の表はその要約です。:
 
-{table}
+{hidden}{table}
 Method | Description
 *second* | The second of a date property
 *minute* | The minute of a date property
@@ -268,13 +354,33 @@ Method | Description
 *upper* | Converts a string property to lower case
 *length* | The length of a string property
 *trim* | Trims a string property
+{table}{hidden}
+
+{table}
+メソッド | 説明
+*second* | 日付プロパティの秒
+*minute* | 日付プロパティの分
+*hour* | 日付プロパティの時
+*day* | 日付プロパティの日
+*month* | 日付プロパティの月
+*year* | 日付プロパティの年
+*lower* | 文字列プロパティを小文字に変換
+*upper* | 文字列プロパティを大文字に変換
+*length* | 文字列プロパティの長さ
+*trim* | 文字列プロパティをトリムする
 {table}
 
-{note}
+
+{hidden}{note}
 Currently functions can only be applied to properties or associations of domain classes. You cannot, for example, use a function on a result of a subquery. 
+{note}{hidden}
+{note}
+今のところ、これらの機能はプロパティか、ドメインクラスの関連のみで使用できます。例えば、サブクエリーの結果に対してこれらの機能を使用する事はできません。
 {note}
 
-For example the following query can be used to find all pet's born in 2011:
+
+{hidden}For example the following query can be used to find all pet's born in 2011:{hidden}
+例えば、以下のクエリーは2011年に生まれた全てのペットを検索することが出来ます。:
 
 {code}
 def query = Pet.where {
@@ -282,7 +388,8 @@ def query = Pet.where {
 }
 {code}
 
-You can also apply functions to associations:
+{hidden}You can also apply functions to associations:{hidden}
+これらの機能は関連にも使用する事が出来ます。:
 
 {code}
 def query = Person.where {
@@ -291,9 +398,13 @@ def query = Person.where {
 {code}
 
 
-h4. Batch Updates and Deletes
+{hidden}h4. Batch Updates and Deletes{hidden}
+h4. バッチ更新と削除
 
+{hidden}
 Since each @where@ method call returns a [DetachedCriteria|guide:detachedCriteria] instance, you can use @where@ queries to execute batch operations such as batch updates and deletes. For example, the following query will update all people with the surname "Simpson" to have the surname "Bloggs":
+{hidden}
+それぞれの@where@メソッドの呼び出しが[DetachedCriteria|guide:detachedCriteria]インスタンスを返却するため、バッチ更新や削除などの操作をバッチ操作を実行するために@where@クエリを使用する事が出来ます。例えば、以下のクエリーは"Bloggs"という姓を持っている全てのPersonを"Simpson"で更新します。:
 
 {code}
 def query = Person.where {
@@ -302,11 +413,15 @@ def query = Person.where {
 int total = query.updateAll(lastName:"Bloggs")
 {code}
 
-{note}
+{hidden}{note}
 Note that one limitation with regards to batch operations is that join queries (queries that query associations) are not allowed.
+{note}{hidden}
+{note}
+バッチ操作では、関連を使用した結合クエリが許可されていないという制約に注意してください。
 {note}
 
-To batch delete records you can use the @deleteAll@ method:
+{hidden}To batch delete records you can use the @deleteAll@ method:{hidden}
+バッチ削除には、@deleteAll@メソッドを使用する事が出来ます:
 
 {code}
 def query = Person.where {
