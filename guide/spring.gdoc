@@ -1,1 +1,5 @@
+{hidden}
 This section is for advanced users and those who are interested in how Grails integrates with and builds on the "Spring Framework":http://www.springframework.org/. It is also useful for [plugin developers|guide:plugins] considering doing runtime configuration Grails.
+{hidden}
+このセクションでは、Grailsが "Spring Framework":http://www.springframework.org/ とどのように統合され、構築されるかに興味がある上級者向けの内容を扱います。
+この内容は[プラグイン開発者|guide:plugins]にとっても、Grails実行時の構成を検討する上で有用な情報です。
