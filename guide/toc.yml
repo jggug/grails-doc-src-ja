@@ -296,7 +296,7 @@ spring:
   springdslAdditional: 追加ビーンを定義する
   springdsl: ビーンDSLでSpringランタイム
   theBeanBuilderDSLExplained: ビーンビルダーDSLの解説
-  propertyPlaceholderConfiguration: プロパティプレースフォルダー設定
+  propertyPlaceholderConfiguration: プロパティプレースホルダ設定
   propertyOverrideConfiguration: プロパティオーバーライド設定
 hibernate:
   title: GrailsとHibernate
