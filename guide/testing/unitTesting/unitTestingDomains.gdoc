@@ -55,7 +55,7 @@ However a large, commonly-used portion of the GORM API can be mocked using @Doma
 If something isn't supported then @GrailsUnitTestMixin@'s @mockFor@ method can come in handy to mock the missing pieces. Alternatively you can write an integration test which bootstraps the complete Grails environment at a cost of test execution time.
 {hidden}
 
-もしサポートされてないない部分があった場合でも、@GrailsUnitTestMixin@の@mockFor@メソッドを使用することで足りない部分をモック化することができます。または、テストの実行時間はかかりますが、完全にGrails環境が立ち上がるIntegrationテストを使用することもできます。
+もしサポートされてない部分があった場合でも、@GrailsUnitTestMixin@の@mockFor@メソッドを使用することで足りない部分をモック化することができます。または、テストの実行時間はかかりますが、完全にGrails環境が立ち上がるIntegrationテストを使用することもできます。
 
 {hidden}
 h4. The Basics
