@@ -1,6 +1,13 @@
+{hidden}
 Grails supports setting of bean properties via [configuration|guide:conf]. This is often useful when used in combination with [externalized configuration|guide:configExternalized].
+{hidden}
+Grailsでは[設定|guide:conf]を通じてビーンのプロパティ設定が行えます。
+これは[設定の外部化|guide:configExternalized]と組み合わせて使用した場合にも便利です。
 
+{hidden}
 You define a @beans@ block with the names of beans and their values:
+{hidden}
+設定は@beans@ブロックにビーンの名前と値を定義して行います。
 
 {code:java}
 beans {
@@ -10,13 +17,19 @@ beans {
 }
 {code}
 
+{hidden}
 The general format is:
+{hidden}
+この設定の一般的なフォーマットは以下になります。
 
 {code:java}
 [bean name].[property name] = [value]
 {code}
 
+{hidden}
 The same configuration in a Java properties file would be:
+{hidden}
+これはJavaのプロパティファイルと同じように設定が行えます。
 
 {code:java}
 beans.bookService.webServiceURL=http://www.amazon.com
