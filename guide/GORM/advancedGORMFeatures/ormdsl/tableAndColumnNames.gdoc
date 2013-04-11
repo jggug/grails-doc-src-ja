@@ -1,6 +1,8 @@
-h4. Table names
+{hidden}h4. Table names{hidden}
+h4. テーブル名
 
-The database table name which the class maps to can be customized using the @table@ method:
+{hidden}The database table name which the class maps to can be customized using the @table@ method:{hidden}
+ドメインクラスと対応するデータベースのテーブル名は@table@メソッドを使ってカスタマイズすることができます:
 
 {code:java}
 class Person {
@@ -11,11 +13,15 @@ class Person {
 }
 {code}
 
-In this case the class would be mapped to a table called @people@ instead of the default name of @person@.
+{hidden}In this case the class would be mapped to a table called @people@ instead of the default name of @person@.{hidden}
+この場合、このクラスはデフォルト名の@person@の代わりに@people@テーブルに対応付けられます。
 
-h4. Column names
+{hidden}h4. Column names{hidden}
+h4. カラム名
 
-It is also possible to customize the mapping for individual columns onto the database. For example to change the name you can do:
+{hidden}It is also possible to customize the mapping for individual columns onto the database. For example to change the name you can do:{hidden}
+また、個々のカラムに対するデータベースとの対応付けもカスタマイズできます。
+名前を変更する例として、次のように書けます:
 
 {code:java}
 class Person {
@@ -29,11 +35,18 @@ class Person {
 }
 {code}
 
-Here @firstName@ is a dynamic method within the @mapping@ Closure that has a single Map parameter. Since its name corresponds to a domain class persistent field, the parameter values (in this case just @"column"@) are used to configure the mapping for that property.
+{hidden}Here @firstName@ is a dynamic method within the @mapping@ Closure that has a single Map parameter. Since its name corresponds to a domain class persistent field, the parameter values (in this case just @"column"@) are used to configure the mapping for that property.{hidden}
+ここで、@firstName@は@mapping@クロージャ内におけるダイナミックメソッドで、Map型の引数を1つ取ります。
+その名前はドメインクラスの永続化フィールドと対応していて、Map引数の値（この例ではちょうど@"column"@の値）はこのプロパティとのマッピングに使われます。
 
-h4. Column type
+{hidden}h4. Column type{hidden}
+h4. カラムの型
 
-GORM supports configuration of Hibernate types with the DSL using the type attribute. This includes specifing user types that implement the Hibernate [org.hibernate.usertype.UserType|api:org.hibernate.usertype.UserType] interface, which allows complete customization of how a type is persisted. As an example if you had a @PostCodeType@ you could use it as follows:
+{hidden}GORM supports configuration of Hibernate types with the DSL using the type attribute. This includes specifing user types that implement the Hibernate [org.hibernate.usertype.UserType|api:org.hibernate.usertype.UserType] interface, which allows complete customization of how a type is persisted. As an example if you had a @PostCodeType@ you could use it as follows:{hidden}
+
+GORMでは、@type@属性を利用したDSLによって、Hibernateの型を指定できます。
+Hibernateの[org.hibernate.usertype.UserType|api:org.hibernate.usertype.UserType]インターフェイスを実装したユーザ型も指定できます。
+これを使えば、ある型がどのように永続化されるかを完全にカスタマイズできます。
 
 {code:java}
 class Address {
@@ -47,7 +60,8 @@ class Address {
 }
 {code}
 
-Alternatively if you just wanted to map it to one of Hibernate's basic types other than the default chosen by Grails you could use:
+{hidden}Alternatively if you just wanted to map it to one of Hibernate's basic types other than the default chosen by Grails you could use:{hidden}
+単にGrailsがデフォルトで選んだものとは別のHibernateの基本型に対応付けしたいだけであれば、以下のように書くこともできます:
 
 {code:java}
 class Address {
@@ -61,13 +75,19 @@ class Address {
 }
 {code}
 
-This would make the @postCode@ column map to the default large-text type for the database you're using (for example TEXT or CLOB).
+{hidden}This would make the @postCode@ column map to the default large-text type for the database you're using (for example TEXT or CLOB).{hidden}
+これは、@postCode@カラムを使用中のデータベースの標準ラージ文字列型(例えば、TEXTやCLOB型)に対応付けています。
 
-See the Hibernate documentation regarding [Basic Types|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/mapping.html#mapping-types-basictypes] for further information.
+{hidden}See the Hibernate documentation regarding [Basic Types|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/mapping.html#mapping-types-basictypes] for further information.{hidden}
+[基本的な型|http://docs.jboss.org/hibernate/core/3.6/reference/ja-JP/html/mapping.html#mapping-types-basictypes]についてのより詳細な情報は、Hibernateのドキュメントを参照してください。
 
-h4. Many-to-One/One-to-One Mappings
+{hidden}h4. Many-to-One/One-to-One Mappings{hidden}
+h4. 多対1/1対1マッピング
 
-In the case of associations it is also possible to configure the foreign keys used to map associations. In the case of a many-to-one or one-to-one association this is exactly the same as any regular column. For example consider the following:
+{hidden}In the case of associations it is also possible to configure the foreign keys used to map associations. In the case of a many-to-one or one-to-one association this is exactly the same as any regular column. For example consider the following:{hidden}
+関連の場合、対応付けに使われる外部キーを変更することもできます。
+多対1と1対1関連の場合、この方法は普通のカラムの場合とまったく同じです。
+例えば、以下を考えます:
 
 {code:java}
 class Person {
@@ -83,11 +103,17 @@ class Person {
 }
 {code}
 
-By default the @address@ association would map to a foreign key column called @address_id@. By using the above mapping we have changed the name of the foreign key column to @Person_Adress_Id@.
+{hidden}By default the @address@ association would map to a foreign key column called @address_id@. By using the above mapping we have changed the name of the foreign key column to @Person_Adress_Id@.{hidden}
+デフォルトでは、@address@関連は@address_id@という名前の外部キーカラムに対応付けられます。
+上記のマッピングを使うと、その外部キーカラムの名前が@Person_Adress_Id@に変更されます。
 
-h4. One-to-Many Mapping
+{hidden}h4. One-to-Many Mapping{hidden}
+h4. 1対多マッピング
 
-With a bidirectional one-to-many you can change the foreign key column used by changing the column name on the many side of the association as per the example in the previous section on one-to-one associations. However, with unidirectional associations the foreign key needs to be specified on the association itself. For example given a unidirectional one-to-many relationship between @Person@ and @Address@ the following code will change the foreign key in the @address@ table:
+{hidden}With a bidirectional one-to-many you can change the foreign key column used by changing the column name on the many side of the association as per the example in the previous section on one-to-one associations. However, with unidirectional associations the foreign key needs to be specified on the association itself. For example given a unidirectional one-to-many relationship between @Person@ and @Address@ the following code will change the foreign key in the @address@ table:{hidden}
+双方向の1対多では、前のセクションの1対1関連の例に従って、関連における「多」側のカラム名を変更することで、外部キーカラムを変更することができます。
+一方、単方向の1対多関連の場合は、Grailsはデフォルトで結合テーブルを利用します。
+例えば、@Person@と@Address@間の単方向1対多関連では、以下のコードで@address@テーブルに対する外部キーカラム名を変更できます。
 
 {code:java}
 class Person {
@@ -104,7 +130,8 @@ class Person {
 }
 {code}
 
-If you don't want the column to be in the @address@ table, but instead some intermediate join table you can use the @joinTable@ parameter:
+{hidden}If you don't want the column to be in the @address@ table, but instead some intermediate join table you can use the @joinTable@ parameter:{hidden}
+もし、結合テーブル自体のテーブル名も含めて指定したい場合は、@joinTable@パラメータが使えます。
 
 {code:java}
 class Person {
@@ -123,9 +150,12 @@ class Person {
 }
 {code}
 
-h4. Many-to-Many Mapping
+{hidden}h4. Many-to-Many Mapping{hidden}
+h4. 多対多マッピング
 
-Grails, by default maps a many-to-many association using a join table. For example consider this many-to-many association:
+{hidden}Grails, by default maps a many-to-many association using a join table. For example consider this many-to-many association:{hidden}
+Grailsは、デフォルトで結合テーブルを利用して多対多関連を実現します。
+例えば、次の多対多関連を考えます:
 
 {code:java}
 class Group {
@@ -142,7 +172,10 @@ class Person {
 }
 {code}
 
-In this case Grails will create a join table called @group_person@ containing foreign keys called @person_id@ and @group_id@ referencing the @person@ and @group@ tables. To change the column names you can specify a column within the mappings for each class.
+{hidden}In this case Grails will create a join table called @group_person@ containing foreign keys called @person_id@ and @group_id@ referencing the @person@ and @group@ tables. To change the column names you can specify a column within the mappings for each class.{hidden}
+この場合、Grailsは@group_person@という名前の結合テーブルを生成します。
+この結合テーブルは、@person@と@group@テーブルを参照する@person_id@と@group_id@という名前の外部キーを持っています。
+このカラム名を変更するには、それぞれのクラスの@mapping@内に@column@を指定します。
 
 {code:java}
 class Group {
@@ -159,7 +192,8 @@ class Person {
 }
 {code}
 
-You can also specify the name of the join table to use:
+{hidden}You can also specify the name of the join table to use:{hidden}
+結合テーブル名を指定することもできます。
 
 {code:java}
 class Group {
