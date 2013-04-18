@@ -1,13 +1,24 @@
+{hidden}
 Grails supports the notion of property placeholder configuration through an extended version of Spring's [PropertyPlaceholderConfigurer|api:org.springframework.beans.factory.config.PropertyPlaceholderConfigurer], which is typically useful in combination with [externalized configuration|guide:configExternalized].
+{hidden}
+Grailsは、Springの[PropertyPlaceholderConfigurer|api:org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]を拡張することでプロパティプレースホルダの概念をサポートしています。
+特に[設定の外部化|guide:configExternalized]と組み合わせた場合に有用です。
 
+{hidden}
 Settings defined in either "ConfigSlurper":http://groovy.codehaus.org/ConfigSlurper scripts or Java properties files can be used as placeholder values for Spring configuration in @grails-app/conf/spring/resources.xml@ and @grails-app/conf/spring/resources.groovy@. For example given the following entries in @grails-app/conf/Config.groovy@ (or an externalized config):
+{hidden}
+プレースホルダの値は "ConfigSlurper":http://groovy.codehaus.org/ConfigSlurper またはJavaプロパティファイルで定義を行い、@grails-app/conf/spring/resources.xml@と@grails-app/conf/spring/resources.groovy@のSpringの設定ファイル内で使用できます。
+例えば、@grails-app/conf/Config.groovy@(または外部設定)で以下の設定があるとします。
 
 {code:java}
 database.driver="com.mysql.jdbc.Driver"
 database.dbname="mysql:mydb"
 {code}
 
+{hidden}
 You can then specify placeholders in @resources.xml@ as follows using the familiar ${..} syntax:
+{hidden}
+@resources.xml@内では、使い慣れた${..}のシンタックスを使用してプレースホルダを指定できます。
 
 {code:xml}
 <bean id="dataSource"
@@ -21,7 +32,10 @@ You can then specify placeholders in @resources.xml@ as follows using the famili
  </bean>
 {code}
 
+{hidden}
 To specify placeholders in @resources.groovy@ you need to use single quotes:
+{hidden}
+@resources.groovy@内でプレースホルダを指定するには、シングルクォートを使用する必要があります。
 
 {code:java}
 dataSource(org.springframework.jdbc.datasource.DriverManagerDataSource) {
@@ -30,9 +44,15 @@ dataSource(org.springframework.jdbc.datasource.DriverManagerDataSource) {
 }
 {code}
 
+{hidden}
 This sets the property value to a literal string which is later resolved against the config by Spring's PropertyPlaceholderConfigurer.
+{hidden}
+このプロパティの値は、後でSpringのPropertyPlaceholderConfigurerによって文字列が置換されます。
 
+{hidden}
 A better option for @resources.groovy@ is to access properties through the @grailsApplication@ variable:
+{hidden}
+また、@resources.groovy@では@grailsApplication@にアクセスすることが可能です。
 
 {code:java}
 dataSource(org.springframework.jdbc.datasource.DriverManagerDataSource) {
@@ -41,4 +61,7 @@ dataSource(org.springframework.jdbc.datasource.DriverManagerDataSource) {
 }
 {code}
 
+{hidden}
 Using this approach will keep the types as defined in your config.
+{hidden}
+これにより、設定ファイル内で定義した型をそのまま使用することができます。
