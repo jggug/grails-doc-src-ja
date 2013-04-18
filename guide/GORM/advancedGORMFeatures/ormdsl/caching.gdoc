@@ -1,24 +1,31 @@
-h4. Setting up caching
+{hidden}h4. Setting up caching{hidden}
+h4. キャッシング設定
 
-"Hibernate":http://www.hibernate.org/ features a second-level cache with a customizable cache provider. This needs to be configured in the @grails-app/conf/DataSource.groovy@ file as follows:
+{hidden}"Hibernate":http://www.hibernate.org/ features a second-level cache with a customizable cache provider. This needs to be configured in the @grails-app/conf/DataSource.groovy@ file as follows:{hidden}
+"Hibernate":http://www.hibernate.org/ はカスタマイズ可能なキャッシュプロバイダによる二次キャッシュを持っています。
+利用するには@grails-app/conf/DataSource.groovy@で次のような設定が必要です:
 
 {code:java}
 hibernate {
-    cache.use_second_level_cache=true
-    cache.use_query_cache=true
-    cache.provider_class='org.hibernate.cache.EhCacheProvider'
+    cache.use_second_level_cache = true
+    cache.use_query_cache = true
+    cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory'
 }
 {code}
 
-You can customize any of these settings, for example to use a distributed caching mechanism.
+{hidden}You can customize any of these settings, for example to use a distributed caching mechanism.{hidden}
+分散キャッシュ機構などを使うように設定を変更することもできます。
 
 {note}
-For further reading on caching and in particular Hibernate's second-level cache, refer to the [Hibernate documentation|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/performance.html#performance-cache] on the subject.
+{hidden}For further reading on caching and in particular Hibernate's second-level cache, refer to the [Hibernate documentation|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/performance.html#performance-cache] on the subject.{hidden}
+キャッシングと、特にHibernateの二次キャッシュについてもっと知りたい場合は、[Hibernateのドキュメント|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/performance.html#performance-cache]を参照してください。
 {note}
 
-h4. Caching instances
+{hidden}h4. Caching instances{hidden}
+h4. インスタンスのキャッシュ
 
-Call the @cache@ method in your mapping block to enable caching with the default settings:
+{hidden}Call the @cache@ method in your mapping block to enable caching with the default settings:{hidden}
+デフォルト設定においてキャッシュを有効にするには、@mapping@ブロックの中で@cache@メソッドを呼びます:
 
 {code:java}
 class Person {
@@ -30,7 +37,9 @@ class Person {
 }
 {code}
 
-This will configure a 'read-write' cache that includes both lazy and non-lazy properties. You can customize this further:
+{hidden}This will configure a 'read-write' cache that includes both lazy and non-lazy properties. You can customize this further:{hidden}
+上の設定では、lazyとnon-lazyの両方のプロパティを含んだread-writeキャッシュが設定されます。
+次のようにもっと細かく設定することもできます:
 
 {code:java}
 class Person {
@@ -42,9 +51,12 @@ class Person {
 }
 {code}
 
-h4. Caching associations
+{hidden}h4. Caching associations{hidden}
+h4. 関連のキャッシュ
 
-As well as the ability to use Hibernate's second level cache to cache instances you can also cache collections (associations) of objects. For example:
+{hidden}As well as the ability to use Hibernate's second level cache to cache instances you can also cache collections (associations) of objects. For example:{hidden}
+Hibernateの2次キャッシュは、インスタンスのキャッシュだけではなく、オブジェクトのコレクション(関連)もキャッシュできます。
+例えば:
 
 {code:java}
 class Person {
@@ -68,27 +80,35 @@ class Address {
 }
 {code}
 
-This will enable a 'read-write' caching mechanism on the @addresses@ collection. You can also use:
+{hidden}This will enable a 'read-write' caching mechanism on the @addresses@ collection. You can also use:{hidden}
+これは@addresses@コレクション上でのread-writeキャッシュ機構を有効にします。
+より細かくカスタマイズするために
 
 {code:java}
 cache: 'read-write' // or 'read-only' or 'transactional'
 {code}
 
-to further configure the cache usage.
+{hidden}to further configure the cache usage.{hidden}
+を使うこともできます。
 
-h4. Caching Queries
+{hidden}h4. Caching Queries{hidden}
+h4. クエリのキャッシュ
 
-You can cache queries such as dynamic finders and criteria. To do so using a dynamic finder you can pass the @cache@ argument:
+{hidden}You can cache queries such as dynamic finders and criteria. To do so using a dynamic finder you can pass the @cache@ argument:{hidden}
+ダイナミックファインダやクライテリアのようなクエリをキャッシュすることもできます。
+ダイナミックファインダをキャッシュするためには、@cache@引数を渡します:
 
 {code:java}
 def person = Person.findByFirstName("Fred", [cache: true])
 {code}
 
 {note}
-In order for the results of the query to be cached, you must enable caching in your mapping as discussed in the previous section.
+{hidden}In order for the results of the query to be cached, you must enable caching in your mapping as discussed in the previous section.{hidden}
+キャッシュされたクエリの結果のために、前のセクションで示したように@mapping@でキャッシュを有効にしなければなりません。
 {note}
 
-You can also cache criteria queries:
+{hidden}You can also cache criteria queries:{hidden}
+クライテリアのクエリもキャッシュできます。
 
 {code:java}
 def people = Person.withCriteria {
@@ -97,11 +117,19 @@ def people = Person.withCriteria {
 }
 {code}
 
-h4. Cache usages
+{hidden}h4. Cache usages{hidden}
+h4. キャッシュの使い方
 
-Below is a description of the different cache settings and their usages:
+{hidden}Below is a description of the different cache settings and their usages:{hidden}
+それぞれのキャッシュ設定と使い方を以下に示します:
 
+{hidden}
 * @read-only@ - If your application needs to read but never modify instances of a persistent class, a read-only cache may be used.
 * @read-write@ - If the application needs to update data, a read-write cache might be appropriate.
 * @nonstrict-read-write@ - If the application only occasionally needs to update data (ie. if it is very unlikely that two transactions would try to update the same item simultaneously) and strict transaction isolation is not required, a @nonstrict-read-write@ cache might be appropriate.
 * @transactional@ - The @transactional@ cache strategy provides support for fully transactional cache providers such as JBoss TreeCache. Such a cache may only be used in a JTA environment and you must specify @hibernate.transaction.manager_lookup_class@ in the @grails-app/conf/DataSource.groovy@ file's @hibernate@ config.
+{hidden}
+* @read-only@ -アプリケーションが永続化されたデータを変更せず単に読むだけであれば、read-onlyキャッシュが使えます。
+* @read-write@ - アプリケーションがデータを更新する必要があれば、read-writeキャッシュが適しているかも知れません。
+* @nonstrict-read-write@ - アプリケーションがごくたまにデータを更新するぐらいで(すなわち、2つのトランザクションが同時に同一の項目を更新することがほとんどなく)、かつ、厳密なトランザクション分離を必要としないのであれば、@nonstrict-read-write@キャッシュが適しているかも知れません。
+* @transactional@ - このキャッシュ戦略はJBoss TreeCacheのようなトランザクション対応キャッシュプロバイダを完全にサポートします。このようなキャッシュはJTA環境でのみ使えます。@grails-app/conf/DataSource.groovy@ファイルの@hibernate@設定に@hibernate.transaction.manager_lookup_class@を指定も必要です。
