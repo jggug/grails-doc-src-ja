@@ -1,4 +1,7 @@
-By default GORM classes use @table-per-hierarchy@ inheritance mapping. This has the disadvantage that columns cannot have a @NOT-NULL@ constraint applied to them at the database level. If you would prefer to use a @table-per-subclass@ inheritance strategy you can do so as follows:
+{hidden}By default GORM classes use @table-per-hierarchy@ inheritance mapping. This has the disadvantage that columns cannot have a @NOT-NULL@ constraint applied to them at the database level. If you would prefer to use a @table-per-subclass@ inheritance strategy you can do so as follows:{hidden}
+デフォルトでは、GORMのクラスは@table-per-hierarchy@継承マッピングを用います。
+この場合、データベースレベルで@NOT-NULL@制約が適用できないというデメリットがあります。
+もし@table-per-subclass@継承を使いたければ、次のように書くことができます:
 
 {code:java}
 class Payment {
@@ -14,4 +17,5 @@ class CreditCardPayment extends Payment {
 }
 {code}
 
-The mapping of the root @Payment@ class specifies that it will not be using @table-per-hierarchy@ mapping for all child classes.
+{hidden}The mapping of the root @Payment@ class specifies that it will not be using @table-per-hierarchy@ mapping for all child classes.{hidden}
+@Payment@スーパクラスのマッピングで、すべてのサブクラスに対して@table-per-hierarchy@マッピングを使わないように指定しています。
