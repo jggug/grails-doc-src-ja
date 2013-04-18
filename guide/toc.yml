@@ -104,22 +104,22 @@ GORM:
     title: 高度なGORMの機能
     eventsAutoTimestamping: イベントと自動タイムスタンプ
     ormdsl:
-      title: カスタムORマッピング
+      title: ORマッピングのカスタマイズ
       tableAndColumnNames: テーブル名、カラム名
-      caching: キャッシングストラテジー
-      inheritanceStrategies: 継承ストラテジー
-      identity: カスタムデータベースアイデンティティー
-      compositePrimaryKeys: プライマリキー合成
+      caching: キャッシングストラテジ
+      inheritanceStrategies: 継承ストラテジ
+      identity: データベース識別子のカスタマイズ
+      compositePrimaryKeys: 複合主キー
       databaseIndices: データベースインデックス
       optimisticLockingAndVersioning: 楽観的ロックとバージョニング
-      fetchingDSL: EagerとLazyフェッチング
+      fetchingDSL: EagerフェッチとLazyフェッチ
       customCascadeBehaviour: カスケードの振る舞いを変える
       customHibernateTypes: Hibernateユーザ定義型
       derivedProperties: 派生プロパティ
       customNamingStrategy: 命名標準のカスタマイズ
     defaultSortOrder: デフォルトソート順
   programmaticTransactions: プログラマチックトランザクション
-  gormConstraints: GORM と制約
+  gormConstraints: GORMと制約
 theWebLayer:
   title: Webレイヤ
   controllers:
@@ -218,8 +218,8 @@ theWebLayer:
     ajaxOnTheServer: Ajax使用時のサーバサイド
   contentNegotiation: コンテントネゴシエーション
 async:
-  title: 非同期プログラミング 
-  promises: Promises 
+  title: 非同期プログラミング
+  promises: Promises
   asyncGorm: 非同期GORM
   asyncRequests: 非同期リクエストハンドリング
   grailsEvents: GrailsイベントAPI
@@ -305,7 +305,7 @@ hibernate:
   addingConstraints: 制約の追加
 scaffolding: スカッフォルド
 deployment: デプロイ
-contributing: 
+contributing:
   title: Grailsに貢献する
   issues: JIRAに課題をリポート(バグ報告)
   build: ソースからビルドしてテストを走らせる
