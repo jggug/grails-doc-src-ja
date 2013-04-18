@@ -1,12 +1,29 @@
+{hidden}
 This Bean builder in Grails aims to provide a simplified way of wiring together dependencies that uses Spring at its core.
+{hidden}
+ビーンビルダーの目的は、Grails内でSpringの依存関係を容易に構築するための手段を提供することです。
 
+{hidden}
 In addition, Spring's regular way of configuration (via XML and annotations) is static and difficult to modify and configure at runtime, other than programmatic XML creation which is both error prone and verbose. Grails' [BeanBuilder|api:grails.spring.BeanBuilder] changes all that by making it possible to programmatically wire together components at runtime, allowing you to adapt the logic based on system properties or environment variables.
+{hidden}
+通常のSpringの設定方法(XMLやアノテーションを使用した方法)は、静的に設定を行い、実行時にこれらを変更することは容易ではありません。
+また、XMLを使用した設定方法は設定ミスを起こしやすく、設定が冗長になりがちです。
+Grailsの[BeanBuilder|api:grails.spring.BeanBuilder]は、実行時にコンポーネントの構築が行えるようにし、システムプロパティや環境変数を使用したロジックも使用可能にすることで、これらの問題を解決します。
 
+{hidden}
 This enables the code to adapt to its environment and avoids unnecessary duplication of code (having different Spring configs for test, development and production environments)
+{hidden}
+これにより環境毎に実行するコードを切り替え、不要な重複コードを取り除くことも可能になります(テスト環境と、開発環境/本番環境で異なるSpringの設定を持つといったように)。
 
+{hidden}
 h4. The BeanBuilder class
+{hidden}
+h4. BeanBuilderクラス
 
+{hidden}
 Grails provides a [grails.spring.BeanBuilder|api:grails.spring.BeanBuilder] class that uses dynamic Groovy to construct bean definitions. The basics are as follows:
+{hidden}
+Grailsは、Groovyの動的な性質を利用してビーンを構築できる[grails.spring.BeanBuilder|api:grails.spring.BeanBuilder]クラスを提供しています。以下のように使用します。
 
 {code:java}
 import org.apache.commons.dbcp.BasicDataSource
@@ -35,17 +52,37 @@ bb.beans {
 ApplicationContext appContext = bb.createApplicationContext()
 {code}
 
+{hidden}
 {note}
 Within [plugins|guide:plugins] and the [grails-app/conf/spring/resources.groovy|guide:springdslAdditional] file you don't need to create a new instance of @BeanBuilder@. Instead the DSL is implicitly available inside the @doWithSpring@ and @beans@ blocks respectively.
 {note}
+{hidden}
+{note}
+[plugins|guide:plugins]と[grails-app/conf/spring/resources.groovy|guide:springdslAdditional]ファイルでは@BeanBuilder@のインスタンスを新たに作成する必要はありません。
+これらは、暗黙的にぞれぞれ@doWithSpring@、@beans@ブロック内でDSLが使用可能です。
+{note}
 
+{hidden}
 This example shows how you would configure Hibernate with a data source with the @BeanBuilder@ class.
+{hidden}
+この例では、@BeanBuilder@クラスを使用して、データソースとHibernateの設定を行なっています。
 
+{hidden}
 Each method call (in this case @dataSource@ and @sessionFactory@ calls) maps to the name of the bean in Spring. The first argument to the method is the bean's class, whilst the last argument is a block. Within the body of the block you can set properties on the bean using standard Groovy syntax.
+{hidden}
+それぞれのメソッド呼び出しは(この例では@dataSource@と@sessionFactory@)、Springのビーン名にマッピングされます。
+そして、1つ目のメソッドの引数にはビーンのクラスを指定し、2つ目の引数にはブロックを指定します。
+このブロックの内部では、一般的なGroovyのシンタックスを使用してBeanのプロパティを設定することが可能です。
 
+{hidden}
 Bean references are resolved automatically using the name of the bean. This can be seen in the example above with the way the @sessionFactory@ bean resolves the @dataSource@ reference.
+{hidden}
+ビーンの参照は、ビーンの名前によって自動的に解決されます。上記の例はでは@sessionFactory@ビーンで、@dataSource@への参照を解決しています。
 
+{hidden}
 Certain special properties related to bean management can also be set by the builder, as seen in the following code:
+{hidden}
+以下のように、ビーン管理に関連した特殊なプロパティをビルダー内で設定することもできます。
 
 {code:java}
 sessionFactory(ConfigurableLocalSessionFactoryBean) { bean ->
@@ -63,11 +100,21 @@ sessionFactory(ConfigurableLocalSessionFactoryBean) { bean ->
 }
 {code}
 
+{hidden}
 The strings in square brackets are the names of the equivalent bean attributes in Spring's XML definition.
+{hidden}
+角括弧内の文字列は、XMLでSpringの設定を行う場合のbeanの属性です。
 
+{hidden}
 h4. Using BeanBuilder with Spring MVC
+{hidden}
+h4. Spring MVCでBeanBuilderを使用する
 
+{hidden}
 Include the @grails-spring-<version>.jar@ file in your classpath to use BeanBuilder in a regular Spring MVC application. Then add the following @<context-param>@ values to your @/WEB-INF/web.xml@ file:
+{hidden}
+通常のSpring MVCアプリケーションでBeanBuilderを使用するには、クラスパスに@grails-spring-<version>.jar@を追加します。
+そして@WEB-INF/web.xml@ファイルに@<context-param>@の値を追加します。
 
 {code:xml}
 <context-param>
@@ -83,7 +130,10 @@ Include the @grails-spring-<version>.jar@ file in your classpath to use BeanBuil
 </context-param>
 {code}
 
+{hidden}
 Then create a @/WEB-INF/applicationContext.groovy@ file that does the rest:
+{hidden}
+あとは@/WEB-INF/applicationContext.groovy@ファイルを作成するだけです。
 
 {code:java}
 import org.apache.commons.dbcp.BasicDataSource
@@ -98,9 +148,15 @@ beans {
 }
 {code}
 
+{hidden}
 h4. Loading Bean Definitions from the File System
+{hidden}
+h4. ファイルシステムからBean定義を読み込む
 
+{hidden}
 You can use the @BeanBuilder@ class to load external Groovy scripts that define beans using the same path matching syntax defined here. For example:
+{hidden}
+@BeanBuilder@クラスを使用して外部のGroovyスクリプトを読み込むには、パスマッチングのシンタックスを使用します。以下に例を示します。
 
 {code:java}
 def bb = new BeanBuilder()
@@ -109,7 +165,11 @@ bb.loadBeans("classpath:*SpringBeans.groovy")
 def applicationContext = bb.createApplicationContext()
 {code}
 
+{hidden}
 Here the @BeanBuilder@ loads all Groovy files on the classpath ending with @SpringBeans.groovy@ and parses them into bean definitions. An example script can be seen below:
+{hidden}
+このようにすることで、@BeanBuilder@はクラスパス内の@SpringBeans.groovy@という名前で終わる、全てのGroovyファイルをビーンの定義として読み込みます。
+スクリプトの中身は以下のように定義できます。
 
 {code:java}
 import org.apache.commons.dbcp.BasicDataSource
@@ -132,9 +192,15 @@ beans {
 }
 {code}
 
+{hidden}
 h4. Adding Variables to the Binding (Context)
+{hidden}
+h4. バインディング(コンテキスト)に変数を追加する
 
+{hidden}
 If you're loading beans from a script you can set the binding to use by creating a Groovy @Binding@:
+{hidden}
+もしスクリプトを使用してビーンの定義を読み込んでいる場合は、Groovyの@Binding@インスタンスを作成してバインドが行えます。
 
 {code:java}
 def binding = new Binding()
@@ -148,4 +214,7 @@ bb.loadBeans("classpath:*SpringBeans.groovy")
 def ctx = bb.createApplicationContext()
 {code}
 
+{hidden}
 Then you can access the @maxSize@ and @productGroup@ properties in your DSL files.
+{hidden}
+このようにすることで、DSLファイル内から@maxSize@、@productGroup@プロパティにアクセスすることが可能になります。
