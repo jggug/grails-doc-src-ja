@@ -77,10 +77,10 @@ GORM:
   domainClasses:
     title: GORMでのドメインモデリング
     gormAssociation:
-      title: GORMでのアソシエーション
-      manyToOneAndOneToOne: 多対1、1対1 Many-to-One One-to-one
-      oneToMany: 1対多 One-to-many
-      manyToMany: 多対多 Many-to-many
+      title: GORMでの関連
+      manyToOneAndOneToOne: 多対1、1対1 (Many-to-One, One-to-one)
+      oneToMany: 1対多 (One-to-many)
+      manyToMany: 多対多 (Many-to-many)
       basicCollectionTypes: 基本コレクション型
     gormComposition: GORMでのコンポジション
     inheritanceInGORM: GORMでの継承
@@ -90,11 +90,11 @@ GORM:
     savingAndUpdating: 保存と更新
     deletingObjects: オブジェクトの削除
     cascades: カスケード更新削除を理解する
-    fetching: EagerとLazyフェッチング
-    locking: 悲観的(Pessimistic)と楽観的(Optimistic)ロック
+    fetching: EagerフェッチとLazyフェッチ
+    locking: 悲観的ロックと楽観的ロック
     modificationChecking: 変更確認
   querying:
-    title: GORMでクエリー
+    title: GORMでのクエリー
     finders: ダイナミックファインダー
     whereQueries: Whereクエリー
     criteria: クライテリア
@@ -104,7 +104,7 @@ GORM:
     title: 高度なGORMの機能
     eventsAutoTimestamping: イベントと自動タイムスタンプ
     ormdsl:
-      title: ORマッピングのカスタマイズ
+      title: O/Rマッピングのカスタマイズ
       tableAndColumnNames: テーブル名、カラム名
       caching: キャッシングストラテジ
       inheritanceStrategies: 継承ストラテジ
