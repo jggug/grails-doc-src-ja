@@ -1,8 +1,11 @@
-When using the Grails Maven plugin with the Maven build tool, Grails' dependency resolution mechanics are disabled as it is assumed that you will manage dependencies with Maven's @pom.xml@ file.
+{hidden}When using the Grails Maven plugin with the Maven build tool, Grails' dependency resolution mechanics are disabled as it is assumed that you will manage dependencies with Maven's @pom.xml@ file.{hidden}
+Grails Maven pluginでMavenビルドツールを使用している場合は、Mavanの@pom.xml@ファイルで依存関係の解決が行なわれると判断し、Grailsでの依存関係解決機能は無効化されます
 
-However, if you would like to continue using Grails regular commands like [run-app|commandLine], [test-app|commandLine] and so on then you can tell Grails' command line to load dependencies from the Maven @pom.xml@ file instead.
+{hidden}However, if you would like to continue using Grails regular commands like [run-app|commandLine], [test-app|commandLine] and so on then you can tell Grails' command line to load dependencies from the Maven @pom.xml@ file instead.{hidden}
+しかし、[run-app|commandLine]や[test-app|commandLine]等のGrails標準コマンドを使用し続けたい場合は、代わりにGrailsのコマンドラインにMavenの@pom.xml@ファイルから依存関係をロードするように教えることができます
 
-To do so simply add the following line to your @BuildConfig.groovy@:
+{hidden}To do so simply add the following line to your @BuildConfig.groovy@:{hidden}
+これは、@BuildConfig.groovy@に以下の行を追加するだけで簡単にできます:
 
 {code}
 grails.project.dependency.resolution = {
@@ -11,4 +14,5 @@ grails.project.dependency.resolution = {
 }
 {code}
 
-The line @pom true@ tells Grails to parse Maven's @pom.xml@ and load dependencies from there.
+{hidden}The line @pom true@ tells Grails to parse Maven's @pom.xml@ and load dependencies from there.{hidden}
+@pom true@行は、Mavenの@pom.xml@ファイルの構文解析を行いそこから依存関係をロードする、ということをGrailsに通達します。
