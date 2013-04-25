@@ -1,4 +1,6 @@
-To get the best performance out of your queries it is often necessary to tailor the table index definitions. How you tailor them is domain specific and a matter of monitoring usage patterns of your queries. With GORM's DSL you can specify which columns are used in which indexes:
+{hidden}To get the best performance out of your queries it is often necessary to tailor the table index definitions. How you tailor them is domain specific and a matter of monitoring usage patterns of your queries. With GORM's DSL you can specify which columns are used in which indexes:{hidden}
+クエリに対してベストな性能を得るために、多くの場合は、テーブルに対するインデックス定義の追加が必要となります。
+GORMのDSLで、どのカラムがどのインデックスを使うかを指定することができます。
 
 {code:java}
 class Person {
@@ -14,4 +16,6 @@ class Person {
 }
 {code}
 
-Note that you cannot have any spaces in the value of the @index@ attribute; in this example @index:'Name_Idx, Address_Index'@ will cause an error.
+{hidden}Note that you cannot have any spaces in the value of the @index@ attribute; in this example @index:'Name_Idx, Address_Index'@ will cause an error.{hidden}
+@index@属性の値にスペースを入れることはできないことに注意してください。
+例えば、@index:'Name_Idx, Address_Index'@はエラーになります。
