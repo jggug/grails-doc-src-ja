@@ -1,4 +1,6 @@
-GORM supports the concept of composite identifiers (identifiers composed from 2 or more properties). It is not an approach we recommend, but is available to you if you need it:
+{hidden}GORM supports the concept of composite identifiers (identifiers composed from 2 or more properties). It is not an approach we recommend, but is available to you if you need it:{hidden}
+GORMは複合主キー(2つ以上のプロパティから構成される識別子)をサポートしています。
+複合主キーはお勧めの方法ではありませんが、必要ならば利用可能です。
 
 {code:java}
 import org.apache.commons.lang.builder.HashCodeBuilder
@@ -29,18 +31,26 @@ class Person implements Serializable {
 }
 {code}
 
-The above will create a composite id of the @firstName@ and @lastName@ properties of the Person class. To retrieve an instance by id you use a prototype of the object itself:
+{hidden}The above will create a composite id of the @firstName@ and @lastName@ properties of the Person class. To retrieve an instance by id you use a prototype of the object itself:{hidden}
+上の例では、@Person@クラスの@firstName@と@lastName@プロパティを複合主キーにしています。
+IDでインスタンスを取得するためには、そのドメインクラスの未保存のインスタンスを検索条件として使用します:
 
 {code:java}
 def p = Person.get(new Person(firstName: "Fred", lastName: "Flintstone"))
 println p.firstName
 {code}
 
-Domain classes mapped with composite primary keys must implement the @Serializable@ interface and override the @equals@ and @hashCode@ methods, using the properties in the composite key for the calculations. The example above uses a @HashCodeBuilder@ for convenience but it's fine to implement it yourself.
+{hidden}Domain classes mapped with composite primary keys must implement the @Serializable@ interface and override the @equals@ and @hashCode@ methods, using the properties in the composite key for the calculations. The example above uses a @HashCodeBuilder@ for convenience but it's fine to implement it yourself.{hidden}
+複合主キーを用いるドメインクラスでは、@Serializable@インターフェイスの実装と@equals@と@hashCode@メソッドのオーバライドが必要です。
+これによって複合キーのプロパティを同一性の算定に利用できるようになります。
+前述の例では、簡便のため@HashCodeBuilder@を利用しましたが、もちろん自分で実装しても構いません。
 
-Another important consideration when using composite primary keys is associations. If for example you have a many-to-one association where the foreign keys are stored in the associated table then 2 columns will be present in the associated table.
+{hidden}Another important consideration when using composite primary keys is associations. If for example you have a many-to-one association where the foreign keys are stored in the associated table then 2 columns will be present in the associated table.{hidden}
+複合主キーを利用する上で、もう一つ抑えておかなければならないのが関連です。
+例えば多対1関連の場合、外部キーが関連元テーブル上に格納されますが、上記のように複合主キーを利用すると外部キー用に2つのカラムが必要なことになります。
 
-For example consider the following domain class:
+{hidden}For example consider the following domain class:{hidden}
+例えば、次のドメインクラスを考えます:
 
 {code}
 class Address {
@@ -48,7 +58,9 @@ class Address {
 }
 {code}
 
-In this case the @address@ table will have an additional two columns called @person_first_name@ and @person_last_name@. If you wish the change the mapping of these columns then you can do so using the following technique:
+{hidden}In this case the @address@ table will have an additional two columns called @person_first_name@ and @person_last_name@. If you wish the change the mapping of these columns then you can do so using the following technique:{hidden}
+この場合、@address@テーブルには、@person_first_name@と@person_last_name@という2つのカラムが追加されることになります。
+もし、これらのカラムへの対応付けを変更したいのであれば、次のようにできます:
 
 {code}
 class Address {
