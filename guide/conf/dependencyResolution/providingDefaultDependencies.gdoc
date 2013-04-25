@@ -1,7 +1,10 @@
-Most Grails applications have runtime dependencies on several jar files that are provided by the Grails framework.  These include libraries like Spring, Sitemesh, Hibernate etc.  When a war file is created, all of these dependencies will be included in it.  But, an application may choose to exclude these jar files from the war.  This is useful when the jar files will be provided by the container, as would normally be the case if multiple Grails applications are deployed to the same container.
+{hidden}Most Grails applications have runtime dependencies on several jar files that are provided by the Grails framework.  These include libraries like Spring, Sitemesh, Hibernate etc.  When a war file is created, all of these dependencies will be included in it.  But, an application may choose to exclude these jar files from the war.  This is useful when the jar files will be provided by the container, as would normally be the case if multiple Grails applications are deployed to the same container.{hidden}
+ほとんどのGrailsアプリケーションは、Grailsフレームワークによって提供されるいくつかのjarファイルに対し実行時の依存関係を持っています。これらにはSpring、Sitemesh、Hibernateなどのフレームワークが含まれます。WARファイルが作成される際に、これらすべての依存関係がWARファイルに含まれます。しかし、アプリケーションはWARファイルからこれらのjarファイルを除外することもできます。通常よくあるように、複数のGrailsアプリケーションが同じコンテナにデプロイされており、共通のjarファイルをコンテナによって提供するといった場合に便利な機能です。
 
-The dependency resolution DSL provides a mechanism to express that all of the default dependencies will be provided by the container. This is done by invoking the @defaultDependenciesProvided@ method and passing @true@ as an argument:
+{hidden}The dependency resolution DSL provides a mechanism to express that all of the default dependencies will be provided by the container. This is done by invoking the @defaultDependenciesProvided@ method and passing @true@ as an argument:{hidden}
+依存関係解決DSLクエリー言語は、デフォルトのすべての依存関係がコンテナによって提供されることを表現するためのメカニズムを提供します。これは、@defaultDependenciesProvided@メソッドに@true@を引数として渡して呼び出すことで実行されます:
 
+{hidden}
 {code}
 grails.project.dependency.resolution = {
 
@@ -19,7 +22,32 @@ grails.project.dependency.resolution = {
     }
 }
 {code}
+{hidden}
 
+{code}
+grails.project.dependency.resolution = {
+
+    defaultDependenciesProvided true // 全てのデフォルトの依存関係は
+                                     // コンテナによって提供される
+
+    inherits "global" // Grailsのデフォルト依存関係を継承する
+
+    repositories {
+        grailsHome()
+        ...
+    }
+    dependencies {
+        ...
+    }
+}
+{code}
+
+{hidden}
 {note}
 @defaultDependenciesProvided@ must come before @inherits@, otherwise the Grails dependencies will be included in the war.
+{note}
+{hidden}
+
+{note}
+@defaultDependenciesProvided@は、@inherits@より前に記述されている必要があり、そうしなければGrailsの依存関係はWARファイルに含まれます。
 {note}
