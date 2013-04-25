@@ -1,29 +1,40 @@
-h4. Specifying Plugin JAR dependencies
+{hidden}h4. Specifying Plugin JAR dependencies{hidden}
+h4. プラグインJARの依存関係を指定する
 
-The way in which you specify dependencies for a [plugin|guide:plugins] is identical to how you specify dependencies in an application. When a plugin is installed into an application the application automatically inherits the dependencies of the plugin.
+{hidden}The way in which you specify dependencies for a [plugin|guide:plugins] is identical to how you specify dependencies in an application. When a plugin is installed into an application the application automatically inherits the dependencies of the plugin.{hidden}
+[plugin|guide:plugins]の依存関係を指定する方法は、アプリケーションの依存関係を指定する方法と同じです。プラグインがアプリケーションにインストールされている場合、アプリケーションは自動的にプラグインの依存関係を継承します。
 
-To define a dependency that is resolved for use with the plugin but not _exported_ to the application then you can set the @export@ property of the dependency:
-
+{hidden}To define a dependency that is resolved for use with the plugin but not _exported_ to the application then you can set the @export@ property of the dependency:{hidden}
+プラグインには必要で、アプリケーションには@エクスポートしたくない@依存関係を定義するには、@export@プロパティを使用します:
 {code}
 compile('org.spockframework:spock-core:0.5-groovy-1.8') {
     export = false
 }
 {code}
 
-In this case the Spock dependency will be available only to the plugin and not resolved as an application dependency. Alternatively, if you're using the Map syntax:
+{hidden}In this case the Spock dependency will be available only to the plugin and not resolved as an application dependency. Alternatively, if you're using the Map syntax:{hidden}
+このケースではSpockの依存関係はプラグインのみが利用できるようになり、アプリケーションの依存関係としては解決されません。また、Mapを使用している場合は以下のようになります:
 
 {code}
 compile group: 'org.spockframework', name: 'spock-core',
      version: '0.5-groovy-1.8', export: false
 {code}
 
+{hidden}
 {note}
 You can use @exported = false@ instead of @export = false@, but we recommend the latter because it's consistent with the Map argument.
 {note}
+{hidden}
 
-h4. Overriding Plugin JAR Dependencies in Your Application
+{note}
+@export=false@の代わりに@exported=false@を使用することができますが、Mapの引数と一致しているため前者を推奨します。
+{note}
 
-If a plugin is using a JAR which conflicts with another plugin, or an application dependency then you can override how a plugin resolves its dependencies inside an application using exclusions. For example:
+{hidden}h4. Overriding Plugin JAR Dependencies in Your Application{hidden}
+h4. 独自アプリケーションでプラグインのJAR依存関係をオーバーライドする
+
+{hidden}If a plugin is using a JAR which conflicts with another plugin, or an application dependency then you can override how a plugin resolves its dependencies inside an application using exclusions. For example:{hidden}
+プラグインが、他のプラグインまたはアプリケーションの依存関係と競合するJarを利用している場合、除外設定を使用することでプラグイン内部で使用している依存関係を上書きできます。例を以下に示します:
 
 {code}
 plugins {
@@ -37,4 +48,5 @@ dependencies {
 }
 {code}
 
-In this case the application explicitly declares a dependency on the "hibernate" plugin and specifies an exclusion using the @excludes@ method, effectively excluding the javassist library as a dependency.
+{hidden}In this case the application explicitly declares a dependency on the "hibernate" plugin and specifies an exclusion using the @excludes@ method, effectively excluding the javassist library as a dependency.{hidden}
+上記の場合、アプリケーションで明示的に"hibernate"プラグインの依存関係を宣言し、@excludes@メソッドを使用して除外する依存関係を指定することで、Javassistライブラリを依存関係から除外します。
