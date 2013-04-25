@@ -1,14 +1,18 @@
-Grails features a dependency resolution DSL that lets you control how plugins and JAR dependencies are resolved.
+{hidden}Grails features a dependency resolution DSL that lets you control how plugins and JAR dependencies are resolved.{hidden}
+Grailsは依存関係解決のためのDSLクエリー言語を持ち、これによりプラグインとJARの依存関係を解決する方法を制御できます。
 
-You can choose to use Aether (since Grails 2.3) or Apache Ivy as the dependency resolution engine. Aether is the dependency resolution library used by the Maven build tool, so if you are looking for Maven-like behavior then Aether is the better choise. Ivy allows more flexibility if you wish to resolve jars from flat file systems or none HTTP repositories. Aether is the default dependency resolution engine for Grails applications since Grails 2.3. 
+{hidden}You can choose to use Aether (since Grails 2.3) or Apache Ivy as the dependency resolution engine. Aether is the dependency resolution library used by the Maven build tool, so if you are looking for Maven-like behavior then Aether is the better choise. Ivy allows more flexibility if you wish to resolve jars from flat file systems or none HTTP repositories. Aether is the default dependency resolution engine for Grails applications since Grails 2.3. {hidden}
+依存関係解決エンジンとして、Aether（Grails2.3以降）あるいはApache Ivyのどちらかを選択できます。Aetherは、Mavenビルド・ツール内で使用されている依存関係解決ライブラリであり、Mavenのような振る舞いを期待しているなら、Aetherを選択すべきです。Ivyは、単層ファイルシステムまたはHTTP通信を行わないリポジトリからjarファイルを解決したい場合には、より柔軟性が高いです。Grails 2.3以降においては、AetherがGrailsアプリケーションのデフォルトの依存関係解決エンジンです。
 
-To configure which dependency resolution engine to use you can specify the @grails.project.dependency.resolver@ setting in @grails-app/conf/BuildConfig.groovy@. The default setting is shown below:
+{hidden}To configure which dependency resolution engine to use you can specify the @grails.project.dependency.resolver@ setting in @grails-app/conf/BuildConfig.groovy@. The default setting is shown below:{hidden}
+使用する依存関係解決エンジンは、@grails-app/conf/BuildConfig.groovy@ファイル内の@grails.project.dependency.resolver@を設定することで指定出来ます。デフォルト設定は次のとおりです:
 
 {code}
 grails.project.dependency.resolver = "maven" // or ivy
 {code}
 
-You can then specify a @grails.project.dependency.resolution@ property inside the @grails-app/conf/BuildConfig.groovy@ file that configures how dependencies are resolved:
+{hidden}You can then specify a @grails.project.dependency.resolution@ property inside the @grails-app/conf/BuildConfig.groovy@ file that configures how dependencies are resolved:{hidden}
+@grails-app/conf/BuildConfig.groovyの@ファイル内の、@grails.project.dependency.resolution@プロパティを次のように指定することで、依存関係を解決する方法が設定できます:
 
 {code}
 grails.project.dependency.resolution = {
@@ -16,7 +20,8 @@ grails.project.dependency.resolution = {
 }
 {code}
 
-The default configuration looks like the following:
+{hidden}The default configuration looks like the following:{hidden}
+デフォルト設定は以下です:
 
 {code}
 grails.project.class.dir = "target/classes"
@@ -64,5 +69,6 @@ grails.project.dependency.resolution = {
 }
 {code}
 
-The details of the above will be explained in the next few sections.
+{hidden}The details of the above will be explained in the next few sections.{hidden}
+上記の詳細については、次節以降で説明します。
 
