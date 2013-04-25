@@ -1,27 +1,37 @@
-Grails features five dependency resolution configurations (or 'scopes'):
+{hidden}Grails features five dependency resolution configurations (or 'scopes'):{hidden}
+Grailsは、依存関係解決のための5つの設定（'スコープ'とも呼ばれます）を用意しています:
 
-*  @build@: Dependencies for the build system only
-*  @compile@: Dependencies for the compile step
-*  @runtime@: Dependencies needed at runtime but not for compilation (see above)
-*  @test@: Dependencies needed for testing but not at runtime (see above)
-*  @provided@: Dependencies needed at development time, but not during WAR deployment
+{hidden}*  @build@: Dependencies for the build system only{hidden}
+*  @build@: ビルドシステムのためだけの依存関係
+{hidden}*  @compile@: Dependencies for the compile step{hidden}
+*  @compile@: コンパイルのための依存関係
+{hidden}*  @runtime@: Dependencies needed at runtime but not for compilation (see above){hidden}
+*  @runtime@: 実行時には必要だが、コンパイル時には不必要な依存関係（上記参照）
+{hidden}*  @test@: Dependencies needed for testing but not at runtime (see above){hidden}
+*  @test@: テスト時には必要だが、実行時には不必要な依存関係（上記参照）
+{hidden}*  @provided@: Dependencies needed at development time, but not during WAR deployment{hidden}
+*  @provided@: 開発時には必要だが、WARファイルのデプロイ時には不必要な依存関係
 
-Within the @dependencies@ block you can specify a dependency that falls into one of these configurations by calling the equivalent method. For example if your application requires the MySQL driver to function at @runtime@ you can specify that like this:
+{hidden}Within the @dependencies@ block you can specify a dependency that falls into one of these configurations by calling the equivalent method. For example if your application requires the MySQL driver to function at @runtime@ you can specify that like this:{hidden}
+@dependencies@ブロックの内部で上記のメソッドを呼び出すことにより、依存関係を指定することができます。たとえば、アプリケーションが@runtime@時にMySQLドライバを必要とする場合は、次のように指定することができます:
 
 {code}
 runtime 'com.mysql:mysql-connector-java:5.1.16'
 {code}
 
-This uses the string syntax: @group:name:version@. 
+{hidden}This uses the string syntax: @group:name:version@. {hidden}
+上記では、@グループ:名前:バージョン@というString構文を使用しています。
 
 
-If you are using Aether as the dependency resolution library, the Maven pattern of:
+{hidden}If you are using Aether as the dependency resolution library, the Maven pattern of:{hidden}
+Aetherを依存関係解決ライブラリーとして利用する場合は、以下のようなMaven形式で記載します:
 
 {code}
 <groupId>:<artifactId>[:<extension>[:<classifier>]]:<version>
 {code}
 
-You can also use a Map-based syntax:
+{hidden}You can also use a Map-based syntax:{hidden}
+Map構文も使用できます:
 
 {code}
 runtime group: 'com.mysql',
@@ -29,19 +39,29 @@ runtime group: 'com.mysql',
         version: '5.1.16'
 {code}
 
-Possible settings to the map syntax are:
+{hidden}Possible settings to the map syntax are:{hidden}
+Map構文で可能な設定は次のとおりです:
 
-* @group@ - The group / organization (or groupId in Maven terminology)
-* @name@ - The dependency name (or artifactId in Maven terminology)
-* @version@ - The version of the dependency
-* @extension@ (Aether only) - The file extension of the dependency
-* @classifier@ - The dependency classifier
-* @branch@ (Ivy only) - The branch of the dependency
-* @transitive@ (Ivy only) - Whether the dependency has transitive dependencies
+{hidden}* @group@ - The group / organization (or groupId in Maven terminology){hidden}
+* @group@ - グループ/組織（Mavenの用語ではgroupId）
+{hidden}* @name@ - The dependency name (or artifactId in Maven terminology){hidden}
+* @name@ - 依存関係名 (Mavenの用語ではartifactId)
+{hidden}* @version@ - The version of the dependency{hidden}
+* @version@ - 依存関係のバージョン
+{hidden}* @extension@ (Aether only) - The file extension of the dependency{hidden}
+* @extension@ (Aetherのみ) - 依存関係のファイル拡張子
+{hidden}* @classifier@ - The dependency classifier{hidden}
+* @classifier@ - 依存関係の分類
+{hidden}* @branch@ (Ivy only) - The branch of the dependency{hidden}
+* @branch@（Ivyのみ） - 依存関係のブランチ
+{hidden}* @transitive@ (Ivy only) - Whether the dependency has transitive dependencies{hidden}
+* @transitive@ (Ivyのみ) - 推移的依存関係の有無
 
-As you can see from the list above some dependency configuration settings work only in Aether and some only in Ivy.
+{hidden}As you can see from the list above some dependency configuration settings work only in Aether and some only in Ivy.{hidden}
+上記のリストからわかるように、依存関係の設定の一部は、Ivyのみで動作するものと、Aetherのみでと一部のみで動作するものがあります。
 
-Multiple dependencies can be specified by passing multiple arguments:
+{hidden}Multiple dependencies can be specified by passing multiple arguments:{hidden}
+複数の依存関係は、複数の引数を渡すことで指定できます:
 
 {code}
 runtime 'com.mysql:mysql-connector-java:5.1.16',
@@ -55,9 +75,11 @@ runtime(
 )
 {code}
 
-h3. Disabling transitive dependency resolution
+{hidden}h3. Disabling transitive dependency resolution{hidden}
+h3. 推移的依存関係解決の無効化
 
-By default, Grails will not only get the JARs and plugins that you declare, but it will also get their transitive dependencies. This is usually what you want, but there are occasions where you want a dependency without all its baggage. In such cases, you can disable transitive dependency resolution on a case-by-case basis:
+{hidden}By default, Grails will not only get the JARs and plugins that you declare, but it will also get their transitive dependencies. This is usually what you want, but there are occasions where you want a dependency without all its baggage. In such cases, you can disable transitive dependency resolution on a case-by-case basis:{hidden}
+デフォルトでは、Grailsは宣言したJARファイルやプラグインだけでなく、それらの推移的依存関係を取得します。これは、通常は望ましいことですが、推移的依存関係を取得したくない場合もあります。そのような場合、状況に応じて推移的依存関係解決を無効にできます:
 
 {code}
 runtime('com.mysql:mysql-connector-java:5.1.16',
@@ -72,13 +94,22 @@ runtime group:'com.mysql',
         transitive:false
 {code}
 
+{hidden}
 {warning}
 Disabling transitive dependency resolution only works with the Ivy dependency manager. Aether does not support disabling of transitive resolution, instead explicit exclusions are required (see below).
 {warning}
+{hidden}
 
-h3. Excluding specific transitive dependencies
+{warning}
+推移的依存関係解決の無効化は、Ivy依存関係マネージャとだけ連携して動作します。Aetherは推移的解決をサポートしておらず、明示的に除外する必要があります（下記参照）。
+{warning}
 
-A far more common scenario is where you want the transitive dependencies, but some of them cause issues with your own dependencies or are unnecessary. For example, many Apache projects have 'commons-logging' as a transitive dependency, but it shouldn't be included in a Grails project (we use SLF4J). That's where the @excludes@ option comes in:
+
+{hidden}h3. Excluding specific transitive dependencies{hidden}
+h3. 特定の推移的依存関係の除外
+
+{hidden}A far more common scenario is where you want the transitive dependencies, but some of them cause issues with your own dependencies or are unnecessary. For example, many Apache projects have 'commons-logging' as a transitive dependency, but it shouldn't be included in a Grails project (we use SLF4J). That's where the @excludes@ option comes in:{hidden}
+頻繁に起こりうるシチュエーションは、推移的依存関係解決は動作させたい一方で、そのうちいくつかの依存関係は独自プログラムの依存関係に問題を発生させたり、不要だったりする場合です。たとえば、多くのApacheプロジェクトは推移依存関係として"commons-logging"を持っていますが、それはGrailsプロジェクトに含まれるべきではありません（GrailsはSLF4Jを使用している）。このような場合は、@excludes@オプションを使用します:
 
 {code}
 runtime('com.mysql:mysql-connector-java:5.1.16',
@@ -93,7 +124,8 @@ runtime(group:'com.mysql', name:'mysql-connector-java', version:'5.1.16') {
              [ name: 'commons-logging' ])
 {code}
 
-As you can see, you can either exclude dependencies by their artifact ID (also known as a module name) or any combination of group and artifact IDs (if you use the Map notation). You may also come across @exclude@ as well, but that can only accept a single string or Map:
+{hidden}As you can see, you can either exclude dependencies by their artifact ID (also known as a module name) or any combination of group and artifact IDs (if you use the Map notation). You may also come across @exclude@ as well, but that can only accept a single string or Map:{hidden}
+見てのとおり、アーティファクトID（モジュール名と言うこともあります）、または任意のグループIDとアーティファクトIDの組み合わせ（Map表記を使用している場合）によって、推移的依存関係解決を行う依存関係を除外できます。@exclude@オプションを利用する場合も同様ですが、こちらは単一の文字列またはMapのみを許容します:
 
 {code}
 runtime('com.mysql:mysql-connector-java:5.1.16',
@@ -102,9 +134,11 @@ runtime('com.mysql:mysql-connector-java:5.1.16',
 }
 {code}
 
-h3. Using Ivy module configurations
+{hidden}h3. Using Ivy module configurations{hidden}
+h3. Ivyモジュール構成の使用
 
-Using the Ivy dependency manager (Aether not supported), if you use Ivy module configurations and wish to depend on a specific configuration of a module, you can use the @dependencyConfiguration@ method to specify the configuration to use.
+{hidden}Using the Ivy dependency manager (Aether not supported), if you use Ivy module configurations and wish to depend on a specific configuration of a module, you can use the @dependencyConfiguration@ method to specify the configuration to use.{hidden}
+Ivyモジュール構成を使用していて、指定したモジュール構成に依存させたい場合は、@dependencyConfiguration@メソッドを用いて使用する構成を指定できます。
 
 {code}
 provided("my.org:web-service:1.0") {
@@ -112,17 +146,21 @@ provided("my.org:web-service:1.0") {
 }
 {code}
 
-If the dependency configuration is not explicitly set, the configuration named @"default"@ will be used (which is also the correct value for dependencies coming from Maven style repositories).
+{hidden}If the dependency configuration is not explicitly set, the configuration named @"default"@ will be used (which is also the correct value for dependencies coming from Maven style repositories).{hidden}
+依存関係の設定が明示的にされていない場合は、@"default"@設定が使用されます。（これは、Mavenスタイルのリポジトリから来る依存関係に対しても正しい値です）
 
-h3. Where are the JARs?
+{hidden}h3. Where are the JARs?{hidden}
+h3. JARファイルの場所
 
-With all these declarative dependencies, you may wonder where all the JARs end up. They have to go somewhere after all. By default Grails puts them into a directory, called the dependency cache, that resides on your local file system at @user.home/.grails/ivy-cache@ or @user.home/.m2/repository@ when using Aether. You can change this either via the @settings.groovy@ file:
+{hidden}With all these declarative dependencies, you may wonder where all the JARs end up. They have to go somewhere after all. By default Grails puts them into a directory, called the dependency cache, that resides on your local file system at @user.home/.grails/ivy-cache@ or @user.home/.m2/repository@ when using Aether. You can change this either via the @settings.groovy@ file:{hidden}
+当然、宣言された全ての依存関係の実態であるJARファイルは、必ずどこかに存在している必要があります。デフォルトでは、Grailsは依存関係キャッシュと呼ばれるディレクトリにJARファイルを入れます。このディレクトリは、ローカル・ファイル・システム上の@user.home/.grails/ivy-cache@もしくは@user.home/.m2/repository@（Aether使用時）に配置されます。@settings.groovy@ファイルによって、この場所を変更できます:
 
 {code}
 grails.dependency.cache.dir = "${userHome}/.my-dependency-cache"
 {code}
 
-or in the dependency DSL:
+{hidden}or in the dependency DSL:{hidden}
+依存関係DSLクエリー言語内でも変更可能です:
 
 {code}
 grails.project.dependency.resolution = {
@@ -132,4 +170,5 @@ grails.project.dependency.resolution = {
 }
 {code}
 
-The @settings.groovy@ option applies to all projects, so it's the preferred approach.
+{hidden}The @settings.groovy@ option applies to all projects, so it's the preferred approach.{hidden}
+@settings.groovy@オプションを使用すると、すべてのプロジェクトに適用されるため、こちらがおすすめの方法です。
