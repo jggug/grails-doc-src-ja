@@ -1,27 +1,48 @@
-As a performance optimisation, when using Ivy (this does not apply to Aether), Grails does not resolve dependencies for every command invocation. Even with all the necessary dependencies downloaded and cached, resolution may take a second or two. To minimise this cost, Grails caches the result of dependency resolution (i.e. the location on the local file system of all of the declared dependencies, typically inside the dependency cache) and reuses this result for subsequent commands when it can reasonably expect that nothing has changed.
+{hidden}As a performance optimisation, when using Ivy (this does not apply to Aether), Grails does not resolve dependencies for every command invocation. Even with all the necessary dependencies downloaded and cached, resolution may take a second or two. To minimise this cost, Grails caches the result of dependency resolution (i.e. the location on the local file system of all of the declared dependencies, typically inside the dependency cache) and reuses this result for subsequent commands when it can reasonably expect that nothing has changed.{hidden}
+Ivyを使用している場合（Aetherには適用されません）、パフォーマンスの最適化のために、Grailsはコマンド呼び出しで依存関係解決をしない場合があります。必要なすべての依存関係がダウンロードされ、キャッシュされている場合でも、依存関係解決は1秒から2秒かかることがあります。このコストを最小限に抑えるために、Grailsは依存関係解決の結果をキャッシュし（すなわち、宣言された依存関係のすべてのローカルファイルシステム上の場所、通常は依存キャッシュ内）、後続のコマンドについては、依存関係に変更がないことがある程度期待できる場合は、このキャッシュを再利用します。
 
-Grails only performs dependency resolution under the following circumstances:
+{hidden}Grails only performs dependency resolution under the following circumstances:{hidden}
+Grailsは、以下の場合にのみ依存関係解決を実行します:
 
-* The project is clean (i.e. fresh checkout or after @grails clean@)
-* The @BuildConfig.groovy@ file has changed since the last command was run
-* The @\-\-refresh-dependencies@ command line switch is provided to the command (any command)
-* The @refresh-dependencies@ command is the command being executed
+{hidden}* The project is clean (i.e. fresh checkout or after @grails clean@){hidden}
+* プロジェクトがクリーンな場合（すなわち、チェックアウト直後または@grails clean@の実行後）
+{hidden}* The @BuildConfig.groovy@ file has changed since the last command was run{hidden}
+* 最後にコマンドが実行された後に、@BuildConfig.groovy@ファイルが変更された場合
+{hidden}* The @\-\-refresh-dependencies@ command line switch is provided to the command (any command){hidden}
+* @\-\-refresh-dependencies@引数が、何らかのコマンドに与えられる場合
+{hidden}* The @refresh-dependencies@ command is the command being executed{hidden}
+* @refresh-dependencies@コマンドが実行された場合
 
-Generally, this strategy works well and you can ignore dependency resolution caching. Every time you change your dependencies (i.e. modify @BuildConfig.groovy@) Grails will do the right thing and resolve your new dependencies.
+{hidden}Generally, this strategy works well and you can ignore dependency resolution caching. Every time you change your dependencies (i.e. modify @BuildConfig.groovy@) Grails will do the right thing and resolve your new dependencies.{hidden}
+一般に、この手法はうまく動作し、依存関係解決のキャッシュを無視することができます。依存関係を変更するたびに（すなわち@BuildConfig.groovy@を変更するたびに）Grailsは正しく新たに依存関係解決を実行します。
 
-However, when you have _changing_ or _dynamic_ dependencies you will have to consider dependency resolution caching.
+{hidden}However, when you have _changing_ or _dynamic_ dependencies you will have to consider dependency resolution caching.{hidden}
+しかし、 _変化する依存関係_ または _動的な依存関係_ がある場合は、依存関係解決のキャッシングを考慮する必要があります。
 
+{hidden}
 {info}
 A _changing_ dependency is one whose version number does not change, but its contents do (like a SNAPSHOT). A _dynamic_ dependency is one that is defined as one of many possible options (like a dependency with a version range, or symbolic version number like @latest.integration@).
 {info}
+{hidden}
 
-Both _changing_ and _dynamic_ dependencies are influenced by the environment. With caching active, any changes to the environment are effectively ignored. For example, your project may not automatically fetch the very latest version of a dependency when using @latest.integration@. Or if you declare a @SNAPSHOT@ dependency, you may not automatically get the latest that's available on the server.
+{info}
+_変化する依存関係_ は、バージョン番号が変更されずに、内容が変化するもの（スナップショットなど）です。 _動的な依存関係_ は多くの可能なオプションのいずれかとして定義されるものです。（バージョンが範囲指定されている、または@latest.integration@のように抽象的なバージョン番号を持つ依存関係など）
+{info}
 
-To ensure you have the correct version of a _changing_ or _dynamic_ dependency in your project, you can:
+{hidden}Both _changing_ and _dynamic_ dependencies are influenced by the environment. With caching active, any changes to the environment are effectively ignored. For example, your project may not automatically fetch the very latest version of a dependency when using @latest.integration@. Or if you declare a @SNAPSHOT@ dependency, you may not automatically get the latest that's available on the server.{hidden}
+変化する依存関係 と 動的な依存関係は共に、リモートリポジトリ等の外部環境に影響されます。キャッシュが有効な場合、これらの環境の変更は事実上無視されます。例えば、@latest.integration@を使用している場合、プロジェクトは依存関係の最新バージョンを自動的に取得しないでしょう。また、@SNAPSHOT@の依存関係を宣言した場合、サーバー上で使用可能な最新のものを自動的に取得できない可能性があります。
 
-* clean the project
-* run the @refresh-dependencies@ command
-* run _any_ command with the @\-\-refresh-dependencies@ switch; or
-* make a change to @BuildConfig.groovy@
+{hidden}To ensure you have the correct version of a _changing_ or _dynamic_ dependency in your project, you can:{hidden}
+プロジェクトの _変化する依存関係_ や _動的な依存関係_ が正しいバージョンであることを確認するために、以下のことができます:
 
-If you have your CI builds configured to not perform clean builds, it may be worth adding the @\-\-refresh-dependencies@ switch to the command you use to build your projects.
+{hidden}* clean the project{hidden}
+* プロジェクトのクリーンアップ
+{hidden}* run the @refresh-dependencies@ command{hidden}
+* @refresh-dependencies@コマンドの実行
+{hidden}* run _any_ command with the @\-\-refresh-dependencies@ switch; or{hidden}
+* @任意のコマンド@に@\-\-refresh-dependencies@を付与して実行
+{hidden}* make a change to @BuildConfig.groovy@{hidden}
+* @BuildConfig.groovy@を変更
+
+{hidden}If you have your CI builds configured to not perform clean builds, it may be worth adding the @\-\-refresh-dependencies@ switch to the command you use to build your projects.{hidden}
+CIビルドツールがクリーンビルドを実行しないように設定されている場合、プロジェクトのビルドコマンドに@\-\-refresh-dependencies@を追加しておくと有効でしょう。
