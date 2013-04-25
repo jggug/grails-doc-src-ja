@@ -1,10 +1,12 @@
-By default every Grails application inherits several framework dependencies. This is done through the line:
+{hidden}By default every Grails application inherits several framework dependencies. This is done through the line:{hidden}
+デフォルトで、すべてのGrailsアプリケーションは、いくつかのフレームワークの依存関係を継承します。これは以下の設定を通じて行われます:
 
 {code}
 inherits "global"
 {code}
 
-Inside the @BuildConfig.groovy@ file. To exclude specific inherited dependencies you use the @excludes@ method:
+{hidden}Inside the @BuildConfig.groovy@ file. To exclude specific inherited dependencies you use the @excludes@ method:{hidden}
+上記は、@BuildConfig.groovy@ファイル内に記載します。特定の依存関係を除外するには、@excludes@メソッドを使用します:
 
 {code}
 inherits("global") {
