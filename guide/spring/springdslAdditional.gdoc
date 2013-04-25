@@ -1,6 +1,13 @@
+{hidden}
 h4. Using the Spring Bean DSL
+{hidden}
+h4. SpringビーンDSLの使用
 
+{hidden}
 You can easily register new (or override existing) beans by configuring them in @grails-app/conf/spring/resources.groovy@ which uses the Grails [Spring DSL|guide:springdsl]. Beans are defined inside a @beans@ property (a Closure):
+{hidden}
+Grails [Spring DSL|guide:springdsl]を使い、@grails-app/conf/spring/resources.groovy@に設定することで、簡単に新しいビーンが登録(または上書き)できます。
+ビーンは@beans@プロパティ(クロージャ)の内部に設定します。
 
 {code:java}
 beans = {
@@ -8,7 +15,10 @@ beans = {
 }
 {code}
 
+{hidden}
 As a simple example you can configure a bean with the following syntax:
+{hidden}
+簡単な例として、以下のようなシンタックスでビーンを設定できます。
 
 {code:java}
 import my.company.MyBeanImpl
@@ -21,7 +31,10 @@ beans = {
 }
 {code}
 
+{hidden}
 Once configured, the bean can be auto-wired into Grails artifacts and other classes that support dependency injection (for example @BootStrap.groovy@ and integration tests) by declaring a public field whose name is your bean's name (in this case @myBean@):
+{hidden}
+一度設定をすれば、パブリックフィールドをビーンの名前(この場合は@myBean@)で宣言することで、Grailsのアーティファクトや、他の依存性の注入がサポートされているクラス(例えば、@BootStrap.groovy@やインテグレーションテスト)にビーンが自動注入されます。
 
 {code:java}
 class ExampleController {
@@ -31,7 +44,11 @@ class ExampleController {
 }
 {code}
 
+{hidden}
 Using the DSL has the advantage that you can mix bean declarations and logic, for example based on the [environment|guide:environments]:
+{hidden}
+DSLを使用することで、ビーンの定義にロジックを混ぜることができる利点があります。
+例えば[環境|guide:environments]を基にビーンを定義する場合です。
 
 {code:java}
 import grails.util.Environment
@@ -57,7 +74,10 @@ beans = {
 }
 {code}
 
+{hidden}
 The @GrailsApplication@ object can be accessed with the @application@ variable and can be used to access the Grails configuration (amongst other things):
+{hidden}
+@GrailsApplication@オブジェクトは@application@変数で参照でき、Grailsの設定などにアクセスできます。
 
 {code:java}
 import grails.util.Environment
@@ -79,17 +99,40 @@ beans = {
 }
 {code}
 
+{hidden}
 {note}
 If you define a bean in @resources.groovy@ with the same name as one previously registered by Grails or an installed plugin, your bean will replace the previous registration. This is a convenient way to customize behavior without resorting to editing plugin code or other approaches that would affect maintainability.
 {note}
+{hidden}
+{note}
+もし、Grailsやインストールしたプラグインによって登録された名前のビーンを@resources.groovy@に定義した場合は、既存で登録されいているビーンが自分で登録したビーンに置き換えられます。
+これは、既存の振る舞いをカスタマイズする便利な方法です。
+既存のプラグインのコードを変更することなく、またメンテンナンスに影響を与えることもありません。
+{note}
 
+{hidden}
 h4. Using XML
+{hidden}
+h4. XMLの使用
 
+{hidden}
 Beans can also be configured using a @grails-app/conf/spring/resources.xml@. In earlier versions of Grails this file was automatically generated for you by the @run-app@ script, but the DSL in @resources.groovy@ is the preferred approach now so it isn't automatically generated now. But it is still supported - you just need to create it yourself.
+{hidden}
+ビーンは@grails-app/conf/spring/resources.xml@を使用して定義することもできます。
+このXMLファイルは、以前のGrailsのバージョンでは@run-app@を実行したタイミングで自動的に生成されていました。
+しかし、現在は@resources.groovy@でDSLを使用した方法が推奨のため、このXMLファイルが自動的に生成されることはありません。
+自動的に生成はされませんが、まだサポートはされています。もし使用したい場合は、手動でこのファイルを作成します。
 
+{hidden}
 This file is typical Spring XML file and the Spring documentation has an [excellent reference|http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/beans.html#beans-basics] on how to configure Spring beans.
+{hidden}
+このXMLファイルは、典型的なSpringのXMLファイルです。
+このXMLファイルで、どのようにSpringビーンの設定をするかは、Springのドキュメンテーションに[素晴らしい記述|http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/beans.html#beans-basics]があります。
 
+{hidden}
 The @myBean@ bean that we configured using the DSL would be configured with this syntax in the XML file:
+{hidden}
+さきほどDSLで定義した@myBean@は、XMLファイルでは以下のように定義できます。
 
 {code:xml}
 <bean id="myBean" class="my.company.MyBeanImpl">
@@ -98,7 +141,10 @@ The @myBean@ bean that we configured using the DSL would be configured with this
 </bean>
 {code}
 
+{hidden}
 Like the other bean it can be auto-wired into any class that supports dependency injection:
+{hidden}
+これは、他のビーンと同じように、依存性の注入がサポートされているクラスで、ビーンが自動注入されます。
 
 {code:java}
 class ExampleController {
@@ -107,9 +153,16 @@ class ExampleController {
 }
 {code}
 
+{hidden}
 h4. Referencing Existing Beans
+{hidden}
+h4. 既存ビーンの参照
 
+{hidden}
 Beans declared in @resources.groovy@ or @resources.xml@ can reference other beans by convention. For example if you had a @BookService@ class its Spring bean name would be @bookService@, so your bean would reference it like this in the DSL:
+{hidden}
+@resources.groovy@、または@resources.xml@に定義したビーンは、規約によって登録された他のビーンを参照できます。例えば、@BookService@クラスがあったとすると、Springのビーンの名前は@bookService@になります。
+これを、DSL内で参照するには以下のようにします。
 
 {code:java}
 beans = {
@@ -121,7 +174,10 @@ beans = {
 }
 {code}
 
+{hidden}
 or like this in XML:
+{hidden}
+XMLを使用した場合は以下のようになります。
 
 {code:xml}
 <bean id="myBean" class="my.company.MyBeanImpl">
@@ -131,7 +187,11 @@ or like this in XML:
 </bean>
 {code}
 
+{hidden}
 The bean needs a public setter for the bean reference (and also the two simple properties), which in Groovy would be defined like this:
+{hidden}
+このビーンには参照するビーン(とシンプルな2つのプロパティ)を設定するパブリックなセッターが必要です。
+Groovyでは以下のように定義できます。
 
 {code:java}
 package my.company
@@ -143,7 +203,10 @@ class MyBeanImpl {
 }
 {code}
 
+{hidden}
 or in Java like this:
+{hidden}
+Javaの場合は以下のようになります。
 
 {code:java}
 package my.company;
@@ -168,6 +231,12 @@ class MyBeanImpl {
 }
 {code}
 
+{hidden}
 Using @ref@ (in XML or the DSL) is very powerful since it configures a runtime reference, so the referenced bean doesn't have to exist yet. As long as it's in place when the final application context configuration occurs, everything will be resolved correctly.
+{hidden}
+@ref@は実行時の参照を設定するため非常に強力です。これは定義時に参照するビーンが存在している必要がありません。最終的にアプリケーションコンテキストの設定が完了した時点で、そのビーンが存在していれば正しく参照が解決されます。
 
+{hidden}
 For a full reference of the available beans see the plugin reference in the reference guide.
+{hidden}
+参照が可能なビーンの情報は、リファレンス内のプラグインの章を参照してください。
