@@ -1,38 +1,51 @@
-If you use Maven to build your Grails project, you can use the standard Maven targets @mvn install@ and @mvn deploy@.
-If not, you can deploy a Grails project or plugin to a Maven repository using the [maven-publisher|http://grails.org/plugin/maven-publisher] plugin.
+{hidden}If you use Maven to build your Grails project, you can use the standard Maven targets @mvn install@ and @mvn deploy@.{hidden}
+GrailsプロジェクトのビルドにMavenを使用する場合は、標準のMavenのターゲットである@mvn install@および@mvn deploy@を使用できます。
+{hidden}If not, you can deploy a Grails project or plugin to a Maven repository using the [maven-publisher|http://grails.org/plugin/maven-publisher] plugin.{hidden}
+そうでない場合は、[maven-publisher|http://grails.org/plugin/maven-publisher]プラグインを使用してMavenのリポジトリにGrailsプロジェクトやプラグインをデプロイすることができます。
 
-The plugin provides the ability to publish Grails projects and plugins to local and remote Maven repositories. There are two key additional targets added by the plugin:
+{hidden}The plugin provides the ability to publish Grails projects and plugins to local and remote Maven repositories. There are two key additional targets added by the plugin:{hidden}
+プラグインは、MavenのローカルリポジトリおよびリモートリポジトリにGrailsプロジェクトやプラグインを公開する機能を提供します。プラグインによって追加された2つの重要なターゲットがあります。
 
-* *maven-install* - Installs a Grails project or plugin into your local Maven cache
-* *maven-deploy* - Deploys a Grails project or plugin to a remote Maven repository
+{hidden}* *maven-install* - Installs a Grails project or plugin into your local Maven cache{hidden}
+* *maven-install* - MavenのローカルキャッシュにGrailsプロジェクトやプラグインをインストールします。
+{hidden}* *maven-deploy* - Deploys a Grails project or plugin to a remote Maven repository{hidden}
+* *maven-deploy* - MavenのリモートリポジトリにGrailsプロジェクトやプラグインをデプロイします。
 
-By default this plugin will automatically generate a valid @pom.xml@ for you unless a @pom.xml@ is already present in the root of the project, in which case this @pom.xml@ file will be used.
+{hidden}By default this plugin will automatically generate a valid @pom.xml@ for you unless a @pom.xml@ is already present in the root of the project, in which case this @pom.xml@ file will be used.{hidden}
+デフォルトでは、このプラグインは自動的に有効な@pom.xml@を生成します。ただし、@pom.xml@がすでにプロジェクトルートに存在する場合には、プロジェクトルート上の@pom.xml@ファイルが使用されます。
 
-h4. maven-install
+{hidden}h4. maven-install{hidden}
+h4. maven-installコマンド
 
-The @maven-install@ command will install the Grails project or plugin artifact into your local Maven cache:
+{hidden}The @maven-install@ command will install the Grails project or plugin artifact into your local Maven cache:{hidden}
+@maven-install@コマンドは、MavenのローカルキャッシュにGrailsプロジェクトやプラグインをインストールします:
 
 {code}
 grails maven-install
 {code}
 
-In the case of plugins, the plugin zip file will be installed, whilst for application the application WAR file will be installed.
+{hidden}In the case of plugins, the plugin zip file will be installed, whilst for application the application WAR file will be installed.{hidden}
+プラグインの場合はプラグインのzipファイルが、アプリケーションのアプリケーションのWARファイルがインストールされます。
 
-h4. maven-deploy
+{hidden}h4. maven-deploy{hidden}
+h4. maven-deployコマンド
 
-The @maven-deploy@ command will deploy a Grails project or plugin into a remote Maven repository:
+{hidden}The @maven-deploy@ command will deploy a Grails project or plugin into a remote Maven repository:{hidden}
+@maven-deploy@コマンドは、MavenのリモートリポジトリにGrailsプロジェクトやプラグインをデプロイします:
 
 {code}
 grails maven-deploy
 {code}
 
-It is assumed that you have specified the necessary @<distributionManagement>@ configuration within a @pom.xml@ or that you specify the @id@ of the remote repository to deploy to:
+{hidden}It is assumed that you have specified the necessary @<distributionManagement>@ configuration within a @pom.xml@ or that you specify the @id@ of the remote repository to deploy to:{hidden}
+@pom.xml@ファイル内に必要な@<distributionManagement>@の設定がされているか、もしくはデプロイするリモートリポジトリの@id@を指定すること前提としています:
 
 {code}
 grails maven-deploy --repository=myRepo
 {code}
 
-The @repository@ argument specifies the 'id' for the repository. Configure the details of the repository specified by this 'id' within your @grails-app/conf/BuildConfig.groovy@ file or in your @$USER_HOME/.grails/settings.groovy@ file:
+{hidden}The @repository@ argument specifies the 'id' for the repository. Configure the details of the repository specified by this 'id' within your @grails-app/conf/BuildConfig.groovy@ file or in your @$USER_HOME/.grails/settings.groovy@ file:{hidden}
+@repository@引数は、リポジトリの'id'を指定します。この指定した'id'に対するリポジトリの詳細を、@grails-app/conf/BuildConfig.groovy@ファイルもしくは@$USER_HOME/.grails/settings.groovy@ファイル内で設定します:
 
 {code}
 grails.project.dependency.distribution = {
@@ -41,7 +54,8 @@ grails.project.dependency.distribution = {
 }
 {code}
 
-The syntax for configuring remote repositories matches the syntax from the [remoteRepository|http://maven.apache.org/ant-tasks/reference.html#remoteRepository] element in the Ant Maven tasks. For example the following XML:
+{hidden}The syntax for configuring remote repositories matches the syntax from the [remoteRepository|http://maven.apache.org/ant-tasks/reference.html#remoteRepository] element in the Ant Maven tasks. For example the following XML:{hidden}
+リモートリポジトリを設定するための構文は、MavenのAntタスク内の[remoteRepository|http://maven.apache.org/ant-tasks/reference.html#remoteRepository]要素の構文と一致します。例えば次のXMLです:
 
 {code}
 <remoteRepository id="myRepo" url="scp://localhost/www/repository">
@@ -49,7 +63,8 @@ The syntax for configuring remote repositories matches the syntax from the [remo
 </remoteRepository>
 {code}
 
-Can be expressed as:
+{hidden}Can be expressed as:{hidden}
+以下の様に表すこともできます:
 
 {code}
 remoteRepository(id: "myRepo", url: "scp://localhost/www/repository") {
@@ -57,13 +72,15 @@ remoteRepository(id: "myRepo", url: "scp://localhost/www/repository") {
 }
 {code}
 
-By default the plugin will try to detect the protocol to use from the URL of the repository (ie "http" from "http://.." etc.), however to specify a different protocol you can do:
+{hidden}By default the plugin will try to detect the protocol to use from the URL of the repository (ie "http" from "http://.." etc.), however to specify a different protocol you can do:{hidden}
+デフォルトではmaven-publisherプラグインはリポジトリのURLから、使用するプロトコルを検出しようとします（例えば、URLが"http://.."の場合は"http"、等）が、以下のように別のプロトコルを指定することもできます:
 
 {code}
 grails maven-deploy --repository=myRepo --protocol=webdav
 {code}
 
-The available protocols are:
+{hidden}The available protocols are:{hidden}
+利用可能なプロトコルは以下のとおりです:
 
 * http
 * scp
@@ -71,31 +88,40 @@ The available protocols are:
 * ftp
 * webdav
 
-h4. Groups, Artifacts and Versions
+{hidden}h4. Groups, Artifacts and Versions{hidden}
+h4. グループ、アーティファクト、バージョン
 
-Maven defines the notion of a 'groupId', 'artifactId' and a 'version'. This plugin pulls this information from the Grails project conventions or plugin descriptor.
+{hidden}Maven defines the notion of a 'groupId', 'artifactId' and a 'version'. This plugin pulls this information from the Grails project conventions or plugin descriptor.{hidden}
+Mavenは 'groupId'、'artifactId'、'version'という概念を定義しています。maven-publisherプラグインは、Grailsプロジェクトの規約またはプラグイン識別子からこれらの情報を取得します。
 
-h5. Projects
+{hidden}h5. Projects{hidden}
+h5. プロジェクト
 
-For applications this plugin will use the Grails application name and version provided by Grails when generating the @pom.xml@ file. To change the version you can run the @set-version@ command:
+{hidden}For applications this plugin will use the Grails application name and version provided by Grails when generating the @pom.xml@ file. To change the version you can run the @set-version@ command:{hidden}
+アプリケーションでは、このプラグインは@pom.xml@ファイル生成時にGrailによって提供されるGrailsアプリケーションの名前とバージョンを使用します。バージョンを変更するには、@set-version@コマンドを実行します:
 
 {code}
 grails set-version 0.2
 {code}
 
-The Maven @groupId@ will be the same as the project name, unless you specify a different one in Config.groovy:
+{hidden}The Maven @groupId@ will be the same as the project name, unless you specify a different one in Config.groovy:{hidden}
+Mavenの@groupId@は、Config.groovyに別の名前を指定しない限り、プロジェクト名と同じになります:
 
 {code}
 grails.project.groupId="com.mycompany"
 {code}
 
-h5. Plugins
+{hidden}h5. Plugins{hidden}
+h5. プラグイン
 
-With a Grails plugin the @groupId@ and @version@ are taken from the following properties in the @GrailsPlugin.groovy@ descriptor:
+{hidden}With a Grails plugin the @groupId@ and @version@ are taken from the following properties in the @GrailsPlugin.groovy@ descriptor:{hidden}
+Grailsプラグインの@groupId@と@version@は、@GrailsPlugin.groovy@内の以下のプロパティから取得されます:
+
 
 {code}
 String groupId = 'myOrg'
 String version = '0.1'
 {code}
 
-The 'artifactId' is taken from the plugin name. For example if you have a plugin called @FeedsGrailsPlugin@ the @artifactId@ will be "feeds". If your plugin does not specify a @groupId@ then this defaults to "org.grails.plugins".
+{hidden}The 'artifactId' is taken from the plugin name. For example if you have a plugin called @FeedsGrailsPlugin@ the @artifactId@ will be "feeds". If your plugin does not specify a @groupId@ then this defaults to "org.grails.plugins".{hidden}
+'artifactId'は、プラグイン名から取得されます。たとえば、@FeedsGrailsPlugin@というプラグインの場合、@artifactId@は "feeds"になります。プラグインが@groupId@を指定していない場合、デフォルト設定の"org.grails.plugins"となります。
