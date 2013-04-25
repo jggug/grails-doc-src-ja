@@ -1,21 +1,65 @@
+{hidden}
 Grails is actually a [Spring MVC|http://www.springframework.org/docs/MVC-step-by-step/Spring-MVC-step-by-step.html] application in disguise. Spring MVC is the Spring framework's built-in MVC web application framework. Although Spring MVC suffers from some of the same difficulties as frameworks like Struts in terms of its ease of use, it is superbly designed and architected and was, for Grails, the perfect framework to build another framework on top of.
+{hidden}
+Grailsは、実はGrailsという皮を被った[Spring MVC|http://www.springframework.org/docs/MVC-step-by-step/Spring-MVC-step-by-step.html]アプリケーションです。
+Spring MVCはSpring frameworkに含まれているMVCウェブアプリケーションフレームワークです。
+Spring MVCはStrutsのようなフレームワークと同様に、使いやすさの面においては多少難があるため悩まされますが、その上に他のフレームワークを構築するには申し分ないフレームワークであり、Grailsにとってはすばらしい設計とアーキテクチャであるといえます。
 
+{hidden}
 Grails leverages Spring MVC in the following areas:
+{hidden}
+GrailsはSpring MVCを次の領域で活用しています:
 
+{hidden}
 * Basic controller logic - Grails subclasses Spring's [DispatcherServlet|api:org.springframework.web.servlet.DispatcherServlet] and uses it to delegate to Grails [controllers|guide:controllers]
+{hidden}
+* 基本的なコントローラのロジック - GrailsのサーブレットはSpringの[DispatcherServlet|api:org.springframework.web.servlet.DispatcherServlet]のサブクラスであり、それを用いてGrailsの[コントローラ|guide:controllers]にディスパッチを行います
+{hidden}
 * Data Binding and Validation - Grails' [validation|guide:validation] and [data binding|guide:dataBinding] capabilities are built on those provided by Spring
+{hidden}
+* データバインディングとバリデーション - Grailsの[バリデーション|guide:validation]と[データバインディング|guide:dataBinding]の機能は、Springで提供されているものを用いています
+{hidden}
 * Runtime configuration - Grails' entire runtime convention based system is wired together by a Spring [ApplicationContext|api:org.springframework.context.ApplicationContext]
+{hidden}
+* ランタイム設定 - Grailsランタイム全体の規約に基づくシステムはSpringの[ApplicationContext|api:org.springframework.context.ApplicationContext]と結びついています
+{hidden}
 * Transactions - Grails uses Spring's transaction management in [GORM|guide:GORM]
+{hidden}
+* トランザクション - GrailsはSpringのトランザクション管理を[GORM|guide:GORM]で利用しています
 
+{hidden}
 In other words Grails has Spring embedded running all the way through it.
+{hidden}
+言い換えれば、Grailsはすべての機能を組み込まれたSpringを介して実行しているということになります。
 
+{hidden}
 h4. The Grails ApplicationContext
+{hidden}
+h4. Grailsアプリケーションコンテキスト
 
+{hidden}
 Spring developers are often keen to understand how the Grails @ApplicationContext@ instance is constructed. The basics of it are as follows.
+{hidden}
+Spring開発者は、どのようにGrailsの@ApplicationContext@インスタンスが組み立てられるのか理解したい、と熱心に望んでいます。
+基本的には次のようになります:
 
+{hidden}
 * Grails constructs a parent @ApplicationContext@ from the @web-app/WEB-INF/applicationContext.xml@ file. This @ApplicationContext@ configures the [GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication] instance and the [GrailsPluginManager|api:org.codehaus.groovy.grails.plugins.GrailsPluginManager].
+{hidden}
+* Grailsが@web-app/WEB-INF/applicationContext.xml@ファイルから親となる@ApplicationContext@を組み立てます。この@ApplicationContext@は[GrailsApplication|http://grails.org/doc/latest/api/org/codehaus/groovy/grails/commons/GrailsApplication.html]インスタンスと[GrailsPluginManager|http://grails.org/doc/latest/api/org/codehaus/groovy/grails/plugins/GrailsPluginManager.html]を設定します。
+{hidden}
 * Using this @ApplicationContext@ as a parent Grails' analyses the conventions with the @GrailsApplication@ instance and constructs a child @ApplicationContext@ that is used as the root @ApplicationContext@ of the web application
+{hidden}
+* この親となる@ApplicationContext@を用いて、@GrailsApplication@インスタンスと共にGrailsの規約を解析し、Webアプリケーションのルートとして利用される子@ApplicationContext@を組み立てます。
 
+{hidden}
 h4. Configured Spring Beans
+{hidden}
+h4. 構成されたSpringビーン
 
+{hidden}
 Most of Grails' configuration happens at runtime. Each [plugin|guide:plugins] may configure Spring beans that are registered in the @ApplicationContext@. For a reference as to which beans are configured, refer to the reference guide which describes each of the Grails plugins and which beans they configure.
+{hidden}
+Grailsの設定のほとんどは実行時に行われます。
+各[plugin|guide:plugins]は@ApplicationContext@に登録されているSpringビーンを構成することができます。
+構成されるビーンの詳細については各プラグインのリファレンスガイドを参照してください。
