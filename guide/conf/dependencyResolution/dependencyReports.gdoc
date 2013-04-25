@@ -1,18 +1,22 @@
-As mentioned in the previous section a Grails application consists of dependencies inherited from the framework, the plugins installed and the application dependencies itself.
+{hidden}As mentioned in the previous section a Grails application consists of dependencies inherited from the framework, the plugins installed and the application dependencies itself.{hidden}
+以前の節で述べたように、Grailsアプリケーションの依存関係は、フレームワークから継承した依存関係、インストールしたプラグインの依存関係、またアプリケーション自身で設定した依存関係で構成されます。
 
-To obtain a report of an application's dependencies you can run the [dependency-report|commandLine] command:
+{hidden}To obtain a report of an application's dependencies you can run the [dependency-report|commandLine] command:{hidden}
+アプリケーションの依存関係のレポートを取得するには、[dependency-report|commandLine]コマンドを実行します:
 
 {code}
 grails dependency-report
 {code}
 
-By default this will generate reports in the @target/dependency-report@ directory. You can specify which configuration (scope) you want a report for by passing an argument containing the configuration name:
+{hidden}By default this will generate reports in the @target/dependency-report@ directory. You can specify which configuration (scope) you want a report for by passing an argument containing the configuration name:{hidden}
+デフォルトでは、@target/dependency-report@ディレクトリにレポートが生成されます。設定名を引数に渡すことで、レポートを作成したい設定（スコープ）を指定することもできます:
 
 {code}
 grails dependency-report runtime
 {code}
 
-As of Grails 2.3 the @dependency-report@ command will also output to the console a graph of the dependencies of an application. Example output it shown below:
+{hidden}As of Grails 2.3 the @dependency-report@ command will also output to the console a graph of the dependencies of an application. Example output it shown below:{hidden}
+Grails2.3では、@dependency-report@コマンドはアプリケーションの依存関係のグラフをコンソールへ出力します。出力例を以下に示します:
 
 {code}
 compile - Dependencies placed on the classpath for compilation (total: 73)
