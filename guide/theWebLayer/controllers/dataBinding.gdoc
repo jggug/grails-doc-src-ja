@@ -1,9 +1,6 @@
 {hidden}Data binding is the act of "binding" incoming request parameters onto the properties of an object or an entire graph of objects. Data binding should deal with all necessary type conversion since request parameters, which are typically delivered by a form submission, are always strings whilst the properties of a Groovy or Java object may well not be.{hidden}
 データバインディングとは、受信したリクエストパラメータを、オブジェクトのプロパティまたオブジェクト構造へ結合させる機能です。データバインディングでは、フォームから送信された文字列のリクエストパラメータを、必要な型への変換を行います。
 
-{hidden}Grails uses [Spring|http://www.springframework.org]'s underlying data binding capability to perform data binding.{hidden}
-Grailsでは、[Spring|http://www.springframework.org]のデータバインディングを基礎にデータバインディングを行います。
-
 h4. モデルにリクエストデータをバインドする {hidden}Binding Request Data to the Model {hidden}
 
 {hidden}There are two ways to bind request parameters onto the properties of a domain class. The first involves using a domain classes' Map constructor:{hidden}
@@ -36,6 +33,18 @@ def save() {
 
 {hidden}This has the same effect as using the implicit constructor.{hidden}
 上記の例で先ほどのコンストラクタと同じ結果となります。
+
+When binding an empty String (a String with no characters in it, not even spaces) to a constrained property which has been configured as nullable, the data binder will convert the empty String to null.  This simplifies the most common case where the intent is to treat an empty form field as having the value null since there isn't a way to actually submit a null as a request parameter.  When this behavior is not desireable the application may assign the value directly.
+
+The mass property binding mechanism will by default automatically trim all Strings at binding time.  To disable this behavior set the grails.databinding.trimStrings value to false in @grails-app/conf/Config.groovy@.
+
+{code:java}
+// the default value is true
+grails.databinding.trimStrings = false
+
+// ...
+
+{code}
 
 {warning}
 These forms of data binding in Grails are very convenient, but also indiscriminate. In other words, they will bind _all_ non-transient, typed instance properties of the target object, including ones that you may not want bound. Just because the form in your UI doesn't submit all the properties, an attacker can still send malign data via a raw HTTP request. Fortunately, Grails also makes it easy to protect against such attacks - see the section titled "Data Binding and Security concerns" for more information.
@@ -160,6 +169,18 @@ Grailsが間のインスタンスも自動的に生成します。上記のケ�
 {hidden}This would bind the selected image into the @Map@ property @images@ under a key of @"cover"@.{hidden}
 この例では、Mapプロパティimagesのキー"cover"に対してバインドされます。
 
+When binding to Maps, Arrays and Collections the data binder will automatically grow the size of the collections as necessary.  The default limit to how large the binder will grow a collection is 256.  If the data binder encounters an entry that requires the collection be grown beyond that limit, the entry is ignored.  The limit may be configured by assigning a value to the @grails.databinding.autoGrowCollectionLimit@ property in @Config.groovy@.
+
+{code:java}
+// grails-app/conf/Config.groovy
+
+// the default value is 256
+grails.databinding.autoGrowCollectionLimit = 128
+
+// ...
+
+{code}
+
 h4. 複数ドメインクラスでのデータバインディング {hidden}Data binding with Multiple domain classes {hidden}
 
 {hidden}It is possible to bind data to multiple domain objects from the [params|controllers] object.{hidden}
@@ -270,6 +291,163 @@ typeMismatch.java.net.URL=The field {0} is not a valid URL
 {code:java}
 typeMismatch.Book.publisherURL=The publisher URL you specified is not a valid URL
 {code}
+
+h4. The BindUsing Annotation
+
+The [BindUsing|api:org.grails.databinding.BindUsing] annotation may be used to define a custom binding mechanism for a particular field in a class.  Any time data binding is being applied to the field the closure value of the annotation will be invoked with 2 arguments.  The first argument is the object that data binding is being applied to and the second argument is a @Map@ which is the data source for the data binding.  The value returned from the closure will be bound to the property.  The following example would result in the upper case version of the @name@ value in the source being applied to the @name@ field during data binding.
+
+{code:java}
+import org.grails.databinding.BindUsing
+
+class SomeClass {
+    @BindUsing({
+        obj, source -> source['name']?.toUpperCase()
+    })
+    String name
+}
+{code}
+
+The [BindUsing|api:org.grails.databinding.BindUsing] annotation may be used to define a custom binding mechanism for all of the fields on a particular class. When the annotation is applied to a class, the value assigned to the annotation should be a class which implements the [BindingHelper|api:org.grails.databinding.BindingHelper] interface.  An instance of that class will be used any time a value is bound to a property in the class that this annotation has been applied to. 
+
+{code:java}
+@BindUsing(SomeClassWhichImplementsBindingHelper)
+class SomeClass {
+    String someProperty
+    Integer someOtherProperty
+}
+{code}
+
+h4. Custom Data Converters
+
+The binder will do a lot of type conversion automatically.  Some applications may want to define their own mechanism for converting values and a simple way to do this is to write a class which implements [ValueConverter|api:org.grails.databinding.converters.ValueConverter] and register an instance of that class as a bean in the Spring application context.
+
+{code:java}
+package com.myapp.converters
+
+import org.grails.databinding.converters.ValueConverter
+
+/**
+ * A custom converter which will convert String of the
+ * form 'city:state' into an Address object.
+ */
+class AddressValueConverter implements ValueConverter {
+
+    boolean canConvert(value) {
+        value instanceof String
+    }
+
+    def convert(value) {
+        def pieces = value.split(':')
+        new com.myapp.Address(city: pieces[0], state: pieces[1])
+    }
+
+    Class<?> getTargetType() {
+        com.myapp.Address
+    }
+}
+{code}
+
+An instance of that class needs to be registered as a bean in the Spring application context.  The bean name is not important.  All beans that implemented ValueConverter will be automatically plugged in to the data binding process.
+
+{code:java}
+// grails-app/conf/spring/resources.groovy
+
+beans = {
+
+    addressConverter com.myapp.converters.AddressValueConverter
+
+    // ...
+
+}
+{code}
+
+{code}
+class Person {
+    String firstName
+    Address homeAddress
+}
+
+class Address {
+    String city
+    String state
+}
+
+def person = new Person()
+person.properties = [firstName: 'Jeff', homeAddress: "O'Fallon:Missouri"]
+assert person.firstName == 'Jeff'
+assert person.homeAddress.city = "O'Fallon"
+assert person.homeAddress.state = 'Missouri'
+{code}
+
+h4. Date Formats For Data Binding
+
+A custom date format may be specified to be used when binding a String to a Date value by applying the [BindingFormat|api:org.grails.databinding.BindingFormat] annotation to a Date field.
+
+{code:java}
+import org.grails.databinding.BindingFormat
+
+class Person {
+    @BindingFormat('MMddyyyy')
+    Date birthDate
+}
+{code}
+
+h4. Custom Formatted Converters
+
+You may supply your own handler for the [BindingFormat|api:org.grails.databinding.BindingFormat] annotation by writing a class which implements the [FormattedValueConverter|api:org.grails.databinding.converters.FormattedValueConverter] interface and regiserting an instance of that class as a bean in the Spring application context.  Below is an example of a trivial custom String formatter that might convert the case of a String based on the value assigned to the BindingFormat annotation.
+
+{code:java}
+package com.myapp.converters
+
+import org.grails.databinding.converters.FormattedValueConverter
+
+class FormattedStringValueConverter implements FormattedValueConverter {
+    def convert(value, String format) {
+        if('UPPERCASE' == format) {
+            value = value.toUpperCase()
+        } else if('LOWERCASE' == format) {
+            value = value.toLowerCase()
+        }
+        value
+    }
+
+    Class getTargetType() {
+        // specifies the type to which this converter may be applied
+        String
+    }
+}
+{code}
+
+An instance of that class needs to be registered as a bean in the Spring application context.  The bean name is not important.  All beans that implemented FormattedValueConverter will be automatically plugged in to the data binding process.
+
+{code:java}
+// grails-app/conf/spring/resources.groovy
+
+beans = {
+
+    formattedStringConverter com.myapp.converters.FormattedStringValueConverter
+
+    // ...
+
+}
+{code}
+
+With that in place the BindUsing annotation may be applied to String fields to inform the data binder to take advantage of the custom converter.
+
+{code:java}
+import org.grails.databinding.BindingFormat
+
+class Person {
+    @BindingFormat('UPPERCASE')
+    String someUpperCaseString
+
+    @BindingFormat('LOWERCASE')
+    String someLowerCaseString
+
+    String someOtherString
+}
+{code}
+
 
 h4. データバインディングとセキュリティ考慮 {hidden}Data Binding and Security concerns {hidden}
 

@@ -7,13 +7,16 @@ The starting point for Grails. This command creates a Grails application using t
 h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
-grails create-app bookstore
+grails create-app bookstore --skip-wrapper
 cd bookstore
 {code}
+
+引数: {hidden}Arguments:{hidden}
+* @skip-wrapper@ - If set the grailsw wrapper script and support files will not be generated
 
 h2. 詳細 {hidden}Description{hidden}
 
 使用方法: {hidden}Usage:{hidden}
 {code:java}
-grails create-app [name]
+grails create-app [name] [--skip-wrapper]
 {code}

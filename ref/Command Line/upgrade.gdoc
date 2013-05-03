@@ -8,6 +8,8 @@ h2. 使用例 {hidden}Examples{hidden}
 
 {code:java}
 grails upgrade
+grails upgrade --update-data-source
+grails upgrade --force
 {code}
 
 h2. 詳細 {hidden}Description{hidden}
@@ -16,6 +18,11 @@ h2. 詳細 {hidden}Description{hidden}
 {code:java}
 grails upgrade
 {code}
+
+引数: {hidden}Arguments:{hidden}
+
+* @update-data-source@ - upgrades DataSource.groovy to use H2 instead of HSQLDB.
+* @force@ - suppress warning messages
 
 発生するイベント: {hidden}Fired Events:{hidden}
 

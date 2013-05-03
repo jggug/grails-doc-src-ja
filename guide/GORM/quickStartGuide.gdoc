@@ -21,7 +21,7 @@ class Person {
 {code}
 
 {note}
-{hidden}If you have the @dbCreate@ property set to "update", "create" or "create-drop" on your [データソース|guide:dataSource], Grails will automatically generate/modify the database tables for you.{hidden}
+{hidden}If you have the @dbCreate@ property set to "update", "create" or "create-drop" on your [DataSource|guide:dataSource], Grails will automatically generate/modify the database tables for you.{hidden}
 [データソース|guide:dataSource]の@dbCreate@プロパティに"update", "create" または "create-drop"が設定されている場合は、ドメインクラスに対応したデータベースのテーブルを自動的に作成/修正します。
 {note}
 

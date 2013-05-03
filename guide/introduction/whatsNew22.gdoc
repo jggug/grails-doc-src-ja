@@ -75,7 +75,7 @@ Grails 2.2では、開発モードにおいて、Tomcatコンテナを実行す�
 {hidden}
 * Reduced memory consumption, since the Grails build system can exit
 * Isolation of the build classpath from the runtime classpath
-* The ability to deploy other Grails/Spring applications in parallels without conflicting dependencies
+* The ability to deploy other Grails/Spring applications in parallel without conflicting dependencies
 {hidden}
 * Grailsビルドシステムから抜けられるため、メモリーの消耗を減らします。
 * ランタイムクラスパスから、独立したビルドクラスパス。

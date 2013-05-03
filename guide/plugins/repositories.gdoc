@@ -51,9 +51,9 @@ h4. 追加リポジトリの設定
 
 Grailsにおけるリポジトリの設定手順は、Grailsのバージョンによって異なっています。Grails 1.2以前の情報については[Grails 1.2のドキュメンテーション|http://grails.org/doc/1.2.x/guide/12.%20Plug-ins.html#12.2%20Plugin%20Repositories]を参照ください。以降の節は、Grails 1.3以降について記述しています。
 
-{hidden}Grails 1.3 and above use Ivy under the hood to resolve plugin dependencies. The mechanism for defining additional plugin repositories is largely the same as [defining repositories for JAR dependencies|guide:ivy]. For example you can define a remote Maven repository that contains Grails plugins using the following syntax in @grails-app/conf/BuildConfig.groovy@:{hidden}
+{hidden}Grails 1.3 and above use Ivy under the hood to resolve plugin dependencies. The mechanism for defining additional plugin repositories is largely the same as [defining repositories for JAR dependencies|guide:dependencyResolution]. For example you can define a remote Maven repository that contains Grails plugins using the following syntax in @grails-app/conf/BuildConfig.groovy@:{hidden}
 
-Grails 1.3以上では、下位層に隠されているIvyがプラグインの依存性を解決します。プラグインリポジトリを追加定義する仕組みは、 [JAR依存性を定義|guide:ivy]する方法とほぼ同じです。例えば、Grailsプラグインを含むリモートMavenリポジトリを定義するには、 @grails-app/conf/BuildConfig.groovy@中で以下のように記述します:
+Grails 1.3以上では、下位層に隠されているIvyがプラグインの依存性を解決します。プラグインリポジトリを追加定義する仕組みは、 [JAR依存性を定義|guide:dependencyResolution]する方法とほぼ同じです。例えば、Grailsプラグインを含むリモートMavenリポジトリを定義するには、 @grails-app/conf/BuildConfig.groovy@中で以下のように記述します:
 
 {code}
 repositories {

@@ -64,7 +64,7 @@ def index() {
 
 h4. ビューの選択{hidden}Selecting the View {hidden}
 
-{hidden}In both of the previous two examples there was no code that specified which [view|guide:gsp] to render. So how does Grails know which one to pick? The answer lies in the conventions. Grails will look for a view at the location @grails-app/views/book/show.gsp@ for this @list@ action:{hidden}
+{hidden}In both of the previous two examples there was no code that specified which [view|guide:gsp] to render. So how does Grails know which one to pick? The answer lies in the conventions. Grails will look for a view at the location @grails-app/views/book/show.gsp@ for this @show@ action:{hidden}
 これまでの例ではビューがどのように設定されるのかを説明しませんでたが、Grailsではどのようにビューを選択しているのでしょうか？答えは慣習にあります。何も指定しなければ、以下のアクションでは、Grailsが自動的に、@grails-app/views/book/show.gsp@をビューとして使用します。
 
 {code:java}

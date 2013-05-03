@@ -45,7 +45,7 @@ Grailsは自動でテストクラスをインポートするため、全ての�
 * @grails.test.mixin.webflow/WebFlowUnitTestMixin@
 
 {hidden}
-Note that you're only ever likely to use the first two explicitly. The rest are there for reference.
+Note that you're only ever likely to use the first two explicitly. The rest are there for reference. 
 {hidden}
 常に明示的に使うのは最初の２つのクラスだけであることに注意してください。残りはリファレンスのために列挙しています。
 

@@ -1,58 +1,53 @@
-{hidden}To implement the typical "hello world!" example @cd@ into the "helloworld" directory created in the previous section and activate interactive mode:{hidden}
-単純な"Hello World！"を実装してみましょう。前のセクションで作成されたディレクトリ"helloworld"に@cd@コマンドで移動してインタラクティブモードを開始します。
+Let's now take the new project and turn it into the classic "Hello world!" example. First, change into the "helloworld" directory you just created and start the Grails interactive console:
 
-{code}
+bc.
 $ cd helloworld
 $ grails
-{code}
 
-{hidden}Grails' interactive mode will be activated and you should see a prompt that looks like the following:{hidden}
-Grailsのインタラクティブモードが開始されたら、プロンプトが次のように表示されます:
+You should see a prompt that looks like this:
 
 !interactive-helloworld.png!
 
-{hidden}Now run the [create-controller|commandLine] command:{hidden}
-では、[create-controller|commandLine]コマンドを実行してみましょう:
+What we want is a simple page that just prints the message "Hello World!" to the browser. In Grails, whenever you want a new page you just create a new controller action for it. Since we don't yet have a controller, let's create one now with the [create-controller|commandLine] command:
 
 bc.
 grails> create-controller hello
 
-{hidden}This will create a new controller (Refer to the section on [Controllers|guide:controllers] for more information) in the @grails-app/controllers@ directory called @helloworld/HelloController.groovy@.{hidden}
-このコマンドによって、@grails-app/controllers@ディレクトリ内に、@HelloController.groovy@という新しいコントローラ（詳細については[コントローラ|guide:controllers]のセクションを参照してください）が生成されます。
+Don't forget that in the interactive console, we have auto-completion on command names. So you can type "cre" and then press <tab> to get a list of all @create\-\*@ commands. Type a few more letters of the command name and then <tab> again to finish.
 
-{note}
-{hidden}If no package is specified with create-controller script, Grails automatically uses the application name as the package name. This default is configurable with the @grails.project.groupId@ attribute in Config.groovy.{hidden}
-create-controllerスクリプトでパッケージが指定されなかった場合はGrailsが自動的にアプリケーション名をパッケージ名として使用します。デフォルト値はConfig.groovyに@grails.project.groupId@を指定することで変更可能です。
-{note}
+The above command will create a new [controller|guide:controllers] in the @grails-app/controllers/helloworld@ directory called @HelloController.groovy@. Why the extra @helloworld@ directory? Because in Java land, it's strongly recommended that all classes are placed into packages, so Grails defaults to the application name if you don't provide one. The reference page for [create-controller|commandLine] provides more detail on this.
 
-{hidden}Controllers are capable of dealing with web requests and to fulfil the "hello world!" use case our implementation needs to look like the following:{hidden}
-コントローラは、Webリクエストを処理します。"hello world!"を表示するには、次のように記述します。
+We now have a controller so let's add an action to generate the "Hello World!" page. The code looks like this: 
 
 {code:java}
 package helloworld
 
 class HelloController {
 
-    def world() {
+    def index() {
         render "Hello World!"
     }
 }
 {code}
 
-{hidden}Job done. Now start-up the container with another new command called [run-app|commandLine]:{hidden}
-作業は以上です。次に[run-app|commandLine]コマンドで、このアプリケーションを起動させましょう:
+The action is simply a method. In this particular case, it calls a special method provided by Grails to [render|tags] the page.
+
+Job done. To see your application in action, you just need to start up a server with another command called [run-app|commandLine]:
 
 bc.
 grails> run-app
 
-{hidden}This will start-up a server on port 8080 and you should now be able to access your application with the URL: @http://localhost:8080/helloworld@ {hidden}
-これで8080番ポートでサーバを起動します。@http://localhost:8080/helloworld@をブラウザで見てみましょう。
+This will start an embedded server on port 8080 that hosts your application. You should now be able to access your application at the URL [http://localhost:8080/helloworld/|http://localhost:8080/helloworld/] - try it!
 
-{hidden}The result will look something like the following screenshot:{hidden}
-結果は次のスクリーンショットのようになります:
+{note}
+If you see the error "Server failed to start for port 8080: Address already in use", then it means another server is running on that port. You can easily work around this by running your server on a different port using @-Dserver.port=9090 run-app@. '9090' is just an example: you can pretty much choose anything within the range 1024 to 49151.
+{note}
+
+The result will look something like this:
 
 !intropage.png!
 
-{hidden}This is the Grails intro page which is rendered by the @web-app/index.gsp@ file. You will note it has a detected the presence of your controller and clicking on the link to our controller we can see the text "Hello World!" printed to the browser window.{hidden}
-これは@grails-app/views/index.gsp@ファイルによって描写されたアプリケーションの初期画面です。画面にはコントローラへのリンクが表示されています。このリンクをクリックすることで、画面に"Hello World！"が表示されます。
+This is the Grails intro page which is rendered by the @grails-app/view/index.gsp@ file. It detects the presence of your controllers and provides links to them. You can click on the "HelloController" link to see our custom page containing the text "Hello World!". Voila! You have your first working Grails application.
+
+One final thing: a controller can contain many actions, each of which corresponds to a different page (ignoring AJAX at this point). Each page is accessible via a unique URL that is composed from the controller name and the action name: /<appname>/<controller>/<action>. This means you can access the Hello World page via [/helloworld/hello/index|http://localhost:8080/helloworld/hello/index], where 'hello' is the controller name (remove the 'Controller' suffix from the class name and lower-case the first letter) and 'index' is the action name. But you can also access the page via the same URL without the action name: this is because 'index' is the _default action_. See the end of the [controllers and actions|guide:understandingControllersAndActions] section of the user guide to find out more on default actions.
 

@@ -62,7 +62,7 @@ conf:
 commandLine:
   title: コマンドライン
   interactiveMode: インタラクティブモード
-  forkedMode: フォークされたTomcat実行
+  forkedMode: フォーク実行
   creatingGantScripts: Gantスクリプトの作成
   reusingGrailsScripts: Grailsスクリプトの再利用
   events: イベントを取得する
@@ -136,7 +136,6 @@ theWebLayer:
     commandObjects: コマンドオブジェクト
     formtokens: フォーム二重送信のハンドリング
     typeConverters: シンプルタイプコンバータ
-    asynchronousRequestProcessing: 非同期リクエスト処理(OLD)
   gsp:
     title: Groovyサーバーページ
     GSPBasics:
@@ -262,6 +261,7 @@ i18n:
 security:
   title: セキュリティ
   securingAgainstAttacks: 攻撃からの防御
+  xssPrevention: クロスサイトスクリプティング(XSS)防御
   codecs: エンコード・デコードオブジェクト
   authentication: 認証
   securityPlugins:

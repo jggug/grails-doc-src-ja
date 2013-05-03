@@ -8,6 +8,10 @@ Grailsをインストールする前に、Java Development Kit (JDK) 1.6以上�
 {hidden}These will show you how to install Grails too, not just the JDK.{hidden}
 これらの動画は、JDKのセットアップのみではなく、Grailsのインストールまで解説しています。
 
+{note}
+A JDK is required in your Grails development environment. A JRE is not sufficient.
+{note}
+
 {hidden}On some platforms (for example OS X) the Java installation is automatically detected. However in many cases you will want to manually configure the location of Java. For example:{hidden}
 一部のOS環境(OSX等)では、自動的にJavaが認識されます。別途設定したい場合は、次のように設定してください:
 

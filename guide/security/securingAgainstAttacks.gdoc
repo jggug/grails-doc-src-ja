@@ -48,11 +48,12 @@ h4. フィッシング
 {hidden}h4. XSS - cross-site scripting injection{hidden}
 h4. XSS - クロスサイトスクリプティングインジェクション
 
-{hidden}It is important that your application verifies as much as possible that incoming requests were originated from your application and not from another site. Ticketing and page flow systems can help this and Grails' support for "Spring Web Flow":http://www.springsource.org/webflow includes security like this by default.{hidden}
-要求されたリクエストがあなたのアプリケーションのものであり、他のサイトからではないということを、できる限り検証することが重要です。チケットシステムやページ遷移システムによる支援や、Grailsの"Spring Web Flow":http://www.springsource.org/webflow サポートは、デフォルトでこのようなセキュリティ対策を含んでいます。
 
-{hidden}It is also important to ensure that all data values rendered into views are escaped correctly. For example when rendering to HTML or XHTML you must call [encodeAsHTML|guide:codecs] on every object to ensure that people cannot maliciously inject JavaScript or other HTML into data or tags viewed by others. Grails supplies several [Dynamic Encoding Methods|guide:codecs] for this purpose and if your output escaping format is not supported you can easily write your own codec.{hidden}
-ビューにレンダリングされる全てのデータが、確実に、正しくエスケープ処理されることもまた、重要です。例えば、HTMLまたはXHTMLをレンダリングする際、他人が見ることができるデータやタグに対して、JavaScriptや他のHTMLを悪意を持って挿入することができないよう、確実に全てのオブジェクトで[encodeAsHTML|guide:codecs]を呼び出す必要があります。Grailsでは、こうした目的のために、いくつかの[動的なエンコード機能|guide:codecs]を提供しています。また、あなたが必要とするエスケープ処理がサポートされていない場合にも、必要なコーデックを容易に書くことができます。
+{hidden}It is important that your application verifies as much as possible that incoming requests were originated from your application and not from another site. It is also important to ensure that all data values rendered into views are escaped correctly. For example when rendering to HTML or XHTML you must ensure that people cannot maliciously inject JavaScript or other HTML into data or tags viewed by others. {hidden}
+要求されたリクエストがあなたのアプリケーションのものであり、他のサイトからではないということを、できる限り検証することが重要です。ビューにレンダリングされる全てのデータが、確実に、正しくエスケープ処理されることもまた重要です。例えば、HTMLまたはXHTMLをレンダリングする際、他人が見ることができるデータやタグに対して、JavaScriptや他のHTMLを悪意を持って挿入することができないようにする必要があります。
+
+{hidden}Grails 2.3 and above include special support for automatically encoded data placed into GSP pages. See the documentation on [Cross Site Scripting (XSS) prevention|guide:xssPrevention] for further information.{hidden}
+Grails 2.3以降では、自動的にエンコードしたデータをGSPに配置する仕組みが実装されています。詳しくは [クロスサイトスクリプティング(XSS)防御|guide:xssPrevention] のドキュメントを参照してください。
 
 {hidden}You must also avoid the use of request parameters or data fields for determining the next URL to redirect the user to. If you use a @successURL@ parameter for example to determine where to redirect a user to after a successful login, attackers can imitate your login procedure using your own site, and then redirect the user back to their own site once logged in, potentially allowing JavaScript code to then exploit the logged-in account on the site.{hidden}
 ユーザのリダイレクト先URLを決めるためにリクエストパラメータやデータフィールドを使うこともまた、避けなければなりません。ログイン成功後、ユーザをどこへリダイレクトするか決定するために、例えば、あなたが@successURL@パラメータを使うような場合、攻撃者は、あなた自身のサイトを利用してログイン手順を偽装し、ユーザがログインしようとしたときに攻撃者自身のサイトにリダイレクトさせることができてしまいます。これは、潜在的に、サイト上のログインアカウントを悪用するJavaScriptコードを許していることになります。

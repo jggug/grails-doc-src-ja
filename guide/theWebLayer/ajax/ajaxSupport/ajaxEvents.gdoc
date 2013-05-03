@@ -29,8 +29,8 @@
 * @onLoaded@ - レスポンスの読み込み完了時に呼び出すJavaScriptファンクション
 * @onComplete@ - リモートファンクションが完全に完了(更新を含む)したら呼び出すJavaScriptファンクション
 
-{hidden}If you need a reference to the @XmlHttpRequest@ object you can use the implicit event parameter @event@ to obtain it:{hidden}
-@XmlHttpRequest@オブジェクトを参照する場合は、以下のように、@event@等のイベントパラメータ使用して取得します:
+{hidden}You can simply refer to the @XMLHttpRequest@ variable to obtain the request:{hidden}
+リクエストを取得するには、単純に@XMLHttpRequest@変数で参照できます:
 
 {code:xml}
 <g:javascript>
@@ -41,5 +41,5 @@
 </g:javascript>
 <g:remoteLink action="example"
               update="success"
-              onSuccess="fireMe(event)">Ajax Link</g:remoteLink>
+              onFailure="fireMe(XMLHttpRequest)">Ajax Link</g:remoteLink>
 {code}
