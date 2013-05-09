@@ -1,6 +1,16 @@
+{hidden}
 You can still use GORM validation even if you use a Java domain model. Grails lets you define constraints through separate scripts in the @src/java@ directory. The script must be in a directory that matches the package of the corresponding domain class and its name must have a _Constraints_ suffix. For example, if you had a domain class @org.example.Book@, then you would create the script @src/java/org/example/BookConstraints.groovy@\.
+{hidden}
+Javaのドメインモデルを使用する場合でも、GORMのバリデーションを使用できます。
+Grailsでは@src/java@ディレクトリ内の、別個のスクリプトを通じて制約を定義します。
+このスクリプトは、対応するドメインクラスのパッケージと同じディレクトリ内に格納し、ファイル名のサフィックスは _Constraints_ でなければなりません。
+たとえば、@org.example.Book@というドメインクラスの場合は、@src/java/org/example/BookConstraints.groovy@というスクリプトを作成します。
 
+{hidden}
 Add a standard GORM @constraints@ block to the script:
+{hidden}
+そして、このスクリプトに通常のGORMの@constraints@ブロックを追加してください。
+
 {code}
 constraints = {
     title blank: false
@@ -8,4 +18,7 @@ constraints = {
 }
 {code}
 
+{hidden}
 Once this is in place you can validate instances of your domain class!
+{hidden}
+正しく設定できていれば、ドメインクラスのインスタンスに対してバリデーションが可能になります。

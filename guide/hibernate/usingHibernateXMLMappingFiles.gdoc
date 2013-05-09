@@ -1,4 +1,9 @@
+{hidden}
 Mapping your domain classes with XML is pretty straightforward. Simply create a @hibernate.cfg.xml@ file in your project's @grails-app/conf/hibernate@ directory, either manually or with the [create-hibernate-cfg-xml|commandLine] command, that contains the following:
+{hidden}
+XMLを使用したドメインクラスのマッピングは非常に簡単です。
+手動、または[create-hibernate-cfg-xml|commandLine]コマンドを使用して、単に@grails-app/conf/hibernate@ディレクトリに@hibernate.cfg.xml@ファイルを作成します。
+ファイルの内容は以下のようになります。
 
 {code:xml}
 <?xml version='1.0' encoding='UTF-8'?>
@@ -14,9 +19,16 @@ Mapping your domain classes with XML is pretty straightforward. Simply create a 
 </hibernate-configuration>
 {code}
 
+{hidden}
 The individual mapping files, like 'org.example.Book.hbm.xml' in the above example, also go into the @grails-app/conf/hibernate@ directory. To find out how to map domain classes with XML, check out the [Hibernate manual|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/mapping.html].
+{hidden}
+上記の例のように'org.example.Book.hbm.xml'といった個々のマッピングファイルも、@grails-app/conf/hibernate@ディレクトリに格納します。
+XMLを使用して、どうのようにドメインクラスをマッピングするかは[Hibernateのマニュアル|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/mapping.html]を確認してください。
 
+{hidden}
 If the default location of the @hibernate.cfg.xml@ file doesn't suit you, you can change it by specifying an alternative location in @grails-app/conf/DataSource.groovy@:
+{hidden}
+もし@hibernate.cfg.xml@ファイルのデフォルトの格納場所を変更したい場合は、@grails-app/conf/DataSource.groovy@に別の場所を指定することで変更できます。
 
 {code}
 hibernate {
@@ -24,7 +36,10 @@ hibernate {
 }
 {code}
 
+{hidden}
 or even a list of locations:
+{hidden}
+または、場所の一覧を指定します。
 
 {code}
 hibernate {
@@ -33,4 +48,9 @@ hibernate {
 }
 {code}
 
+{hidden}
 Grails also lets you write your domain model in Java or reuse an existing one that already has Hibernate mapping files. Simply place the mapping files into @grails-app/conf/hibernate@ and either put the Java files in @src/java@ or the classes in the project's @lib@ directory if the domain model is packaged as a JAR. You still need the @hibernate.cfg.xml@ though!
+{hidden}
+GrailsではJavaでドメインモデルを書くことも、すでにHibernateのマッピングファイルを持っている既存のJavaクラスをそのまま流用することもできます。
+マッピングファイルは単に@grails-app/conf/hibernate@に格納し、Javaファイルは@src/java@に格納するか、ドメインモデルがJARファイルでパッケージングされている場合は、@lib@ディレクトリにそのクラスのJARファイルを格納します。
+その場合でも@hibernate.cfg.xml@は必要です。
