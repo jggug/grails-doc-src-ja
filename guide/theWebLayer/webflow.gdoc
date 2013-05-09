@@ -12,8 +12,8 @@ Webフローは本質的には、"フロー"の実行のステートの流れを
 
 
 {note}
-{hidden}From Grails 1.2 onwards Webflow is no longer in Grails core, so you must install the Webflow plugin to use this feature: @grails install-plugin webflow@{hidden}
-Grails 1.2からWebフローはGrailsのコア機能では無くなりました。この機能を使用するには、*Webフロープラグインをインストールする必要があります*: @grails install-plugin webflow@
+{hidden}From Grails 1.2 onwards Webflow is no longer in Grails core, so you must install the Webflow plugin to use this feature.{hidden}
+Grails 1.2からWebフローはGrailsのコア機能では無くなりました。この機能を使用するには、Webフロープラグインをインストールする必要があります. 
 {note}
 
 h4. フローの作成 {hidden}Creating a Flow{hidden}

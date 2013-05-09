@@ -2,8 +2,8 @@
 h1. Document Translation Report.
 
 * *File Count* - 273
-* *Done* - 204
-* *TODO* - 67
+* *Done* - 209
+* *TODO* - 62
 * *Not found or new* - 2
 
 h2. Original document updated after translation.:
@@ -11,7 +11,7 @@ h2. Original document updated after translation.:
 *./guide/introduction/whatsNew23.gdoc*
 
 {code}
-79 : The @create-app@ command will now by default generate the command line grailsw wrapper for newly created applications.  The @--skip-wrapper@ switch may be used to prevent the wrapper from being generated.
+80 : The @create-app@ command will now by default generate the command line grailsw wrapper for newly created applications.  The @--skip-wrapper@ switch may be used to prevent the wrapper from being generated.
 {code}
 
 h2. Not done.
@@ -61,15 +61,10 @@ h2. Not done.
 * ../en/guide/contributing/patchesCore.gdoc
 * ../en/guide/contributing/patchesDoc.gdoc
 * ../en/guide/gettingStarted/aHelloWorldExample.gdoc
-* ../en/guide/hibernate.gdoc
-* ../en/guide/hibernate/addingConstraints.gdoc
-* ../en/guide/hibernate/mappingWithHibernateAnnotations.gdoc
-* ../en/guide/hibernate/usingHibernateXMLMappingFiles.gdoc
 * ../en/guide/links.yml
 * ../en/guide/rewriteRules.txt
 * ../en/guide/security/xssPrevention.gdoc
 * ../en/guide/services/declarativeTransactions/transactionsRollbackAndTheSession.gdoc
-* ../en/guide/spring/springdslAdditional.gdoc
 * ../en/guide/spring/theBeanBuilderDSLExplained.gdoc
 * ../en/guide/testing/integrationTesting.gdoc
 * ../en/guide/testing/unitTesting/unitTestingFilters.gdoc

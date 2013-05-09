@@ -1,7 +1,7 @@
 {hidden}If you use Maven to build your Grails project, you can use the standard Maven targets @mvn install@ and @mvn deploy@.{hidden}
 GrailsプロジェクトのビルドにMavenを使用する場合は、標準のMavenのターゲットである@mvn install@および@mvn deploy@を使用できます。
-{hidden}If not, you can deploy a Grails project or plugin to a Maven repository using the [maven-publisher|http://grails.org/plugin/maven-publisher] plugin.{hidden}
-そうでない場合は、[maven-publisher|http://grails.org/plugin/maven-publisher]プラグインを使用してMavenのリポジトリにGrailsプロジェクトやプラグインをデプロイすることができます。
+{hidden}If not, you can deploy a Grails project or plugin to a Maven repository using the [release|http://grails.org/plugin/release] plugin.{hidden}
+そうでない場合は、[release|http://grails.org/plugin/release]プラグインを使用してMavenのリポジトリにGrailsプロジェクトやプラグインをデプロイすることができます。
 
 {hidden}The plugin provides the ability to publish Grails projects and plugins to local and remote Maven repositories. There are two key additional targets added by the plugin:{hidden}
 プラグインは、MavenのローカルリポジトリおよびリモートリポジトリにGrailsプロジェクトやプラグインを公開する機能を提供します。プラグインによって追加された2つの重要なターゲットがあります。

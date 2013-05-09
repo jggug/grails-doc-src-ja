@@ -1,3 +1,131 @@
+{hidden}A number of changes need to considered when upgrading your application from Grails 2.2, including:{hidden}
+Grails 2.2 から更新する際にいくつか考慮する点があります。
+
+{hidden}h4. New Data Binder {hidden}
+h4. 新データバインダー
+
+There is a new data binding mechanism written from the ground up to meet Grails' needs. If you wish to continue using Spring for data binding then you must set the @grails.databinding.useSpringBinder@ property to @true@ in @grails-app/conf/Config.groovy@
+
+{hidden}h4. Dependency Resolution changes {hidden}
+h4. 依存性管理の変更
+
+Although dependency resolution using Ivy is still supported, the default for Grails 2.3 is to use Aether and the Ivy support will not be improved upon going forward. You may wish to consider using Aether instead for your existing applications by setting the following in @grails-app/conf/BuildConfig.groovy@:
+
+{code}
+grails.project.dependency.resolver = "maven" // or ivy
+{code}
+
+In addition, the POM and dependency metadata for Grails 2.3 has been re-arranged so that only direct dependencies are specified for an application. This means that existing excludes may no longer work and may need adjusting when upgrading. Run the [dependency-report|commandLine] to see the new dependency metadata and make adjustments accordingly.
+
+{hidden}h4. No initial offline mode with Aether {hidden}
+h4. Aetherでは初期オフラインモードがありません
+
+Aether does not support resolving dependencies from a flat file system. This means that the jars we ship with Grails in GRAILS_HOME/lib are not used for the first resolve, but instead the jars are obtained from Maven central. After they have been obtained from Maven central then Aether operates fine offline.
+
+If however you do not have the necessary jars in your local Maven repository, then the only way to get offline execution is to enable Ivy via BuildConfig (see above).
+
+{hidden}h4. Forked Execution for Testing {hidden}
+h4. テストでのフォーク実行
+
+Tests are now by default executed in a forked JVM (although this can be disabled). One implication of this is that tests will be slower to execute when using:
+
+{code}
+grails test-app
+{code}
+
+The reason for this is the need to load a separate JVM to execute tests. To mitigate this Grails interactive mode has been updated to load a background JVM that can be resumed. If you do:
+
+{code}
+$ grails // load interactive mode
+$ grails -> test-app
+$ grails -> test-app
+{code}
+
+Test execution will be noticably faster and is the recommended way to run tests in Grails. On older hardware that does not include multiple cores (to run the separate JVMs) it is recommended you disable forked execution for tests to achieve faster test execution times:
+
+{code}
+forkConfig = [maxMemory: 1024, minMemory: 64, debug: false, maxPerm: 256]
+grails.project.fork = [
+   test: false, // disable forked execution for test-app
+   run: forkConfig, // configure settings for the run-app JVM
+   ...
+]
+{code}
+
+{hidden}h4. Forked Execution and the Reloading Agent {hidden}
+h4. フォーク実行とリロードエージェント
+
+In Grails 2.3 the reloading agent is no longer on the build system path unless you pass the @-reloading@ flag to the @grails@ command:
+
+{code}
+grails -reloading run-app
+{code}
+
+The reason for this is that the default in Grails 2.3 and above is to load Grails application in a forked JVM and enable the agent for the forked JVM. If you do not wish to use forked JVMs then you must ensure that you run Grails with the @-reloading@ flag. Alternatively, you can enable forking with the following configuration in @BuildConfig@:
+
+{code}
+forkConfig = [maxMemory: 1024, minMemory: 64, debug: false, maxPerm: 256]
+grails.project.fork = [
+   test: forkConfig, // configure settings for the test-app JVM
+   run: forkConfig, // configure settings for the run-app JVM
+   war: forkConfig, // configure settings for the run-war JVM
+   console: forkConfig // configure settings for the Swing console JVM
+]
+{code}
+
+{hidden}h4. Forked Execution and Remote Debugging {hidden}
+h4. フォーク実行とリモートデバッグ
+
+
+The @grails-debug@ command will no longer work with Grails for remote debugging sessions. The reason is the command enabled debugging for the build system JVM, but not the JVM used in forked execution. The solution is set the @debug@ setting to @true@ in @BuildConfig@ and use the regular @grails@ command to execute:
+
+{code}
+forkConfig = [maxMemory: 1024, minMemory: 64, debug: true, maxPerm: 256]
+grails.project.fork = [
+   run: forkConfig, // configure settings for the run-app JVM
+   ...
+{code}
+
+{hidden}h4. Changes to Core plugin versioning schemes and the Upgrade command {hidden}
+h4. コアプラグインのバージョン管理方法の変更とアップグレードコマンド
+
+Core plugins like @tomcat@ and @hibernate@ are no longer versioned the same as the Grails version, instead they are versioned according to the Tomcat and Hibernate version they target. If you are upgrading from Grails 2.2 you need to manually configure the correct Tomcat and Hibernate plugins in @BuildConfig@. The @upgrade@ command will not do this for you!
+
+{code}
+    plugins {
+        // plugins for the build system only
+        build ':tomcat:7.0.39'
+
+        // plugins needed at runtime but not for compilation
+        runtime ':hibernate:3.6.10.M3' 
+    }
+{code}
+
+Note that the @upgrade@ command will be deprecated in 2.3 and replaced with a command named @use-current-grails-version@, which will make no attempts to automatically upgrade Grails applications.
+
+{hidden}h4. Encoding / Escaping (XSS) Changes {hidden}
+h4. エンコーディング・エスケーピング(XSS)の変更
+
+
+Grails 2.3 includes new features to help prevent XSS attacks. These are enabled by default for new applications, but older applications will require manual intervention. See the section on [Cross Site Scripting (XSS) prevention|guide:xssPrevention] for how to appropriately configure XSS prevention.
+
+
+
+
+
+
+
+
+
+{note}
+公式版では以下のドキュメントはこのページに存在しません。公式版で過去の更新注意点を確認する際には該当するバージョンのドキュメントを参照してください。
+{note}
+
+h4. 2.2以前(保存用)
+{note}
+公式版では以下のドキュメントはこのページに存在しません。公式版で過去の更新注意点を確認する際には該当するバージョンのドキュメントを参照してください。
+{note}
+
 {hidden}Although the Grails development team have tried to keep breakages to a minimum there are a number of items to consider when upgrading a Grails 1.0.x, 1.1.x, 1.2.x, or 1.3.x applications to Grails 2.0. The major changes are described in more detail below, but here's a brief summary of what you might encounter when upgrading from Grails 1.3.x:{hidden}
 Grails開発チームではできる限りの下位互換を心がけていますが、Grails 2.0へ更新する際に、下位バージョンから考慮しなくてはならない内容が幾つか存在します。大きな変更点を以下にまとめます。
 

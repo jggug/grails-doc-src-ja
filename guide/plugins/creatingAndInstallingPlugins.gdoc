@@ -117,47 +117,20 @@ via Spring, but is made simpler by the coding by convention paradigm.\\\
 }
 {code}
 
-{hidden}
-h4. Installing and Distributing Plugins
-{hidden}
+h4. Installing Local Plugins
 
-h4. プラグインのインストールと配布
-
-{hidden}
-To distribute a plugin you navigate to its root directory in a console and run:
-{hidden}
-
-プラグインを配布するには、プラグインのルートディレクトリに移動して以下を実行します:
+To make your plugin available for use in a Grails application run the @maven-install@ command:
 
 {code:java}
-grails package-plugin
+grails maven-install
 {code}
 
-{hidden}
-This will create a zip file of the plugin starting with @grails-@ then the plugin name and version. For example with the example plugin created earlier this would be @grails-example-0.1.zip@. The @package-plugin@ command will also generate a @plugin.xml@ file which contains machine-readable information about plugin's name, version, author, and so on.
-{hidden}
-
-これで「@grails-@」で始まり「プラグイン名+バージョン」が続くファイル名で、このプラグインのzipファイルが作成されます。例えば、先ほど作成したexampleプラグインでは@grails-example-0.1.zip@が作成されます。@package-plugin@コマンドはプラグインに関するマシンリーダブルな情報(プラグイン名やバージョン、作者など)を含む@plugin.xml@ファイルも生成します。
-
-{hidden}
-Once you have a plugin distribution file you can navigate to a Grails project and run:
-{hidden}
-
-いったんプラグイン配布ファイルが作成されれば、Grailsプロジェクトのディレクトリに行き、以下のように実行することでプラグインをインストールすることができます:
+This will install the plugin into your local Maven cache. Then to use the plugin within an application declare a dependency on the plugin in your @grails-app/conf/BuildConfig.groovy@ file:
 
 {code:java}
-grails install-plugin /path/to/grails-example-0.1.zip
+compile ":quartz:0.1"
 {code}
 
-{hidden}
-If the plugin is hosted on an HTTP server you can install it with:
-{hidden}
-
-プラグインがHTTPサーバに置かれている場合は、以下でインストールできます。
-
-{code:java}
-grails install-plugin http://myserver.com/plugins/grails-example-0.1.zip
-{code}
 
 {hidden}
 h4. Notes on excluded Artefacts
@@ -276,24 +249,3 @@ This is particularly useful in two cases:
 The Artifactory repository for Grails now includes all the dependencies for published plugins. So, if you are using inline plugins that have dependencies, it is necessary to do a secondary resolve because these dependencies might not be in the repository. Therefore, you should set @legacyResolve@ to @true@ in your @BuildConfig.groovy@ if you are using inline plugins with dependencies.
 {note}
 
-{hidden}
-h4. Global plugins
-{hidden}
-
-h4. グローバルプラグイン
-
-{hidden}
-Plugins can also be installed globally for all applications for a particular version of Grails using the @\-global@ flag, for example:
-{hidden}
-
-@grails insatll-plugin@コマンドの実行時に@\-global@オプションを指定すると、プラグインは特定バージョンのGrailsごとに「グローバルに」インストールすることができます(訳注:@\-global@を指定しないと、プラグインはアプリごとにインストールされる。つまり複数のアプリであれば、それぞれ用にプラグインが別個にコピーされる)。以下は例です:
-
-{code}
-grails install-plugin webtest -global
-{code}
-
-{hidden}
-The default location is \$USER_HOME/.grails/<grailsVersion>/global-plugins but this can be customized with the @grails.global.plugins.dir@ setting in @BuildConfig.groovy@.
-{hidden}
-
-グローバルにインストールしたときにプラグインが保存される場所のデフォルトは、「\$USER_HOME/.grails/<grailsVersion>/global-plugins」ですが、@BuildConfig.groovy@中の@grails.global.plugins.dir@の設定で変更することも出来ます。
