@@ -1,4 +1,7 @@
+{hidden}
 To map a domain class with annotations, create a new class in @src/java@ and use the annotations defined as part of the EJB 3.0 spec (for more info on this see the [Hibernate Annotations Docs|http://annotations.hibernate.org/]):
+{hidden}
+アノテーションを使用してドメインクラスをマッピングするには、@src/java@に新たなクラスを作成し、EJB 3.0の仕様として定義されているアノテーションを使用します（より詳細な情報は[Hibernateのアノテーションに関するドキュメント|http://annotations.hibernate.org/]を参照してください）。
 
 {code:java}
 package com.books;
@@ -42,7 +45,10 @@ public class Book {
 }
 {code}
 
+{hidden}
 Then register the class with the Hibernate @sessionFactory@ by adding relevant entries to the @grails-app/conf/hibernate/hibernate.cfg.xml@ file as follows:
+{hidden}
+次に、@grails-app/conf/hibernate/hibernate.cfg.xml@ファイルに関連エントリを以下のように追加することで、Hibernateの@sessionFactory@にクラスを登録します。
 
 {code:xml}
 <!DOCTYPE hibernate-configuration SYSTEM
@@ -54,6 +60,13 @@ Then register the class with the Hibernate @sessionFactory@ by adding relevant e
     </session-factory>
 </hibernate-configuration>
 {code}
+{hidden}
 See the previous section for more information on the @hibernate.cfg.xml@ file.
+{hidden}
+@hibernate.cfg.xml@ファイルの詳細は、前のセクションを参照してください。
 
+{hidden}
 When Grails loads it will register the necessary dynamic methods with the class. To see what else you can do with a Hibernate domain class see the section on [Scaffolding|guide:scaffolding].
+{hidden}
+先程のドメインクラスをGrailsがロードするときに、クラスに対し必要なダイナミックメソッドを追加します。
+ダイナミックメソッド以外に、Hibernateのドメインクラスで何ができるかについては、[スカッフォルディング|guide:scaffolding]のセクションを参照してください。
