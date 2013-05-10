@@ -1,6 +1,13 @@
+{hidden}
 h4. Using Constructor Arguments
+{hidden}
+h4. コンストラクタ引数の使い方
 
+{hidden}
 Constructor arguments can be defined using parameters to each bean-defining method. Put them after the first argument (the Class):
+{hidden}
+コンストラクタ引数は、各ビーン定義のメソッドにパラメータを使うことで定義できます。
+パラメータはビーン定義の最初の引数(クラス)に続けて渡します。
 {code:java}
 bb.beans {
     exampleBean(MyExampleBean, "firstArgument", 2) {
@@ -9,7 +16,10 @@ bb.beans {
 }
 {code}
 
+{hidden}
 This configuration corresponds to a @MyExampleBean@ with a constructor that looks like this:
+{hidden}
+この設定は、次のように定義されている@MyExampleBean@のコンストラクタに対応付けされます。
 
 {code:java}
 MyExampleBean(String foo, int bar) {
@@ -17,9 +27,15 @@ MyExampleBean(String foo, int bar) {
 }
 {code}
 
+{hidden}
 h4. Configuring the BeanDefinition (Using factory methods)
+{hidden}
+h4. ビーン定義の設定 (ファクトリメソッドの利用)
 
+{hidden}
 The first argument to the closure is a reference to the bean configuration instance, which you can use to configure factory methods and invoke any method on the [AbstractBeanDefinition|api:org.springframework.beans.factory.support.AbstractBeanDefinition] class:
+{hidden}
+クロージャに渡される最初の引数は、対象となるビーンのインスタンスへの参照であり、ファクトリメソッドの設定や[AbstractBeanDefinition|api:org.springframework.beans.factory.support.AbstractBeanDefinition]クラス上のメソッドの呼び出しに用いることができます。
 
 {code:java}
 bb.beans {
@@ -31,7 +47,10 @@ bb.beans {
 }
 {code}
 
+{hidden}
 As an alternative you can also use the return value of the bean defining method to configure the bean:
+{hidden}
+代わりにビーン定義のメソッドの返り値を使って設定することもできます。
 
 {code:java}
 bb.beans {
@@ -42,9 +61,16 @@ bb.beans {
 }
 {code}
 
+{hidden}
 h4. Using Factory beans
+{hidden}
+h4. ファクトリビーンの利用
 
+{hidden}
 Spring defines the concept of factory beans and often a bean is created not directly from a new instance of a Class, but from one of these factories. In this case the bean has no Class argument and instead you must pass the name of the factory bean to the bean defining method:
+{hidden}
+Springはファクトリビーンの概念を定義しており、ビーンはクラスの新しいインスタンスから直接作成されないことが多く、いずれかのファクトリが用いられます。
+この場合、ビーン定義のメソッドの引数にクラスを渡さず、代わりにファクトリビーン名を渡す必要があります。
 
 {code:java}
 bb.beans {
@@ -59,7 +85,11 @@ bb.beans {
 }
 {code}
 
+{hidden}
 Another common approach is provide the name of the factory method to call on the factory bean. This can be done using Groovy's named parameter syntax:
+{hidden}
+別のアプローチとして、ファクトリビーンで呼び出すファクトリメソッドの名前を渡すことができます。
+これにはGroovyの名前付き引数の構文を用います。
 
 {code:java}
 bb.beans {
@@ -74,11 +104,21 @@ bb.beans {
 }
 {code}
 
+{hidden}
 Here the @getInstance@ method on the @ExampleFactoryBean@ bean will be called to create the @myBean@ bean.
+{hidden}
+この例では@ExampleFactoryBean@ビーン上の@getInstance@メソッドが@myBean@ビーンの生成時に呼び出されます。
 
+{hidden}
 h4. Creating Bean References at Runtime
+{hidden}
+h4. ビーンへの参照を実行時に生成する
 
+{hidden}
 Sometimes you don't know the name of the bean to be created until runtime. In this case you can use a string interpolation to invoke a bean defining method dynamically:
+{hidden}
+生成するビーンの名前を実行時に決めたい場合があります。
+そういったときは、動的にビーン定義メソッドを実行するために文字列の置き換えが使えます。
 
 {code:java}
 def beanName = "example"
@@ -89,9 +129,16 @@ bb.beans {
 }
 {code}
 
+{hidden}
 In this case the @beanName@ variable defined earlier is used when invoking a bean defining method. The example has a hard-coded value but would work just as well with a name that is generated programmatically based on configuration, system properties, etc.
+{hidden}
+この場合、前もって定義された@beanName@変数を用いてビーン定義メソッドを呼び出しています。
+この例では値をハードコードしていますが、設定やシステムプロパティ等に基づいて生成された名前でも同様に動作します。
 
+{hidden}
 Furthermore, because sometimes bean names are not known until runtime you may need to reference them by name when wiring together other beans, in this case using the @ref@ method:
+{hidden}
+さらに、そういった実行時まで名前の分からないビーンへの紐付けを、@ref@メソッドを用いて他のビーンから名前で参照する必要が生じることがあります。
 
 {code:java}
 def beanName = "example"
@@ -107,7 +154,11 @@ bb.beans {
 }
 {code}
 
+{hidden}
 Here the example property of @AnotherBean@ is set using a runtime reference to the @exampleBean@. The @ref@ method can also be used to refer to beans from a parent @ApplicationContext@ that is provided in the constructor of the @BeanBuilder@:
+{hidden}
+この例では@exampleBean@への実行時参照を用いて@AnotherBean@のプロパティに設定しています。
+@BeanBuilder@のコンストラクタで提供される親@ApplicationContext@からビーンを参照するためにも、@ref@メソッドを使うことができます。
 
 {code:java}
 ApplicationContext parent = ...//
@@ -119,11 +170,20 @@ bb.beans {
 }
 {code}
 
+{hidden}
 Here the second parameter @true@ specifies that the reference will look for the bean in the parent context.
+{hidden}
+ここでは@ref@メソッドの第2引数に@true@を渡すことで、親となるコンテキストからビーンを探すことを指定しています。
 
+{hidden}
 h4. Using Anonymous (Inner) Beans
+{hidden}
+h4. 匿名(内部)ビーンを使う
 
+{hidden}
 You can use anonymous inner beans by setting a property of the bean to a block that takes an argument that is the bean type:
+{hidden}
+ビーンの型を引数に取るブロックで、ビーンのプロパティを設定することにより匿名内部ビーンが使えます。
 
 {code:java}
 bb.beans {
@@ -150,7 +210,11 @@ bb.beans {
 }
 {code}
 
+{hidden}
 In the above example we set the @marge@ bean's husband property to a block that creates an inner bean reference. Alternatively if you have a factory bean you can omit the type and just use the specified bean definition instead to setup the factory:
+{hidden}
+上記の例では@merge@ビーンの@husband@プロパティに、内部ビーンの参照を作成したブロックを渡しています。
+ファクトリを持つビーンは型を省略でき、ファクトリをセットアップする代わりに指定されたビーンの定義を利用するだけで済みます。
 
 {code:java}
 bb.beans {
@@ -171,9 +235,15 @@ bb.beans {
 }
 {code}
 
+{hidden}
 h4. Abstract Beans and Parent Bean Definitions
+{hidden}
+h4. 抽象ビーンと親ビーンの定義
 
+{hidden}
 To create an abstract bean definition define a bean without a @Class@ parameter:
+{hidden}
+抽象ビーン定義を作成するには、パラメータに@Class@を渡さずに定義します。
 
 {code:java}
 class HolyGrailQuest {
@@ -210,7 +280,11 @@ bb.beans {
 }
 {code}
 
+{hidden}
 Here we define an abstract bean that has a @leader@ property with the value of @"Lancelot"@. To use the abstract bean set it as the parent of the child bean:
+{hidden}
+ここでは、値に@"Lancelot"@が入っている@leader@プロパティを持つ抽象ビーンを定義しています。
+子ビーンの親として抽象ビーンを使うには、次のように設定します。
 
 {code:java}
 bb.beans {
@@ -224,11 +298,19 @@ bb.beans {
 }
 {code}
 
+{hidden}
 {note}
 When using a parent bean you must set the parent property of the bean before setting any other properties on the bean!
 {note}
+{hidden}
+{note}
+親ビーンを利用するときは、ビーン上の他のプロパティを設定する前に、ビーンの@parent@プロパティへ設定する必要があります。
+{note}
 
+{hidden}
 If you want an abstract bean that has a @Class@ specified you can do it this way:
+{hidden}
+@Class@を明示して抽象ビーンを利用したい場合は、次に示す方法で可能です。
 
 {code:java}
 import grails.spring.BeanBuilder
@@ -250,23 +332,40 @@ bb.beans {
 }
 {code}
 
+{hidden}
 In this example we create an abstract bean of type @KnightOfTheRoundTable@ and use the bean argument to set it to abstract. Later we define a knights bean that has no @Class@ defined, but inherits the @Class@ from the parent bean.
+{hidden}
+この例では、ビーンの@abstract@プロパティを利用して@KnightOfTheRoundTable@型の抽象ビーンを作成しています。
+その後、@Class@の指定のない@knights@ビーンを定義していますが、@Class@は親ビーンから継承されます。
 
+{hidden}
 h4. Using Spring Namespaces
+{hidden}
+h4. Springの名前空間を使う
 
+{hidden}
 Since Spring 2.0, users of Spring have had easier access to key features via XML namespaces. You can use a Spring namespace in BeanBuilder by declaring it with this syntax:
+{hidden}
+Spring 2.0から、XML名前空間を経由して主要な機能へ簡単にアクセスすることができるようになりました。
+次の構文で宣言することにより、@BeanBuilder@でSpringの名前空間を使うことができます。
 
 {code:java}
 xmlns context:"http://www.springframework.org/schema/context"
 {code}
 
+{hidden}
 and then invoking a method that matches the names of the Spring namespace tag and its associated attributes:
+{hidden}
+そしてSpring名前空間のタグと、それに紐付いた属性の名前に一致するメソッドを呼び出します。
 
 {code:java}
 context.'component-scan'('base-package': "my.company.domain")
 {code}
 
+{hidden}
 You can do some useful things with Spring namespaces, such as looking up a JNDI resource:
+{hidden}
+JNDIリソースを解決するといったような、Spring名前空間にある有用なものを利用できます。
 
 {code:java}
 xmlns jee:"http://www.springframework.org/schema/jee"
@@ -274,7 +373,12 @@ xmlns jee:"http://www.springframework.org/schema/jee"
 jee.'jndi-lookup'(id: "dataSource", 'jndi-name': "java:comp/env/myDataSource")
 {code}
 
+{hidden}
 This example will create a Spring bean with the identifier @dataSource@ by performing a JNDI lookup on the given JNDI name. With Spring namespaces you also get full access to all of the powerful AOP support in Spring from BeanBuilder. For example given these two classes:
+{hidden}
+この例では@dataSource@という識別子で、与えられたJNDI名でJNDIを解決するSpringビーンを作成します。
+また、Spring名前空間によって@BeanBuilder@から強力なSpringのAOPサポートにフルアクセスできます。
+2つのクラスを使って例を示します。
 
 {code:java}
 class Person {
@@ -299,7 +403,10 @@ class BirthdayCardSender {
 }
 {code}
 
+{hidden}
 You can define an aspect that uses a pointcut to detect whenever the @birthday()@ method is called:
+{hidden}
+@birthday()@メソッドの呼び出しを検出するポイントカットを使用して、アスペクトを次のように定義できます。
 
 {code:java}
 xmlns aop:"http://www.springframework.org/schema/aop"
