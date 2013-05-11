@@ -1,10 +1,13 @@
 {hidden}Data binding is the act of "binding" incoming request parameters onto the properties of an object or an entire graph of objects. Data binding should deal with all necessary type conversion since request parameters, which are typically delivered by a form submission, are always strings whilst the properties of a Groovy or Java object may well not be.{hidden}
-データバインディングとは、受信したリクエストパラメータを、オブジェクトのプロパティまたオブジェクト構造へ結合させる機能です。データバインディングでは、フォームから送信された文字列のリクエストパラメータを、必要な型への変換を行います。
+データバインディングとは、受信したリクエストパラメータを、オブジェクトのプロパティやオブジェクト構造へ結合させる機能です。データバインディングでは、フォームから送信された文字列のリクエストパラメータを必要な型へに変換します。
 
+{hidden}h4. Map Based Binding{hidden}
+h4. マップを用いたバインディング
 
-h4. Map Based Binding
-
-The data binder is capable of converting and assigning values in a Map to properties of an object.  The binder will associate entries in the Map to properties of the object using the keys in the Map that have values which correspond to property names on the object.  The following code demonstrates the basics:
+{hidden}The data binder is capable of converting and assigning values in a Map to properties of an object.  The binder will associate entries in the Map to properties of the object using the keys in the Map that have values which correspond to property names on the object.  The following code demonstrates the basics:{hidden}
+データバインダは、マップの値を変換してオブジェクトのプロパティに代入します。
+バインダは、オブジェクトのプロパティ名に一致するマップのキーを使って、マップのエントリをオブジェクトのプロパティに結びつけます。
+以下のコードはその基本形を示します:
 
 {code:java}
 // grails-app/domain/Person.groovy
@@ -25,7 +28,8 @@ assert person.lastNaem == 'Gabriel'
 assert person.age == 63
 {code}
 
-To update properties of a domain object you may assign a Map to the @properties@ property of the domain class:
+{hidden}To update properties of a domain object you may assign a Map to the @properties@ property of the domain class:{hidden}
+ドメインオブジェクトのプロパティを更新するために、そのドメインクラスの@properties@プロパティにマップを代入できます。
 
 {code:java}
 def bindingMap = [firstName: 'Peter', lastName: 'Gabriel', age: 63]
@@ -38,7 +42,8 @@ assert person.lastNaem == 'Gabriel'
 assert person.age == 63
 {code}
 
-The binder can populate a full graph of objects using Maps of Maps.
+{hidden}The binder can populate a full graph of objects using Maps of Maps.{hidden}
+バインダはオブジェクトの完全なデータ構造をマップのマップを使って表現できます。
 
 {code:java}
 class Person {
@@ -66,9 +71,12 @@ assert person.homeAddress.county == 'Surrey'
 assert person.homeAddress.country == 'England'
 {code}
 
-h4. Binding To Collections And Maps
+{hidden}h4. Binding To Collections And Maps{hidden}
+h4. コレクションとマップへのバインディング
 
-The data binder can populate and update Collections and Maps.  The following code shows a simple example of populating a @List@ of objects in a domain class:
+{hidden}The data binder can populate and update Collections and Maps.  The following code shows a simple example of populating a @List@ of objects in a domain class:{hidden}
+データバインダは、コレクションとマップへの格納と更新ができます。
+以下のコードはドメインクラス上の@List@への格納の単純な例を示します。
 
 {code:java}
 class Band {
@@ -84,8 +92,8 @@ class Album {
 {code}
 
 {code:java}
-def bindingMap = [name: 'Genesis', 
-                  'albums[0]': [title: 'Foxtrot', numberOfTracks: 6], 
+def bindingMap = [name: 'Genesis',
+                  'albums[0]': [title: 'Foxtrot', numberOfTracks: 6],
                   'albums[1]': [title: 'Nursery Cryme', numberOfTracks: 7]]
 
 def band = new Band(bindingMap)
@@ -98,9 +106,13 @@ assert band.albums[1].title == 'Nursery Cryme'
 assert band.albums[1].numberOfTracks == 7
 {code}
 
-That code would work in the same way if @albums@ were an array instead of a @List@.
+{hidden}That code would work in the same way if @albums@ were an array instead of a @List@.{hidden}
+このコードは@albums@が@List@の代わりに配列だったとしても同様に動作します。
 
-Note that when binding to a @Set@ the structure of the @Map@ being bound to the @Set@ is the same as that of a @Map@ being bound to a @List@ but since a @Set@ is unordered, the indexes don't necessarily correspond to the order of elements in the @Set@.  In the code example above, if @albums@ were a @Set@ instead of a @List@, the @bindingMap@ could look exactly the same but 'Foxtrot' might be the first album in the @Set@ or it might be the second.  When updating existing elements in a @Set@ the @Map@ being assigned to the @Set@ must have @id@ elements in it which represent the element in the @Set@ being updated, as in the following example:
+{hidden}Note that when binding to a @Set@ the structure of the @Map@ being bound to the @Set@ is the same as that of a @Map@ being bound to a @List@ but since a @Set@ is unordered, the indexes don't necessarily correspond to the order of elements in the @Set@.  In the code example above, if @albums@ were a @Set@ instead of a @List@, the @bindingMap@ could look exactly the same but 'Foxtrot' might be the first album in the @Set@ or it might be the second.  When updating existing elements in a @Set@ the @Map@ being assigned to the @Set@ must have @id@ elements in it which represent the element in the @Set@ being updated, as in the following example:{hidden}
+@Set@へとバインディングするとき、@Set@にバインドされた@Map@の構造は@List@にバインドされた@Map@と同じですが、@Set@は順序を保持しないため、添字は必ずしも@Set@内の要素の順序と一致しないことに注意してください。
+上記のサンプルコードで@albums@が@List@の代わりに@Set@だったとしたら、@bindingMap@は一見まったく同じに見えるかもしれませんが、「Foxtrot」は@Set@内の最初のアルバムかもしれませんし、2番目であるかもしれません。
+以下の例のように、@Set@内の既存の要素を更新するとき、@Set@に代入する@Map@は更新されようとしている@Set@内の要素を表す@id@要素を持っていなければなりません:
 
 {code}
 /*
@@ -117,9 +129,9 @@ def band = Band.get(someBandId)
 /*
  * This will find the Album in albums that has an id of 9 and will set its title
  * to 'The Lamb Lies Down On Broadway' and will find the Album in albums that has
- * an id of 4 and set its title to 'Selling England By The Pound'.  In both 
+ * an id of 4 and set its title to 'Selling England By The Pound'.  In both
  * cases if the Album cannot be found in albums then the album will be retrieved
- * from the database by id, the Album will be added to albums and will be updated 
+ * from the database by id, the Album will be added to albums and will be updated
  * with the values described above.  If a Album with the specified id cannot be
  * found in the database, then a binding error will be created and associated
  * with the band object.  More on binding errors later.
@@ -127,7 +139,10 @@ def band = Band.get(someBandId)
 band.properties = bindingMap
 {code}
 
-When binding to a @Map@ the structure of the binding @Map@ is the same as the structore of a @Map@ used for binding to a @List@ or a @Set@ and the index inside of square brackets corresponds to the key in the @Map@ being bound to.  See the following code:
+{hidden}When binding to a @Map@ the structure of the binding @Map@ is the same as the structore of a @Map@ used for binding to a @List@ or a @Set@ and the index inside of square brackets corresponds to the key in the @Map@ being bound to.  See the following code:{hidden}
+@Map@へとバインディングするとき、バインド元の@Map@の構造は@List@や@Set@へのバインディングに使われる@Map@と同じです。
+角括弧内の添字はバインド先の@Map@内のキーとなります。
+以下のコードを見てください:
 
 {code:java}
 class Album {
@@ -155,9 +170,9 @@ assert album.players.guitar == 'Steve Hacket'
 assert album.players.vocals == 'Peter Gabriel'
 assert album.players.keyboards == 'Tony Banks'
 {code}
-  
-When updating an exisiting @Map@, if the key specified in the binding @Map@ does not exist in the @Map@ being bound to then a new value will be created and added to the @Map@ with the specified key as in the following example:
 
+{hidden}When updating an exisiting @Map@, if the key specified in the binding @Map@ does not exist in the @Map@ being bound to then a new value will be created and added to the @Map@ with the specified key as in the following example:{hidden}
+以下の例のように、既存の@Map@を更新するときに、バインド元の@Map@内で指定されたキーがバインド先の@Map@内に存在しない場合、新しい値が生成されて指定されたキーでバインド先の@Map@に追加されます:
 
 {code}
 def bindingMap = [title: 'The Lamb Lies Down On Broadway',
@@ -186,17 +201,20 @@ assert album.players.keyboards == 'Anthony George Banks'
 assert album.players.drums == 'Phil Collins'
 {code}
 
+{hidden}h4. Binding Request Data to the Model{hidden}
+h4. モデルにリクエストデータをバインドする
 
-h4. モデルにリクエストデータをバインドする {hidden}Binding Request Data to the Model {hidden}
-
-The [params|controllers] object that is available in a controller has special behavior that helps convert dotted request parameter names into nested Maps that the data binder can work with.  For example, if a request includes request parameters named @person.homeAddress.country@ and @person.homeAddress.city@ with values 'USA' and 'St. Louis' respectively, @params@ would include entries like these:
+{hidden}The [params|controllers] object that is available in a controller has special behavior that helps convert dotted request parameter names into nested Maps that the data binder can work with.  For example, if a request includes request parameters named @person.homeAddress.country@ and @person.homeAddress.city@ with values 'USA' and 'St. Louis' respectively, @params@ would include entries like these:{hidden}
+コントローラで利用できる[params|controllers]オブジェクトには、ドット区切りのリクエストパラメータ名をネストされたMapに変換する
+という特別なサポートがあります。
+たとえば、値がそれぞれ「USA」と「St. Louis」であるような@person.homeAddress.country@と@person.homeAddress.city@という名前のリクエストパラメータを持っているリクエストの場合、@params@のエントリは以下のようになります:
 
 {code}
 [person: [homeAddress: [country: 'USA', city: 'St. Louis']]]
 {code}
 
 {hidden}There are two ways to bind request parameters onto the properties of a domain class. The first involves using a domain classes' Map constructor:{hidden}
-リクエストパラメータをドメインクラスのプロパティへバインドする２通りの方法があります。１つめはドメインクラスのMapを指定するコンストラクタを使用します。
+リクエストパラメータをドメインクラスのプロパティへバインドするには、2通りの方法があります。1つめはドメインクラスのマップを指定するコンストラクタを使用します。
 
 {code:java}
 def save() {
@@ -206,14 +224,14 @@ def save() {
 {code}
 
 {hidden}The data binding happens within the code @new Book(params)@. By passing the [params|controllers] object to the domain class constructor Grails automatically recognizes that you are trying to bind from request parameters. So if we had an incoming request like:{hidden}
-この例での、 @new Book(params)@の部分でデータバインディングが実行されます。[params|controllers]オブジェクトをドメインクラスのコンストラクタに渡すことで、Grailsが自動にリクエストパラメータを認識してバインドします。例えば以下の例のようなリクエストを受信したとします。
+この例では、@new Book(params)@の部分でデータバインディングが実行されます。[params|controllers]オブジェクトをドメインクラスのコンストラクタに渡すことで、Grailsが自動にリクエストパラメータを認識してバインドします。例えば、以下のようなリクエストを受信したとします。
 
 {code:java}
 /book/save?title=The%20Stand&author=Stephen%20King
 {code}
 
 {hidden}Then the @title@ and @author@ request parameters would automatically be set on the domain class. You can use the [properties|domainClasses] property to perform data binding onto an existing instance:{hidden}
-リクエストパラメータの@title@と@author@が、自動的にドメインクラスへセットされます。もう一つの方法として、既存のドメインクラスインスタンスへデータバインディングを行う方法として、インスタンスの[properties|domainClasses]プロパティにparamsをセットする方法があります。
+リクエストパラメータの@title@と@author@が、自動的にドメインクラスへセットされます。もう1つの方法として、既存のドメインクラスインスタンスへデータバインディングするために、[properties|domainClasses]プロパティを利用することができます。
 
 {code:java}
 def save() {
@@ -224,11 +242,16 @@ def save() {
 {code}
 
 {hidden}This has the same effect as using the implicit constructor.{hidden}
-上記の例で先ほどのコンストラクタと同じ結果となります。
+これは先ほどのコンストラクタを利用したのと同じ結果になります。
 
-When binding an empty String (a String with no characters in it, not even spaces), the data binder will convert the empty String to null.  This simplifies the most common case where the intent is to treat an empty form field as having the value null since there isn't a way to actually submit a null as a request parameter.  When this behavior is not desireable the application may assign the value directly.
+{hidden}When binding an empty String (a String with no characters in it, not even spaces) to a constrained property which has been configured as nullable, the data binder will convert the empty String to null.  This simplifies the most common case where the intent is to treat an empty form field as having the value null since there isn't a way to actually submit a null as a request parameter.  When this behavior is not desireable the application may assign the value directly.{hidden}
+空文字(スペースすら含まない文字数0のString)をnullable制約を付与されたプロパティにバインディングするとき、データバインダはその空文字をnullに変換します。
+これによって、リクエストパラメータとしてnullをサブミットする方法が実際には存在しないため空文字として送信せざるを得ないが、フォームの空フィールドについて値がnullであるとみなしたい、というよくあるケースを簡単に扱えるようになります。
+この振る舞いが望ましくないときは、アプリケーションは値を直接代入することもできます。
 
-The mass property binding mechanism will by default automatically trim all Strings at binding time.  To disable this behavior set the @grails.databinding.trimStrings@ property to false in @grails-app/conf/Config.groovy@.
+{hidden}The mass property binding mechanism will by default automatically trim all Strings at binding time.  To disable this behavior set the @grails.databinding.trimStrings@ property to false in @grails-app/conf/Config.groovy@.{hidden}
+大量プロパティバインディング機構は、デフォルトでバインディング時にすべての文字列を自動的にトリムします。
+この挙動を無効化するには、@grails-app/conf/Config.groovy@の@grails.databinding.trimStrings@ プロパティにfalseをセットしてください。
 
 {code:java}
 // the default value is true
@@ -238,7 +261,9 @@ grails.databinding.trimStrings = false
 
 {code}
 
-The mass property binding mechanism will by default automatically convert all empty Strings to null at binding time.  To disable this behavior set the @grails.databinding.convertEmptyStringsToNull@ property to false in @grials-app/conf/Config.groovy@.
+{hidden}The mass property binding mechanism will by default automatically convert all empty Strings to null at binding time.  To disable this behavior set the @grails.databinding.convertEmptyStringsToNull@ property to false in @grials-app/conf/Config.groovy@.{hidden}
+大量プロパティバインディング機構は、デフォルトでバインディング時にすべての空文字を自動的にnullに変換します。
+この挙動を無効化するには、@grails-app/conf/Config.groovy@の@grails.databinding.convertEmptyStringsToNull@ プロパティにfalseをセットしてください。
 
 {code:java}
 // the default value is true
@@ -248,16 +273,24 @@ grails.databinding.convertEmptyStringsToNull = false
 
 {code}
 
-The order of events is that the String trimming happens and then null conversion happens so if @trimStrings@ is @true@ and @convertEmptyStringsToNull@ is @true@, not only will empty Strings be converted to null but also blank Strings.  A blank String is any String such that the @trim()@ method returns an empty String.
+{hidden}The order of events is that the String trimming happens and then null conversion happens so if @trimStrings@ is @true@ and @convertEmptyStringsToNull@ is @true@, not only will empty Strings be converted to null but also blank Strings.  A blank String is any String such that the @trim()@ method returns an empty String.{hidden}
+@trimStrings@が@true@で@convertEmptyStringsToNull@が@true@のとき、イベントの順番としては、文字列がトリムされた後にnull変換が実行されます。つまり、空文字がnullに変換されるだけでなく、空白文字列もnullに変換されることになります。
+ここで、空白文字列とは@trim()@メソッドが空文字を返す文字列のことです。
 
 {warning}
-These forms of data binding in Grails are very convenient, but also indiscriminate. In other words, they will bind _all_ non-transient, typed instance properties of the target object, including ones that you may not want bound. Just because the form in your UI doesn't submit all the properties, an attacker can still send malign data via a raw HTTP request. Fortunately, Grails also makes it easy to protect against such attacks - see the section titled "Data Binding and Security concerns" for more information.
+{hidden}These forms of data binding in Grails are very convenient, but also indiscriminate. In other words, they will bind _all_ non-transient, typed instance properties of the target object, including ones that you may not want bound. Just because the form in your UI doesn't submit all the properties, an attacker can still send malign data via a raw HTTP request. Fortunately, Grails also makes it easy to protect against such attacks - see the section titled "Data Binding and Security concerns" for more information.{hidden}
+Grailsでのこのようなデータバインディングは大変便利ですが、同時に無差別的でもあります。
+言い換えると、バインドしたくないものまで含めて、対象オブジェクトの「すべて」の非transientな型付けされたインスタンスプロパティをバインドしてしまいます。
+単にUI上のフォームがすべてのプロパティをサブミットするわけではないだけであって、今もなお攻撃者は生のHTTPリクエストを使って悪意あるデータを送信することができます。
+幸い、Grailsではそのような攻撃に対して防御するのも簡単です。
+詳しくは、「データバインディングとセキュリティ考慮」のセクションを参照してください。
 {warning}
 
-h4. シングルエンデッド・アソシエーション(単一終端関連)のデータバインディング {hidden}Data binding and Single-ended Associations {hidden}
+{hidden}h4. Data binding and Single-ended Associations {hidden}
+h4. 単一終端関連のデータバインディング
 
 {hidden}If you have a @one-to-one@ or @many-to-one@ association you can use Grails' data binding capability to update these relationships too. For example if you have an incoming request such as:{hidden}
-@one-to-one@または@many-to-one@などの関連も、Grailsデータバインディングの機能で更新可能です。例として次のようなリクエストを受信したとします:
+1対1や多対1関連の場合も、Grailsデータバインディングの機能で更新可能です。例として次のようなリクエストを受信したとします:
 
 {code:java}
 /book/save?author.id=20
@@ -271,16 +304,17 @@ def b = new Book(params)
 {code}
 
 {hidden}An association property can be set to @null@ by passing the literal @String@ "null". For example:{hidden}
-次のように、関連のプロパティに文字列で"null"と指定することで@null@をセットする事ができます
+次のように、関連のプロパティに文字列で"null"と指定することで@null@をセットすることができます
 
 {code:java}
 /book/save?author.id=null
 {code}
 
-h4. メニーエンデッド・アソシエーション(複数終端関連)のデータバインディング {hidden}Data Binding and Many-ended Associations {hidden}
+{hidden}h4. Data Binding and Many-ended Associations {hidden}
+h4. 複数終端関連のデータバインディング
 
 {hidden}If you have a one-to-many or many-to-many association there are different techniques for data binding depending of the association type.{hidden}
-one-to-manyまたはmany-to-manyなどの関連には、それぞれの関連形式よって違ったデータバインディング方法があります。
+1対多や多対多関連の場合、それぞれの関連タイプによって違ったデータバインディング方法があります。
 
 {hidden}If you have a @Set@ based association (the default for a @hasMany@) then the simplest way to populate an association is to send a list of identifiers. For example consider the usage of @<g:select>@ below:{hidden}
 @Set@ベースの関連(@hasMany@でのデフォルト)で、簡単に関連を設定するには、idのリストを送る方法が有ります。以下の例は@<g:select>@を使用した方法です:
@@ -307,10 +341,10 @@ one-to-manyまたはmany-to-manyなどの関連には、それぞれの関連形
 ただし、@Set@ベースの関連では、マークアップ(HTML)が描写された順序とは同じ順序で更新されない危険性あります。 これは@Set@には順序という概念がなく、@books\[0\]@や@books\[1\]@と指定したとしても、サーバサイドでの関連のソートを明快に指定しない限り、順序が保証されないことになるからです。
 
 {hidden}This is not a problem if you use @List@ based associations, since a @List@ has a defined order and an index you can refer to. This is also true of @Map@ based associations.{hidden}
-@List@ベース関連の場合は、@List@の順序とインデックスを指定することができるので問題有りません。@Map@ベース関連も同じ事がいえます。
+@List@ベースの関連の場合は、@List@の順序とインデックスを指定することができるので問題ありません。@Map@ベースの関連も同じことがいえます。
 
 {hidden}Note also that if the association you are binding to has a size of two and you refer to an element that is outside the size of association:{hidden}
-さらに注意するポイントとして、バインドする関連が２個の物に、それより多い数の場合は:
+さらに注意するポイントとして、バインドする関連が2個の物に、それより多い数の場合は:
 
 {code:xml}
 <g:textField name="books[0].title" value="the Stand" />
@@ -328,7 +362,7 @@ Grailsが新たにインスタンスを指定したポジションに生成し�
 {code}
 
 {hidden}Then Grails will automatically create instances in between. For example in the above case Grails will create 4 additional instances if the association being bound had a size of 2.{hidden}
-Grailsが間のインスタンスも自動的に生成します。上記のケースでは関連が２個の場合は、４個のインスタンスが追加されます。
+Grailsが間のインスタンスも自動的に生成します。上記のケースでは関連が2個の場合は、4個のインスタンスが追加されます。
 
 {hidden}You can bind existing instances of the associated type to a @List@ using the same @.id@ syntax as you would use with a single-ended association. For example:{hidden}
 既存のインスタンスを@List@関連でバインドするには、単一終端関連と同じように@.id@シンタックスを使用します。例として:
@@ -373,7 +407,11 @@ Grailsが間のインスタンスも自動的に生成します。上記のケ�
 {hidden}This would bind the selected image into the @Map@ property @images@ under a key of @"cover"@.{hidden}
 この例では、Mapプロパティimagesのキー"cover"に対してバインドされます。
 
-When binding to Maps, Arrays and Collections the data binder will automatically grow the size of the collections as necessary.  The default limit to how large the binder will grow a collection is 256.  If the data binder encounters an entry that requires the collection be grown beyond that limit, the entry is ignored.  The limit may be configured by assigning a value to the @grails.databinding.autoGrowCollectionLimit@ property in @Config.groovy@.
+{hidden}When binding to Maps, Arrays and Collections the data binder will automatically grow the size of the collections as necessary.  The default limit to how large the binder will grow a collection is 256.  If the data binder encounters an entry that requires the collection be grown beyond that limit, the entry is ignored.  The limit may be configured by assigning a value to the @grails.databinding.autoGrowCollectionLimit@ property in @Config.groovy@.{hidden}
+Map・配列・コレクションにバインディングするとき、データバインダは必要に応じて自動的にコレクションのサイズを大きくします。
+バインダがコレクションを大きくするときのデフォルトの上限は256です。
+もしデータバインダが上限を超えてコレクションを大きくする必要のある要素に出会った場合、その要素は無視されます。
+上限は@Config.groovy@の@grails.databinding.autoGrowCollectionLimit@プロパティに値を代入すれば変更できます。
 
 {code:java}
 // grails-app/conf/Config.groovy
@@ -385,7 +423,8 @@ grails.databinding.autoGrowCollectionLimit = 128
 
 {code}
 
-h4. 複数ドメインクラスでのデータバインディング {hidden}Data binding with Multiple domain classes {hidden}
+{hidden}h4. Data binding with Multiple domain classes {hidden}
+h4. 複数ドメインクラスでのデータバインディング
 
 {hidden}It is possible to bind data to multiple domain objects from the [params|controllers] object.{hidden}
 [params|controllers]オブジェクトから、複数のドメインオブジェクトへのデータのバインドが可能です。
@@ -411,9 +450,18 @@ def b = new Book(params.book)
 def a = new Author(params.author)
 {code}
 
-h4. データバインディングとアクション引数{hidden}Data Binding and Action Arguments {hidden}
+{hidden}h4. Data Binding and Action Arguments {hidden}
+h4. データバインディングとアクション引数
 
-Controller action arguments are subject to request parameter data binding.  There are 2 categories of controller action arguments.  The first category is command objects.  Complex types are treated as command objects.  See the [Command Objects|guide:commandObjects] section of the user guide for details.  The other category is basic object types.  Supported types are the 8 primitives, their corresponding type wrappers and [java.lang.String|api:java.lang.String].  The default behavior is to map request parameters to action arguments by name:
+{hidden}Controller action arguments are subject to request parameter data binding.  There are 2 categories of controller action arguments.  The first category is command objects.  Complex types are treated as command objects.  See the [Command Objects|guide:commandObjects] section of the user guide for details.  The other category is basic object types.  Supported types are the 8 primitives, their corresponding type wrappers and [java.lang.String|api:java.lang.String].  The default behavior is to map request parameters to action arguments by name:{hidden}
+コントローラのアクション引数はリクエストパラメータのデータバインディング対象です。
+コントローラのアクション引数は大きく2つに分類されます。
+1つめはコマンドオブジェクトです。
+複合型はコマンドオブジェクトとして扱われます。
+詳しくはこのユーザガイドの[コマンドオブジェクト|guide:commandObjects]のセクションを参照してください。
+もう一つは基本オブジェクト型です。
+サポートしている方は8つのプリミティブ型とそれに対応するラッパー型と[java.lang.String|api:java.lang.String]です。
+デフォルトの挙動では、リクエストパラメータとアクション引数は名前に基づいて関連づけられます。
 
 {code:java}
 class AccountingController {
@@ -426,15 +474,22 @@ class AccountingController {
 }
 {code}
 
-For primitive arguments and arguments which are instances of any of the primitive type wrapper classes a type conversion has to be carried out before the request parameter value can be bound to the action argument.  The type conversion happens automatically.  In a case like the example shown above, the @params.accountType@ request parameter has to be converted to an @int@.  If type conversion fails for any reason, the argument will have its default value per normal Java behavior (null for type wrapper references, false for booleans and zero for numbers) and a corresponding error will be added to the @errors@ property of the defining controller.
+{hidden}For primitive arguments and arguments which are instances of any of the primitive type wrapper classes a type conversion has to be carried out before the request parameter value can be bound to the action argument.  The type conversion happens automatically.  In a case like the example shown above, the @params.accountType@ request parameter has to be converted to an @int@.  If type conversion fails for any reason, the argument will have its default value per normal Java behavior (null for type wrapper references, false for booleans and zero for numbers) and a corresponding error will be added to the @errors@ property of the defining controller.{hidden}
+プリミティブ型の引数とプリミティブ型のラッパークラスのインスタンスの引数に対しては、リクエストパラメータの値がアクション引数にバインドされる前に、型変換を実行する必要があります。
+この型変換は自動的に行われます。
+先に示した例のようなケースでは、@params.accountType@リクエストパラメータは@int@型に変換する必要があります。
+もし型変換が何らかの理由により失敗した場合は、引数はJava標準的な挙動によるデフォルト値(ラッパー型はnull、boolean型はfalse、数値型は0)をとります。
+そして、対応するエラーが対象コントローラの@errors@プロパティに追加されます。
 
 {code:java}
 /accounting/displayInvoice?accountNumber=B59786&accountType=bogusValue
 {code}
 
-Since "bogusValue" cannot be converted to type int, the value of accountType will be zero, the controller's @errors.hasErrors()@ will be true, the controller's @errors.errorCount@ will be equal to 1 and the controller's @errors.getFieldError('accountType')@ will contain the corresponding error.
+{hidden}{hidden}Since "bogusValue" cannot be converted to type int, the value of accountType will be zero, the controller's @errors.hasErrors()@ will be true, the controller's @errors.errorCount@ will be equal to 1 and the controller's @errors.getFieldError('accountType')@ will contain the corresponding error.
+"bogusValue"はint型に変換できないため、@accountType@は0になります。そして、コントローラの@errors.hasErrors()@はtrueに、@errors.errorCount@は1になり、@errors.getFieldError('accountType')@には対応するエラーが保持されます。
 
-If the argument name does not match the name of the request parameter then the @\@grails.web.RequestParameter@ annotation may be applied to an argument to express the name of the request parameter which should be bound to that argument:
+{hidden}If the argument name does not match the name of the request parameter then the @\@grails.web.RequestParameter@ annotation may be applied to an argument to express the name of the request parameter which should be bound to that argument:{hidden}
+引数名がリクエストパラメータの名前と一致しない場合、その引数にバインドすべきリクエストパラメータの名前を指定するために、@\@grails.web.RequestParameter@アノテーションを引数に付与することができます。
 
 {code:java}
 import grails.web.RequestParameter
@@ -450,7 +505,8 @@ class AccountingController {
 {code}
 
 
-h4. 型変換エラーとデータバインディング {hidden}Data binding and type conversion errors {hidden}
+{hidden}h4. Data binding and type conversion errors {hidden}
+h4. 型変換エラーとデータバインディング
 
 {hidden}Sometimes when performing data binding it is not possible to convert a particular String into a particular target type. This results in a type conversion error. Grails will retain type conversion errors inside the [errors|domainClasses] property of a Grails domain class. For example:{hidden}
 時折データバインディングの際に、特有の文字列を特有の型に変換できない場合があります。この場合の結果は型変換エラーとなります。Grailsではドメインインスタンスの[errors|domainClasses]プロパティで型変換エラーを保持します。例えば:
@@ -496,9 +552,15 @@ typeMismatch.java.net.URL=The field {0} is not a valid URL
 typeMismatch.Book.publisherURL=The publisher URL you specified is not a valid URL
 {code}
 
-h4. The BindUsing Annotation
+{hidden}h4. The BindUsing Annotation{hidden}
+h4. BindUsingアノテーション
 
-The [BindUsing|api:org.grails.databinding.BindUsing] annotation may be used to define a custom binding mechanism for a particular field in a class.  Any time data binding is being applied to the field the closure value of the annotation will be invoked with 2 arguments.  The first argument is the object that data binding is being applied to and the second argument is a @Map@ which is the data source for the data binding.  The value returned from the closure will be bound to the property.  The following example would result in the upper case version of the @name@ value in the source being applied to the @name@ field during data binding.
+{hidden}The [BindUsing|api:org.grails.databinding.BindUsing] annotation may be used to define a custom binding mechanism for a particular field in a class.  Any time data binding is being applied to the field the closure value of the annotation will be invoked with 2 arguments.  The first argument is the object that data binding is being applied to and the second argument is a @Map@ which is the data source for the data binding.  The value returned from the closure will be bound to the property.  The following example would result in the upper case version of the @name@ value in the source being applied to the @name@ field during data binding.{hidden}
+[BindUsing|api:org.grails.databinding.BindUsing]アノテーションはクラスの特定のフィールドに独自のバインディング方法を定義するために使います。
+データバインディングがそのフィールドに適用されるときは毎回アノテーションに指定されたクロージャが2つの引数で実行されます。
+最初の引数はデータバインディングを適用しようとしているオブジェクトで、2番目の引数はデータバインディングのためのデータソースとなる@Map@です。
+クロージャが返す値はオブジェクトのプロパティにバインドされます。
+以下の例では、データバーディングによってデータソースの@name@の値が大文字に変換されたものが@name@フィールドに設定されます。
 
 {code:java}
 import org.grails.databinding.BindUsing
@@ -511,7 +573,10 @@ class SomeClass {
 }
 {code}
 
-The [BindUsing|api:org.grails.databinding.BindUsing] annotation may be used to define a custom binding mechanism for all of the fields on a particular class. When the annotation is applied to a class, the value assigned to the annotation should be a class which implements the [BindingHelper|api:org.grails.databinding.BindingHelper] interface.  An instance of that class will be used any time a value is bound to a property in the class that this annotation has been applied to. 
+{hidden}The [BindUsing|api:org.grails.databinding.BindUsing] annotation may be used to define a custom binding mechanism for all of the fields on a particular class. When the annotation is applied to a class, the value assigned to the annotation should be a class which implements the [BindingHelper|api:org.grails.databinding.BindingHelper] interface.  An instance of that class will be used any time a value is bound to a property in the class that this annotation has been applied to.{hidden}
+[BindUsing|api:org.grails.databinding.BindUsing]アノテーションは特定のクラス上のすべてのフィールドに対する独自のバインディング方法を定義するためにも使えます。
+このアノテーションをクラスに指定するときは、アノテーションに指定する値は [BindingHelper|api:org.grails.databinding.BindingHelper]インターフェイスを実装したクラスにしなくてはいけません。
+このクラスのインスタンスは、アノテーションが指定されたクラス内のプロパティに値がバインドされるときに毎回使われます。
 
 {code:java}
 @BindUsing(SomeClassWhichImplementsBindingHelper)
@@ -521,9 +586,13 @@ class SomeClass {
 }
 {code}
 
-h4. Custom Data Converters
+{hidden}h4. Custom Data Converters{hidden}
+h4. カスタムデータコンバータ
 
-The binder will do a lot of type conversion automatically.  Some applications may want to define their own mechanism for converting values and a simple way to do this is to write a class which implements [ValueConverter|api:org.grails.databinding.converters.ValueConverter] and register an instance of that class as a bean in the Spring application context.
+{hidden}The binder will do a lot of type conversion automatically.  Some applications may want to define their own mechanism for converting values and a simple way to do this is to write a class which implements [ValueConverter|api:org.grails.databinding.converters.ValueConverter] and register an instance of that class as a bean in the Spring application context.{hidden}
+バインダはたくさんの型変換を自動的に行います。
+いくつかのアプリケーションでは、値を変換するための独自の機構を定義したいかもしれません。
+そのための簡単な方法は[ValueConverter|api:org.grails.databinding.converters.ValueConverter]を実装するクラスを書いて、そのクラスのインスタンスをビーンとしてSpringのアプリケーションコンテキストに登録することです。
 
 {code:java}
 package com.myapp.converters
@@ -551,7 +620,10 @@ class AddressValueConverter implements ValueConverter {
 }
 {code}
 
-An instance of that class needs to be registered as a bean in the Spring application context.  The bean name is not important.  All beans that implemented ValueConverter will be automatically plugged in to the data binding process.
+{hidden}An instance of that class needs to be registered as a bean in the Spring application context.  The bean name is not important.  All beans that implemented ValueConverter will be automatically plugged in to the data binding process.{hidden}
+クラスのインスタンスはSpringのアプリケーションコンテキストにビーンとして登録する必要があります。
+ビーンの名前は重要ではありません。
+@ValueConverter@を実装したすべてのビーンは、自動的にデータバインディングプロセスに組み込まれます。
 
 {code:java}
 // grails-app/conf/spring/resources.groovy
@@ -583,9 +655,11 @@ assert person.homeAddress.city = "O'Fallon"
 assert person.homeAddress.state = 'Missouri'
 {code}
 
-h4. Date Formats For Data Binding
+{hidden}h4. Date Formats For Data Binding{hidden}
+h4. データバインディングのためのデータフォーマット
 
-A custom date format may be specified to be used when binding a String to a Date value by applying the [BindingFormat|api:org.grails.databinding.BindingFormat] annotation to a Date field.
+{hidden}A custom date format may be specified to be used when binding a String to a Date value by applying the [BindingFormat|api:org.grails.databinding.BindingFormat] annotation to a Date field.{hidden}
+文字列を@Date@の値にバインドするとき、[BindingFormat|api:org.grails.databinding.BindingFormat]アノテーションをデータフィールドに付与することで、カスタムデータフォーマットを指定できます。
 
 {code:java}
 import org.grails.databinding.BindingFormat
@@ -596,9 +670,12 @@ class Person {
 }
 {code}
 
-h4. Custom Formatted Converters
+{hidden}h4. Custom Formatted Converters{hidden}
+h4. カスタムフォーマットコンバータ
 
-You may supply your own handler for the [BindingFormat|api:org.grails.databinding.BindingFormat] annotation by writing a class which implements the [FormattedValueConverter|api:org.grails.databinding.converters.FormattedValueConverter] interface and regiserting an instance of that class as a bean in the Spring application context.  Below is an example of a trivial custom String formatter that might convert the case of a String based on the value assigned to the BindingFormat annotation.
+{hidden}You may supply your own handler for the [BindingFormat|api:org.grails.databinding.BindingFormat] annotation by writing a class which implements the [FormattedValueConverter|api:org.grails.databinding.converters.FormattedValueConverter] interface and regiserting an instance of that class as a bean in the Spring application context.  Below is an example of a trivial custom String formatter that might convert the case of a String based on the value assigned to the BindingFormat annotation.{hidden}
+[FormattedValueConverter|api:org.grails.databinding.converters.FormattedValueConverter]インターフェイスを実装したクラスを書いて、そのクラスのインスタンスをビーンとしてSpringのアプリケーションコンテキストに登録することで、[BindingFormat|api:org.grails.databinding.BindingFormat]アノテーションに対して独自のハンドラを提供できます。
+以下は、@BindingFormat@アノテーションが指定された値の文字列の大文字/小文字を変換するという、ちょっとした文字列のカスタムフォーマッタの例です。
 
 {code:java}
 package com.myapp.converters
@@ -622,7 +699,10 @@ class FormattedStringValueConverter implements FormattedValueConverter {
 }
 {code}
 
-An instance of that class needs to be registered as a bean in the Spring application context.  The bean name is not important.  All beans that implemented FormattedValueConverter will be automatically plugged in to the data binding process.
+{hidden}An instance of that class needs to be registered as a bean in the Spring application context.  The bean name is not important.  All beans that implemented FormattedValueConverter will be automatically plugged in to the data binding process.{hidden}
+クラスのインスタンスはSpringのアプリケーションコンテキストにビーンとして登録する必要があります。
+ビーンの名前は重要ではありません。
+@FormattedValueConverter@を実装したすべてのビーンは、自動的にデータバインディングプロセスに組み込まれます。
 
 {code:java}
 // grails-app/conf/spring/resources.groovy
@@ -636,7 +716,8 @@ beans = {
 }
 {code}
 
-With that in place the @BindingFormat@ annotation may be applied to String fields to inform the data binder to take advantage of the custom converter.
+{hidden}With that in place the @BindingFormat@ annotation may be applied to String fields to inform the data binder to take advantage of the custom converter.{hidden}
+所定の場所にこれがあれば、データバインダにカスタムコンバータを利用することを伝えるために、@BindingFormat@アノテーションを文字列フィールドに適用できます。
 
 {code:java}
 import org.grails.databinding.BindingFormat
@@ -653,10 +734,12 @@ class Person {
 {code}
 
 
-h4. データバインディングとセキュリティ考慮 {hidden}Data Binding and Security concerns {hidden}
+{hidden}h4. Data Binding and Security concerns {hidden}
+h4. データバインディングとセキュリティ考慮
 
 {hidden}When batch updating properties from request parameters you need to be careful not to allow clients to bind malicious data to domain classes and be persisted in the database. You can limit what properties are bound to a given domain class using the subscript operator:{hidden}
-リクエストパラメータからのバッチ更新をする際は、クライアントからの悪意のあるデータを、ドメインクラスやデータベースへの永続化に反映させないように注意が必要です。添字演算子を使用してドメインクラスにバインドするプロパティを制限することができます。
+リクエストパラメータからの一括プロパティ更新をする際は、クライアントからの悪意のあるデータをドメインクラスにバインドし、データベースに永続化してしまわないように注意が必要です。
+添字演算子を使用してドメインクラスにバインドするプロパティを制限することができます:
 
 {code:java}
 def p = Person.get(1)
@@ -668,10 +751,10 @@ p.properties['firstName','lastName'] = params
 上記の例では、@firstName@と@lastName@のみバインドされます。
 
 {hidden}Another way to do this is is to use [Command Objects|guide:commandObjects] as the target of data binding instead of domain classes. Alternatively there is also the flexible [bindData|controllers] method.{hidden}
-他には、データバインディングのターゲットをドメインクラスではなく[コマンドオブジェクト|guide:commandObjects]を利用する方法があります。あるいは柔軟な[bindData|controllers]メソッドを使用します。
+他には、データバインディングの対象をドメインクラスではなく[コマンドオブジェクト|guide:commandObjects]を利用する方法があります。あるいは柔軟な[bindData|controllers]メソッドを使用します。
 
 {hidden}The @bindData@ method allows the same data binding capability, but to arbitrary objects:{hidden}
-@bindData@メソッドは任意のオブジェクトにデータバインディングが可能です:
+@bindData@メソッドは任意のオブジェクトに同様のデータバインディングができます:
 
 {code:java}
 def p = new Person()
@@ -679,7 +762,7 @@ bindData(p, params)
 {code}
 
 {hidden}The @bindData@ method also lets you exclude certain parameters that you don't want updated:{hidden}
-@bindData@メソッドでは、更新しないパラメータを除外する事が可能です:
+@bindData@メソッドでは、更新したくないパラメータを除外することができます:
 
 {code:java}
 def p = new Person()
@@ -695,5 +778,6 @@ bindData(p, params, [include: ['firstName', 'lastName']])
 {code}
 
 {note}
-Note that if an empty List is provided as a value for the @include@ parameter then all fields will be subject to binding if they are not explicitly excluded.
+{hidden}Note that if an empty List is provided as a value for the @include@ parameter then all fields will be subject to binding if they are not explicitly excluded.{hidden}
+空のリストが@include@パラメータの値として与えられた場合、明示的に除外指定がなされていない限り、すべてのフィールドがバインディング対象となることに注意してください。
 {note}
