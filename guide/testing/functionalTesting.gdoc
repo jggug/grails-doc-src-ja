@@ -1,5 +1,9 @@
-{hidden}Functional tests involve making HTTP requests against the running application and verifying the resultant behaviour. Grails does not ship with any support for writing functional tests directly, but there are several plugins available for this.{hidden}
-ファンクショナルテストは実行中のアプリケーションに対してHTTPリクエストを行い、結果として得られた振る舞いを検証します。Grailsはファンクショナルテストを書くための直接的なサポートは提供しませんが、ファンクショナルテストのためのいくつかのプラグインが利用可能です。
+Functional tests involve making HTTP requests against the running application and verifying the resultant behaviour. The functional testing phase differs from the integration phase in that the Grails application is now listening and responding to actual HTTP requests. This is useful for end-to-end testing scenarios, such as making REST calls against a JSON API.
+
+{hidden}Grails does not ship with any support for writing functional tests directly, but there are several plugins available for this.{hidden}
+Grailsはファンクショナルテストを書くための直接的なサポートは提供しませんが、ファンクショナルテストのためのいくつかのプラグインが利用可能です。
+
+
 
 * @Canoo Webtest@ - "http://grails.org/plugin/webtest":http://grails.org/plugin/webtest
 * @G-Func@ - "http://grails.org/plugin/functional-test":http://grails.org/plugin/functional-test

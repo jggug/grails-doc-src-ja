@@ -179,6 +179,7 @@ theWebLayer:
   urlmappings:
     title: URLマッピング
     mappingToControllersAndActions: コントローラとアクションにマッピング
+    restfulMappings: RESTリソースへのマッピング
     embeddedVariables: 埋込変数
     mappingToViews: ビューへマッピング
     mappingToResponseCodes: レスポンスコードへマッピング
