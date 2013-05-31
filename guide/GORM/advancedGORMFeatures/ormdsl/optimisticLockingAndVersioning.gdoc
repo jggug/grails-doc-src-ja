@@ -1,6 +1,8 @@
-As discussed in the section on [Optimistic and Pessimistic Locking|guide:locking], by default GORM uses optimistic locking and automatically injects a @version@ property into every class which is in turn mapped to a @version@ column at the database level.
+{hidden}As discussed in the section on [Optimistic and Pessimistic Locking|guide:locking], by default GORM uses optimistic locking and automatically injects a @version@ property into every class which is in turn mapped to a @version@ column at the database level.{hidden}
+[楽観的ロックと悲観的ロック|guide:locking]のセクションで書いたように、GORMはデフォルトで、楽観的ロックを使用し、データベースの@version@カラムにそれぞれ対応付けられている@version@プロパティを全てのドメインクラスに自動的に注入します。
 
-If you're mapping to a legacy schema that doesn't have version columns (or there's some other reason why you don't want/need this feature) you can disable this with the @version@ method:
+{hidden}If you're mapping to a legacy schema that doesn't have version columns (or there's some other reason why you don't want/need this feature) you can disable this with the @version@ method:{hidden}
+もし@version@カラムを持たないレガシースキーマとの対応付けをしている(または、楽観的ロックを必要としない他の理由がある)ならば、@version@メソッドを使ってこの機能を無効化できます。
 
 {code:java}
 class Person {
@@ -13,12 +15,16 @@ class Person {
 {code}
 
 {note}
-If you disable optimistic locking you are essentially on your own with regards to concurrent updates and are open to the risk of users losing data (due to data overriding) unless you use [pessimistic locking|guide:locking]
+{hidden}If you disable optimistic locking you are essentially on your own with regards to concurrent updates and are open to the risk of users losing data (due to data overriding) unless you use [pessimistic locking|guide:locking]{hidden}
+楽観的ロックを無効化した場合、同時更新に対するサポートがなくなるため、[悲観的ロック|guide:locking]を使わない限り(データ上書きによる)ユーザのデータ消失リスクに晒されます。
 {note}
 
-h4. Version columns types
+{hidden}h4. Version columns types{hidden}
+h4. バージョンのカラム型
 
-By default Grails maps the @version@ property as a @Long@ that gets incremented by one each time an instance is updated. But Hibernate also supports using a @Timestamp@, for example:
+{hidden}By default Grails maps the @version@ property as a @Long@ that gets incremented by one each time an instance is updated. But Hibernate also supports using a @Timestamp@, for example:{hidden}
+Grailsはデフォルトで、@version@プロパティを@Long@型にマッピングし、インスタンスが更新されるごとにインクリメントします。
+しかし、Hibernateは@Timetamp@型もサポートしています。例えば:
 
 {code:java}
 import java.sql.Timestamp
@@ -34,4 +40,6 @@ class Person {
 }
 {code}
 
-There's a slight risk that two updates occurring at nearly the same time on a fast server can end up with the same timestamp value but this risk is very low. One benefit of using a @Timestamp@ instead of a @Long@ is that you combine the optimistic locking and last-updated semantics into a single column.
+{hidden}There's a slight risk that two updates occurring at nearly the same time on a fast server can end up with the same timestamp value but this risk is very low. One benefit of using a @Timestamp@ instead of a @Long@ is that you combine the optimistic locking and last-updated semantics into a single column.{hidden}
+高性能なサーバ上でほぼ同時に発生した2つの更新が同一のタイムスタンプ値になってしまう、というリスクが僅かながらあります。しかし、このリスクは非常に小さいです。
+@Long@型の代わりに@Timestamp@型を使うメリットの1つは、1つのカラムで楽観的ロックと最終更新日時の意味を兼任できることです。
