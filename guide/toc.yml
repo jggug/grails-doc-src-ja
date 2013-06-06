@@ -244,14 +244,14 @@ testing:
   title: テスト
   unitTesting:
     title: ユニットテスト
-    unitTestingControllers: コントローラユニットテスト
-    unitTestingTagLibraries: タグライブラリユニットテスト
-    unitTestingDomains: ドメインユニットテスト
-    unitTestingFilters: フィルタユニットテスト
-    unitTestingURLMappings: URLマッピングユニットテスト
-    mockingCollaborators: モッキングコラボレータ
-    mockingCodecs: Mocking Codecs
-  integrationTesting: 統合テスト
+    unitTestingControllers: コントローラのユニットテスト
+    unitTestingTagLibraries: タグライブラリのユニットテスト
+    unitTestingDomains: ドメインのユニットテスト
+    unitTestingFilters: フィルタのユニットテスト
+    unitTestingURLMappings: URLマッピングのユニットテスト
+    mockingCollaborators: コラボレータのモック化
+    mockingCodecs: コーデックのモック化
+  integrationTesting: インテグレーションテスト
   functionalTesting: ファンクショナルテスト
 i18n:
   title: 国際化
