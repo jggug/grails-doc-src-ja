@@ -1,4 +1,6 @@
-Unit testing filters is typically a matter of testing a controller where a filter is a mock collaborator. For example consider the following filters class:
+{hidden}Unit testing filters is typically a matter of testing a controller where a filter is a mock collaborator. For example consider the following filters class:{hidden}
+フィルタをユニットテストするには、一般的に、フィルタがモックコラボレータであるようなコントローラをテストすることになります。
+例えば、次のフィルタクラスを考えてみましょう:
 
 {code:java}
 class CancellingFilters {
@@ -13,7 +15,8 @@ class CancellingFilters {
 }
 {code}
 
-This filter interceptors the @list@ action of the @simple@ controller and redirects to the @book@ controller. To test this filter you start off with a test that targets the @SimpleController@ class and add the @CancellingFilters@ as a mock collaborator:
+{hidden}This filter interceptors the @list@ action of the @simple@ controller and redirects to the @book@ controller. To test this filter you start off with a test that targets the @SimpleController@ class and add the @CancellingFilters@ as a mock collaborator:{hidden}
+このフィルタは@simple@コントローラの@list@アクションをインターセプトし、@book@コントローラにリダイレクトします。このフィルタをテストするには、まず@SimpleController@クラスを対象としたテストを作り、@CancellingFilters@をモックコラボレータとして設定します:
 
 {code:java}
 @TestFor(SimpleController)
@@ -23,7 +26,8 @@ class SimpleControllerTests {
 }
 {code}
 
-You can then implement a test that uses the @withFilters@ method to wrap the call to an action in filter execution:
+{hidden}You can then implement a test that uses the @withFilters@ method to wrap the call to an action in filter execution:{hidden}
+次に、フィルタを通して実行されるアクションの呼び出しを@withFilters@メソッドで囲むようにテストを実装します:
 
 {code:java}
 void testInvocationOfListActionIsFiltered() {
@@ -34,10 +38,13 @@ void testInvocationOfListActionIsFiltered() {
 }
 {code}
 
-Note that the @action@ parameter is required because it is unknown what the action to invoke is until the action is actually called. The @controller@ parameter is optional and taken from the controller under test. If it is another controller you are testing then you can specify it:
+{hidden}Note that the @action@ parameter is required because it is unknown what the action to invoke is until the action is actually called. The @controller@ parameter is optional and taken from the controller under test. If it is another controller you are testing then you can specify it:{hidden}
+実際にアクションが呼び出されるまで、どのアクションが実行されるか不明なため、@action@パラメータが必須であることに注意してください。
+@controller@パラメータは省略可能です。省略時はテスト対象のコントローラが適用されます。
+もしテストしているのが別のコントローラである場合はそれを指定します。
 
 {code:java}
-withFilters(controller:"book",action:"list") {
+withFilters(controller:"book", action:"list") {
     controller.list()
 }
 {code}
