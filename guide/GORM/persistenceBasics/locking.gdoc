@@ -1,8 +1,15 @@
-h4. Optimistic Locking
+{hidden}h4. Optimistic Locking{hidden}
+h4. 楽観的ロック
 
-By default GORM classes are configured for optimistic locking. Optimistic locking is a feature of Hibernate which involves storing a version value in a special @version@ column in the database that is incremented after each update.
+{hidden}By default GORM classes are configured for optimistic locking. Optimistic locking is a feature of Hibernate which involves storing a version value in a special @version@ column in the database that is incremented after each update.{hidden}
+GORMでは、デフォルトで、各ドメインクラスは楽観的ロックを使うように設定されています。
+楽観的ロックは、Hibernateが備えている機能の1つです。
+データベース上の専用の@version@カラムにバージョン番号を格納して、レコードを更新する度に値をインクリメントします。
 
-The @version@ column gets read into a @version@ property that contains the current versioned state of persistent instance which you can access:
+{hidden}The @version@ column gets read into a @version@ property that contains the current versioned state of persistent instance which you can access:{hidden}
+@version@カラムは、永続化済みのドメインクラスインスタンスの@version@プロパティとして読み込まれます。
+このプロパティを使って、データベースから取得した時点のバージョン番号を取得できます。
+以下にコード例を示します:
 
 {code}
 def airport = Airport.get(10)
@@ -10,9 +17,15 @@ def airport = Airport.get(10)
 println airport.version
 {code}
 
-When you perform updates Hibernate will automatically check the version property against the  version column in the database and if they differ will throw a [StaleObjectException|api:org.hibernate.StaleObjectStateException]. This will roll back the transaction if one is active.
+{hidden}When you perform updates Hibernate will automatically check the version property against the  version column in the database and if they differ will throw a [StaleObjectException|api:org.hibernate.StaleObjectStateException]. This will roll back the transaction if one is active.{hidden}
+データベースを更新するときには、Hibernateは自動的に、データベースの@version@カラムに格納されている値と、更新対象のインスタンスが保持している@version@プロパティの値を比較します。
+そして、2つの値が異なる場合には[StaleObjectException|api:org.hibernate.StaleObjectStateException]例外をスローします。
+トランザクションが有効な場合は、この例外発生によって、トランザクションもロールバックします。
 
-This is useful as it allows a certain level of atomicity without resorting to pessimistic locking that has an inherit performance penalty. The downside is that you have to deal with this exception if you have highly concurrent writes. This requires flushing the session:
+{hidden}This is useful as it allows a certain level of atomicity without resorting to pessimistic locking that has an inherit performance penalty. The downside is that you have to deal with this exception if you have highly concurrent writes. This requires flushing the session:{hidden}
+この方法は、本質的に性能上の問題をかかえている悲観的ロックに頼らずとも、ある水準の原子性を保証することができる点が便利ですが、一方で短所も存在します。
+それは、実際に並行に更新が発生してしまった場合に、開発者が明示的に例外処理しなければならいという点です。
+そして、この例外処理のためにはセッションのフラッシュが必要になります:
 
 {code}
 def airport = Airport.get(10)
@@ -26,19 +39,28 @@ catch (org.springframework.dao.OptimisticLockingFailureException e) {
 }
 {code}
 
-The way you deal with the exception depends on the application. You could attempt a programmatic merge of the data or go back to the user and ask them to resolve the conflict.
+{hidden}The way you deal with the exception depends on the application. You could attempt a programmatic merge of the data or go back to the user and ask them to resolve the conflict.{hidden}
+この例外が発生した時にどのように振る舞うべきかは、アプリケーションの要件に依存します。
+たとえば、競合が発生したデータを機械的にマージする、エンドユーザに競合を解決するように頼む、などの振る舞いが考えられるでしょう。
 
-Alternatively, if it becomes a problem you can resort to pessimistic locking.
+{hidden}Alternatively, if it becomes a problem you can resort to pessimistic locking.{hidden}
+あるいは、そのような振る舞いをすることが問題になることもあるでしょう。
+そのときは最後の手段として、悲観的ロックを使うこともできます。
 
 {note}
-The @version@ will only be updated after flushing the session.
+{hidden}The @version@ will only be updated after flushing the session.{hidden}
+@version@プロパティの値は、セッションをフラッシュしない限り更新されません。
 {note}
 
-h4. Pessimistic Locking
+{hidden}h4. Pessimistic Locking{hidden}
+h4. 悲観的ロック
 
-Pessimistic locking is equivalent to doing a SQL "SELECT * FOR UPDATE" statement and locking a row in the database. This has the implication that other read operations will be blocking until the lock is released.
+{hidden}Pessimistic locking is equivalent to doing a SQL "SELECT * FOR UPDATE" statement and locking a row in the database. This has the implication that other read operations will be blocking until the lock is released.{hidden}
+悲観的ロックの利用は、"SELECT * FOR UPDATE" というSQL文を発行して、データベースの行をロックすることに相当します。
+そのため、行ロックがリリースされるまでは、他の読み取り操作もブロックされてしまいます。
 
-In Grails pessimistic locking is performed on an existing instance with the [lock|domainClasses] method:
+{hidden}In Grails pessimistic locking is performed on an existing instance with the [lock|domainClasses] method:{hidden}
+Grailsでは、ドメインクラスのインスタンスに対して[lock|domainClasses]メソッドを発行することで、悲観的ロックを使うことができます:
 
 {code}
 def airport = Airport.get(10)
@@ -47,9 +69,13 @@ airport.name = "Heathrow"
 airport.save()
 {code}
 
-Grails will automatically deal with releasing the lock for you once the transaction has been committed. However, in the above case what we are doing is "upgrading" from a regular SELECT to a SELECT..FOR UPDATE and another thread could still have updated the record in between the call to @get()@ and the call to @lock()@.
+{hidden}Grails will automatically deal with releasing the lock for you once the transaction has been committed. However, in the above case what we are doing is "upgrading" from a regular SELECT to a SELECT..FOR UPDATE and another thread could still have updated the record in between the call to @get()@ and the call to @lock()@.{hidden}
+このようにして獲得したロックは、トランザクションがコミットされたタイミングで、Grailsによって自動的にリリースされます。
+ただし、この方法は、通常のSELECT文で一旦レコードを取得した後に、SELECT..FOR UPDATE文で取得し直すことになってしまうことに注意してください。
+そのため、@get()@メソッドを呼び出してから@lock()@メソッドを呼び出す間に、他のスレッドがレコードを更新する可能性が残ってしまいます。
 
-To get around this problem you can use the static [lock|domainClasses] method that takes an id just like [get|domainClasses]:
+{hidden}To get around this problem you can use the static [lock|domainClasses] method that takes an id just like [get|domainClasses]:{hidden}
+この問題を回避するために、[get|domainClasses]メソッドと同様にidを引数に取るstaticな[lock|domainClasses]メソッドが使えます:
 
 {code}
 def airport = Airport.lock(10) // lock for update
@@ -57,15 +83,19 @@ airport.name = "Heathrow"
 airport.save()
 {code}
 
-In this case only SELECT..FOR UPDATE is issued.
+{hidden}In this case only SELECT..FOR UPDATE is issued.{hidden}
+この方法を使えば、SELECT..FOR UPDATE文だけが発行されるので、最初の方法のような問題は発生しません。
 
-As well as the [lock|domainClasses] method you can also obtain a pessimistic locking using queries. For example using a dynamic finder:
+{hidden}As well as the [lock|domainClasses] method you can also obtain a pessimistic locking using queries. For example using a dynamic finder:{hidden}
+[lock|domainClasses]メソッドを使う方法以外に、クエリで悲観的ロックを使う方法もあります。
+たとえば、ダイナミックファインダを使う場合は:
 
 {code:java}
 def airport = Airport.findByName("Heathrow", [lock: true])
 {code}
 
-Or using criteria:
+{hidden}Or using criteria:{hidden}
+クライテリアを使う場合は:
 
 {code:java}
 def airport = Airport.createCriteria().get {
@@ -73,4 +103,3 @@ def airport = Airport.createCriteria().get {
     lock true
 }
 {code}
-
