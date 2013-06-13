@@ -1,5 +1,9 @@
+{hidden}
 As well as associations between different domain classes, GORM also supports mapping of basic collection types.
 For example, the following class creates a @nicknames@ association that is a @Set@ of @String@ instances:
+{hidden}
+異なるドメインクラス間の関連に加えて、GORMは基本コレクション型のマッピングもサポートしています。
+例えば、以下のクラスは@String@の@Set@である@nicknames@の関連を作成します。
 
 {code:java}
 class Person {
@@ -7,7 +11,11 @@ class Person {
 }
 {code}
 
+{hidden}
 GORM will map an association like the above using a join table. You can alter various aspects of how the join table is mapped using the @joinTable@ argument:
+{hidden}
+GORMでは、上記のような関連は結合テーブルを用いてマップされます。
+@joinTable@引数を使って、どのように結合テーブルにマップされるかを変更できます。
 
 {code:java}
 class Person {
@@ -23,7 +31,10 @@ class Person {
 }
 {code}
 
+{hidden}
 The example above will map to a table that looks like the following:
+{hidden}
+例えば、上記は以下のようなテーブルにマップします。
 
 *bunch_o_nicknames Table*
 {code:java}
