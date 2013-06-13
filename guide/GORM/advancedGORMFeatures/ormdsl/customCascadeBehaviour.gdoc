@@ -1,9 +1,13 @@
-As described in the section on [cascading updates|guide:cascades], the primary mechanism to control the way updates and deletes cascade from one association to another is the static [belongsTo|domainClasses] property.
+{hidden}As described in the section on [cascading updates|guide:cascades], the primary mechanism to control the way updates and deletes cascade from one association to another is the static [belongsTo|domainClasses] property.{hidden}
+[カスケード更新|guide:cascades]のセクションで記載した通り、更新と削除が1つの関連からもう一方へとカスケードする方法を制御するためには、staticの[belongsTo|domainClasses]プロパティを使います。
 
-However, the ORM DSL gives you complete access to Hibernate's [transitive persistence|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/objectstate.html#objectstate-transitive] capabilities using the @cascade@ attribute.
+{hidden}However, the ORM DSL gives you complete access to Hibernate's [transitive persistence|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/objectstate.html#objectstate-transitive] capabilities using the @cascade@ attribute.{hidden}
+しかし、ORM DSLでは、Hibernateの[連鎖的な永続化|http://docs.jboss.org/hibernate/core/3.6/reference/ja-JP/html/objectstate.html#objectstate-transitive]機能への@cascade@属性を使った完全なアクセスを提供しています。
 
-Valid settings for the cascade attribute include:
+{hidden}Valid settings for the cascade attribute include:{hidden}
+@cascade@属性のための有効な設定値は以下の通りです:
 
+{hidden}
 * @merge@ - merges the state of a detached association
 * @save-update@ - cascades only saves and updates to an association
 * @delete@ - cascades only deletes to an association
@@ -12,12 +16,25 @@ Valid settings for the cascade attribute include:
 * @evict@ - cascades evictions (equivalent to @discard()@ in GORM) to associations if set
 * @all@ - cascade _all_ operations to associations
 * @all-delete-orphan@ - Applies only to one-to-many associations and indicates that when a child is removed from an association then it should be automatically deleted. Children are also deleted when the parent is.
+{hidden}
+* @merge@ - デタッチされた関連の状態をマージする
+* @save-update@ - saveとupdateのみを関連先にカスケードする
+* @delete@ - deleteのみを関連先にカスケードする
+* @lock@ - 悲観的ロックを関連先にカスケードしたいときに役立つ
+* @refresh@ - refreshを関連先にカスケードする
+* @evict@ - これをセットすると、evict(GORMでの@discard()@に相当)を関連先にカスケードする
+* @all@ - _すべての_ 操作を関連先にカスケードする
+* @all-delete-orphan@ - 1対多関連にのみ適用する。子要素を関連から取り除いたときに自動的にその子要素を削除することを意味する。親が削除されたときは、子要素すべてが削除される。
 
 {note}
+{hidden}
 It is advisable to read the section in the Hibernate documentation on [transitive persistence|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/objectstate.html#objectstate-transitive] to obtain a better understanding of the different cascade styles and recommendations for their usage
+{hidden}
+様々なカスケード方式と推奨される利用方法についてより良く理解するために、Hibernateのドキュメントの[連鎖的な永続化|http://docs.jboss.org/hibernate/core/3.6/reference/ja-JP/html/objectstate.html#objectstate-transitive]のセクションを読むことをお勧めします。
 {note}
 
-To specify the cascade attribute simply define one or more (comma-separated) of the aforementioned settings as its value:
+{hidden}To specify the cascade attribute simply define one or more (comma-separated) of the aforementioned settings as its value:{hidden}
+@cascade@属性を指定するには、単純に1つまたは(カンマで区切られた)複数の前述の設定値を定義します。
 
 {code:java}
 class Person {
