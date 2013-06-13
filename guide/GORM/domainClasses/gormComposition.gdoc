@@ -1,4 +1,8 @@
+{hidden}
 As well as [association|guide:gormAssociation], Grails supports the notion of composition. In this case instead of mapping classes onto separate tables a class can be "embedded" within the current table. For example:
+{hidden}
+[関連|guide:gormAssociation]に加えて、Grailsはコンポジションの概念をサポートしています。
+次の場合は、それぞれのドメインクラス毎に別々のテーブルにマッピングされる代わりに、別のドメインクラスのカラムを対象ドメインクラスのテーブルに「埋め込む」ことができます。
 
 {code}
 class Person {
@@ -13,10 +17,19 @@ class Address {
 }
 {code}
 
+{hidden}
 The resulting mapping would looking like this:
+{hidden}
+マッピング結果はこのようになります。
 
 !5.2.2-composition.jpg!
 
+{hidden}
 {note}
 If you define the @Address@ class in a separate Groovy file in the @grails-app/domain@ directory you will also get an @address@ table. If you don't want this to happen use Groovy's ability to define multiple classes per file and include the @Address@ class below the @Person@ class in the @grails-app/domain/Person.groovy@ file
+{note}
+{hidden}
+{note}
+もし@grails-app/domain@ディレクトリ内に別のGroovyファイルとして@Address@クラスを定義した場合は、以前と同じように@address@テーブルが作成されてしまいます。
+これを避けたい場合は、1ファイルに複数のクラスを定義できるGroovyの能力を使い、@grails-app/domain/Person.groovy@ファイルの@Person@クラスの下に@Address@クラスを含めてください。
 {note}
