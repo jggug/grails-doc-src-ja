@@ -1,11 +1,16 @@
-h4. Lazy Collections
+{hidden}h4. Lazy Collections{hidden}
+h4. Lazyコレクション
 
-As discussed in the section on [Eager and Lazy fetching|guide:fetching], GORM collections are lazily loaded by default but you can change this behaviour with the ORM DSL. There are several options available to you, but the most common ones are:
+{hidden}As discussed in the section on [Eager and Lazy fetching|guide:fetching], GORM collections are lazily loaded by default but you can change this behaviour with the ORM DSL. There are several options available to you, but the most common ones are:{hidden}
+永続化の基礎の[EagerフェッチとLazyフェッチ|guide:fetching]のセクションで書いたように、GORMのコレクションはデフォルトでLazyにロードされます。
+しかし、ORM DSLでこの振る舞いを変更することができます。
+いくつかのオプションが使えますが、もっともよく使われるのは次の2つです:
 
 * lazy: false
 * fetch: 'join'
 
-and they're used like this:
+{hidden}and they're used like this:{hidden}
+次のように使います:
 
 {code:java}
 class Person {
@@ -35,14 +40,23 @@ class Pet {
 }
 {code}
 
-The first option, @lazy: false@ , ensures that when a @Person@ instance is loaded, its @addresses@ collection is loaded at the same time with a second SELECT. The second option is basically the same, except the collection is loaded with a JOIN rather than another SELECT. Typically you want to reduce the number of queries, so @fetch: 'join'@ is the more appropriate option. On the other hand, it could feasibly be the more expensive approach if your domain model and data result in more and larger results than would otherwise be necessary.
+{hidden}The first option, @lazy: false@ , ensures that when a @Person@ instance is loaded, its @addresses@ collection is loaded at the same time with a second SELECT. The second option is basically the same, except the collection is loaded with a JOIN rather than another SELECT. Typically you want to reduce the number of queries, so @fetch: 'join'@ is the more appropriate option. On the other hand, it could feasibly be the more expensive approach if your domain model and data result in more and larger results than would otherwise be necessary.{hidden}
+最初のオプションの@lazy: false@は、@Person@インスタンスがロードされるときに、同時に2本目のSELECTが発行されて@addresses@コレクションがロードされることを保証します。
+2つめのオプションは別のSELECT文ではなくJOIN構文によってロードされる点を除けば、基本的に同じです。
+一般的にクエリの数を減らしたいときは、@fetch: 'join'@は適切なオプションです。
+一方で、ドメインモデルとデータが大量にヒットしてしまう場合、JOINはより高コストなアプローチになってしまう可能性もあります。
 
-For more advanced users, the other settings available are:
+{hidden}For more advanced users, the other settings available are:{hidden}
+他にも上級ユーザ向けの役立つ設定があります:
 
 # batchSize: N
 # lazy: false, batchSize: N
 
-where N is an integer. These let you fetch results in batches, with one query per batch. As a simple example, consider this mapping for @Person@:
+{hidden}where N is an integer. These let you fetch results in batches, with one query per batch. As a simple example, consider this mapping for @Person@:{hidden}
+Nは整数とします。
+これによって結果をバッチでフェッチできます。
+それぞれのバッチごとに1つのクエリが発行されます。
+単純な例として、@Person@でのマッピングを考えます。
 
 {code}
 class Person {
@@ -55,13 +69,23 @@ class Person {
     }
 }
 {code}
-If a query returns multiple @Person@ instances, then when we access the first @pet@ property, Hibernate will fetch that @Pet@ plus the four next ones. You can get the same behaviour with eager loading by combining @batchSize@ with the @lazy: false@ option. You can find out more about these options in the [Hibernate user guide|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/performance.html#performance-fetching] and this [primer on fetching strategies|http://community.jboss.org/wiki/AShortPrimerOnFetchingStrategies]. Note that ORM DSL does not currently support the "subselect" fetching strategy.
+{hidden}If a query returns multiple @Person@ instances, then when we access the first @pet@ property, Hibernate will fetch that @Pet@ plus the four next ones. You can get the same behaviour with eager loading by combining @batchSize@ with the @lazy: false@ option. You can find out more about these options in the [Hibernate user guide|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/performance.html#performance-fetching] and this [primer on fetching strategies|http://community.jboss.org/wiki/AShortPrimerOnFetchingStrategies]. Note that ORM DSL does not currently support the "subselect" fetching strategy.{hidden}
+クエリが複数の@Person@インスタンスを返す場合、最初の@Person@インスタンスの@pet@プロパティにアクセスしたときに、Hibernateはその@Person@インスタンスに関連する@Pet@インスタンスと、それに続く4つの@Pet@インスタンスをフェッチします。
+@batchSize@と@lazy: false@オプションを同時に指定したEagerフェッチの場合も同じ挙動になります。
+[Hibernateユーザガイドのフェッチ戦略|http://docs.jboss.org/hibernate/core/3.6/reference/ja-JP/html/performance.html#performance-fetching]と[フェッチ戦略入門|http://community.jboss.org/wiki/AShortPrimerOnFetchingStrategies]で、これらのオプションについてもっと情報を得ることができます。
+ORM DSLは今のところ「subselect」フェッチ戦略をサポートしていないことに注意してください。
 
-h4. Lazy Single-Ended Associations
+{hidden}h4. Lazy Single-Ended Associations{hidden}
+h4. Lazy単一終端関連
 
-In GORM, one-to-one and many-to-one associations are by default lazy. Non-lazy single ended associations can be problematic when you load many entities because each non-lazy association will result in an extra SELECT statement. If the associated entities also have non-lazy associations, the number of queries grows significantly!
+{hidden}In GORM, one-to-one and many-to-one associations are by default lazy. Non-lazy single ended associations can be problematic when you load many entities because each non-lazy association will result in an extra SELECT statement. If the associated entities also have non-lazy associations, the number of queries grows significantly!{hidden}
+GORMでは、1対1と多対1関連はデフォルトでLazyです。
+非Lazyの単一終端関連では、大量のエンティティをロードするときに問題が発生する可能性があります。
+非Lazy関連ごとに追加のSELECT文を発行してしまうためです。
+関連エンティティが更に非Lazy関連を持つ場合、クエリは相当な数になってしまいます!
 
-Use the same technique as for lazy collections to make a one-to-one or many-to-one association non-lazy/eager:
+{hidden}Use the same technique as for lazy collections to make a one-to-one or many-to-one association non-lazy/eager:{hidden}
+1対1/多対1関連を非LazyつまりEagerにするには、Lazyコレクションのときと同じ方法を使います:
 
 {code:java}
 class Person {
@@ -83,15 +107,24 @@ class Address {
 }
 {code}
 
-Here we configure GORM to load the associated @Person@ instance (through the @person@ property) whenever an @Address@ is loaded.
+{hidden}Here we configure GORM to load the associated @Person@ instance (through the @person@ property) whenever an @Address@ is loaded.{hidden}
+ここでは、@Address@がロードされるごとに、(@person@プロパティを通して)関連づけられた@Person@インスタンスをロードするようにGORMを設定しています。
 
-h4. Lazy Single-Ended Associations and Proxies
+{hidden}h4. Lazy Single-Ended Associations and Proxies{hidden}
+h4. Lazy単一終端関連とプロキシ
 
-Hibernate uses runtime-generated proxies to facilitate single-ended lazy associations; Hibernate dynamically subclasses the entity class to create the proxy.
+{hidden}Hibernate uses runtime-generated proxies to facilitate single-ended lazy associations; Hibernate dynamically subclasses the entity class to create the proxy.{hidden}
+HibernateはLazy単一終端関連を扱うためにプロキシを実行時に生成して利用しています。
+Hibernateはプロキシを生成するためにエンティティクラスを動的にサブクラス化します。
 
-Consider the previous example but with a lazily-loaded @person@ association: Hibernate will set the @person@ property to a proxy that is a subclass of @Person@. When you call any of the getters (except for the @id@ property) or setters on that proxy, Hibernate will load the entity from the database.
+{hidden}Consider the previous example but with a lazily-loaded @person@ association: Hibernate will set the @person@ property to a proxy that is a subclass of @Person@. When you call any of the getters (except for the @id@ property) or setters on that proxy, Hibernate will load the entity from the database.{hidden}
+前項の例で、@person@関連がLazyロードされる場合を考えます。
+Hibernateは@Person@のサブクラスであるプロキシを@person@プロパティにセットします。
+そのプロキシに対してsetterか(@id@プロパティ以外の)getterを呼んだとき、Hibernateはデータベースからそのエンティティをロードします。
 
-Unfortunately this technique can produce surprising results. Consider the following example classes:
+{hidden}Unfortunately this technique can produce surprising results. Consider the following example classes:{hidden}
+残念なことに、この機構は驚くべき結果をもたらします。
+以下のようなサンプルクラスを考えます:
 
 {code:java}
 class Pet {
@@ -111,14 +144,18 @@ class Person {
 }
 {code}
 
-and assume that we have a single @Person@ instance with a @Dog@ as the @pet@. The following code will work as you would expect:
+{hidden}and assume that we have a single @Person@ instance with a @Dog@ as the @pet@. The following code will work as you would expect:{hidden}
+ここで、@pet@として@Dog@を持っている1つの@Person@インスタンスがあると仮定します。
+以下のコードは期待通りに動作します:
+
 {code}
 def person = Person.get(1)
 assert person.pet instanceof Dog
 assert Pet.get(person.petId) instanceof Dog
 {code}
 
-But this won't:
+{hidden}But this won't:{hidden}
+しかし、次のコードは期待通りに動作しません:
 
 {code}
 def person = Person.get(1)
@@ -126,30 +163,48 @@ assert person.pet instanceof Dog
 assert Pet.list()[0] instanceof Dog
 {code}
 
-The second assertion fails, and to add to the confusion, this will work:
+{hidden}The second assertion fails, and to add to the confusion, this will work:{hidden}
+2番目のアサーションが失敗します。
+混乱がさらに深まるでしょうが、次のコードは動作します。
 
 {code}
 assert Pet.list()[0] instanceof Dog
 {code}
 
-What's going on here? It's down to a combination of how proxies work and the guarantees that the Hibernate session makes. When you load the @Person@ instance, Hibernate creates a proxy for its @pet@ relation and attaches it to the session. Once that happens, whenever you retrieve that @Pet@ instance with a query, a @get()@, or the @pet@ relation _within the same session_ , Hibernate gives you the proxy.
+{hidden}What's going on here? It's down to a combination of how proxies work and the guarantees that the Hibernate session makes. When you load the @Person@ instance, Hibernate creates a proxy for its @pet@ relation and attaches it to the session. Once that happens, whenever you retrieve that @Pet@ instance with a query, a @get()@, or the @pet@ relation _within the same session_ , Hibernate gives you the proxy.{hidden}
+一体何が起こっているのでしょうか？
+この原因はプロキシの働きとHibernateセッションによる1次キャッシュの連携です。
+@Person@インスタンスをロードしたとき、Hibernateは@pet@プロパティ用にプロキシを生成してセッションにアタッチします。
+一度その状態になってしまうと、 _同一セッション内で_ クエリや@get()@や@pet@プロパティを経由して@Pet@インスタンスを取得するたびに、Hibernateはセッションに登録されているプロキシを返します。
 
-Fortunately for us, GORM automatically unwraps the proxy when you use @get()@ and @findBy\*()@, or when you directly access the relation. That means you don't have to worry at all about proxies in the majority of cases. But GORM doesn't do that for objects returned with a query that returns a list, such as @list()@ and @findAllBy\*()@. However, if Hibernate hasn't attached the proxy to the session, those queries will return the real instances - hence why the last example works.
+{hidden}Fortunately for us, GORM automatically unwraps the proxy when you use @get()@ and @findBy\*()@, or when you directly access the relation. That means you don't have to worry at all about proxies in the majority of cases. But GORM doesn't do that for objects returned with a query that returns a list, such as @list()@ and @findAllBy\*()@. However, if Hibernate hasn't attached the proxy to the session, those queries will return the real instances - hence why the last example works.{hidden}
+幸いなことに、GORMは@get()@と@findBy\*()@を使ったとき、または、直接関連プロパティにアクセスしたときには、自動的にプロキシをアンラップしてくれます。
+これは大部分のケースにおいては、プロキシについて少しも心配する必要がないことを意味します。
+しかし、@list()@や@findAllBy\*()@のようなリストを返すクエリによって取得したオブジェクトに対しては、GORMはそのようなサポートをしてくれません。
+しかし、Hibernateがプロキシをセッションにアタッチしていなければ、これらのクエリはプロキシではない本物のインスタンスを返します。このため、先ほどの最後の例はうまく動作したのです。
 
-You can protect yourself to a degree from this problem by using the @instanceOf@ method by GORM:
+{hidden}You can protect yourself to a degree from this problem by using the @instanceOf@ method by GORM:{hidden}
+GORMが提供する@instanceOf@メソッドを使ってこの問題をある程度回避することもできます。
 
 {code:java}
 def person = Person.get(1)
 assert Pet.list()[0].instanceOf(Dog)
 {code}
 
-However, it won't help here if casting is involved. For example, the following code will throw a @ClassCastException@ because the first pet in the list is a proxy instance with a class that is neither @Dog@ nor a sub-class of @Dog@:
+{hidden}However, it won't help here if casting is involved. For example, the following code will throw a @ClassCastException@ because the first pet in the list is a proxy instance with a class that is neither @Dog@ nor a sub-class of @Dog@:{hidden}
+しかし、キャストを伴う場合はこれでは解決できません。
+たとえば、以下のコードは@ClassCastException@をスローします。
+なぜなら、リスト中の最初のペットが@Dog@でも@Dog@のサブクラスでもないプロキシインスタンスだからです。
 
 {code:java}
 def person = Person.get(1)
 Dog pet = Pet.list()[0]
 {code}
 
-Of course, it's best not to use static types in this situation. If you use an untyped variable for the pet instead, you can access any @Dog@ properties or methods on the instance without any problems.
+{hidden}Of course, it's best not to use static types in this situation. If you use an untyped variable for the pet instead, you can access any @Dog@ properties or methods on the instance without any problems.{hidden}
+もちろん、この場合は静的型を使わないのがベストです。
+代わりに型宣言の無い変数をpetに使えば、問題なくそのインスタンス上の@Dog@プロパティやメソッドにアクセスできます。
 
-These days it's rare that you will come across this issue, but it's best to be aware of it just in case. At least you will know why such an error occurs and be able to work around it.
+{hidden}These days it's rare that you will come across this issue, but it's best to be aware of it just in case. At least you will know why such an error occurs and be able to work around it.{hidden}
+最近はこの問題に出くわすことは滅多にないですが、万一のために知っておくことは大切です。
+少なくとも、なぜそのようなエラーが発生するのかを理解して回避できます。
