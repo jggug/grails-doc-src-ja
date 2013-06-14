@@ -1,7 +1,7 @@
 {hidden}
-Scaffolding lets you auto-generate a whole application for a given domain class including:
+Scaffolding lets you generate some basic CRUD interfaces for a domain class, including:
 {hidden}
-スカッフォルドは以下を含むドメインクラスの完全なアプリケーションを自動生成します。
+スカッフォルドは以下を含むドメインクラスの基礎的なCRUDインターフェイスを自動生成します。
 
 {hidden}
 * The necessary [views|guide:gsp]
@@ -9,6 +9,18 @@ Scaffolding lets you auto-generate a whole application for a given domain class 
 {hidden}
 * 必要な[ビュー|guide:gsp]
 * 作成/参照/更新/削除(CRUD)処理のコントローラアクション
+
+As of Grails 2.3, the scaffolding feature has been moved to a plugin. By default this is configured for installation in new applications, but if you are upgrading from a previous version of Grails you will need to add the following configuration to your @BuildConfig.groovy@ file:
+
+{code}
+    plugins {
+        ...
+        compile ":scaffolding:2.0.0"
+        ...
+    }
+{code}
+
+Version 1.0.0 of the plugin provides the same scaffolding seen in Grails 2.2.x and below. Version 2.0.x of the scaffolding plugin includes different scaffolding templates that are aligned with the new REST APIs introcued in Grails 2.3 and above.
 
 {hidden}
 h4. Dynamic Scaffolding
@@ -43,7 +55,7 @@ With this configured, when you start your application the actions and views will
 この設定により、アプリケーション実行時にアクションとビューが自動生成されます。以下のアクションはデフォルトで実行時に動的生成されます。
 
 {hidden}
-* list
+* index
 * show
 * edit
 * delete
@@ -51,7 +63,7 @@ With this configured, when you start your application the actions and views will
 * save
 * update
 {hidden}
-* list
+* index
 * show
 * edit
 * delete
@@ -101,7 +113,7 @@ class BookController {
     static scaffold = Book
 
     // overrides scaffolded action to return both authors and books
-    def list() {
+    def index() {
         [bookInstanceList: Book.list(),
          bookInstanceTotal: Book.count(),
          authorInstanceList: Author.list()]

@@ -217,6 +217,28 @@ theWebLayer:
     ajaxWithGWT: GWTを使用したAjax
     ajaxOnTheServer: Ajax使用時のサーバサイド
   contentNegotiation: コンテントネゴシエーション
+webServices:
+  title: Webサービス
+  REST: 
+    title: REST
+    domainResources: RESTリソースとしてドメインクラスを使用する
+    urlMappings: RESTリソースへのマッピング
+    linkingToResources: RESTリソースへのリンク
+    versioningResources: RESTリソースのバージョニング
+    restfulControllers:
+      title: RESTコントローラの実装
+      extendingRestfulController: RestfulControllerスーパークラスの拡張
+      restControllersStepByStep: RESTコントローラの実装ステップバイステップ
+      generatingRestControllers: スカッフォルドを使用してRESTコントローラを生成
+    renderers: レスポンスレンダリングのカスタマイズ
+    hypermedia: 
+      title: Hypermediaをアプリケーションステートのエンジンにする
+      hal: HALサポート
+      atom: Atomサポート
+      vndError: Vnd.Errorサポート
+    binding: リソースバインディングのカスタマイズ
+  SOAP: SOAP
+  RSSAndAtom: RSSとAtom
 async:
   title: 非同期プログラミング
   promises: Promises
@@ -286,11 +308,6 @@ plugins:
     queryingArtefacts: 使用可能なアーテファクトの検索
     customArtefacts: アーテファクト型の追加
   binaryPlugins: バイナリープラグイン
-webServices:
-  title: Webサービス
-  REST: REST
-  SOAP: SOAP
-  RSSAndAtom: RSSとAtom
 spring:
   title: GrailsとSpring
   theUnderpinningsOfGrails: Grailsの土台

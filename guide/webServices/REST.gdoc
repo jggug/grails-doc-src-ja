@@ -1,8 +1,16 @@
 {hidden}REST is not really a technology in itself, but more an architectural pattern. REST is very simple and just involves using plain XML or JSON as a communication medium, combined with URL patterns that are "representational" of the underlying system, and HTTP methods such as GET, PUT, POST and DELETE.{hidden}
 RESTは本来SOAPのようなプロトコルではなく、アーキテクチャスタイルです。RESTは非常に単純です。簡素なXMLやJSONを通信媒体に用いて、基本的なシステムとGET、PUT、POSTおよびDELETEといったHTTPメソッドを「表現する」URLパターンを組み合わせています。
 
-{hidden}Each HTTP method maps to an action type. For example GET for retrieving data, PUT for creating data, POST for updating and so on. In this sense REST fits quite well with [CRUD|guide:scaffolding].{hidden}
-それぞれのHTTPメソッドは異なるアクションにマップします。例えば、GETはデータ検索、PUTはデータ作成、POSTは更新などとマップします。このため、RESTは[CRUD|guide:scaffolding]と非常によく適合します。
+{hidden}Each HTTP method maps to an action type. For example GET for retrieving data, POST for creating data, PUT for updating and so on.{hidden}
+それぞれのHTTPメソッドは異なるアクションにマップします。例えば、GETはデータ検索、PUTはデータ作成、POSTは更新などとマップします。
+
+Grails includes flexible features that make it easy to create RESTful APIs. Creating a RESTful resource can be as simple as one line of code, as demonstrated in the next section.
+
+
+{warning}
+Grails 2.3で大幅な更新が行われるため、日本語版のみ旧仕様のドキュメントを一時的に残しておきます。
+以下、Grails 2.2.x 以前の仕様になります。
+{warning}
 
 h4. URLパターン {hidden}URL patterns{hidden}
 

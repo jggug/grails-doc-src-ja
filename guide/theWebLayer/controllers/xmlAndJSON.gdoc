@@ -77,8 +77,8 @@ def list() {
 
 {code}
 [
-    {title:"The Stand"},
-    {title:"The Shining"}
+    {"title":"The Stand"},
+    {"title":"The Shining"}
 ]
 {code}
 

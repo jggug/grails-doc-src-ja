@@ -1,9 +1,9 @@
 
 h1. Document Translation Report.
 
-* *File Count* - 273
-* *Done* - 209
-* *TODO* - 62
+* *File Count* - 288
+* *Done* - 219
+* *TODO* - 67
 * *Not found or new* - 2
 
 h2. Original document updated after translation.:
@@ -11,26 +11,18 @@ h2. Original document updated after translation.:
 *./guide/introduction/whatsNew23.gdoc*
 
 {code}
-80 : The @create-app@ command will now by default generate the command line grailsw wrapper for newly created applications.  The @--skip-wrapper@ switch may be used to prevent the wrapper from being generated.
+140: The @create-app@ command will now by default generate the command line grailsw wrapper for newly created applications.  The @--skip-wrapper@ switch may be used to prevent the wrapper from being generated.
 {code}
 
 h2. Not done.
 
 * ../en/guide/GORM/advancedGORMFeatures/defaultSortOrder.gdoc
 * ../en/guide/GORM/advancedGORMFeatures/eventsAutoTimestamping.gdoc
-* ../en/guide/GORM/advancedGORMFeatures/ormdsl/customCascadeBehaviour.gdoc
 * ../en/guide/GORM/advancedGORMFeatures/ormdsl/customHibernateTypes.gdoc
 * ../en/guide/GORM/advancedGORMFeatures/ormdsl/customNamingStrategy.gdoc
 * ../en/guide/GORM/advancedGORMFeatures/ormdsl/derivedProperties.gdoc
-* ../en/guide/GORM/advancedGORMFeatures/ormdsl/fetchingDSL.gdoc
-* ../en/guide/GORM/advancedGORMFeatures/ormdsl/optimisticLockingAndVersioning.gdoc
-* ../en/guide/GORM/domainClasses/gormAssociation/basicCollectionTypes.gdoc
-* ../en/guide/GORM/domainClasses/gormAssociation/manyToMany.gdoc
 * ../en/guide/GORM/domainClasses/gormAssociation/manyToOneAndOneToOne.gdoc
-* ../en/guide/GORM/domainClasses/gormAssociation/oneToMany.gdoc
-* ../en/guide/GORM/domainClasses/gormComposition.gdoc
 * ../en/guide/GORM/domainClasses/inheritanceInGORM.gdoc
-* ../en/guide/GORM/persistenceBasics/locking.gdoc
 * ../en/guide/GORM/persistenceBasics/modificationChecking.gdoc
 * ../en/guide/GORM/querying/criteria.gdoc
 * ../en/guide/GORM/querying/detachedCriteria.gdoc
@@ -65,10 +57,9 @@ h2. Not done.
 * ../en/guide/rewriteRules.txt
 * ../en/guide/security/xssPrevention.gdoc
 * ../en/guide/services/declarativeTransactions/transactionsRollbackAndTheSession.gdoc
-* ../en/guide/spring/theBeanBuilderDSLExplained.gdoc
 * ../en/guide/testing/integrationTesting.gdoc
-* ../en/guide/testing/unitTesting/unitTestingFilters.gdoc
 * ../en/guide/theWebLayer/urlmappings/namespacedControllers.gdoc
+* ../en/guide/theWebLayer/urlmappings/restfulMappings.gdoc
 *  *(original file updated)* ../en/guide/toc.yml
 * ../en/guide/validation.gdoc
 * ../en/guide/validation/constraints.gdoc
@@ -77,6 +68,20 @@ h2. Not done.
 * ../en/guide/validation/validationAndInternationalization.gdoc
 * ../en/guide/validation/validationNonDomainAndCommandObjectClasses.gdoc
 * ../en/guide/validation/validationOnTheClient.gdoc
+* ../en/guide/webServices/REST/binding.gdoc
+* ../en/guide/webServices/REST/domainResources.gdoc
+* ../en/guide/webServices/REST/hypermedia.gdoc
+* ../en/guide/webServices/REST/hypermedia/atom.gdoc
+* ../en/guide/webServices/REST/hypermedia/hal.gdoc
+* ../en/guide/webServices/REST/hypermedia/vndError.gdoc
+* ../en/guide/webServices/REST/linkingToResources.gdoc
+* ../en/guide/webServices/REST/renderers.gdoc
+* ../en/guide/webServices/REST/restfulControllers.gdoc
+* ../en/guide/webServices/REST/restfulControllers/extendingRestfulController.gdoc
+* ../en/guide/webServices/REST/restfulControllers/generatingRestControllers.gdoc
+* ../en/guide/webServices/REST/restfulControllers/restControllersStepByStep.gdoc
+* ../en/guide/webServices/REST/urlMappings.gdoc
+* ../en/guide/webServices/REST/versioningResources.gdoc
 * ../en/guide/webServices/SOAP.gdoc
 
 h2. File not found (new file added) or empty file

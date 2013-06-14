@@ -69,32 +69,29 @@ Every incoming HTTP request has a special [Accept|http://www.w3.org/Protocols/rf
 */*
 {code}
 
-which simply means anything. However, newer browsers send more interesting values such as this one sent by Firefox 3:
+which simply means anything. However, newer browsers send more interesting values such as this one sent by Firefox:
 
 {code}
 text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, \
     text/plain;q=0.8, image/png, */*;q=0.5
 {code}
 
-This particular accept header is unhelpful because it indicates that XML is the preferred response format whereas the user is really expecting HTML. That's why Grails ignores the accept header by default. However, non-browser clients are typically more specific in their requirements and can send accept headers such as
+This particular accept header is unhelpful because it indicates that XML is the preferred response format whereas the user is really expecting HTML. That's why Grails ignores the accept header by default for browsers. However, non-browser clients are typically more specific in their requirements and can send accept headers such as
 
 {code}
 application/json
 {code}
 
-If you want to support such clients and their accept headers, then simply add (or change) the @grails.mime.use.accept.header@ setting in @Config.groovy@ :
+As mentioned the default configuration in Grails is to ignore the accept header for browsers. This is done by the configuration setting @grails.mime.disable.accept.header.userAgents@, which is configured to detect the major rendering engines and ignore their ACCEPT headers. This allows Grails' content negotiation to continue to work for non-browser clients:
 
 {code}
-grails.mime.use.accept.header = true
+grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
 {code}
 
-With this setting, Grails parses the incoming accept header and sets the appropriate value for the @format@ response property. For example, if it sees the accept header above ('application/json') it will set @format@ to @json@ as you'd expect. And of course this works with the @withFormat()@ method in just the same way as when the @format@ URL parameter is set (although the URL parameter takes precedence).
+For example, if it sees the accept header above ('application/json') it will set @format@ to @json@ as you'd expect. And of course this works with the @withFormat()@ method in just the same way as when the @format@ URL parameter is set (although the URL parameter takes precedence).
 
 An accept header of '\*/\*' results in a value of @all@ for the @format@ property.
 
-{note}
-If you enable accept header parsing, it's usually best to handle XML and JSON responses in a different action from the HTML ones due to the problems with various browsers. You can then use @withFormat()@ exclusively for the REST interface and avoid it for actions that render the normal HTML pages.
-{note}
 
 h4. リクエストフォーマット vs レスポンスフォーマット {hidden}Request format vs. Response format {hidden}
 
@@ -142,12 +139,18 @@ URI拡張子でのコンテントネゴシエーションにも対応してい�
 /book/list.xml
 {code}
 
-{hidden}Grails will remove the extension and map it to @/book/list@ instead whilst simultaneously setting the content format to @xml@ based on this extension. This behaviour is enabled by default, so if you wish to turn it off, you must set the @grails.mime.file.extensions@ property in @grails-app/conf/Config.groovy@ to @false@:{hidden}
-Grailsが拡張子を外して、@xml@としてフォーマットをセットして@/book/list@にマップします。この振る舞いはデフォルトで使用可能です。この機能を外したい場合は@grails-app/conf/Config.groovy@の@grails.mime.file.extensions@プロパティを@false@に指定します:
+This works as a result of the default URL Mapping definition which is:
 
 {code:java}
-grails.mime.file.extensions = false
+"/$controller/$action?/$id?(.${format})?"{
 {code}
+
+Note the inclusion of the @format@ variable in the path. If you do not wish to use content negotiation via the file extension then simply remove this part of the URL mapping:
+
+{code:java}
+"/$controller/$action?/$id?"{
+{code}
+
 
 h4. コンテントネゴシエーションをテスト {hidden}Testing Content Negotiation {hidden}
 

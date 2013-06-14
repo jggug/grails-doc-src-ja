@@ -42,6 +42,10 @@ Grails 2.3では、依存のバージョンよりもフレキシブルで保守�
 {hidden}The legacy data binder may be used by assigning @true@ to the @grails.databinding.useSpringBinder@ property in @grails-app/conf/Config.groovy@.  Note that the legacy binder does not support any of the new features provided by the new data binder.{hidden}
 @grails-app/conf/Config.groovy@ の @grails.databinding.useSpringBinder@ プロパティを @true@ にすることで以前のデータバインダーに変更することができます。 以前のバインダーは今回実装された新機能には対応していません。
 
+h4. Domain Classes As Command Objects
+
+When a domain class is used as a command object and there is an @id@ request parameter, the framework will retrieve the instance of the domain class from the database using the @id@ request parameter.  See the [Command Objects|guide:commandObjects] documentation for more details.
+
 {hidden}h4. Forked Execution{hidden}
 h4. フォーク実行 
 
@@ -118,6 +122,62 @@ h4. Hibernate 3と4をサポート
 
 {hidden}The GORM for Hibernate 3 support for Grails has been extracted into a separate project, allowing new support for Hibernate 4 as a separate plugin.{hidden}
 新たにHibernate 4をプラグインでサポートするために、Hibernate 3用のGORMは、本体から別のプラグインプロジェクトとなりました。
+
+h4. Namespaced Controllers
+
+Controllers may now be defined in a namespace which allows for multiple controllers to be defined with the same name in different packages.
+
+{code}
+// grails-app/controllers/com/app/reporting/AdminController.groovy
+package com.app.reporting
+
+class AdminController {
+
+    static namespace = 'reports'
+
+    // ...
+}
+{code}
+
+{code}
+// grails-app/controllers/com/app/security/AdminController.groovy
+package com.app.security
+
+class AdminController {
+
+    static namespace = 'users'
+
+    // ...
+}
+{code}
+
+
+{code}
+// grails-app/conf/UrlMappings.groovy
+class UrlMappings {
+
+    static mappings = {
+        '/userAdmin' {
+            controller = 'admin'
+            namespace = 'users'
+        }
+
+        '/reportAdmin' {
+            controller = 'admin'
+            namespace = 'reports'
+        }
+
+        "/$namespace/$controller/$action?"()
+    }
+}
+{code}
+
+{code}
+<g:link controller="admin" namespace="reports">Click For Report Admin</g:link>
+<g:link controller="admin" namespace="users">Click For User Admin</g:link>
+{code}
+
+See the [namespaced controllers|guide:namespacedControllers] docs for more information.
 
 {hidden}h4. Command Line {hidden}
 h4. コマンドライン

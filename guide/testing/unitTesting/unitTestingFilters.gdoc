@@ -44,7 +44,7 @@ void testInvocationOfListActionIsFiltered() {
 もしテストしているのが別のコントローラである場合はそれを指定します。
 
 {code:java}
-withFilters(controller:"book", action:"list") {
+withFilters(controller:"book",action:"list") {
     controller.list()
 }
 {code}
