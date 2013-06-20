@@ -1,6 +1,13 @@
-You saw in an earlier section that you can use composition (with the @embedded@ property) to break a table into multiple objects. You can achieve a similar effect with Hibernate's custom user types. These are not domain classes themselves, but plain Java or Groovy classes. Each of these types also has a corresponding "meta-type" class that implements [org.hibernate.usertype.UserType|api:org.hibernate.usertype.UserType].
+{hidden}You saw in an earlier section that you can use composition (with the @embedded@ property) to break a table into multiple objects. You can achieve a similar effect with Hibernate's custom user types. These are not domain classes themselves, but plain Java or Groovy classes. Each of these types also has a corresponding "meta-type" class that implements [org.hibernate.usertype.UserType|api:org.hibernate.usertype.UserType].{hidden}
+以前のセクションで、1つのテーブルに対して複数のオブジェクトを対応付けるために、@embedded@プロパティによるコンポジションが使えることを説明しました。
+Hibernateのカスタム型を利用すると同じようなことができます。
+カスタム型自体はドメインクラスではなく、普通のJavaやGroovyクラスです。
+また、それぞれのカスタム型には対応する「メタ型(meta-type)」クラスがあります。メタ型クラスは[org.hibernate.usertype.UserType|api:org.hibernate.usertype.UserType]インタフェースを実装します。
 
-The [Hibernate reference manual|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/mapping.html#mapping-types-custom] has some information on custom types, but here we will focus on how to map them in Grails. Let's start by taking a look at a simple domain class that uses an old-fashioned (pre-Java 1.5) type-safe enum class:
+{hidden}The [Hibernate reference manual|http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/mapping.html#mapping-types-custom] has some information on custom types, but here we will focus on how to map them in Grails. Let's start by taking a look at a simple domain class that uses an old-fashioned (pre-Java 1.5) type-safe enum class:{hidden}
+カスタム型についての情報は[Hibernateリファレンスマニュアル|http://docs.jboss.org/hibernate/core/3.6/reference/ja-JP/html/mapping.html#mapping-types-custom]にあります。
+ここではそれをGrails上でどのようにマッピングするかに焦点を絞ります。
+(Java1.5以前の)昔ながらのタイプセーフenumクラスを使ったシンプルなドメインクラスをみてみましょう:
 
 {code:java}
 class Book {
@@ -15,9 +22,13 @@ class Book {
 }
 {code}
 
-All we have done is declare the @rating@ field the enum type and set the property's type in the custom mapping to the corresponding @UserType@ implementation. That's all you have to do to start using your custom type. If you want, you can also use the other column settings such as "column" to change the column name and "index" to add it to an index.
+{hidden}All we have done is declare the @rating@ field the enum type and set the property's type in the custom mapping to the corresponding @UserType@ implementation. That's all you have to do to start using your custom type. If you want, you can also use the other column settings such as "column" to change the column name and "index" to add it to an index.{hidden}
+@rating@フィールドをenum型として宣言し、カスタムマッピングでそのプロパティの型を@UserType@実装型にマッピングしています。
+カスタム型に必要な設定はこれだけですが、必要であれば、カラム名を変更する「column」やインデックスを追加する「index」のような他のカラムの設定を使うこともできます。
 
-Custom types aren't limited to just a single column - they can be mapped to as many columns as you want. In such cases you explicitly define in the mapping what columns to use, since Hibernate can only use the property name for a single column. Fortunately, Grails lets you map multiple columns to a property using this syntax:
+{hidden}Custom types aren't limited to just a single column - they can be mapped to as many columns as you want. In such cases you explicitly define in the mapping what columns to use, since Hibernate can only use the property name for a single column. Fortunately, Grails lets you map multiple columns to a property using this syntax:{hidden}
+カスタム型は単一カラム用に制限されているわけではありません。必要な分の複数カラムに対してマッピングできます。
+単一カラムの場合はHibernateはプロパティ名を利用できますが、複数カラムの場合はどのカラムを使うのか@mapping@で明示的に定義する必要があります:
 
 {code:java}
 class Book {
@@ -36,15 +47,22 @@ class Book {
 }
 {code}
 
-The above example will create "first_name" and "last_name" columns for the @author@ property. You'll be pleased to know that you can also use some of the normal column/property mapping attributes in the column definitions. For example:
+{hidden}The above example will create "first_name" and "last_name" columns for the @author@ property. You'll be pleased to know that you can also use some of the normal column/property mapping attributes in the column definitions. For example:{hidden}
+上の例では、@author@プロパティに対して、「first_name」と「last_name」という2つのカラムが作成されます。
+嬉しいことに、このカラム定義において、通常のカラム/プロパティのマッピング属性がいくつか使えます。
+例えば:
 
 {code:java}
 column name: "first_name", index: "my_idx", unique: true
 {code}
 
-The column definitions do _not_ support the following attributes: @type@, @cascade@, @lazy@, @cache@, and @joinTable@.
+{hidden}The column definitions do _not_ support the following attributes: @type@, @cascade@, @lazy@, @cache@, and @joinTable@.{hidden}
+このカラム定義では次の属性はサポートされていません: @type@, @cascade@, @lazy@, @cache@, @joinTable@
 
-One thing to bear in mind with custom types is that they define the _SQL types_ for the corresponding database columns. That helps take the burden of configuring them yourself, but what happens if you have a legacy database that uses a different SQL type for one of the columns? In that case, override the column's SQL type using the @sqlType@ attribute:
+{hidden}One thing to bear in mind with custom types is that they define the _SQL types_ for the corresponding database columns. That helps take the burden of configuring them yourself, but what happens if you have a legacy database that uses a different SQL type for one of the columns? In that case, override the column's SQL type using the @sqlType@ attribute:{hidden}
+カスタム型について覚えておくべきことの1つは、対応するデータベースのカラムの _SQLデータ型_ があらかじめ決められていることです。
+これによって自分で設定する負担が低減されます。しかし、カスタム型の想定とは異なるSQLデータ型が使われているレガシーデータベース上では、どうなってしまうのでしょうか？
+そのような場合は、@sqlType@属性を使ってそのカラムのSQLデータ型を上書きしてください:
 
 {code:java}
 class Book {
@@ -63,4 +81,6 @@ class Book {
 }
 {code}
 
-Mind you, the SQL type you specify needs to still work with the custom type. So overriding a default of "varchar" with "text" is fine, but overriding "text" with "yes_no" isn't going to work.
+{hidden}Mind you, the SQL type you specify needs to still work with the custom type. So overriding a default of "varchar" with "text" is fine, but overriding "text" with "yes_no" isn't going to work.{hidden}
+指定したSQLデータ型とカスタム型に整合性が必要なことに注意してください。
+デフォルトの「varchar」を「text」に上書きするのは良いですが、「text」を「yes_no」に上書きしてもうまく動きません。
