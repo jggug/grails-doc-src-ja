@@ -1,8 +1,12 @@
-h4. Forked Execution
+{hidden}h4. Forked Execution{hidden}
+h4. フォーク実行
 
-Since Grails 2.3, the @run-app@, @run-war@, @test-app@ and @console@ commands are now executed in a forked JVM in order to isolate the build classpath from the runtime classpath.
+{hidden}Since Grails 2.3, the @run-app@, @run-war@, @test-app@ and @console@ commands are now executed in a forked JVM in order to isolate the build classpath from the runtime classpath.{hidden}
+ランタイムクラスパスからビルドクラスパスを隔離するために、Grails 2.3から@run-app@、@run-war@、@test-app@、@console@コマンドはフォークされたJVM上で実行されます。
 
-Forked execution is configured via the @grails-app/conf/BuildConfig.groovy@ file. The following is the default configuration:
+{hidden}Forked execution is configured via the @grails-app/conf/BuildConfig.groovy@ file. The following is the default configuration:{hidden}
+フォーク実行は@grails-app/conf/BuildConfig.groovy@ファイルで設定します。
+以下はデフォルト設定です:
 
 {code}
 forkConfig = [maxMemory: 1024, minMemory: 64, debug: false, maxPerm: 256]
@@ -14,24 +18,32 @@ grails.project.fork = [
 ]
 {code}
 
-The memory requirements of the forked JVM can be tweaked as per the requirements of the application.
+{hidden}The memory requirements of the forked JVM can be tweaked as per the requirements of the application.{hidden}
+フォークされたJVM用のメモリ容量は、アプリケーション要件に従って調整してください。
 
-h4. Forked Test Execution
+{hidden}h4. Forked Test Execution{hidden}
+h4. フォークされたテスト実行
 
-When running the [test-app|commandLine] command, a separate JVM is launched to execute this tests. This will have a notable impact on the speed of execution of the tests when running the command directly:
+{hidden}When running the [test-app|commandLine] command, a separate JVM is launched to execute this tests. This will have a notable impact on the speed of execution of the tests when running the command directly:{hidden}
+[test-app|commandLine]コマンドの実行時、そのテストを実行するための個別のJVMが起動されます。
+この起動時間が加算されるため、直接コマンドを実行したときの実行速度はかなりの影響を受けます:
 
 {code}
 grails test-app
 {code}
 
-To mitigate this, Grails 2.3 and above include a feature that launches a background JVM on standby to run tests when using interactive mode. In other words, running @test-app@ from interactive mode will result in faster test execution times:
+{hidden}To mitigate this, Grails 2.3 and above include a feature that launches a background JVM on standby to run tests when using interactive mode. In other words, running @test-app@ from interactive mode will result in faster test execution times:{hidden}
+これを緩和するため、Grails 2.3以上には、インタラクティブモード利用時にテスト実行に備えてバックグラウンドでJVMを起動する機能があります。
+つまり、インタラクティブモードからの@test-app@の実行では、テスト実行時間が速くなります:
 
 {code}
 $ grails
 $ grails> test-app
 {code}
 
-It is recommended that forked execution is used for tests, however it does require modern hardware due to the use of multiple JVMs. You can therefore disable forked execution by setting the @grails.project.fork.test@ setting to @false@:
+{hidden}It is recommended that forked execution is used for tests, however it does require modern hardware due to the use of multiple JVMs. You can therefore disable forked execution by setting the @grails.project.fork.test@ setting to @false@:{hidden}
+テストにはフォーク実行の利用をお勧めしますが、複数のJVMを利用するには最新のハードウェアが必要になります。
+そのため、@grails.project.fork.test@を@false@にセットすることで、フォーク実行を無効にすることもできます。
 
 {code}
 forkConfig = [maxMemory: 1024, minMemory: 64, debug: false, maxPerm: 256]
@@ -41,47 +53,67 @@ grails.project.fork = [
 ]
 {code}
 
-h4. Forked Tomcat Execution
+{hidden}h4. Forked Tomcat Execution{hidden}
+h4. フォークされたTomcat実行
 
-Grails 2.2 and above support forked JVM execution of the Tomcat container in development mode. This has several benefits including:
+{hidden}Grails 2.2 and above support forked JVM execution of the Tomcat container in development mode. This has several benefits including:{hidden}
+Grails 2.2以上では、開発モードにおけるTomcatコンテナのフォーク実行をサポートしています。
+これにはいくつかのメリットがあります:
 
+{hidden}
 * Reduced memory consumption, since the Grails build system can exit
 * Isolation of the build classpath from the runtime classpath
 * The ability to deploy other Grails/Spring applications in parallels without conflicting dependencies
+{hidden}
+* Grailsビルドシステムを終了できるため、メモリ消費量を減らせる
+* ランタイムクラスパスからビルドクラスパスを隔離できる
+* 依存関係のコンフリクトなしに、他のGrails/Springアプリケーションを並列デプロイできる
 
-To enable forked execution you can set the @grails.project.fork.run@ property to @true@:
+{hidden}To enable forked execution you can set the @grails.project.fork.run@ property to @true@:{hidden}
+フォーク実行を有効化するためには、@grails.project.fork.run@プロパティを@true@にセットします:
 
 {code}
 grails.project.fork.run=true
 {code}
 
-Then just us the regular @run-app@ command as per normal. Note that in forked mode the @grails@ process will exit and leave the container running in the background. To stop the server there is a new @stop-app@ command:
+{hidden}Then just us the regular @run-app@ command as per normal. Note that in forked mode the @grails@ process will exit and leave the container running in the background. To stop the server there is a new @stop-app@ command:{hidden}
+それから、いつも通り普通の@run-app@コマンドを使います。
+フォークモードでは@grails@プロセスは終了し、バックグラウンドで実行中のコンテナから切り離されることに注意してください。
+サーバを停止するために、新しい@stop-app@コマンドが用意されています:
 
 {code}
 grails stop-app
 {code}
 
-To customize the JVM arguments passed to the forked JVM you can specify a map instead:
+{hidden}To customize the JVM arguments passed to the forked JVM you can specify a map instead:{hidden}
+フォークされたJVMに渡すJVM引数をカスタマイズするために、代わりにマップを指定できます:
 
 {code}
 grails.project.fork.run= [maxMemory:1024, minMemory:64, debug:false, maxPerm:256, jvmArgs: '..arbitrary JVM arguments..']
 {code}
 
-h4. Auto-deploying additional WAR files in Forked Mode
+{hidden}h4. Auto-deploying additional WAR files in Forked Mode{hidden}
+h4. フォークモードでの追加WARファイルの自動デプロイ
 
-Since forked execution isolates classpaths more effectively than embedded execution you can deploy additional WAR files (such as other Grails or Spring applications) to the container.
+{hidden}Since forked execution isolates classpaths more effectively than embedded execution you can deploy additional WAR files (such as other Grails or Spring applications) to the container.{hidden}
+組み込み実行に比べてフォーク実行はより効果的にクラスパスを分離できるため、(他のGrails/Springアプリケーションの)追加WARファイルをコンテナへデプロイできます。
 
-The easiest way to do so is to drop the WAR files into the @src/autodeploy@ directory (if it doesn't exist you can create it).
+{hidden}The easiest way to do so is to drop the WAR files into the @src/autodeploy@ directory (if it doesn't exist you can create it).{hidden}
+最も簡単な方法は、WARファイルを@src/autodeploy@ディレクトリに置くことです(もしディレクトリが存在していなければ、作成してください)。
 
-You can customize the location of the autodeploy directory by specifying an alternative location in @BuildConfig.groovy@:
+{hidden}You can customize the location of the autodeploy directory by specifying an alternative location in @BuildConfig.groovy@:{hidden}
+@BuildConfig.groovy@で別のパスを指定して@autodeploy@ディレクトリの位置をカスタマイズできます:
 
 {code}
 grails.project.autodeploy.dir="/path/to/my/war/files"
 {code}
 
-h4. Customizing the Forked Tomcat instance
+{hidden}h4. Customizing the Forked Tomcat instance{hidden}
+h4. フォークされたTomcatインスタンスのカスタマイズ
 
-If you want to programmatically customize the forked [Tomcat|http://tomcat.apache.org/tomcat-7.0-doc/api/org/apache/catalina/startup/Tomcat.html] instance you can do so by implementing a class named @org.grails.plugins.tomcat.ForkedTomcatCustomizer@ which provides a method with the following signature:
+{hidden}If you want to programmatically customize the forked [Tomcat|http://tomcat.apache.org/tomcat-7.0-doc/api/org/apache/catalina/startup/Tomcat.html] instance you can do so by implementing a class named @org.grails.plugins.tomcat.ForkedTomcatCustomizer@ which provides a method with the following signature:{hidden}
+フォークされた[Tomcat|http://tomcat.apache.org/tomcat-7.0-doc/api/org/apache/catalina/startup/Tomcat.html]インスタンスをプログラム的にカスタマイズしたい場合は、@org.grails.plugins.tomcat.ForkedTomcatCustomizer@という名前のクラスを実装します。
+このクラスは以下のシグネチャのメソッドを提供します:
 
 {code}
 void customize(Tomcat tomcat) {
