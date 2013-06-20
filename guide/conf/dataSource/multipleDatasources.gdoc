@@ -1,8 +1,11 @@
-By default all domain classes share a single @DataSource@ and a single database, but you have the option to partition your domain classes into two or more @DataSource@s.
+{hidden}By default all domain classes share a single @DataSource@ and a single database, but you have the option to partition your domain classes into two or more @DataSource@s.{hidden}
+デフォルトではすべてのドメインクラスは単一のデータソースと単一のデータベースを共有していますが、ドメインクラスが共有するデータソースを複数に分割するオプションがあります。
 
-h4. Configuring Additional DataSources
+{hidden}h4. Configuring Additional DataSources{hidden}
+追加するデータソースの設定
 
-The default @DataSource@ configuration in @grails-app/conf/DataSource.groovy@ looks something like this:
+{hidden}The default @DataSource@ configuration in @grails-app/conf/DataSource.groovy@ looks something like this:{hidden}
+デフォルトの@DataSource@は@grails-app/conf/DataSource.groovy@で設定されており、次のようになっています。
 
 {code}
 dataSource {
@@ -39,7 +42,8 @@ environments {
 }
 {code}
 
-This configures a single @DataSource@ with the Spring bean named @dataSource@. To configure extra @DataSource@s, add another @dataSource@ block (at the top level, in an environment block, or both, just like the standard @DataSource@ definition) with a custom name, separated by an underscore. For example, this configuration adds a second @DataSource@, using MySQL in the development environment and Oracle in production:
+{hidden}This configures a single @DataSource@ with the Spring bean named @dataSource@. To configure extra @DataSource@s, add another @dataSource@ block (at the top level, in an environment block, or both, just like the standard @DataSource@ definition) with a custom name, separated by an underscore. For example, this configuration adds a second @DataSource@, using MySQL in the development environment and Oracle in production:{hidden}
+@dataSource@と命名されたSpringビーンとして、単一の@DataSource@を設定しています。複数の@DataSource@を設定するには、アンダースコア(_)で区切られたカスタム名を持つ、別の@dataSource@ブロックを（トップレベルかenvironmentブロック、または両方へ標準の@DataSource@定義と同様に）追加します。例えば、以下の設定では開発環境にMySQLを、本番環境にOracleを2番目の@DataSource@として追加しています。
 
 {code}
 environments {
@@ -80,11 +84,14 @@ environments {
 }
 {code}
 
-You can use the same or different databases as long as they're supported by Hibernate.
+{hidden}You can use the same or different databases as long as they're supported by Hibernate.{hidden}
+Hibernateによるサポートがある限り、同じデータベースでも異なるデータベースでも使用することができます。
 
-h4. Configuring Domain Classes
+{hidden}h4. Configuring Domain Classes{hidden}
+h4. ドメインクラスの設定
 
-If a domain class has no @DataSource@ configuration, it defaults to the standard @'dataSource'@. Set the @datasource@ property in the @mapping@ block to configure a non-default @DataSource@. For example, if you want to use the @ZipCode@ domain to use the @'lookup'@ @DataSource@, configure it like this;
+{hidden}If a domain class has no @DataSource@ configuration, it defaults to the standard @'dataSource'@. Set the @datasource@ property in the @mapping@ block to configure a non-default @DataSource@. For example, if you want to use the @ZipCode@ domain to use the @'lookup'@ @DataSource@, configure it like this;{hidden}
+ドメインクラスで@DataSource@の設定をしていない場合、デフォルトで標準の@'dataSource'@が設定されます。デフォルトでない@DataSource@を設定をするには、@mapping@ブロック内で@datasource@プロパティを使用します。例えば、@ZipCode@ドメインで@'lookup'@ @DataSource@を利用したい場合、以下のように設定します。
 
 {code}
 class ZipCode {
@@ -97,7 +104,8 @@ class ZipCode {
 }
 {code}
 
-A domain class can also use two or more @DataSource@s. Use the @datasources@ property with a list of names to configure more than one, for example:
+{hidden}A domain class can also use two or more @DataSource@s. Use the @datasources@ property with a list of names to configure more than one, for example:{hidden}
+ドメインクラスは複数の@DataSource@を使用することもできます。複数の設定をするためには、@datasources@プロパティにデータソース名のリストを設定します。例えば：
 
 {code}
 class ZipCode {
@@ -110,7 +118,8 @@ class ZipCode {
 }
 {code}
 
-If a domain class uses the default @DataSource@ and one or more others, use the special name @'DEFAULT'@ to indicate the default @DataSource@:
+{hidden}If a domain class uses the default @DataSource@ and one or more others, use the special name @'DEFAULT'@ to indicate the default @DataSource@:{hidden}
+複数の@DataSource@を持ち、デフォルトの@DataSource@を使う場合はデフォルトの@DataSource@を指す特別な名前として@'DEFAULT'@を使うことができます。
 
 {code}
 class ZipCode {
@@ -123,7 +132,8 @@ class ZipCode {
 }
 {code}
 
-If a domain class uses all configured @DataSource@s use the special value @'ALL'@:
+{hidden}If a domain class uses all configured @DataSource@s use the special value @'ALL'@:{hidden}
+設定されたすべての@DataSource@を使う場合、特別な値として@'ALL'@を使います。
 
 {code}
 class ZipCode {
@@ -136,9 +146,11 @@ class ZipCode {
 }
 {code}
 
-h4. Namespaces and GORM Methods
+{hidden}h4. Namespaces and GORM Methods{hidden}
+h4. 名前空間とGORMメソッド
 
-If a domain class uses more than one @DataSource@ then you can use the namespace implied by each @DataSource@ name to make GORM calls for a particular @DataSource@. For example, consider this class which uses two @DataSource@s:
+{hidden}If a domain class uses more than one @DataSource@ then you can use the namespace implied by each @DataSource@ name to make GORM calls for a particular @DataSource@. For example, consider this class which uses two @DataSource@s:{hidden}
+ドメインクラスが複数の@DataSource@を使用している場合、特定の@DataSource@へGORMの呼び出しを行うために、@DataSource@名ごとに暗黙で定義された名前空間を使うことが出来ます。例えば、2つの@DataSource@が使われているこのクラスを考えます。
 
 {code}
 class ZipCode {
@@ -151,7 +163,8 @@ class ZipCode {
 }
 {code}
 
-The first @DataSource@ specified is the default when not using an explicit namespace, so in this case we default to 'lookup'. But you can call GORM methods on the 'auditing' @DataSource@ with the @DataSource@ name, for example:
+{hidden}The first @DataSource@ specified is the default when not using an explicit namespace, so in this case we default to 'lookup'. But you can call GORM methods on the 'auditing' @DataSource@ with the @DataSource@ name, for example:{hidden}
+明示的に名前空間を使用しない場合、先頭の@DataSource@がデフォルトとして使用されます。この場合デフォルトは'lookup'となります。また、以下のように'auditing' @DataSource@上でGORMメソッドを呼ぶことができます。
 
 {code}
 def zipCode = ZipCode.auditing.get(42)
@@ -159,13 +172,17 @@ def zipCode = ZipCode.auditing.get(42)
 zipCode.auditing.save()
 {code}
 
-As you can see, you add the @DataSource@ to the method call in both the static case and the instance case.
+{hidden}As you can see, you add the @DataSource@ to the method call in both the static case and the instance case.{hidden}
+ご覧のように、メソッド呼び出しが静的呼び出しの場合とインスタンス呼び出しの場合どちらでも@DataSource@を追加します。
 
-h4. Hibernate Mapped Domain Classes
+{hidden}h4. Hibernate Mapped Domain Classes{hidden}
+h4. ドメインクラスのHibernateマップ
 
-You can also partition annotated Java classes into separate datasources. Classes using the default datasource are registered in @grails-app/conf/hibernate/hibernate.cfg.xml@. To specify that an annotated class uses a non-default datasource, create a @hibernate.cfg.xml@ file for that datasource with the file name prefixed with the datasource name.
+{hidden}You can also partition annotated Java classes into separate datasources. Classes using the default datasource are registered in @grails-app/conf/hibernate/hibernate.cfg.xml@. To specify that an annotated class uses a non-default datasource, create a @hibernate.cfg.xml@ file for that datasource with the file name prefixed with the datasource name.{hidden}
+アノテーションの付いたJavaクラスを別々のデータソースに分割することもできます。デフォルトのデータソースを使用しているクラスは@grails-app/conf/hibernate/hibernate.cfg.xml@に登録されます。デフォルトでないデータソースを使う注釈されたクラスを明示するためには、ファイル名の先頭にデータソース名をつけた@hibernate.cfg.xml@を作成します。
 
-For example if the @Book@ class is in the default datasource, you would register that in @grails-app/conf/hibernate/hibernate.cfg.xml@:
+{hidden}For example if the @Book@ class is in the default datasource, you would register that in @grails-app/conf/hibernate/hibernate.cfg.xml@:{hidden}
+例えば、@Book@クラスがデフォルトのデータソースを使う場合、@grails-app/conf/hibernate/hibernate.cfg.xml@に登録します。
 
 {code:xml}
 <?xml version='1.0' encoding='UTF-8'?>
@@ -179,7 +196,8 @@ For example if the @Book@ class is in the default datasource, you would register
 </hibernate-configuration>
 {code}
 
-and if the @Library@ class is in the "ds2" datasource, you would register that in @grails-app/conf/hibernate/ds2_hibernate.cfg.xml@:
+{hidden}and if the @Library@ class is in the "ds2" datasource, you would register that in @grails-app/conf/hibernate/ds2_hibernate.cfg.xml@:{hidden}
+@Library@クラスが"ds2"データソースを使う場合、@grails-app/conf/hibernate/ds2_hibernate.cfg.xml@に登録します。
 
 {code:xml}
 <?xml version='1.0' encoding='UTF-8'?>
@@ -193,11 +211,14 @@ and if the @Library@ class is in the "ds2" datasource, you would register that i
 </hibernate-configuration>
 {code}
 
-The process is the same for classes mapped with hbm.xml files - just list them in the appropriate hibernate.cfg.xml file.
+{hidden}The process is the same for classes mapped with hbm.xml files - just list them in the appropriate hibernate.cfg.xml file.{hidden}
+hbm.xmlファイルでマッピングされたクラスについても方法は同じです。適切なhibernate.cfg.xmlファイルにリスト化するだけです。
 
-h4. Services
+{hidden}h4. Services{hidden}
+h4. サービス
 
-Like Domain classes, by default Services use the default @DataSource@ and @PlatformTransactionManager@. To configure a Service to use a different @DataSource@, use the static @datasource@ property, for example:
+{hidden}Like Domain classes, by default Services use the default @DataSource@ and @PlatformTransactionManager@. To configure a Service to use a different @DataSource@, use the static @datasource@ property, for example:{hidden}
+ドメインクラスと同様に、デフォルトのサービスによってデフォルト@DataSource@と@PlatformTransactionManager@が使用されます。サービスの設定で異なる@DataSource@を使用する場合は、staticな@datasource@プロパティを使用します。例えば：
 
 {code}
 class DataService {
@@ -210,13 +231,18 @@ class DataService {
 }
 {code}
 
-A transactional service can only use a single @DataSource@, so be sure to only make changes for domain classes whose @DataSource@ is the same as the Service.
+{hidden}A transactional service can only use a single @DataSource@, so be sure to only make changes for domain classes whose @DataSource@ is the same as the Service.{hidden}
+トランザクション管理されたサービスでは単一のデータソースしか扱えないため、@DataSource@がサービスと同じドメインクラスだけ値を変更できることに注意してください。
 
-Note that the datasource specified in a service has no bearing on which datasources are used for domain classes; that's determined by their declared datasources in the domain classes themselves. It's used to declare which transaction manager to use.
+{hidden}Note that the datasource specified in a service has no bearing on which datasources are used for domain classes; that's determined by their declared datasources in the domain classes themselves. It's used to declare which transaction manager to use.{hidden}
+サービスで指定されたデータソースがドメインクラスで利用されるかは、データソースがドメインクラスで利用されるかとは関係ないため注意してください。ドメインクラス自体に宣言されたデータソースによって決定されます。
 
-What you'll see is that if you have a Foo domain class in dataSource1 and a Bar domain class in dataSource2, and WahooService uses dataSource1, a service method that saves a new Foo and a new Bar will only be transactional for Foo since they share the datasource. The transaction won't affect the Bar instance. If you want both to be transactional you'd need to use two services and XA datasources for two-phase commit, e.g. with the Atomikos plugin.
+{hidden}What you'll see is that if you have a Foo domain class in dataSource1 and a Bar domain class in dataSource2, and WahooService uses dataSource1, a service method that saves a new Foo and a new Bar will only be transactional for Foo since they share the datasource. The transaction won't affect the Bar instance. If you want both to be transactional you'd need to use two services and XA datasources for two-phase commit, e.g. with the Atomikos plugin.{hidden}
+つまり、データソース1にFooドメインクラスを、データソース2にBarドメインクラスを持ち、WahooServiceがデータソース1を使うならば、FooとBarをnewするサービスのメソッドはデータソースを共有しているFooのためだけにトランザクション管理ができるということです。トランザクションはBarのインスタンスに影響を与えません。両方ともトランザクション管理をしたい場合は、2相コミットのために2つのサービスとXAデータソースを用いる必要があります。(例: Atomikosプラグイン)
 
-h4. XA and Two-phase Commit
+{hidden}h4. XA and Two-phase Commit{hidden}
+h4. XAと2相コミット
 
-Grails has no native support for [XA|https://secure.wikimedia.org/wikipedia/en/wiki/X/Open_XA] @DataSource@s or [two-phase commit|https://secure.wikimedia.org/wikipedia/en/wiki/Two-phase_commit], but the [Atomikos plugin|http://grails.org/plugin/atomikos] makes it easy. See the plugin documentation for the simple changes needed in your @DataSource@ definitions to reconfigure them as XA @DataSource@s.
+{hidden}Grails has no native support for [XA|https://secure.wikimedia.org/wikipedia/en/wiki/X/Open_XA] @DataSource@s or [two-phase commit|https://secure.wikimedia.org/wikipedia/en/wiki/Two-phase_commit], but the [Atomikos plugin|http://grails.org/plugin/atomikos] makes it easy. See the plugin documentation for the simple changes needed in your @DataSource@ definitions to reconfigure them as XA @DataSource@s.{hidden}
+Grailsはネイティブで[XA|https://ja.wikipedia.org/wiki/X/Open_XA] @DataSource@や[2相コミット|https://ja.wikipedia.org/wiki/2%E7%9B%B8%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88]に対応していませんが、[Atomikosプラグイン|http://grails.org/plugin/atomikos]で簡単に行うことができます。@DataSource@定義をXA @DataSource@として再設定するのには簡単な変更が必要となるため、プラグインのドキュメントを参照してください。
 

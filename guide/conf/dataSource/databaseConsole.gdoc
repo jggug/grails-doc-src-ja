@@ -1,8 +1,11 @@
-The [H2 database console|http://h2database.com/html/quickstart.html#h2_console] is a convenient feature of H2 that provides a web-based interface to any database that you have a JDBC driver for, and it's very useful to view the database you're developing against. It's especially useful when running against an in-memory database.
+{hidden}The [H2 database console|http://h2database.com/html/quickstart.html#h2_console] is a convenient feature of H2 that provides a web-based interface to any database that you have a JDBC driver for, and it's very useful to view the database you're developing against. It's especially useful when running against an in-memory database.{hidden}
+[H2 database console|http://h2database.com/html/quickstart.html#h2_console]はJDBCドライバを持つデータベースにWebベースのインタフェースを与えるH2の便利な機能であり、開発中のデータベースの表示に非常に便利です。インメモリデータベースに対して実行している場合には特に便利です。
 
-You can access the console by navigating to *http://localhost:8080/appname/dbconsole* in a browser. The URI can be configured using the @grails.dbconsole.urlRoot@ attribute in Config.groovy and defaults to @'/dbconsole'@.
+{hidden}You can access the console by navigating to *http://localhost:8080/appname/dbconsole* in a browser. The URI can be configured using the @grails.dbconsole.urlRoot@ attribute in Config.groovy and defaults to @'/dbconsole'@.{hidden}
+ブラウザで*http://localhost:8080/appname/dbconsole*にアクセスすることで、コンソールを表示することが出来ます。そのURIは、Config.groovy内の@grails.dbconsole.urlRoot@属性を使って設定することが可能で、デフォルト値は@'/dbconsole'@になっています。
 
-The console is enabled by default in development mode and can be disabled or enabled in other environments by using the @grails.dbconsole.enabled@ attribute in Config.groovy. For example you could enable the console in production using
+{hidden}The console is enabled by default in development mode and can be disabled or enabled in other environments by using the @grails.dbconsole.enabled@ attribute in Config.groovy. For example you could enable the console in production using{hidden}
+コンソールは開発環境ではデフォルトで有効になっていて、Config.groovy内の@grails.dbconsole.enabled@属性を使って無効にしたり、他のモードで有効にすることができます。例えば、本番環境(production)でコンソールを有効にするには、次のように記述します。
 
 {code}
 environments {
@@ -20,10 +23,16 @@ environments {
 }
 {code}
 
-{warning}
+{hidden}{warning}
 If you enable the console in production be sure to guard access to it using a trusted security framework.
+{warning}{hidden}
+
+{warning}
+本番環境でコンソールを有効にする場合は、信頼されるセキュリティフレームワークを使用して、コンソールへのアクセスを保護するようにしてください。
 {warning}
 
-h4. Configuration
+{hidden}h4. Configuration{hidden}
+h4. 設定
 
-By default the console is configured for an H2 database which will work with the default settings if you haven't configured an external database - you just need to change the JDBC URL to @jdbc:h2:mem:devDB@. If you've configured an external database (e.g. MySQL, Oracle, etc.) then you can use the Saved Settings dropdown to choose a settings template and fill in the url and username/password information from your DataSource.groovy.
+{hidden}By default the console is configured for an H2 database which will work with the default settings if you haven't configured an external database - you just need to change the JDBC URL to @jdbc:h2:mem:devDB@. If you've configured an external database (e.g. MySQL, Oracle, etc.) then you can use the Saved Settings dropdown to choose a settings template and fill in the url and username/password information from your DataSource.groovy.{hidden}
+デフォルトのコンソールは、デフォルト設定のH2データベースに対して動作するよう設定されています。もし外部データベースの設定をしていた場合は、JDBCのURLを@jdbc:h2:mem:devDB@に変更してください。外部データベース（例えば、MySQL,Oracleなど）を設定する場合には、ドロップダウンのリストから設定テンプレートを選択し、DataSource.groovyからurlやユーザ名/パスワードを設定します。

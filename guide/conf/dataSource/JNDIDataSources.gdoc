@@ -1,6 +1,8 @@
-h4. Referring to a JNDI DataSource
+{hidden}h4. Referring to a JNDI DataSource{hidden}
+h4. JNDIデータソースの参照
 
-Most Java EE containers supply @DataSource@ instances via "Java Naming and Directory Interface":http://www.oracle.com/technetwork/java/jndi/index.html (JNDI). Grails supports the definition of JNDI data sources as follows:
+{hidden}Most Java EE containers supply @DataSource@ instances via "Java Naming and Directory Interface":http://www.oracle.com/technetwork/java/jndi/index.html (JNDI). Grails supports the definition of JNDI data sources as follows:{hidden}
+ほとんどのJavaEEコンテナは"Java Naming and Directory Interface":http://www.oracle.com/technetwork/java/jndi/index.html (JNDI)を通して、@DataSource@インスタンスを提供しています。Grailsでは次のようにJNDIデータソースの定義をサポートしています。
 
 {code:java}
 dataSource {
@@ -8,11 +10,14 @@ dataSource {
 }
 {code}
 
-The format on the JNDI name may vary from container to container, but the way you define the @DataSource@ in Grails remains the same.
+{hidden}The format on the JNDI name may vary from container to container, but the way you define the @DataSource@ in Grails remains the same.{hidden}
+JNDI名のフォーマットはコンテナによって変化するかもしれませんが、Grailsで@DataSource@を定義する方法は変わらず同じです。
 
-h4. Configuring a Development time JNDI resource
+{hidden}h4. Configuring a Development time JNDI resource{hidden}
+h4. 開発時におけるJNDIリソースの設定
 
-The way in which you configure JNDI data sources at development time is plugin dependent. Using the "Tomcat":http://grails.org/plugin/tomcat plugin you can define JNDI resources using the @grails.naming.entries@ setting in @grails-app/conf/Config.groovy@:
+{hidden}The way in which you configure JNDI data sources at development time is plugin dependent. Using the "Tomcat":http://grails.org/plugin/tomcat plugin you can define JNDI resources using the @grails.naming.entries@ setting in @grails-app/conf/Config.groovy@:{hidden}
+開発時におけるJNDIデータソースの設定方法はプラグインに依存しています。Tomcatプラグインを使う場合は、@grails-app/conf/Config.groovy@内の@grails.naming.entries@の設定を使用することで、JNDIリソースを定義します。
 
 {code}
 grails.naming.entries = [
