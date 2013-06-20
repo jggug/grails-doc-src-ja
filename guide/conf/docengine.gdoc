@@ -1,10 +1,14 @@
-Since Grails 1.2, the documentation engine that powers the creation of this documentation has been available for your own Grails projects.
+{hidden}Since Grails 1.2, the documentation engine that powers the creation of this documentation has been available for your own Grails projects.{hidden}
+Grails1.2から、ドキュメントの作成を行うドキュメンテーションエンジンが、Grailsプロジェクトのドキュメント作成のために利用されています。
 
-The documentation engine uses a variation on the [Textile|http://textile.sitemonks.com/] syntax to automatically create project documentation with smart linking, formatting etc.
+{hidden}The documentation engine uses a variation on the [Textile|http://textile.sitemonks.com/] syntax to automatically create project documentation with smart linking, formatting etc.{hidden}
+ドキュメンテーションエンジンは、スマートなリンク指定や書式設定で、自動的にプロジェクトのドキュメントを作成する[Textile|http://textile.sitemonks.com/]構文に変化を持たせたものを利用しています。
 
-h4. Creating project documentation
+{hidden}h4. Creating project documentation{hidden}
+h4. プロジェクトドキュメントの作成
 
-To use the engine you need to follow a few conventions. First, you need to create a @src/docs/guide@ directory where your documentation source files will go. Then, you need to create the source docs themselves. Each chapter should have its own gdoc file as should all numbered sub-sections. You will end up with something like:
+{hidden}To use the engine you need to follow a few conventions. First, you need to create a @src/docs/guide@ directory where your documentation source files will go. Then, you need to create the source docs themselves. Each chapter should have its own gdoc file as should all numbered sub-sections. You will end up with something like:{hidden}
+エンジンを利用するには規則に従う必要があります。はじめに、ドキュメントのソースファイル置き場として@src/docs/guide@ディレクトリを作る必要があります。次に、ソースファイル自体を作成する必要があります。すべてのサブセクションに番号が振られているように、各章には独自のgdocファイルをもつべきです。以下のようになります。
 
 {code}
 + src/docs/guide/introduction.gdoc
@@ -15,9 +19,11 @@ To use the engine you need to follow a few conventions. First, you need to creat
 + src/docs/guide/configuration/build/controllers.gdoc
 {code}
 
-Note that you can have all your gdoc files in the top-level directory if you want, but you can also put sub-sections in sub-directories named after the parent section - as the above example shows.
+{hidden}Note that you can have all your gdoc files in the top-level directory if you want, but you can also put sub-sections in sub-directories named after the parent section - as the above example shows.{hidden}
+トップレベルのディレクトリにすべてのgdocを配置することもできますが、上記例のように親セクションの下に指定したサブセクションを配置することもできます。
 
-Once you have your source files, you still need to tell the documentation engine what the structure of your user guide is going to be. To do that, you add a @src/docs/guide/toc.yml@ file that contains the structure and titles for each section. This file is in [YAML|http://www.yaml.org/] format and basically represents the structure of the user guide in tree form. For example, the above files could be represented as:
+{hidden}Once you have your source files, you still need to tell the documentation engine what the structure of your user guide is going to be. To do that, you add a @src/docs/guide/toc.yml@ file that contains the structure and titles for each section. This file is in [YAML|http://www.yaml.org/] format and basically represents the structure of the user guide in tree form. For example, the above files could be represented as:{hidden}
+ソースファイルを作成したら、さらにユーザガイドの構造をドキュメンテーションエンジンに教えてあげる必要があります。これを行うには各セクションの構造やタイトルが含まれる、@src/docs/guide/toc.yml@ファイルを追加します。このファイルは[YAML|http://www.yaml.org/]形式で、基本的にはツリー形式でユーザガイドの構造を表しています。例えば、上記のファイル構造は次のように表すことができます。
 
 {code:yaml}
 introduction:
@@ -31,95 +37,136 @@ configuration:
     controllers: Specifying Controllers
 {code}
 
-The format is pretty straightforward. Any section that has sub-sections is represented with the corresponding filename (minus the .gdoc extension) followed by a colon. The next line should contain @title:@ plus the title of the section as seen by the end user. Every sub-section then has its own line after the title. Leaf nodes, i.e. those without any sub-sections, declare their title on the same line as the section name but after the colon.
+{hidden}The format is pretty straightforward. Any section that has sub-sections is represented with the corresponding filename (minus the .gdoc extension) followed by a colon. The next line should contain @title:@ plus the title of the section as seen by the end user. Every sub-section then has its own line after the title. Leaf nodes, i.e. those without any sub-sections, declare their title on the same line as the section name but after the colon.{hidden}
+フォーマットは非常に簡単です。サブセクションを持つセクションは、対応するファイル名（.gdocを除く）の後にコロンをつけて表されています。次の行には@title:@に加えて、エンドユーザが目にするセクションのタイトルを記述します。すべてのサブセクションではタイトルの後に独自のラインを持っています。サブセクションを持たないセクションでは、セクション名と同じ行のコロンの後にタイトルを宣言します。
 
-That's it. You can easily add, remove, and move sections within the @toc.yml@ to restructure the generated user guide. You should also make sure that all section names, i.e. the gdoc filenames, should be unique since they are used for creating internal links and for the HTML filenames. Don't worry though, the documentation engine will warn you of duplicate section names.
+{hidden}That's it. You can easily add, remove, and move sections within the @toc.yml@ to restructure the generated user guide. You should also make sure that all section names, i.e. the gdoc filenames, should be unique since they are used for creating internal links and for the HTML filenames. Don't worry though, the documentation engine will warn you of duplicate section names.{hidden}
+また、生成されたユーザガイドを再構築するために、@toc.yml@内部で簡単にセクションの追加や削除、移動ができます。すべてのセクション名（gdocのファイル名）はユニークである必要があります。なぜなら、それらは内部リンクの作成やHTMLのファイル名に使用されるからです。しかし、心配はいりません。ドキュメンテーションエンジンはセクション名が重複していた場合に警告を表示します。
 
-h4. Creating reference items
+{hidden}h4. Creating reference items{hidden}
+h4. 参照項目の作成
 
-Reference items appear in the Quick Reference section of the documentation. Each reference item belongs to a category and a category is a directory located in the @src/docs/ref@ directory. For example, suppose you have defined a new controller method called @renderPDF@. That belongs to the @Controllers@ category so you would create a gdoc text file at the following location:
+{hidden}Reference items appear in the Quick Reference section of the documentation. Each reference item belongs to a category and a category is a directory located in the @src/docs/ref@ directory. For example, suppose you have defined a new controller method called @renderPDF@. That belongs to the @Controllers@ category so you would create a gdoc text file at the following location:{hidden}
+リファレンス項目はドキュメントのクイックリファレンスセクションに表示されます。各参照項目はカテゴリに属し、カテゴリは@src/docs/ref@ディレクトリに配置します。例えば、コントローラに新しく@renderPDF@のメソッドを定義したとしましょう。これが@Controllers@カテゴリに所属する場合、以下のようにgdocのテキストファイルを作成します。:
 
 {code}
 + src/docs/ref/Controllers/renderPDF.gdoc
 {code}
 
-h4. Configuring Output Properties
+{hidden}h4. Configuring Output Properties{hidden}
+h4. 出力プロパティの設定
 
-There are various properties you can set within your @grails-app/conf/Config.groovy@ file that customize the output of the documentation such as:
+{hidden}There are various properties you can set within your @grails-app/conf/Config.groovy@ file that customize the output of the documentation such as:{hidden}
+以下のようにドキュメント出力をカスタマイズする、@grails-app/conf/Config.groovy@内で設定できる様々なプロパティがあります。
 
+{hidden}
 * *grails.doc.title* - The title of the documentation
 * *grails.doc.subtitle* - The subtitle of the documentation
 * *grails.doc.authors* - The authors of the documentation
 * *grails.doc.license* - The license of the software
 * *grails.doc.copyright* - The copyright message to display
 * *grails.doc.footer* - The footer to use
+{hidden}
 
-Other properties such as the version are pulled from your project itself.  If a title is not specified, the application name is used.
+* *grails.doc.title* - ドキュメントのタイトル
+* *grails.doc.subtitle* - ドキュメントのサブタイトル
+* *grails.doc.authors* - ドキュメントの著者
+* *grails.doc.license* - ソフトウェアライセンス
+* *grails.doc.copyright* - copyrightメッセージの表示
+* *grails.doc.footer* - 使用するフッター
 
-You can also customise the look of the documentation and provide images by setting a few other options:
+{hidden}Other properties such as the version are pulled from your project itself.  If a title is not specified, the application name is used.{hidden}
+バージョンなどの他のプロパティは、プロジェクト自体から取得します。タイトルが指定されていない場合は、アプリケーション名が使用されます。
 
+{hidden}You can also customise the look of the documentation and provide images by setting a few other options:{hidden}
+また、他のオプションの設定によって、ドキュメントの外観をカスタマイズしたり、画像を設定したりできます。
+
+{hidden}
 * *grails.doc.css* - The location of a directory containing custom CSS files (type @java.io.File@)
 * *grails.doc.js* - The location of a directory containing custom JavaScript files (type @java.io.File@)
 * *grails.doc.style* - The location of a directory containing custom HTML templates for the guide (type @java.io.File@)
 * *grails.doc.images* - The location of a directory containing image files for use in the style templates and within the documentation pages themselves (type @java.io.File@)
+{hidden}
 
-One of the simplest ways to customise the look of the generated guide is to provide a value for @grails.doc.css@ and then put a custom.css file in the corresponding directory. Grails will automatically include this CSS file in the guide. You can also place a custom-pdf.css file in that directory. This allows you to override the styles for the PDF version of the guide.
+* *grails.doc.css* - カスタマイズしたCSSファイルを含むディレクトリ場所（@java.io.File@クラスの型）
+* *grails.doc.js* - カスタマイズしたJavaScriptファイルを含むディレクトリ場所（@java.io.File@クラスの型）
+* *grails.doc.style* - ガイド用にカスタマイズしたHTMLテンプレートを含むディレクトリ場所(@java.io.File@クラスの型)
+* *grails.doc.images* - スタイルテンプレートやドキュメントページ自身で使用する画像ファイルを含むディレクトリ場所(@java.io.File@の型)
 
-h4. Generating Documentation
 
-Once you have created some documentation (refer to the syntax guide in the next chapter) you can generate an HTML version of the documentation using the command:
+{hidden}One of the simplest ways to customise the look of the generated guide is to provide a value for @grails.doc.css@ and then put a custom.css file in the corresponding directory. Grails will automatically include this CSS file in the guide. You can also place a custom-pdf.css file in that directory. This allows you to override the styles for the PDF version of the guide.{hidden}
+生成したドキュメントの見た目をカスタマイズする一番シンプルな方法は、@grails.doc.css@の値を記述し、対応するディレクトリにcustom.cssファイルを置くことです。Grailsは自動的にドキュメント内にこのCSSファイルを取り込みます。また、そのディレクトリにcustom-pdf.cssファイルを置くことができます。これは、ドキュメントのpdfバージョンのスタイルを上書きできます。
+
+{hidden}h4. Generating Documentation{hidden}
+h4. ドキュメントの生成
+
+{hidden}Once you have created some documentation (refer to the syntax guide in the next chapter) you can generate an HTML version of the documentation using the command:{hidden}
+一度ドキュメントが作成（次の章の構文ガイドを参照）できたら、次のコマンドを使用してHTML形式のドキュメントを生成できます。
 
 {code}
 grails doc
 {code}
 
-This command will output an @docs/manual/index.html@ which can be opened in a browser to view your documentation.
+{hidden}This command will output an @docs/manual/index.html@ which can be opened in a browser to view your documentation.{hidden}
+このコマンドで、ブラウザで表示できる形式のドキュメントが@docs/manual/index.html@に出力されます。
 
-h4. Documentation Syntax
+{hidden}h4. Documentation Syntax{hidden}
+h4. ドキュメントの構文
 
-As mentioned the syntax is largely similar to Textile or Confluence style wiki markup. The following sections walk you through the syntax basics.
+{hidden}As mentioned the syntax is largely similar to Textile or Confluence style wiki markup. The following sections walk you through the syntax basics.{hidden}
+ドキュメントの構文はwikiのTextile記法やConfluence記法とほぼ同じです。以下のセクションでは、構文の基礎を説明します。
 
-h5. Basic Formatting
+{hidden}h5. Basic Formatting{hidden}
+h5. 基本的なフォーマット
 
-Monospace: @monospace@
+{hidden}Monospace: @monospace@{hidden}
+等幅フォント: @monospace@
 {code}
 \@monospace\@
 {code}
 
-Italic: _italic_
+{hidden}Italic: _italic_{hidden}
+イタリック体: _italic_
 {code}
 \_italic\_
 {code}
 
-Bold: *bold*
+{hidden}Bold: *bold*{hidden}
+太字: *bold*
 {code}
 *bold*
 {code}
 
-Image:
+{hidden}Image:{hidden}
+画像:
 !http://grails.org/images/new/grailslogo_topNav.png!
 
 {code:xml}
 \!http://grails.org/images/new/grailslogo_topNav.png\!
 {code}
 
-You can also link to internal images like so:
+{hidden}You can also link to internal images like so:{hidden}
+次のように内部の画像へリンクすることもできます。
 
 {code:xml}
 \!someFolder/my_diagram.png\!
 {code}
 
-This will link to an image stored locally within your project. There is currently no default location for doc images, but you can specify one with the @grails.doc.images@ setting in Config.groovy like so:
+{hidden}This will link to an image stored locally within your project. There is currently no default location for doc images, but you can specify one with the @grails.doc.images@ setting in Config.groovy like so:{hidden}
+これはプロジェクト内でローカルに保存された画像にリンクします。デフォルトの画像置き場はありませんが、次のようにConfig.groovy内の@grails.doc.images@の設定で指定できます。
 
 {code}
 grails.doc.images = new File("src/docs/images")
 {code}
 
-In this example, you would put the my_diagram.png file in the directory 'src/docs/images/someFolder'.
+{hidden}In this example, you would put the my_diagram.png file in the directory 'src/docs/images/someFolder'.{hidden}
+この例では、'src/docs/images/someFolder'ディレクトリ内にmy_diagram.pngファイルを置いています。
 
-h5. Linking
+{hidden}h5. Linking{hidden}
+h5. リンク生成
 
-There are several ways to create links with the documentation generator. A basic external link can either be defined using confluence or textile style markup:
+{hidden}There are several ways to create links with the documentation generator. A basic external link can either be defined using confluence or textile style markup:{hidden}
+ドキュメントジェネレータでリンクを生成する方法はいくつかあります。基本的な外部リンクはconfluence記法、またはtextile記法のどちらかを使うことで定義できます。
 
 {code}
 [SpringSource|http://www.springsource.com/]
@@ -131,47 +178,57 @@ or
 "SpringSource":http://www.springsource.com/
 {code}
 
-For links to other sections inside the user guide you can use the @guide:@ prefix with the name of the section you want to link to:
+{hidden}For links to other sections inside the user guide you can use the @guide:@ prefix with the name of the section you want to link to:{hidden}
+ユーザガイド内の他のセクションへのリンクについては、リンクしたいセクションの頭に@guide:@をつけることで実現できます。
 
 {code}
 [Intro|guide:introduction]
 {code}
 
-The section name comes from the corresponding gdoc filename. The documentation engine will warn you if any links to sections in your guide break.
+{hidden}The section name comes from the corresponding gdoc filename. The documentation engine will warn you if any links to sections in your guide break.{hidden}
+セクション名は対応するgdocファイル名を使用します。ガイドのセクションへのリンクが壊れると、ドキュメンテーションエンジンは警告を表示します。
 
-To link to reference items you can use a special syntax:
+{hidden}To link to reference items you can use a special syntax:{hidden}
+参照項目へのリンクは、特別な構文で使用できます。
 
 {code}
 [controllers|renderPDF]
 {code}
 
-In this case the category of the reference item is on the left hand side of the | and the name of the reference item on the right.
+{hidden}In this case the category of the reference item is on the left hand side of the | and the name of the reference item on the right.{hidden}
+この場合では、参照項目のカテゴリは|の左側に記述し、右側には参照項目の名前を記述します。
 
-Finally, to link to external APIs you can use the @api:@ prefix. For example:
+{hidden}Finally, to link to external APIs you can use the @api:@ prefix. For example:{hidden}
+最後に、@api:@プレフィックスを使うことで外部APIへリンクできます。例えば：
 
 {code}
 [String|api:java.lang.String]
 {code}
 
-The documentation engine will automatically create the appropriate javadoc link in this case. To add additional APIs to the engine you can configure them in @grails-app/conf/Config.groovy@. For example:
+{hidden}The documentation engine will automatically create the appropriate javadoc link in this case. To add additional APIs to the engine you can configure them in @grails-app/conf/Config.groovy@. For example:{hidden}
+この場合、ドキュメンテーションエンジンは自動的に適切なJavadocリンクを生成します。@grails-app/conf/Config.groovy@に設定を追加することで、エンジンに追加のAPIを加えることができます。例えば：
 
 {code}
 grails.doc.api.org.hibernate=
             "http://docs.jboss.org/hibernate/stable/core/javadocs"
 {code}
 
-The above example configures classes within the @org.hibernate@ package to link to the Hibernate website's API docs.
+{hidden}The above example configures classes within the @org.hibernate@ package to link to the Hibernate website's API docs.{hidden}
+上記の例では、@org.hibernate@パッケージ内のクラスを、HibernateのAPIドキュメントへリンクするように設定しています。
 
-h5. Lists and Headings
+{hidden}h5. Lists and Headings{hidden}
+h5. リストと見出し
 
-Headings can be created by specifying the letter 'h' followed by a number and then a dot:
+{hidden}Headings can be created by specifying the letter 'h' followed by a number and then a dot:{hidden}
+見出しは'h'の後に数字とドットを指定することで作成できます。
 
 {code}
 h3.<space>Heading3
 h4.<space>Heading4
 {code}
 
-Unordered lists are defined with the use of the * character:
+{hidden}Unordered lists are defined with the use of the * character:{hidden}
+順不同のリストは*文字を使うことで定義できます。
 
 {code}
 * item 1
@@ -180,13 +237,15 @@ Unordered lists are defined with the use of the * character:
 * item 2
 {code}
 
-Numbered lists can be defined with the # character:
+{hidden}Numbered lists can be defined with the # character:{hidden}
+番号付きリストは#文字で定義できます。
 
 {code}
 # item 1
 {code}
 
-Tables can be created using the @table@ macro:
+{hidden}Tables can be created using the @table@ macro:{hidden}
+テーブルは@table@マクロを使って作成できます。
 
 {table}
  *Name* | *Number*
@@ -204,9 +263,11 @@ Tables can be created using the @table@ macro:
 \{table}
 {code}
 
-h5. Code and Notes
+{hidden}h5. Code and Notes{hidden}
+h5. コードとノート
 
-You can define code blocks with the @code@ macro:
+{hidden}You can define code blocks with the @code@ macro:{hidden}
+@code@マクロでコードブロックを定義できます。
 
 {code}
 class Book {
@@ -222,7 +283,8 @@ class Book {
 \{code\}
 {code}
 
-The example above provides syntax highlighting for Java and Groovy code, but you can also highlight XML markup:
+{hidden}The example above provides syntax highlighting for Java and Groovy code, but you can also highlight XML markup:{hidden}
+上記の例は、JavaやGroovyのシンタックスハイライトで記述していますが、XMLのハイライト表示でも記述できます。
 
 {code:xml}
 <hello>world</hello>
@@ -234,7 +296,8 @@ The example above provides syntax highlighting for Java and Groovy code, but you
 \{code\}
 {code}
 
-There are also a couple of macros for displaying notes and warnings:
+{hidden}There are also a couple of macros for displaying notes and warnings:{hidden}
+注意や警告を表示するためのマクロもあります。
 
 Note:
 {note}
