@@ -1,4 +1,5 @@
-Some deployments require that configuration be sourced from more than one place and be changeable without requiring a rebuild of the application. In order to support deployment scenarios such as these the configuration can be externalized. To do so, point Grails at the locations of the configuration files that should be used by adding a @grails.config.locations@ setting in @Config.groovy@, for example:
+{hidden}Some deployments require that configuration be sourced from more than one place and be changeable without requiring a rebuild of the application. In order to support deployment scenarios such as these the configuration can be externalized. To do so, point Grails at the locations of the configuration files that should be used by adding a @grails.config.locations@ setting in @Config.groovy@, for example:{hidden}
+デプロイの際に複数箇所で設定を記述したい場合や、アプリケーションの再ビルドなしで設定を変更したい場合があります。このような要望をサポートするために設定を外部に追い出すことができます。そのためには、@Config.groovy@ファイルに@grails.config.locations@の設定を追加し、設定ファイルの位置をGrailsに伝えます。例えば：
 
 {code:java}
 grails.config.locations = [
@@ -8,26 +9,37 @@ grails.config.locations = [
     "file:${userHome}/.grails/${appName}-config.groovy" ]
 {code}
 
-In the above example we're loading configuration files (both Java Properties files and "ConfigSlurper":http://groovy.codehaus.org/ConfigSlurper configurations) from different places on the classpath and files located in @USER_HOME@.
+{hidden}In the above example we're loading configuration files (both Java Properties files and "ConfigSlurper":http://groovy.codehaus.org/ConfigSlurper configurations) from different places on the classpath and files located in @USER_HOME@.{hidden}
+上記の例では、クラスパスや@USER_HOME@内のファイルといった異なる場所から、設定ファイル（Javaのプロパティファイルや "ConfigSlurper":http://groovy.codehaus.org/ConfigSlurper 設定ファイル）を読み込んでいます。
 
-It is also possible to load config by specifying a class that is a config script.
+{hidden}It is also possible to load config by specifying a class that is a config script.{hidden}
+設定が記述されたスクリプトクラスを指定することによって、設定を読み込むことも可能です。
 
 {code:java}
 grails.config.locations = [com.my.app.MyConfig]
 {code}
 
-This can be useful in situations where the config is either coming from a plugin or some other part of your application. A typical use for this is re-using configuration provided by plugins across multiple applications.
+{hidden}This can be useful in situations where the config is either coming from a plugin or some other part of your application. A typical use for this is re-using configuration provided by plugins across multiple applications.{hidden}
+これは設定をプラグインまたは他のアプリケーションから取得する場合に便利です。この方法は複数のアプリケーション上で動作するプラグインで提供される設定を、再利用する際の典型的なやり方です。
 
-Ultimately all configuration files get merged into the @config@ property of the [GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication] object and are hence obtainable from there.
+{hidden}Ultimately all configuration files get merged into the @config@ property of the [GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication] object and are hence obtainable from there.{hidden}
+最終的に、すべての設定ファイルは最終的に[GrailsApplication|api:org.codehaus.groovy.grails.commons.GrailsApplication]オブジェクトの@config@プロパティへ統合され、そこから取得可能です。
 
-Values that have the same name as previously defined values will overwrite the existing values, and the pointed to configuration sources are loaded in the order in which they are defined.
+{hidden}Values that have the same name as previously defined values will overwrite the existing values, and the pointed to configuration sources are loaded in the order in which they are defined.{hidden}
+既に定義されている値と同じ名前を持つ値が記述されていた場合は、既存の値が上書きされます。また、指定された設定の取得元は、定義した順番で読み込まれます。
 
-h4. Config Defaults
+h4. デフォルトの設定
 
-The configuration values contained in the locations described by the @grails.config.locations@ property will *override* any values defined in your application @Config.groovy@ file which may not be what you want. You may want to have a set of _default_ values be be loaded that can be overridden in either your application's @Config.groovy@ file or in a named config location. For this you can use the @grails.config.defaults.locations@ property.
+{hidden}The configuration values contained in the locations described by the @grails.config.locations@ property will *override* any values defined in your application @Config.groovy@ file which may not be what you want. You may want to have a set of _default_ values be be loaded that can be overridden in either your application's @Config.groovy@ file or in a named config location. For this you can use the @grails.config.defaults.locations@ property.{hidden}
+望まないことかもしれませんが、@grails.config.defaults.locations@プロパティから読み込んだ設定値は、アプリケーションの@Config.groovy@で定義された任意の値を上書きします。アプリケーションの@Config.groovy@ファイルか、指定した設定ファイル場所のいずれかで値をオーバライドすることで、デフォルト値として値を読み込ませることが出来ます。これについては、@grails.config.defaults.locations@プロパティを使用することができます。
 
-This property supports the same values as the @grails.config.locations@ property (i.e. paths to config scripts, property files or classes), but the config described by @grails.config.defaults.locations@ will be loaded _before_ all other values and can therefore be overridden. Some plugins use this mechanism to supply one or more sets of default configuration that you can choose to include in your application config.
 
-{note}
+{hidden}This property supports the same values as the @grails.config.locations@ property (i.e. paths to config scripts, property files or classes), but the config described by @grails.config.defaults.locations@ will be loaded _before_ all other values and can therefore be overridden. Some plugins use this mechanism to supply one or more sets of default configuration that you can choose to include in your application config.{hidden}
+このプロパティは@grails.config.locations@プロパティと同じ値（すなわち、設定スクリプト、プロパティのファイルやクラスへのパス）をサポートしています。しかし、@grails.config.defaults.locations@で記述された設定ははじめに読み込まれるため、あとから読み込む設定値で上書きすることができます。プラグインの中にはこのメカニズムを利用して、プラグインが提供するデフォルト値をアプリケーションに含めるかをユーザが選択する形をとっているものがあります。
+
+{hidden}{note}
 Grails also supports the concept of property place holders and property override configurers as defined in "Spring":http://www.springframework.org. For more information on these see the section on [Grails and Spring|guide:spring]
+{note}{hidden}
+{note}
+GrailsはSpringで定義されているようなプレースホルダや設定のオーバライドといったプロパティの概念をサポートしています。より詳しい情報は[Grails and Spring|guide:spring]の章を参照してください。
 {note}
