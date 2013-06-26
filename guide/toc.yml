@@ -230,7 +230,14 @@ webServices:
       extendingRestfulController: RestfulControllerスーパークラスの拡張
       restControllersStepByStep: RESTコントローラの実装ステップバイステップ
       generatingRestControllers: スカッフォルドを使用してRESTコントローラを生成
-    renderers: レスポンスレンダリングのカスタマイズ
+    renderers: 
+      title: レスポンスレンダリングのカスタマイズ
+      defaultRenderers: デフォルトレンダラーのカスタマイズ
+      objectMarshallers: カスタムオブジェクトマーシャラの登録
+      namedObjectMarshallers: オブジェクト・マーシャラの名前付き定義
+      objectMarshallerInterface: ObjectMarshallerインターフェイスへの実装
+      customRenderers: カスタムレンダラーの実装
+      gspRenderers: GSPを使用したカスタムレンダリング
     hypermedia: 
       title: Hypermediaをアプリケーションステートのエンジンにする
       hal: HALサポート

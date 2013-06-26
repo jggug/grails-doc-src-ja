@@ -15,7 +15,46 @@ Although dependency resolution using Ivy is still supported, the default for Gra
 grails.project.dependency.resolver = "maven" // or ivy
 {code}
 
-In addition, the POM and dependency metadata for Grails 2.3 has been re-arranged so that only direct dependencies are specified for an application. This means that existing excludes may no longer work and may need adjusting when upgrading. Run the [dependency-report|commandLine] to see the new dependency metadata and make adjustments accordingly.
+h4. Dependency Metadata Changes
+
+In addition, the POM and dependency metadata for Grails 2.3 has been re-arranged and cleaned up so that only direct dependencies are specified for an application and all other dependencies are inherited transitvely. This has implications to the upgrade since, for example, Ehcache is now a transitive dependency of the Hibernate plugin, whilst before it was a direct dependency. If get a compilation error related to Ehcache, it is most likely that you don't have the Hibernate plugin installed and need to directly declare the Ehcache dependency:
+
+{code}
+compile "net.sf.ehcache:ehcache-core:2.4.6"
+{code}
+
+
+In addition, excludes may no longer work and may need adjusting when upgrading due to how the metadata has changed. Run the [dependency-report|commandLine] to see the new dependency metadata and make adjustments accordingly.
+
+A common error that may occur when upgrading is:
+
+{code}
+| Configuring classpath
+:: problems summary ::
+:::: WARNINGS
+    ::::::::::::::::::::::::::::::::::::::::::::::
+    ::          UNRESOLVED DEPENDENCIES         ::
+    ::::::::::::::::::::::::::::::::::::::::::::::
+    :: org.springframework#spring-test;3.2.2.RELEASE: configuration not found in org.springframework#spring-test;3.2.2.RELEASE: 'compile'. It was required from org.grails#grails-plugin-testing;2.3.0.BUILD-SNAPSHOT compile
+    ::::::::::::::::::::::::::::::::::::::::::::::
+{code}
+
+This is caused by a plugin that depends on an old version of @spring-test@ (for example the [Mail plugin|http://grails.org/plugins/mail]). To correct this run @grails dependency-report@ and search for plugins that have a transitive dependency on @spring-test@ and exclude them. For example:
+
+{code}
+plugins {
+  compile ":mail:1.0", {
+    excludes "spring-test"
+  }  
+}
+{code}
+
+However, longer term to solve problems like this we recommend that users move away from Ivy and use Aether instead for dependency resolution:
+
+{code}
+grails.project.dependency.resolver="maven"
+{code}
+
 
 {hidden}h4. No initial offline mode with Aether {hidden}
 h4. Aetherでは初期オフラインモードがありません
@@ -23,6 +62,19 @@ h4. Aetherでは初期オフラインモードがありません
 Aether does not support resolving dependencies from a flat file system. This means that the jars we ship with Grails in GRAILS_HOME/lib are not used for the first resolve, but instead the jars are obtained from Maven central. After they have been obtained from Maven central then Aether operates fine offline.
 
 If however you do not have the necessary jars in your local Maven repository, then the only way to get offline execution is to enable Ivy via BuildConfig (see above).
+
+h4. Scaffolding moved to a plugin and rewritten
+
+If you have dynamically scaffolded controllers in your application then you will need to configure the 1.0 version of the [Scaffolding plugin|http://grails.org/plugin/scaffolding] in BuildConfig:
+
+{code}
+plugins {
+  compile ":scaffolding:1.0.0"
+}
+{code}
+
+By default for new applications the 2.0 version of the scaffolding plugin is used, which is not backwards compatible with 1.0.
+
 
 {hidden}h4. Forked Execution for Testing {hidden}
 h4. テストでのフォーク実行
@@ -76,8 +128,14 @@ grails.project.fork = [
 {hidden}h4. Forked Execution and Remote Debugging {hidden}
 h4. フォーク実行とリモートデバッグ
 
+The @grails-debug@ command will no longer work with Grails for remote debugging sessions. The reason is the command enabled debugging for the build system JVM, but not the JVM used in forked execution. The solution to this is to use the @debug-fork@ command line argument:
 
-The @grails-debug@ command will no longer work with Grails for remote debugging sessions. The reason is the command enabled debugging for the build system JVM, but not the JVM used in forked execution. The solution is set the @debug@ setting to @true@ in @BuildConfig@ and use the regular @grails@ command to execute:
+{code}
+grails --debug-fork run-app
+{code}
+
+
+Alternatively you can set the @debug@ setting to @true@ in @BuildConfig@ and use the regular @grails@ command to execute:
 
 {code}
 forkConfig = [maxMemory: 1024, minMemory: 64, debug: true, maxPerm: 256]
@@ -94,12 +152,12 @@ Core plugins like @tomcat@ and @hibernate@ are no longer versioned the same as t
 {code}
     plugins {
         // plugins for the build system only
-        build ':tomcat:7.0.39'
+        build ':tomcat:7.0.40.1'
 
         // plugins needed at runtime but not for compilation
         runtime ':hibernate:3.6.10.M3' 
     }
-{code}
+{code}}
 
 Note that the @upgrade@ command will be deprecated in 2.3 and replaced with a command named @use-current-grails-version@, which will make no attempts to automatically upgrade Grails applications.
 

@@ -1,17 +1,50 @@
 
 h1. Document Translation Report.
 
-* *File Count* - 288
-* *Done* - 219
-* *TODO* - 67
+* *File Count* - 294
+* *Done* - 231
+* *TODO* - 61
 * *Not found or new* - 2
 
 h2. Original document updated after translation.:
 
+*./guide/theWebLayer/controllers/dataBinding.gdoc*
+
+{code}
+85 : def bindingMap = [name: 'Genesis', 
+86 :                   'albums[0]': [title: 'Foxtrot', numberOfTracks: 6], 
+118:  * an id of 4 and set its title to 'Selling England By The Pound'.  In both 
+120:  * from the database by id, the Album will be added to albums and will be updated 
+222: When binding an empty String (a String with no characters in it, not even spaces), the data binder will convert the empty String to null.  This simplifies the most common case where the intent is to treat an empty form field as having the value null since there isn't a way to actually submit a null as a request parameter.  When this behavior is not desireable the application may assign the value directly.
+479: The [BindUsing|api:org.grails.databinding.BindUsing] annotation may be used to define a custom binding mechanism for all of the fields on a particular class. When the annotation is applied to a class, the value assigned to the annotation should be a class which implements the [BindingHelper|api:org.grails.databinding.BindingHelper] interface.  An instance of that class will be used any time a value is bound to a property in the class that this annotation has been applied to. 
+564: A global setting may be configured in @Config.groovy@ to define date formats which will be used application wide when binding to Date.
+569: grails.databinding.dateFormats = ['MMddyyyy', 'yyyy-MM-dd HH:mm:ss.S', "yyyy-MM-dd'T'hh:mm:ss'Z'"]
+573: The formats specified in @grails.databinding.dateFormats@ will be attempted in the order in which they are included in the List.  If a property is marked with \@BindingFormat, the \@BindingFormat will take precedence over the values specified in @grails.databinding.dateFormats@.
+575: The default formats that are used are "yyyy-MM-dd HH:mm:ss.S" and "yyyy-MM-dd'T'hh:mm:ss'Z'".
+{code}
+
 *./guide/introduction/whatsNew23.gdoc*
 
 {code}
-140: The @create-app@ command will now by default generate the command line grailsw wrapper for newly created applications.  The @--skip-wrapper@ switch may be used to prevent the wrapper from being generated.
+158: The @create-app@ command will now by default generate the command line grailsw wrapper for newly created applications.  The @--skip-wrapper@ switch may be used to prevent the wrapper from being generated.
+{code}
+
+*./guide/commandLine/forkedMode.gdoc*
+
+{code}
+9  :    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true], // configure settings for the test-app JVM
+10 :    run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256], // configure settings for the run-app JVM
+11 :    war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256], // configure settings for the run-war JVM
+12 :    console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]// configure settings for the Console UI JVM
+45 : The defaut configuration for the testing is to activate a daemon to run tests using the @daemon@ argument:
+49 :    test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true], // configure settings for the test-app JVM
+53 : This only works in interactive mode, so if you start Grails with the 'grails' command and then using @test-app@ the daemon will be used:
+60 : This has the effect of speeding-up test executions times. You can disable the daemon by setting @daemon@ to @false@. If the @daemon@ becomes unresponsive you can restart it with @restart-daemon@:
+63 : $ grails> restart-daemon
+69 : An important consideration when using forked execution is that the @debug@ argument will allow a remote debugger to be attached to the build JVM but not the JVM that your application is running in. To debug your application you should use the @debug-fork@ argument:
+72 : grails test-app --debug-fork
+75 : Or for run-app:
+78 : grails run-app --debug-fork
 {code}
 
 h2. Not done.
@@ -28,7 +61,6 @@ h2. Not done.
 * ../en/guide/GORM/querying/detachedCriteria.gdoc
 * ../en/guide/GORM/querying/hql.gdoc
 * ../en/guide/async/grailsEvents.gdoc
-* ../en/guide/commandLine/forkedMode.gdoc
 * ../en/guide/commandLine/interactiveMode.gdoc
 * ../en/guide/commandLine/wrapper.gdoc
 * ../en/guide/conf.gdoc
@@ -36,17 +68,6 @@ h2. Not done.
 * ../en/guide/conf/config/builtInOptions.gdoc
 * ../en/guide/conf/config/configGORM.gdoc
 * ../en/guide/conf/config/logging.gdoc
-* ../en/guide/conf/configExternalized.gdoc
-* ../en/guide/conf/dataSource.gdoc
-* ../en/guide/conf/dataSource/JNDIDataSources.gdoc
-* ../en/guide/conf/dataSource/automaticDatabaseMigration.gdoc
-* ../en/guide/conf/dataSource/dataSourcesAndEnvironments.gdoc
-* ../en/guide/conf/dataSource/databaseConsole.gdoc
-* ../en/guide/conf/dataSource/multipleDatasources.gdoc
-* ../en/guide/conf/dataSource/transactionAwareDataSourceProxy.gdoc
-* ../en/guide/conf/docengine.gdoc
-* ../en/guide/conf/environments.gdoc
-* ../en/guide/conf/versioning.gdoc
 * ../en/guide/contributing.gdoc
 * ../en/guide/contributing/build.gdoc
 * ../en/guide/contributing/issues.gdoc
@@ -76,6 +97,12 @@ h2. Not done.
 * ../en/guide/webServices/REST/hypermedia/vndError.gdoc
 * ../en/guide/webServices/REST/linkingToResources.gdoc
 * ../en/guide/webServices/REST/renderers.gdoc
+* ../en/guide/webServices/REST/renderers/customRenderers.gdoc
+* ../en/guide/webServices/REST/renderers/defaultRenderers.gdoc
+* ../en/guide/webServices/REST/renderers/gspRenderers.gdoc
+* ../en/guide/webServices/REST/renderers/namedObjectMarshallers.gdoc
+* ../en/guide/webServices/REST/renderers/objectMarshallerInterface.gdoc
+* ../en/guide/webServices/REST/renderers/objectMarshallers.gdoc
 * ../en/guide/webServices/REST/restfulControllers.gdoc
 * ../en/guide/webServices/REST/restfulControllers/extendingRestfulController.gdoc
 * ../en/guide/webServices/REST/restfulControllers/generatingRestControllers.gdoc
