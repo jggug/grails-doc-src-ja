@@ -1,15 +1,26 @@
-Grails provides the following GORM configuration options:
+{hidden}Grails provides the following GORM configuration options:{hidden}
+Grailsには、以下のようなGORMのオプション設定が用意されています。
 
-* @grails.gorm.failOnError@  - If set to @true@, causes the @save()@ method on domain classes to throw a @grails.validation.ValidationException@ if [validation|guide:validation] fails during a save.  This option may also be assigned a list of Strings representing package names.  If the value is a list of Strings then the failOnError behavior will only be applied to domain classes in those packages (including sub-packages).  See the [save|domainClasses] method docs for more information.
+{hidden}* @grails.gorm.failOnError@  - If set to @true@, causes the @save()@ method on domain classes to throw a @grails.validation.ValidationException@ if [validation|guide:validation] fails during a save.  This option may also be assigned a list of Strings representing package names.  If the value is a list of Strings then the failOnError behavior will only be applied to domain classes in those packages (including sub-packages).  See the [save|domainClasses] method docs for more information.{hidden}
+* @grails.gorm.failOnError@ = @true@に設定すると、保存中に[バリデーション|guide:validation]が失敗した場合、ドメインクラスの@save()@メソッドは@grails.validation.ValidationException@をスローするようになります。
+このオプションには、パッケージ名のリストを指定することもできます。
+値が文字列のリストである場合、failOnErrorの挙動は指定されたパッケージの(サブパッケージを含む)ドメインクラスのみに適用されます。
+詳細については、[save|domainClasses]メソッドのドキュメントを参照してください。
 
-For example, to enable failOnError for all domain classes:
+{hidden}For example, to enable failOnError for all domain classes:{hidden}
+たとえば、全てのドメインクラスでfailOnErrorを有効にするには:
+
 {code:java}
 grails.gorm.failOnError=true
 {code}
 
-and to enable failOnError for domain classes by package:
+{hidden}and to enable failOnError for domain classes by package:{hidden}
+また、パッケージごとにドメインクラスに対してfailOnErrorを有効にするには:
+
 {code:java}
 grails.gorm.failOnError = ['com.companyname.somepackage',
                            'com.companyname.someotherpackage']
 {code}
-* @grails.gorm.autoFlush@ = If set to @true@, causes the [merge|domainClasses], [save|domainClasses] and [delete|domainClasses] methods to flush the session, replacing the need to explicitly flush using @save(flush: true)@.
+
+{hidden}* @grails.gorm.autoFlush@ = If set to @true@, causes the [merge|domainClasses], [save|domainClasses] and [delete|domainClasses] methods to flush the session, replacing the need to explicitly flush using @save(flush: true)@.{hidden}
+* @grails.gorm.autoFlush@ = @true@にセットすると、@save(flush: true)@を使用して明示的にフラッシュする必要がなくなり、[merge|domainClasses]、[save|domainClasses]、[delete|domainClasses]メソッドはセッションをフラッシュするようになります。
