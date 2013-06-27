@@ -114,9 +114,9 @@ GORM:
       optimisticLockingAndVersioning: 楽観的ロックとバージョニング
       fetchingDSL: EagerフェッチとLazyフェッチ
       customCascadeBehaviour: カスケードの振る舞いを変える
-      customHibernateTypes: Hibernateユーザ定義型
+      customHibernateTypes: Hibernateのカスタム型
       derivedProperties: 派生プロパティ
-      customNamingStrategy: 命名標準のカスタマイズ
+      customNamingStrategy: 命名規則のカスタマイズ
     defaultSortOrder: デフォルトソート順
   programmaticTransactions: プログラマチックトランザクション
   gormConstraints: GORMと制約
