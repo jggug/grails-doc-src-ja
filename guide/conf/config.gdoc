@@ -1,26 +1,55 @@
+{hidden}
 For general configuration Grails provides two files:
+{hidden}
+Grailsでは一般的な設定を行うために2つのファイルを提供しています:
 
 * @grails-app/conf/BuildConfig.groovy@
 * @grails-app/conf/Config.groovy@
 
+{hidden}
 Both of them use Groovy's "ConfigSlurper":http://groovy.codehaus.org/ConfigSlurper syntax. The first, @BuildConfig.groovy@, is for settings that are used when running Grails commands, such as @compile@, @doc@, etc. The second file, @Config.groovy@, is for settings that are used when your application is running. This means that @Config.groovy@ is packaged with your application, but @BuildConfig.groovy@ is not. Don't worry if you're not clear on the distinction: the guide will tell you which file to put a particular setting in.
+{hidden}
+両方ともGroovyの[ConfigSlurper|http://groovy.codehaus.org/ConfigSlurper]の構文を使用しています。
+1つめの@BuildConfig.groovy@は@compile@や@doc@等のようなGrailsコマンドを実行するときに使われる設定です。
+2つめの@Config.groovy@はアプリケーションを実行するときに使われる設定です。
+つまり、@Config.groovy@はアプリケーションにパッケージされますが、@BuildConfig.groovy@はされません。
+違いがよく分からなくても心配する必要はありません。
+どの設定をどのファイルに書くべきかはこのガイドで示していきます。
 
+{hidden}
 The most basic syntax is similar to that of Java properties files with dot notation on the left-hand side:
+{hidden}
+左辺にJavaのプロパティファイルのような、ドット区切りの文があるものが最も基本的な構文となります:
 
 {code}
 foo.bar.hello = "world"
 {code}
 
+{hidden}
 Note that the value is a Groovy string literal! Those quotes around 'world' are important. In fact, this highlights one of the advantages of the ConfigSlurper syntax over properties files: the property values can be any valid Groovy type, such as strings, integers, or arbitrary objects!
+{hidden}
+この値がGroovyの文字列リテラルであることに注意してください！
+'world'を囲んでいる引用符が重要です。
+実際に、これがプロパティファイルに対するConfigSlurperのシンタックスの有利な点の1つを際立たせています。
+プロパティの値は文字列や整数、任意のオブジェクトのような、Groovyとして有効な型を取ることができるのです！
 
+{hidden}
 Things become more interesting when you have multiple settings with the same base. For example, you could have the two settings
+{hidden}
+同じベースで複数の設定をすると、もっとおもしろいことになります。
+例えば、2つの設定を持つことができます。
 
 {code}
 foo.bar.hello = "world"
 foo.bar.good = "bye"
 {code}
 
+{hidden}
 both of which have the same base: @foo.bar@. The above syntax works but it's quite repetitive and verbose. You can remove some of that verbosity by nesting properties at the dots:
+{hidden}
+両方とも@foo.bar@という同じベースを持っています。
+上記の構文は動作しますが、繰り返しがかなり冗長です。
+プロパティのドットの箇所でネストして、冗長さを無くすことができます:
 
 {code}
 foo {
@@ -31,7 +60,10 @@ foo {
 }
 {code}
 
+{hidden}
 or by only partially nesting them:
+{hidden}
+または、それらを一部だけネストできます:
 
 {code}
 foo {
@@ -40,7 +72,11 @@ foo {
 }
 {code}
 
+{hidden}
 However, you can't nest after using the dot notation. In other words, this *won't* work:
+{hidden}
+しかしながら、ドット区切りの後にネストを使うことはできません。
+つまり、これは動作*しません*:
 
 {code}
 // Won't work!
@@ -50,8 +86,12 @@ foo.bar {
 }
 {code}
 
+{hidden}
 Within both @BuildConfig.groovy@ and @Config.groovy@ you can access several implicit variables from configuration values:
+{hidden}
+@BuildConfig.groovy@と@Config.groovy@内では、設定値からいくつかの暗黙の変数にアクセスできます:
 
+{hidden}
 {table}
 *Variable* | *Description*
 userHome | Location of the home directory for the account that is running the Grails application.
@@ -59,31 +99,69 @@ grailsHome | Location of the home directory for the account that is running the 
 appName | The application name as it appears in application.properties.
 appVersion | The application version as it appears in application.properties.
 {table}
+{hidden}
+{table}
+*変数* | *説明*
+userHome | Grailsアプリケーションを実行しているアカウントのホームディレクトリの場所です。
+grailsHome | Grailsがインストールされているディレクトリの場所です。環境変数@GRAILS_HOME@が設定されているときはその値が格納されます。
+appName | application.properties内に表記しているアプリケーション名です。
+appVersion | application.properties内に表記しているアプリケーションバージョンです。
+{table}
 
+{hidden}
 For example:
+{hidden}
+例:
 
 {code}
 my.tmp.dir = "\${userHome}/.grails/tmp"
 {code}
 
+{hidden}
 In addition, @BuildConfig.groovy@ has
+{hidden}
+加えて、@BuildConfig.groovy@は以下の変数を持っています。
 
+{hidden}
 {table}
 *Variable* | *Description*
 grailsVersion | The version of Grails used to build the project.
 grailsSettings | An object containing various build related settings, such as @baseDir@. It's of type [@BuildSettings@|api:grails.util.BuildSettings].
 {table}
+{hidden}
+{table}
+*変数* | *説明*
+grailsVersion | プロジェクトをビルドするために使われたGrailsのバージョンです。
+grailsSettings | @baseDir@のような、ビルドに関連する様々な設定を格納したオブジェクトです。型は[@BuildSettings@|api:grails.util.BuildSettings]です。
+{table}
 
+{hidden}
 and @Config.groovy@ has
+{hidden}
+また、@Config.groovy@は以下の変数を持っています。
 
+{hidden}
 {table}
 *Variable* | *Description*
 grailsApplication | The [@GrailsApplication@|api:org.codehaus.groovy.grails.commons.GrailsApplication] instance.
 {table}
+{hidden}
+{table}
+*変数* | *説明*
+grailsApplication | [@GrailsApplication@|api:org.codehaus.groovy.grails.commons.GrailsApplication]のインスタンスです。
+{table}
 
+{hidden}
 Those are the basics of adding settings to the configuration file, but how do you access those settings from your own application? That depends on which config you want to read.
+{hidden}
+ここまでは設定ファイルに設定を追加するための基本についてでしたが、アプリケーション自身からどのようにそれらの設定にアクセスするのでしょうか？
+それはどの設定を読みたいかによります。
 
+{hidden}
 The settings in @BuildConfig.groovy@ are only available from [command scripts|guide:creatingGantScripts] and can be accessed via the @grailsSettings.config@ property like so:
+{hidden}
+@BuildConfig.groovy@内の設定は[コマンドスクリプト|guide:creatingGantScripts]からしか取得できません。
+以下のように@grailsSettings.config@プロパティを経由してアクセスできます:
 
 {code}
 target(default: "Example command") {
@@ -92,7 +170,10 @@ target(default: "Example command") {
 }
 {code}
 
+{hidden}
 If you want to read runtime configuration settings, i.e. those defined in @Config.groovy@, use the [@grailsApplication@|api:org.codehaus.groovy.grails.commons.GrailsApplication] object, which is available as a variable in controllers and tag libraries:
+{hidden}
+実行時の設定、すなわち@Config.groovy@に定義されたものを読みたい場合は、[@grailsApplication@|api:org.codehaus.groovy.grails.commons.GrailsApplication]オブジェクトを使って、コントローラやタグライブラリから変数として取得できます:
 
 {code}
 class MyController {
@@ -104,7 +185,10 @@ class MyController {
 }
 {code}
 
+{hidden}
 and can be easily injected into services and other Grails artifacts:
+{hidden}
+また、サービスやその他のGrailsアーティファクトへ簡単に注入することができます:
 
 {code}
 class MyService {
@@ -117,4 +201,7 @@ class MyService {
 }
 {code}
 
+{hidden}
 As you can see, when accessing configuration settings you use the same dot notation as when you define them.
+{hidden}
+ご覧の通り、設定を取得するときは、それらを定義したときと同じようにドット区切り表記を用います。
