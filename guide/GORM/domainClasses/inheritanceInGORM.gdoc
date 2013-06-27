@@ -1,4 +1,8 @@
+{hidden}
 GORM supports inheritance both from abstract base classes and concrete persistent GORM entities. For example:
+{hidden}
+GORMは抽象クラス、または他のGORMエンティティクラスからの継承をサポートしています。
+例えば:
 
 {code}
 class Content {
@@ -24,19 +28,45 @@ class PodCast extends Content {
 }
 {code}
 
+{hidden}
 In the above example we have a parent @Content@ class and then various child classes with more specific behaviour.
+{hidden}
+上の例では、親の@Content@クラスと個別の振る舞いを持ったさまざまな子クラスを定義しています。
 
+{hidden}
 h4. Considerations
+{hidden}
+h4. 考慮すべきこと
 
+{hidden}
 At the database level Grails by default uses table-per-hierarchy mapping with a discriminator column called @class@ so the parent class (@Content@) and its subclasses (@BlogEntry@, @Book@ etc.), share the *same* table.
+{hidden}
+データベースレベルでは、Grailsはデフォルトで@class@という名前の識別カラムと共にtable-per-hierarchyマッピングを使います。
+これは親クラス（@Content@）と、その子クラス（@BlogEntry@や@Book@など）が同じテーブル上に格納されます。
 
+{hidden}
 Table-per-hierarchy mapping has a down side in that you *cannot* have non-nullable properties with inheritance mapping. An alternative is to use table-per-subclass which can be enabled with the [ORM DSL|guide:ormdsl]
+{hidden}
+table-per-hierarchyマッピングは継承先のマッピングで非nullableプロパティを持てないという難点があります。
+代替手段はtable-per-subclassを使うことです。
+これは[ORM DSL|guide:ormdsl]で有効にできます。
 
+{hidden}
 However, excessive use of inheritance and table-per-subclass can result in poor query performance due to the use of outer join queries. In general our advice is if you're going to use inheritance, don't abuse it and don't make your inheritance hierarchy too deep.
+{hidden}
+しかし、過度の継承とtable-per-subclassの使用は、外部結合（OUTER JOIN）のせいでクエリ性能が劣化する可能性があります。
+一般的なアドバイスとして、もし継承を使うなら、継承を乱用せず、継承階層が深くならないようにしてください。
 
+{hidden}
 h4. Polymorphic Queries
+{hidden}
+h4. ポリモーフィズムなクエリ
 
+{hidden}
 The upshot of inheritance is that you get the ability to polymorphically query. For example using the [list|domainClasses] method on the @Content@ super class will return all subclasses of @Content@:
+{hidden}
+継承の結果としてポリモーフィズムを使ったクエリが可能になります。
+例えば、親の@Content@クラス上で[list|domainClasses]メソッドを使うと、@Content@のすべてのサブクラスが返されます:
 
 {code}
 def content = Content.list() // list all blog entries, books and podcasts
