@@ -1,4 +1,8 @@
+{hidden}
 The easiest way to create a RESTful API in Grails is to expose a domain class as a REST resource. This can be done by adding the @grails.rest.Resource@ transformation to any domain class:
+{hidden}
+GrailsでRESTFul APIを簡単に作成する方法は、ドメインクラスをRESTリソースとして公開することです。
+これは、任意のドメインクラスに@grails.rest.Resource@変換を追加するだけです:
 
 {code}
 import grails.rest.*
@@ -14,9 +18,16 @@ class Book {
 }
 {code}
 
+{hidden}
 Simply by adding the @Resource@ transformation and specifying a URI, your domain class will automatically be available as a REST resource in either XML or JSON formats. The transformation will automatically register the necessary [RESTful URL mapping|guide:restfulMappings] and create a controller called @BookController@.
+{hidden}
+単に@Resource@変換を追加してURIを指定することで、ドメインクラスは自動的にXML、JSONフォーマットをサポートするRESTリソースとして使用可能になります。
+この変換は、必要な[RESTful URL マッピング|guide:restfulMappings]を自動的に登録し、@BookController@と呼ばれるコントローラを作成します。
 
+{hidden}
 You can try it out by adding some test data to @BootStrap.groovy@:
+{hidden}
+いくつかのテストデータを@BootStrap.groovy@に追加することで動作確認ができます。
 
 {code}
     def init = { servletContext ->
@@ -26,7 +37,10 @@ You can try it out by adding some test data to @BootStrap.groovy@:
     }
 {code}
 
+{hidden}
 And then hitting the URL http://localhost:8080/myapp/books/1, which will render response like:
+{hidden}
+そして、@http://localhost:8080/myapp/books/1@のURLをたたいてみると、以下のようなレスポンスが表示されます:
 
 {code}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -35,14 +49,20 @@ And then hitting the URL http://localhost:8080/myapp/books/1, which will render 
 </book>
 {code}
 
+{hidden}
 If you change the URL to @http://localhost:8080/myapp/books/1.json@ you will get a JSON response such as:
+{hidden}
+URLを@http://localhost:8080/myapp/books/1.json@に変更すると、以下のようなJSONレスポンスが得られます:
 
 
 {code}
 {"id":1,"title":"The Stand"}
 {code}
 
+{hidden}
 If you wish to change the default to return JSON instead of XML, you can do this by setting the @formats@ attribute of the @Resource@ transformation:
+{hidden}
+XMLの代わりにデフォルトでJSONを返したい場合は、@Resource@変換の@formats@属性を設定します。
 
  {code}
 import grails.rest.*
@@ -53,7 +73,12 @@ class Book {
 }
 {code}
 
+{hidden}
 With the above example JSON will be prioritized. The list that is passed should contain the names of the formats that the resource should expose. The names of formats are defined in the @grails.mime.types@ setting of @Config.groovy@:
+{hidden}
+上記の例ではJSONを優先するように設定しています。
+この一覧には公開するフォーマットの名前を含む必要があります。
+フォーマットの名前は@Config.groovy@の@grails.mime.types@設定の中で定義されます:
 
 {code}
 grails.mime.types = [
@@ -64,18 +89,31 @@ grails.mime.types = [
 ]
 {code}
 
+{hidden}
 See the section on [Configuring Mime Types|guide:contentNegotiation] in the user guide for more information.
+{hidden}
+さらなる情報はユーザガイド内の[MIMEタイプの設定|guide:contentNegotiation]を参照してください。
 
+{hidden}
 Instead of using the file extension in the URI, you can also obtain a JSON response using the ACCEPT header. Here's an example using the Unix @curl@ tool:
+{hidden}
+URIでファイル拡張子を使う代わりに、ACCEPTヘッダを使ってJSONレスポンスを得ることもできます。
+これはUnixの@curl@コマンドを使用した例です:
 
 {code}
 $ curl -i -H "Accept: application/json" localhost:8080/myapp/books/1
 {"id":1,"title":"The Stand"}
 {code}
 
+{hidden}
 This works thanks to Grails' [Content Negotiation|guide:contentNegotiation] features.
+{hidden}
+これはGrailsの[コンテントネゴシエーション|guide:contentNegotiation]機能のおかげで動作しています。
 
+{hidden}
 You can create a new resource by issuing a @POST@ request:
+{hidden}
+@POST@リクエスを発行することで新たなリソースを作成できます:
 
 {code}
 $ curl -i -X POST -H "Content-Type: application/json" -d '{"title":"Along Came A Spider"}' localhost:8080/myapp/books
@@ -84,7 +122,10 @@ Server: Apache-Coyote/1.1
 ...
 {code}
 
+{hidden}
 Updating can be done with a @PUT@ request:
+{hidden}
+更新には@PUT@リクエストを使用します:
 
 {code}
 $ curl -i -X PUT -H "Content-Type: application/json" -d '{"title":"Along Came A Spider"}' localhost:8080/myapp/books/1
@@ -93,7 +134,10 @@ Server: Apache-Coyote/1.1
 ...
 {code}
 
+{hidden}
 Finally a resource can be deleted with @DELETE@ request:
+{hidden}
+最後に、@DELETE@リクエストでリソースが削除されます:
 
 {code}
 $ curl -i -X DELETE localhost:8080/myapp/books/1
@@ -102,7 +146,11 @@ Server: Apache-Coyote/1.1
 ...
 {code}
 
+{hidden}
 As you can see the @Resource@ transformation enables all of the HTTP method verbs on the resource. You can enable only read-only capabilities by setting the @readOnly@ attribute to true:
+{hidden}
+ここまで見てきたように、@Resource@変換はリソースに対してHTTPメソッドに対応する動作のすべてを有効にします。
+@readOnly@属性をtrueに設定することで読み取り専用にできます:
 
 {code}
 import grails.rest.*
@@ -113,4 +161,7 @@ class Book {
 }
 {code}
 
+{hidden}
 In this case POST, PUT and DELETE requests will be forbidden.
+{hidden}
+この場合は、POST、PUT、そしてDELETEリクエストを受付けません。
