@@ -1,4 +1,5 @@
-Within a domain class [constraints|domainClasses] are defined with the constraints property that is assigned a code block:
+{hidden}Within a domain class [constraints|domainClasses] are defined with the constraints property that is assigned a code block:{hidden}
+ドメインクラスの制約は、次のような[constraints|domainClasses]プロパティによって指定します。
 
 {code:java}
 class User {
@@ -13,7 +14,8 @@ class User {
 }
 {code}
 
-You then use method calls that match the property name for which the constraint applies in combination with named parameters to specify constraints:
+{hidden}You then use method calls that match the property name for which the constraint applies in combination with named parameters to specify constraints:{hidden}
+次に、プロパティ名と同じ名前のメソッド呼び出しで、適用したい制約とパラメータの組み合わせを与えます。
 
 {code:java}
 class User {
@@ -28,17 +30,24 @@ class User {
 }
 {code}
 
-In this example we've declared that the @login@ property must be between 5 and 15 characters long, it cannot be blank and must be unique. We've also applied other constraints to the @password@, @email@ and @age@ properties.
+{hidden}In this example we've declared that the @login@ property must be between 5 and 15 characters long, it cannot be blank and must be unique. We've also applied other constraints to the @password@, @email@ and @age@ properties.{hidden}
+この例では、@login@プロパティに対して5～15文字の長さとし(@size@)、空白(@blank@)を許可せず、一意となる(@unique@)よう制約を与えています。@password@、@email@、@age@の各プロパティについても同様に制約を宣言しています。
 
-{note}
+{hidden}{note}
 By default, all domain class properties are not nullable (i.e. they have an implicit @nullable: false@ constraint).
+{note}{hidden}
+
+{note}
+デフォルトでは、すべてのドメインクラスのプロパティはnull値を許容しません(暗黙に@nullable: false@制約を持っています)。
 {note}
 
-A complete reference for the available constraints can be found in the Quick Reference section under the Constraints heading.
+{hidden}A complete reference for the available constraints can be found in the Quick Reference section under the Constraints heading.{hidden}
+利用可能な制約のリファレンスは、クイックリファレンスの見出し constraints で見ることができます。
 
-Note that constraints are only evaluated once which may be relevant for a constraint that relies on a value like an instance of @java.util.Date@.
+{hidden}Note that constraints are only evaluated once which may be relevant for a constraint that relies on a value like an instance of @java.util.Date@.{hidden}
+@java.util.Date@のインスタンスのような値を必要とするかもしれないため、制約が評価されるのは一度だけであることに注意してください。
 
-{code:java}
+{hidden}{code:java}
 class User {
     ...
 
@@ -48,11 +57,26 @@ class User {
         birthDate max: new Date()
     }
 }
+{code}{hidden}
+
+{code:java}
+class User {
+    ...
+
+    static constraints = {
+        // この Date 型オブジェクトは制約が評価されるときに作られます。
+        // User クラスのインスタンスがバリデーションされる度に作られるわけではありません。
+        birthDate max: new Date()
+    }
+}
 {code}
 
-h3. A word of warning - referencing domain class properties from constraints
+{hidden}h3. A word of warning - referencing domain class properties from constraints{hidden}
+h3. 忠告 - 制約からドメインクラスのプロパティを参照するとき
 
-It's very easy to attempt to reference instance variables from the static constraints block, but this isn't legal in Groovy (or Java). If you do so, you will get a @MissingPropertyException@ for your trouble. For example, you may try
+{hidden}It's very easy to attempt to reference instance variables from the static constraints block, but this isn't legal in Groovy (or Java). If you do so, you will get a @MissingPropertyException@ for your trouble. For example, you may try{hidden}
+静的な制約の宣言からインスタンス変数を参照するのは非常に簡単ですが、これはGroovy(やJava)において適切ではありません。この場合、困ったことに@MissingPropertyException@が発生します。たとえば、以下のようなコードを試してみると…
+
 {code}
 class Response {
     Survey survey
@@ -65,7 +89,8 @@ class Response {
 }
 {code}
 
-See how the @inList@ constraint references the instance property @survey@? That won't work. Instead, use a custom [validator|constraints]:
+{hidden}See how the @inList@ constraint references the instance property @survey@? That won't work. Instead, use a custom [validator|constraints]:{hidden}
+このように、@inList@制約においてインスタンスプロパティである@survey@を参照すると、これは動作しません。代わりに、カスタム[validator|constraints]を使いましょう:
 
 {code}
 class Response {
@@ -77,4 +102,5 @@ class Response {
 }
 {code}
 
-In this example, the @obj@ argument to the custom validator is the domain _instance_ that is being validated, so we can access its @survey@ property and return a boolean to indicate whether the new value for the @answer@ property, @val@, is valid.
+{hidden}In this example, the @obj@ argument to the custom validator is the domain _instance_ that is being validated, so we can access its @survey@ property and return a boolean to indicate whether the new value for the @answer@ property, @val@, is valid.{hidden}
+この例では、カスタムバリデータの引数@obj@は、バリデーションされるドメインクラスの _インスタンス_ です。こうすることで@survey@プロパティにアクセスし、@answer@プロパティの新しい値として@val@が@survey.answers@に含まれるかどうかを示す真偽値を得ることができます。
