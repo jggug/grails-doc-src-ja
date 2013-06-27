@@ -1,10 +1,12 @@
-You can sort objects using query arguments such as those found in the [list|domainClasses] method:
+{hidden}You can sort objects using query arguments such as those found in the [list|domainClasses] method:{hidden}
+[list|domainClasses]メソッドにあるようなクエリ引数を使うと、結果オブジェクトをソートできます。
 
 {code:java}
 def airports = Airport.list(sort:'name')
 {code}
 
-However, you can also declare the default sort order for a collection in the mapping:
+{hidden}However, you can also declare the default sort order for a collection in the mapping:{hidden}
+一方、@mapping@でコレクションに対するデフォルトソート順を宣言することもできます。
 
 {code:java}
 class Airport {
@@ -15,7 +17,9 @@ class Airport {
 }
 {code}
 
-The above means that all collections of @Airport@ instances will by default be sorted by the airport name. If you also want to change the sort _order_, use this syntax:
+{hidden}The above means that all collections of @Airport@ instances will by default be sorted by the airport name. If you also want to change the sort _order_, use this syntax:{hidden}
+上記はすべての@Airport@のコレクションがデフォルトで空港名によってソートされることを意味します。
+もしソート _順序_ を変えたいなら、次のシンタックスを使います:
 
 {code:java}
 class Airport {
@@ -26,7 +30,8 @@ class Airport {
 }
 {code}
 
-Finally, you can configure sorting at the association level:
+{hidden}Finally, you can configure sorting at the association level:{hidden}
+あと、関連レベルでのソートも設定できます:
 
 {code:java}
 class Airport {
@@ -39,8 +44,14 @@ class Airport {
 }
 {code}
 
-In this case, the @flights@ collection will always be sorted in descending order of flight number.
+{hidden}In this case, the @flights@ collection will always be sorted in descending order of flight number.{hidden}
+この場合、@flights@コレクションは常にフライト番号の降順でソートされます。
 
 {warning}
+{hidden}
 These mappings will not work for default unidirectional one-to-many or many-to-many relationships because they involve a join table. See [this issue|http://jira.codehaus.org/browse/GRAILS-4089] for more details. Consider using a @SortedSet@ or queries with sort parameters to fetch the data you need.
+{hidden}
+これらのマッピングはデフォルトの単方向1対多/多対多関連では動作しません。結合テーブルが使われているためです。
+より詳しくは、[このチケット|http://jira.codehaus.org/browse/GRAILS-4089]を参照してください。
+それらのソートされたデータを取得するには、@SortedSet@やソートパラメータを指定したクエリを使うことを検討してください。
 {warning}
