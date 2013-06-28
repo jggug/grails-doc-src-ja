@@ -1,1 +1,3 @@
-The @Resource@ transformation is a quick way to get started, but typically you'll want to customize the controller logic, the rendering of the response or extend the API to include additional actions.
+{hidden}The @Resource@ transformation is a quick way to get started, but typically you'll want to customize the controller logic, the rendering of the response or extend the API to include additional actions.{hidden}
+@Resource@変換はREST APIを構築する手っ取り早い方法です。
+しかし大抵の場合、レスポンスのレンダリングを変更したり、APIを拡張するなど、コントローラのロジックをカスタマイズしたくなります。
