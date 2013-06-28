@@ -1,15 +1,21 @@
-A common requirement with a REST API is to expose different versions of the REST API. There are a few ways this can be achieved in Grails.
+{hidden}A common requirement with a REST API is to expose different versions of the REST API. There are a few ways this can be achieved in Grails.{hidden}
+REST APIの一般的な要件として、REST APIの異なるバージョンの公開があります。
+Grailsでこれを実現するにはいくつかの方法があります。
 
-h4. Versioning using the URI
+{hidden}h4. Versioning using the URI{hidden}
+h4. URIを使ったバージョンニング
 
-A common approach is to use the URI to version APIs (although this approach is discouraged in favour of Hypermedia). For example, you can define the following URL mappings:
+{hidden}A common approach is to use the URI to version APIs (although this approach is discouraged in favour of Hypermedia). For example, you can define the following URL mappings:{hidden}
+一般的な方法は、各バージョンのAPIへのURIを使うことです(しかし、この方法よりはハイパーメディアを使った方法をお勧めします)。
+例えば、以下のようにURLマッピングを定義できます:
 
 {code}
 "/books/v1"(resources:"book", namespace:'v1')
 "/books/v2"(resources:"book", namespace:'v2')
 {code}
 
-That will match the following controllers:
+{hidden}That will match the following controllers:{hidden}
+これは以下のコントローラに対応付きます:
 
 {code}
 package myapp.v1
@@ -25,27 +31,34 @@ class BookController {
 }
 {code}
 
-This approach has the disadvantage of requiring two different URI namespaces for your API.
+{hidden}This approach has the disadvantage of requiring two different URI namespaces for your API.{hidden}
+この方法は、APIに対して異なる2つのURIのネームスペースが必要となるという欠点があります。
 
-h4. Versioning with the Accept-Version header
+{hidden}h4. Versioning with the Accept-Version header{hidden}
+h4. Accept-Versionヘッダを使ったバージョンニング
 
-As an alternative Grails supports the passing of an @Accept-Version@ header from clients. For example you can define the following URL mappings:
+{hidden}As an alternative Grails supports the passing of an @Accept-Version@ header from clients. For example you can define the following URL mappings:{hidden}
+代わりに、Grailsはクライアントからの@Accept-Version@ヘッダによる制御をサポートしています。
+例えば以下のようにURLマッピングを定義できます:
 
 {code}
 "/books"(version:'1.0', resources:"book", namespace:'v1')
 "/books"(version:'2.0', resources:"book", namespace:'v2')
 {code}
 
-
-Then in the client simply pass which version you need using the @Accept-Version@ header:
+{hidden}Then in the client simply pass which version you need using the @Accept-Version@ header:{hidden}
+そして、クライアントからは@Accept-Version@ヘッダを使ってバージョンを渡すだけです:
 
 {code}
 $ curl -i -H "Accept-Version: 1.0" -X GET http://localhost:8080/myapp/books
 {code}
 
-h4. Versioning using Hypermedia / Mime Types
+{hidden}h4. Versioning using Hypermedia / Mime Types{hidden}
+h4. Hypermedia/MIMEタイプを使ったバージョニング
 
-Another approach to versioning is to use Mime Type definitions to declare the version of your custom media types (see the section on "Hypermedia as the Engine of Application State" for more information about Hypermedia concepts). For example in @Config.groovy@ you can declare a custom Mime Type for your resource that includes a version parameter (the 'v' parameter):
+{hidden}Another approach to versioning is to use Mime Type definitions to declare the version of your custom media types (see the section on "Hypermedia as the Engine of Application State" for more information about Hypermedia concepts). For example in @Config.groovy@ you can declare a custom Mime Type for your resource that includes a version parameter (the 'v' parameter):{hidden}
+他のバージョニング方法は、MIMEタイプ定義を使い、カスタムメディアタイプとしてバージョンを宣言する方法です(ハイパーメディアのコンセプトについての、より詳しい情報は「アプリケーション状態エンジンとしてのハイパーメディア」を参照してください)。
+例えば@Config.groovy@内に、リソースに対してバージョンパラメータ('v'のパラメータ)を含んだカスタムMIMEタイプを宣言できます:
 
 {code}
 grails.mime.types = [
@@ -56,11 +69,17 @@ grails.mime.types = [
 }
 {code}
 
-{warning}
+{hidden}{warning}
 It is critical that place your new mime types after the 'all' Mime Type because if the Content Type of the request cannot be established then the first entry in the map is used for the response. If you have your new Mime Type at the top then Grails will always try and send back your new Mime Type if the requested Mime Type cannot be established.
+{warning}{hidden}
+{warning}
+'all'のMIMEタイプの後に、新たなMIMEタイプを宣言しているのには重要な意味があります。
+なぜなら、リクエストのコンテンツタイプが不明な場合は、マップ内の最初のエントリがレスポンスのコンテンツタイプとして使われるためです。
+もし、新たなMIMEタイプが先頭にあるとすると、リクエストのコンテンツタイプが不明な場合に、Grailsは新たなMIMEタイプを常に送り返すことになります。
 {warning}
 
-Then override the renderer (see the section on "Customizing Response Rendering" for more information on custom renderers) to send back the custom Mime Type in @grails-app/conf/spring/resourses.groovy@:
+{hidden}Then override the renderer (see the section on "Customizing Response Rendering" for more information on custom renderers) to send back the custom Mime Type in @grails-app/conf/spring/resourses.groovy@:{hidden}
+次に、@grails-app/conf/spring/resourses.groovy@内でカスタムMIMEタイプを返すようにレンダリング設定(カスタムレンダリングのより詳しい情報は「レスポンスレンダリングのカスタマイズ」を参照してください)を上書きします:
 
 {code}
 import grails.rest.renderer.json.*
@@ -72,7 +91,8 @@ beans = {
 }
 {code}
 
-Then using the @Accept@ header you can specify which version you need using the Mime Type:
+{hidden}Then using the @Accept@ header you can specify which version you need using the Mime Type:{hidden}
+これで、@Accept@ヘッダでMIMEタイプを使いバージョンを指定できます。
 
 {code}
 $ curl -i -H "Accept: application/vnd.books.org.book+json;v=1.0" -X GET http://localhost:8080/myapp/books
