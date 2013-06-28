@@ -1,10 +1,13 @@
-If you don't want to take advantage of the features provided by the @RestfulController@ super class, then you can implement each HTTP verb yourself manually. The first step is to create a controller:
+{hidden}If you don't want to take advantage of the features provided by the @RestfulController@ super class, then you can implement each HTTP verb yourself manually. The first step is to create a controller:{hidden}
+もし、スーパークラスの@RestfulController@から提供される機能を使用しない場合は、それぞれHTTPメソッドに対応するアクションを自身で実装できます。
+最初のステップはコントローラの作成です:
 
 {code}
 $ grails create-controller book
 {code}
 
-Then add some useful imports and enable readOnly by default:
+{hidden}Then add some useful imports and enable readOnly by default:{hidden}
+そして、いくつかの便利なインポートを追加し、デフォルトで読み取り専用にします:
 
 {code}
 import grails.transaction.*
@@ -17,7 +20,9 @@ class BookController {
 }
 {code}
 
-Recall that each HTTP verb matches a particular Grails action according to the following conventions:
+{hidden}Recall that each HTTP verb matches a particular Grails action according to the following conventions:{hidden}
+HTTPメソッドのアクションは、以下の規約に従って、それぞれGrailsのアクションに対応付くことを思い出してください:
+
 
 {table}
  HTTP Method | URI               | Controller Action
@@ -30,15 +35,26 @@ Recall that each HTTP verb matches a particular Grails action according to the f
  DELETE      |/books/${id}       | delete        
 {table}
 
+{hidden}
 {note}
 The 'create' and 'edit' actions are already required if you plan to implement an HTML interface for the REST resource. They are there in order to render appropriate HTML forms to create and edit a resource. If this is not a requirement they can be discarded.
 {note}
+{hidden}
+{note}
+'create'と'edit'アクションはRESTリソースに対して、HTMLインタフェースを実装する予定がある場合は必要です。
+これらはリソースの追加、編集のHTMLフォームを表示するためにあります。
+これが必要ない場合は無効にできます。
+{note}
 
-The key to implementing REST actions is the [respond|controllers] method introduced in Grails 2.3. The @respond@ method tries to produce the most appropriate response for the requested content type (JSON, XML, HTML etc.)
+{hidden}The key to implementing REST actions is the [respond|controllers] method introduced in Grails 2.3. The @respond@ method tries to produce the most appropriate response for the requested content type (JSON, XML, HTML etc.){hidden}
+RESTアクションの実装の鍵は、Grails 2.3で導入された[respond|controllers]メソッドです。
+@respond@メソッドは、リクエストのCotent Type(JSON、XML、XMLなど)に対して、もっとも適切なレスポンスを生成しようとします。
 
-h4. Implementing the 'index' action
+{hidden}h4. Implementing the 'index' action{hidden}
+h4. 'index'アクションの実装
 
-For example to implement the @index@ action, simply call the @respond@ method passing the list of objects to respond with: 
+{hidden}For example to implement the @index@ action, simply call the @respond@ method passing the list of objects to respond with: {hidden}
+例えば@index@アクションを実装するには、単にオブジェクトのリストと共に@respond@メソッドを呼びます:
 
 {code}
 def index(Integer max) {
@@ -47,11 +63,15 @@ def index(Integer max) {
 }
 {code}
 
-Note that in the above example we also use the @model@ argument of the @respond@ method to supply the total count. This is only required if you plan to support pagination via some user interface.
+{hidden}Note that in the above example we also use the @model@ argument of the @respond@ method to supply the total count. This is only required if you plan to support pagination via some user interface.{hidden}
+上記の例では、オブジェクトのリストに加えて、合計値を設定するために@respond@メソッドに@model@引数を渡しています。
+これは、ユーザインタフェースでページングをサポートする場合にのみ必要です。
 
-The @respond@ method will, using [Content Negotiation|guide:contentNegotiation], attempt to reply with the most appropriate response given the content type requested by the client (via the ACCEPT header or file extension).
+{hidden}The @respond@ method will, using [Content Negotiation|guide:contentNegotiation], attempt to reply with the most appropriate response given the content type requested by the client (via the ACCEPT header or file extension).{hidden}
+@respond@メソッドは、[コンテントネゴシエーション|guide:contentNegotiation]を使って、クライントからリクエストされたコンテンツタイプから(ACCEPTヘッダまたはファイル拡張子から)、もっとも適切なレスポンスを返そうとします。
 
-If the content type is established to be HTML then a model will be produced such that the action above would be the equivalent of writing:
+{hidden}If the content type is established to be HTML then a model will be produced such that the action above would be the equivalent of writing:{hidden}
+もしコンテンツタイプがHTMLである場合は、上記のアクションは次のように書いた場合と同じような@model@を生成します:
 
 {code}
 def index(Integer max) {
@@ -60,13 +80,21 @@ def index(Integer max) {
 }
 {code}
 
-By providing an @index.gsp@ file you can render an appropriate view for the given model. If the content type is something other than HTML then the @respond@ method will attempt to lookup an appropriate @grails.rest.render.Renderer@ instance that is capable of rendering the passed object. This is done by inspecting the @grails.rest.render.RendererRegistry@.
+{hidden}By providing an @index.gsp@ file you can render an appropriate view for the given model. If the content type is something other than HTML then the @respond@ method will attempt to lookup an appropriate @grails.rest.render.Renderer@ instance that is capable of rendering the passed object. This is done by inspecting the @grails.rest.render.RendererRegistry@.{hidden}
+そして、@index.gsp@ファイルを提供することで、与えられた@model@に対するビューが表示できます。
+もし、コンテンツタイプがHTMLではない場合、@respond@メソッドは渡されたオブジェクトをレンダリングできる適切な@grails.rest.render.Renderer@のインスタンスを探します。
+これは@grails.rest.render.RendererRegistry@から検索されます。
 
-By default there are already renderers configured for JSON and XML, to find out how to register a custom renderer see the section on "Customizing Response Rendering".
+{hidden}By default there are already renderers configured for JSON and XML, to find out how to register a custom renderer see the section on "Customizing Response Rendering".{hidden}
+デフォルトではJSONとXMLのレンダラーが設定されています。
+カスタムレンダラーの登録の仕方は「レスポンスレンダリングのカスタマイズ」を参照してください。
 
-h4. Implementing the 'show' action
+{hidden}h4. Implementing the 'show' action{hidden}
+h4. 'show'アクションの実装
 
-The @show@ action, which is used to display and individual resource by id, can be implemented in one line of Groovy code (excluding the method signature):
+{hidden}The @show@ action, which is used to display and individual resource by id, can be implemented in one line of Groovy code (excluding the method signature):{hidden}
+@show@アクションはidによって個々のリソースを表示するためのものです。
+これはGroovyコード1行で実装できます(メソッドのシグネチャを除く):
 
 {code}
 def show(Book book) {
@@ -74,7 +102,13 @@ def show(Book book) {
 }
 {code}
 
-By specifying the domain instance as a parameter to the action Grails will automatically attempt to lookup the domain instance using the @id@ parameter of the request. If domain instance doesn't exist then @null@ will be passed into the action. The @respond@ method will return a 404 error if null is passed otherwise once again it will attempt to render an appropriate response. If the format is HTML then an appropriate model will produced. The following action is functionally equivalent to the above action:
+{hidden}By specifying the domain instance as a parameter to the action Grails will automatically attempt to lookup the domain instance using the @id@ parameter of the request. If domain instance doesn't exist then @null@ will be passed into the action. The @respond@ method will return a 404 error if null is passed otherwise once again it will attempt to render an appropriate response. If the format is HTML then an appropriate model will produced. The following action is functionally equivalent to the above action:{hidden}
+アクションパラメータとして特定のドメインインスタンスを指定すると、Grailsは自動的にリクエストの@id@パラメータからドメインインスタンスを検索しようとします。
+もし、ドメインインスタンスが存在しない場合は、アクションへ@null@が渡されます。
+@respond@メソッドはnullが渡された場合は404エラーを返します。
+nullではない場合は、前と同じように適切なレスポンスを表示しようとします。
+もし、フォーマットがHTMLの場合は適切な@model@を生成します。
+以下のアクションは、上記のアクションと機能的に同じです:
 
 {code}
 def show(Book book) {
@@ -87,9 +121,12 @@ def show(Book book) {
 }
 {code}
 
-h4. Implementing the 'save' action
+{hidden}h4. Implementing the 'save' action{hidden}
+h4. 'save'アクションの実装
 
-The @save@ action saves new resource representations. To start off with simply define a an action that accepts a resource as the first argument and mark it as @Transactional@ with the @grails.transaction.Transactional@ transform:
+{hidden}The @save@ action saves new resource representations. To start off with simply define a an action that accepts a resource as the first argument and mark it as @Transactional@ with the @grails.transaction.Transactional@ transform:{hidden}
+@save@アクションは新たなリソースを保存します。
+@save@アクションを簡単に実装するには、最初の引数にリソースをとるアクションを定義し、そのアクションに@grails.transaction.Transactional@変換を使って@Transactional@としてマークします:
 
 {code}
 @Transactional
@@ -98,7 +135,9 @@ def save(Book book) {
 }
 {code}
 
-Then the first thing to do is check whether the resource has any [validation errors|guide:validation] and if so respond with the errors:
+{hidden}Then the first thing to do is check whether the resource has any [validation errors|guide:validation] and if so respond with the errors:{hidden}
+そして、最初にすべきことはリソースに[バリデーションエラー|guide:validation]がないかチェックすることです。
+エラーがある場合は@errors@を応答します:
 
 {code}
 if(book.hasErrors()) {
@@ -109,9 +148,13 @@ else {
 }
 {code}
 
-In the case of HTML the 'create' view will be rendered again so the user can correct the invalid input. In the case of other formats (JSON, XML etc.) the errors object itself will be rendered in the appropriate format and a status code of 422 (UNPROCESSABLE_ENTITY) returned.
+{hidden}In the case of HTML the 'create' view will be rendered again so the user can correct the invalid input. In the case of other formats (JSON, XML etc.) the errors object itself will be rendered in the appropriate format and a status code of 422 (UNPROCESSABLE_ENTITY) returned.{hidden}
+HTMLの場合は'create'ビューが再度表示されます。
+そして、ユーザは誤った入力を修正できます。
+それ以外のフォーマット(JSON、XMLなど)の場合は、エラーオブジェクト自身が適切なフォーマットで表示され、422(UNPROCESSABLE_ENTITY)のステータスコードが返されます。
 
-If there are no errors then the resource can be saved and an appropriate response sent:
+{hidden}If there are no errors then the resource can be saved and an appropriate response sent:{hidden}
+もし、エラーがない場合は、リソースが保存され、適切なレスポンスが返されます:
 
 {code}
     book.save flush:true
@@ -124,12 +167,18 @@ If there are no errors then the resource can be saved and an appropriate respons
     }
 {code}
 
-In the case of HTML a redirect is issued to the originating resource and for other formats a status code of 201 (CREATED) is returned.
+{hidden}In the case of HTML a redirect is issued to the originating resource and for other formats a status code of 201 (CREATED) is returned.{hidden}
+HTMLの場合は、オリジナルのリソースへリダイレクトされます。
+そして、他のフォーマットでは201(CREATED)のステータスコードが返されます。
 
-h4. Implementing the 'update' action
+{hidden}h4. Implementing the 'update' action{hidden}
+h4. 'update'アクションの実装
 
 
-The @update@ action updates an existing resource representations and is largely similar to the @save@ action, first define the method signature:
+{hidden}The @update@ action updates an existing resource representations and is largely similar to the @save@ action, first define the method signature:{hidden}
+@update@アクションは既存のリソースを更新します。
+そして、@update@アクションは@save@アクションとほとんど同じです。
+はじめにメソッドのシグネチャを定義します:
 
 {code}
 @Transactional
@@ -138,7 +187,9 @@ def update(Book book) {
 }
 {code}
 
-If the resource exists then Grails will load the resource, otherwise null we passed. In the case of null, you should return a 404:
+{hidden}If the resource exists then Grails will load the resource, otherwise null we passed. In the case of null, you should return a 404:{hidden}
+もしリソースが存在する場合は、Grailsはリソースを読み込み、そうでない場合はnullを渡します。
+nullの場合は、404を返すべきです:
 
 {code}
     if(book == null) {
@@ -149,7 +200,8 @@ If the resource exists then Grails will load the resource, otherwise null we pas
     }
 {code}
 
-Then once again check for errors [validation errors|guide:validation] and if so respond with the errors:
+{hidden}Then once again check for errors [validation errors|guide:validation] and if so respond with the errors:{hidden}
+そして、前と同じようにerrorsに対して[バリデーションエラー|guide:validation]をチェックして、エラーがある場合は@errors@を応答します:
 
 {code}
 if(book.hasErrors()) {
@@ -160,9 +212,13 @@ else {
 }
 {code}
 
-In the case of HTML the 'edit' view will be rendered again so the user can correct the invalid input. In the case of other formats (JSON, XML etc.) the errors object itself will be rendered in the appropriate format and a status code of 422 (UNPROCESSABLE_ENTITY) returned.
+{hidden}In the case of HTML the 'edit' view will be rendered again so the user can correct the invalid input. In the case of other formats (JSON, XML etc.) the errors object itself will be rendered in the appropriate format and a status code of 422 (UNPROCESSABLE_ENTITY) returned.{hidden}
+HTMLの場合は'edit'ビューが再度表示されます。
+そして、ユーザは誤った入力を修正できます。
+それ以外のフォーマット(JSON、XMLなど)の場合は、エラーオブジェクト自身が適切なフォーマットで表示され、422(UNPROCESSABLE_ENTITY)のステータスコードが返されます。
 
-If there are no errors then the resource can be saved and an appropriate response sent:
+{hidden}If there are no errors then the resource can be saved and an appropriate response sent:{hidden}
+もし、エラーがない場合は、リソースが保存され、適切なレスポンスが返されます:
 
 {code}
 book.save flush:true
@@ -175,11 +231,15 @@ withFormat {
 }
 {code}
 
-In the case of HTML a redirect is issued to the originating resource and for other formats a status code of 200 (OK) is returned.
+{hidden}In the case of HTML a redirect is issued to the originating resource and for other formats a status code of 200 (OK) is returned.{hidden}
+HTMLの場合は、オリジナルのリソースへリダイレクトされ、他のフォーマットでは200(OK)のステータスコードが返されます。
 
-h4. Implementing the 'delete' action
+{hidden}h4. Implementing the 'delete' action{hidden}
+h4. 'delete'アクションの実装
 
-The @delete@ action deletes an existing resource. The implementation is largely similar to the @update@ action, expect the @delete()@ method is called instead:
+{hidden}The @delete@ action deletes an existing resource. The implementation is largely similar to the @update@ action, expect the @delete()@ method is called instead:{hidden}
+@delete@アクションは既存のリソースを削除します。
+実装は、@update@アクションとほとんど同じで@delete()@メソッドを代わりに呼びます:
 
 {code}
 book.delete flush:true
@@ -192,6 +252,7 @@ withFormat {
 }    
 {code}
 
-Notice that for an HTML response a redirect is issued back to the @index@ action, whilst for other content types a response code 204 (NO_CONTENT) is returned.
-
+{hidden}Notice that for an HTML response a redirect is issued back to the @index@ action, whilst for other content types a response code 204 (NO_CONTENT) is returned.{hidden}
+HTMLレスポンスでは@index@アクションへリダイレクトされます。
+他のコンテンツタイプに対しては、レスポンスコード204(NO_CONTENT)が返されます。
 
