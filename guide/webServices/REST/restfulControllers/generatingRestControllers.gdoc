@@ -1,4 +1,7 @@
-To see some of these concepts in action and help you get going the [Scaffolding plugin|http://grails.org/plugin/scaffolding], version 2.0 and above, can generate a REST ready controller for you, simply run the command:
+{hidden}To see some of these concepts in action and help you get going the [Scaffolding plugin|http://grails.org/plugin/scaffolding], version 2.0 and above, can generate a REST ready controller for you, simply run the command:{hidden}
+アクション内でここまで見てきたコンセプトを得るには、バージョン2.0以上の[スカッフォルドプラグイン|http://grails.org/plugin/scaffolding]が役に立ちます。
+このプラグインは、REST機能が組み込まれたコントローラを生成できます。
+これは単にコマンドを実行するだけです:
 
 {code}
 $ grails generate-controller [Domain Class Name]
