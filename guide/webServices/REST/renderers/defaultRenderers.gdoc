@@ -1,10 +1,18 @@
-The default renderers for XML and JSON can be found in the @grails.rest.renderer.xml@ and @grails.rest.renderer.json@ packages respectively. These use the Grails converters (@grails.converters.XML@ and @grails.converters.JSON@) by default for response rendering. 
+{hidden}The default renderers for XML and JSON can be found in the @grails.rest.renderer.xml@ and @grails.rest.renderer.json@ packages respectively. These use the Grails converters (@grails.converters.XML@ and @grails.converters.JSON@) by default for response rendering. {hidden}
+XMLとJSONに対するデフォルトのレンダラーは、それぞれ@grails.rest.renderer.xml@、@grails.rest.renderer.json@パッケージ内にあります。
+これらはレスポンスのレンダリングにGrailsのコンバータ(@grails.converters.XML@と@grails.converters.JSON@)を使います。
 
-You can easily customize response rendering using this default renderers. A common change you may want to make is to include or exclude certain properties from rendering. 
+{hidden}You can easily customize response rendering using this default renderers. A common change you may want to make is to include or exclude certain properties from rendering. {hidden}
+このデフォルトレンダラーを使って簡単にレスポンスのレンダリングをカスタマイズできます。
+よく必要となる変更は、レンダリング時に特定のプロパティをインクルード、またはエクスクルードすることです。
 
-h4. Including or Excluding Properties from Rendering
+{hidden}h4. Including or Excluding Properties from Rendering{hidden}
+h4. レンダリング時のプロパティのインクルードとエクスクルード
 
-As mentioned previously, Grails maintains a registry of @grails.rest.render.Renderer@ instances. There are some default configured renderers and the ability to register or override renderers for a given domain class or even for a collection of domain classes. To include a particular property from rendering you need to register a custom renderer by defining a bean in @grails-app/conf/spring/resources.groovy@:
+{hidden}As mentioned previously, Grails maintains a registry of @grails.rest.render.Renderer@ instances. There are some default configured renderers and the ability to register or override renderers for a given domain class or even for a collection of domain classes. To include a particular property from rendering you need to register a custom renderer by defining a bean in @grails-app/conf/spring/resources.groovy@:{hidden}
+前に説明したように、Grailsは@grails.rest.render.Renderer@インスタンスをレジストリで管理しています。
+デフォルトで設定されているレンダラーがいくつかありますが、与えられたドメインクラス、またはドメインクラスのコレクションに対し、レンダラーの登録や上書きが可能です。
+レンダリングで特定のプロパティをインクルードするには、@grails-app/conf/spring/resources.groovy@内のビーン定義によって、カスタムレンダラーを登録する必要があります:
 
 {code}
 import grails.rest.renderer.xml.*
@@ -17,11 +25,16 @@ beans = {
 {code}
 
 
-{note}
+{hidden}{note}
 The bean name is not important (Grails will scan the application context for all registered renderer beans), but for organizational and readability purposes it is recommended you name it something meaningful.
+{note}{hidden}
+{note}
+ビーンの名前は重要ではありません(Grailsは登録されたすべてのレンダラーのビーンを見つけるために、アプリケーションコンテキストをスキャンします)。
+しかし、構造と可読性の理由から、分かりやすい名前を付けておくことをお勧めします。
 {note}
 
-To exclude a property the @exclude@ property of the @XmlRenderer@ class can be used:
+{hidden}To exclude a property the @exclude@ property of the @XmlRenderer@ class can be used:{hidden}
+プロパティをエクスクルードするには、@XmlRenderer@クラスの@exclude@プロパティを使います:
 
 {code}
 import grails.rest.renderer.xml.*
@@ -33,9 +46,12 @@ beans = {
 }
 {code}
 
-h4. Customizing the Converters
+{hidden}h4. Customizing the Converters{hidden}
+h4. コンバーターのカスタマイズ
 
-As mentioned previously, the default renders use the @grails.converters@ package under the covers. In other word, under the covers they essentially do the following:
+{hidden}As mentioned previously, the default renders use the @grails.converters@ package under the covers. In other word, under the covers they essentially do the following:{hidden}
+前に説明したように、デフォルトのレンダラーは@grails.converters@パッケージ配下のクラスを使っています。
+これは、パッケージ配下のクラスを使って以下のようにした場合と本質的には同じです:
 
 {code}
 import grails.converters.*
@@ -46,4 +62,7 @@ render book as XML
 // or render book as JSON 
 {code}
 
-Why the separation between converters and renderers? Well a renderer has more flexibility to use whatever rendering technology you chose. When implementing a custom renderer you could use [Jackson|http://wiki.fasterxml.com/JacksonHome], [Gson|http://code.google.com/p/google-gson/] or any Java library to implement the renderer. Converters on the other hand are very much tied to Grails' own marshalling implementation.
+{hidden}Why the separation between converters and renderers? Well a renderer has more flexibility to use whatever rendering technology you chose. When implementing a custom renderer you could use [Jackson|http://wiki.fasterxml.com/JacksonHome], [Gson|http://code.google.com/p/google-gson/] or any Java library to implement the renderer. Converters on the other hand are very much tied to Grails' own marshalling implementation.{hidden}
+なぜコンバーターとレンダラーが分かれているのでしょうか？
+これは、レンダラーにおいて任意のレンダリング技術を採用できるよう、より柔軟性を持たせるためです。
+これにより、カスタムレンダラーを実装する際に、[Jackson|http://wiki.fasterxml.com/JacksonHome]や[Gson|http://code.google.com/p/google-gson/]、または他のJavaライブラリをレンダラーを実装するために使用できます。
