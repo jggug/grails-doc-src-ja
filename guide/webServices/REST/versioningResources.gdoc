@@ -54,7 +54,7 @@ $ curl -i -H "Accept-Version: 1.0" -X GET http://localhost:8080/myapp/books
 {code}
 
 {hidden}h4. Versioning using Hypermedia / Mime Types{hidden}
-h4. Hypermedia/MIMEタイプを使ったバージョニング
+h4. ハイパーメディア/MIMEタイプを使ったバージョニング
 
 {hidden}Another approach to versioning is to use Mime Type definitions to declare the version of your custom media types (see the section on "Hypermedia as the Engine of Application State" for more information about Hypermedia concepts). For example in @Config.groovy@ you can declare a custom Mime Type for your resource that includes a version parameter (the 'v' parameter):{hidden}
 他のバージョニング方法は、MIMEタイプ定義を使い、カスタムメディアタイプとしてバージョンを宣言する方法です(ハイパーメディアのコンセプトについての、より詳しい情報は「アプリケーション状態エンジンとしてのハイパーメディア」を参照してください)。

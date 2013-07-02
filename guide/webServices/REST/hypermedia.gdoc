@@ -1,3 +1,8 @@
-[HATEOS|http://en.wikipedia.org/wiki/HATEOAS], an abbreviation for Hypermedia as the Engine of Application State, is a common pattern applied to REST architectures that uses hypermedia and linking to define the REST API.
+{hidden}[HATEOS|http://en.wikipedia.org/wiki/HATEOAS], an abbreviation for Hypermedia as the Engine of Application State, is a common pattern applied to REST architectures that uses hypermedia and linking to define the REST API.{hidden}
+[HATEOS|http://en.wikipedia.org/wiki/HATEOAS]は、アプリケーション状態エンジンとしてのハイパーメディア(Hypermedia as the Engine of Application State)の略称で、ハイパーメディアとリンク使うRESTアーキテクチャを適用した、REST APIを定義するための共通パターンです。
 
-Hypermedia (also called Mime or Media Types) are used to describe the state of a REST resource, and links tell clients how to transition to the next state. The format of the response is typically JSON or XML, although standard formats such as [Atom|http://tools.ietf.org/html/rfc4287] and/or [HAL|http://stateless.co/hal_specification.html] are frequently used.
+{hidden}Hypermedia (also called Mime or Media Types) are used to describe the state of a REST resource, and links tell clients how to transition to the next state. The format of the response is typically JSON or XML, although standard formats such as [Atom|http://tools.ietf.org/html/rfc4287] and/or [HAL|http://stateless.co/hal_specification.html] are frequently used.{hidden}
+ハイパーメディア(MIMEタイプ、またはメディアタイプとも呼ばれる)は、RESTリソースの状態を記述するために使われます。
+そして、リンクはどのように次の状態へ遷移すればよいかをクライアントに伝えます。
+レスポンスのフォーマットは主にJSONやXMLが使われますが、その中でも[Atom|http://tools.ietf.org/html/rfc4287]や[HAL|http://stateless.co/hal_specification.html]のような標準的なフォーマットがよく使われます。
+
