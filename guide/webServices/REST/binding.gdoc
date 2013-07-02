@@ -1,8 +1,11 @@
-The framework provides a sophisticated but simple mechanism for binding REST requests to domain objects and command objects.  One way to take advantage of this is to bind the @request@ property in a controller the @properties@ of a domain class.  Given the following XML as the body of the request, the @createBook@ action will create a new @Book@ and assign "The Stand" to the @title@ property and "Stephen King" to the @authorName@ property.
+{hidden}The framework provides a sophisticated but simple mechanism for binding REST requests to domain objects and command objects.  One way to take advantage of this is to bind the @request@ property in a controller the @properties@ of a domain class.  Given the following XML as the body of the request, the @createBook@ action will create a new @Book@ and assign "The Stand" to the @title@ property and "Stephen King" to the @authorName@ property.{hidden}
+フレームワークは高機能ですが、ドメインオブジェクトとコマンドオブジェクトへのRESTリクエストのバインディングに関しては、シンプルな作りになっています。
+効果的なやり方の1つは、コントローラの中で@request@プロパティをドメインクラスのプロパティへバインドすることです。
+リクエストのボディとして以下のようなXMLを与えた場合、@createBook@アクションは新しい@Book@を作成し、"The Stand"を@title@プロパティへ、"Stephen King"を@authorName@プロパティへ代入します。
 
 {code}
 <?xml version="1.0" encoding="UTF-8"?>
-<book">
+<book>
     <title>The Stand</title>
     <authorName>Stephen King</authorName>
 </book>
@@ -20,7 +23,10 @@ class BookController {
 }
 {code}
 
-If the root element of the XML document contains an @id@ attribute, the @id@ value will be used to retrieve the corresponding persistent instance from the database and then the rest of the document will be bound to the instance.  If no corresponding record is found in the database, the command object reference will be null.
+{hidden}If the root element of the XML document contains an @id@ attribute, the @id@ value will be used to retrieve the corresponding persistent instance from the database and then the rest of the document will be bound to the instance.  If no corresponding record is found in the database, the command object reference will be null.{hidden}
+もしXMLドキュメントのルート要素が@id@属性を含む場合は、その@id@値はデータベースから対応する永続化インスタンスを検索するために使われます。
+そして、ドキュメントの残りはインスタンスへバインドされます。
+もし、一致するレコードがデータベース内に見つからない場合は、コマンドオブジェクトの参照はnullになります。
 
 {code}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -30,7 +36,8 @@ If the root element of the XML document contains an @id@ attribute, the @id@ val
 </book>
 {code}
 
-Command objects will automatically be bound with the body of the request:
+{hidden}Command objects will automatically be bound with the body of the request:{hidden}
+コマンドオブジェクトにはリクエストのボディが自動的にバインドされます。
 
 {code:java}
 class BookController {
@@ -46,7 +53,10 @@ class BookCommand {
 }
 {code}
 
-If the command object type is a domain class and the root element of the XML document contains an @id@ attribute, the @id@ value will be used to retrieve the corresponding persistent instance from the database and then the rest of the document will be bound to the instance.  If no corresponding record is found in the database, the command object reference will be null.
+{hidden}If the command object type is a domain class and the root element of the XML document contains an @id@ attribute, the @id@ value will be used to retrieve the corresponding persistent instance from the database and then the rest of the document will be bound to the instance.  If no corresponding record is found in the database, the command object reference will be null.{hidden}
+もし、コマンドオブジェクトの型がドメインクラスで、かつXMLドキュメントのルート要素が@id@属性を含んでいる場合は、その@id@値はデータベースから対応する永続化インスタンスを検索するために使われます。
+そして、ドキュメントの残りはインスタンスへバインドされます。
+もし、一致するレコードがデータベース内に見つからない場合は、コマンドオブジェクトの参照はnullになります。
 
 {code}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -76,26 +86,41 @@ class BookController {
 }
 {code}
 
-The data binding depends on an instance of the [DataBindingSource|api:org.grails.databinding.DataBindingSource] interface created by an
+{hidden}The data binding depends on an instance of the [DataBindingSource|api:org.grails.databinding.DataBindingSource] interface created by an
 instance of the [DataBindingSourceCreator|api:org.grails.databinding.bindingsource.DataBindingSourceCreator] interface.  The specific
 implementation of @DataBindingSourceCreator@ will be selected based on the @contentType@ of the request.  Several implementations 
 are provided to handle common content types.  The default implementations will be fine for most use cases.  The following table 
-lists the content types which are supported by the core framework and which @DataBindingSourceCreator@ implementations are used for each.
+lists the content types which are supported by the core framework and which @DataBindingSourceCreator@ implementations are used for each.{hidden}
+データバインディングは[DataBindingSourceCreator|api:org.grails.databinding.bindingsource.DataBindingSourceCreator]インタフェースのインスタンスによって作られる[DataBindingSource|api:org.grails.databinding.DataBindingSource]インタフェースのインスタンスに依存しています。
+@DataBindingSourceCreator@の具体的な実装はリクエストの@contentType@を元に選択されます。
+主要なコンテンツタイプをハンドリングするためにいくつかの実装が提供されています。
+大抵の場合にこのデフォルト実装で十分なはずです。
+以下のテーブルのコンテンツタイプ一覧がコアフレームワークによってサポートされており、それぞれ対応する@DataBindingSourceCreator@の実装が使われます。
 
-{table}
+{hidden}{table}
  Content Type(s)             | Bean Name                      | DataBindingSourceCreator Impl.
+ application/xml, text/xml   | xmlDataBindingSourceCreator     | org.codehaus.groovy.grails.web.binding.bindingsource.XmlDataBindingSourceCreator
+ application/json, text/json | jsonDataBindingSourceCreator    | org.codehaus.groovy.grails.web.binding.bindingsource.JsonDataBindingSourceCreator
+ application/hal+json        | halJsonDataBindingSourceCreator |org.codehaus.groovy.grails.web.binding.bindingsource.HalJsonDataBindingSourceCreator
+{table}{hidden}
+{table}
+ コンテンツタイプ            | ビーン名                        | DataBindingSourceCreator実装
  application/xml, text/xml   | xmlDataBindingSourceCreator     | org.codehaus.groovy.grails.web.binding.bindingsource.XmlDataBindingSourceCreator
  application/json, text/json | jsonDataBindingSourceCreator    | org.codehaus.groovy.grails.web.binding.bindingsource.JsonDataBindingSourceCreator
  application/hal+json        | halJsonDataBindingSourceCreator |org.codehaus.groovy.grails.web.binding.bindingsource.HalJsonDataBindingSourceCreator
 {table}
 
-In order provide your own @DataBindingSourceCreator@ for any of those content types, write a class which implements
+{hidden}In order provide your own @DataBindingSourceCreator@ for any of those content types, write a class which implements
 @DataBindingSourceCreator@ and register an instance of that class in the Spring application context.  If you
 are replacing one of the existing helpers, use the corresponding bean name from above.  If you are providing a
 helper for a content type other than those accounted for by the core framework, the bean name may be anything that
-you like but you should take care not to conflict with one of the bean names above.
+you like but you should take care not to conflict with one of the bean names above.{hidden}
+これらのコンテンツタイプに対して、独自の@DataBindingSourceCreator@を提供するには、@DataBindingSourceCreator@の実装クラスを書き、Springのアプリケーションコンテキスト内にそのクラスのインスタンスを登録します。
+既存のヘルパーを置き換える場合は、上記のビーン名に対応する名前を使います。
+もし、これらコアフレームによって提供される以外のコンテンツタイプのヘルパーを提供する場合、ビーンの名前は何でも好きに設定可能ですが、上記のビーン名と競合しないように注意してください。
 
-The @DataBindingSourceCreator@ interface defines just 2 methods:
+{hidden}The @DataBindingSourceCreator@ interface defines just 2 methods:{hidden}
+@DataBindingSourceCreator@インタフェースは2つのメソッドを定義しています:
 
 {code:java}
 package org.grails.databinding.bindingsource
@@ -130,14 +155,19 @@ interface DataBindingSourceCreator {
 }
 {code}
 
-[AbstractRequestBodyDataBindingSourceCreator|api:org.grails.databinding.bindingsource.AbstractRequestbodyDataBindingSourceCreator]
+{hidden}[AbstractRequestBodyDataBindingSourceCreator|api:org.grails.databinding.bindingsource.AbstractRequestbodyDataBindingSourceCreator]
 is an abstract class designed to be extended to simplify writing custom @DataBindingSourceCreator@ classes.  Classes which
 extend @AbstractRequestbodyDatabindingSourceCreator@ need to implement a method named @createBindingSource@
 which accepts an @InputStream@ as an argument and returns a @DataBindingSource@ as well as implementing the @getMimeTypes@
 method described in the @DataBindingSourceCreator@ interface above.  The @InputStream@ argument to @createBindingSource@
-provides access to the body of the request.
+provides access to the body of the request.{hidden}
+[AbstractRequestBodyDataBindingSourceCreator|api:org.grails.databinding.bindingsource.AbstractRequestbodyDataBindingSourceCreator]はこのクラスを拡張することで、簡単に独自の@DataBindingSourceCreator@クラスを書けるよう設計された抽象クラスです。
+@AbstractRequestbodyDatabindingSourceCreator@を継承したクラスは、引数として@InputStream@を受け取り@DataBindingSource@を返す、@createBindingSource@という名前のメソッドを実装する必要があります。
+また、上記の@DataBindingSourceCreator@インタフェース内で宣言された@getMimeTypes@メソッドの実装が必要です。
+@createBindingSource@への@InputStream@の引数は、リクエストボディへのアクセスを提供します。
 
-The code below shows a simple implementation.
+{hidden}The code below shows a simple implementation.{hidden}
+次のコードに簡単な実装例を示します。
 
 
 {code:java}
@@ -190,7 +220,8 @@ class MyCustomDataBindingSourceCreator extends AbstractRequestBodyDataBindingSou
 }
 {code}
 
-An instance of @MyCustomDataSourceCreator@ needs to be registered in the spring application context.
+{hidden}An instance of @MyCustomDataSourceCreator@ needs to be registered in the spring application context.{hidden}
+@MyCustomDataSourceCreator@のインスタンスはSpringのアプリケーションコンテキスト内に登録が必要です。
 
 {code:java}
 // grails-app/conf/spring/resources.groovy
@@ -203,5 +234,6 @@ beans = {
 {code}
 
 
-With that in place the framework will use the @myCustomCreator@ bean any time a @DataBindingSourceCreator@ is needed
-to deal with a request which has a @contentType@ of "text/custom+demo+csv".
+{hidden}With that in place the framework will use the @myCustomCreator@ bean any time a @DataBindingSourceCreator@ is needed
+to deal with a request which has a @contentType@ of "text/custom+demo+csv".{hidden}
+上記のようにすることで、フレームワークは"text/custom+demo+csv"の@contentType@を持ったリクエストを処理する@DataBindingSourceCreator@が必要な場合に、@myCustomCreator@ビーンを使います。
