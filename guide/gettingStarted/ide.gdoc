@@ -9,7 +9,7 @@ IntelliJ IDEAには、オープンソース版の"Community Edition"と商用版
 両方Groovyをサポートしていますが、Grailsは、"Ultimate Edition"のみの対応となります。
 
 {hidden}With Ultimate Edition, there is no need to use the @grails integrate-with --intellij@ command, as Ultimate Edition understands Grails projects natively. Just open the project with @File -> New Project -> Create project from existing sources@.{hidden}
-Ultimate Editionでは、 @grails integrate-with --intellij@ コマンドを実行する必要がありません。Ultimate Editionでは、Grailsにネイティブ対応しています。プロジェクトを @File -> New Project -> Create project@ で開くだけで良いです。
+Ultimate Editionでは、 @grails integrate-with \-\-intellij@ コマンドを実行する必要がありません。Ultimate Editionでは、Grailsにネイティブ対応しています。プロジェクトを @File -> New Project -> Create project@ で開くだけで良いです。
 
 {hidden}You can still use Community Edition for Grails development, but you will miss out on all the Grails specific features like automatic classpath management, GSP editor and quick access to Grails commands.{hidden}
 Community EditionでもGrails開発に使用できますが、Grails向けの機能や自動クラスパス管理、GSPエディタ、Grailsコマンドへの対応が存在しません。
