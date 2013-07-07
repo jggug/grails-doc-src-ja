@@ -1,4 +1,6 @@
-[HAL|http://stateless.co/hal_specification.html] is a standard exchange format commonly used when developing REST APIs that follow HATEOAS principals. An example HAL document representing a list of orders can be seen below:
+{hidden}[HAL|http://stateless.co/hal_specification.html] is a standard exchange format commonly used when developing REST APIs that follow HATEOAS principals. An example HAL document representing a list of orders can be seen below:{hidden}
+[HAL|http://stateless.co/hal_specification.html]は、HATEOASに沿ったREST APIを開発する際の標準な交換フォーマットとして知られています。
+例えば、注文の一覧をHALを使って表現すると、以下のようになります:
 
 {code}
 {
@@ -43,9 +45,11 @@
 }
 {code}
 
-h4. Exposing Resources Using HAL 
+{hidden}h4. Exposing Resources Using HAL {hidden}
+h4. HALを使ったリソースの公開
 
-To return HAL instead of regular JSON for a resource you can simply override the renderer in @grails-app/conf/spring/resources.groovy@ with an instance of @grails.rest.render.hal.HalJsonRenderer@ (or @HalXmlRenderer@ for the XML variation):
+{hidden}To return HAL instead of regular JSON for a resource you can simply override the renderer in @grails-app/conf/spring/resources.groovy@ with an instance of @grails.rest.render.hal.HalJsonRenderer@ (or @HalXmlRenderer@ for the XML variation):{hidden}
+リソースに対して、いつものJSONの代わりにHALを返すには、@grails.rest.render.hal.HalJsonRenderer@(XMLの場合は@HalXmlRenderer@)のインスタンスを使い、@grails-app/conf/spring/resources.groovy@の中でレンダラーを単に上書きします:
 
 {code}
 import grails.rest.render.hal.*
@@ -54,7 +58,8 @@ beans = {
 }
 {code}
 
-With the bean in place requesting the HAL content type will return HAL:
+{hidden}With the bean in place requesting the HAL content type will return HAL:{hidden}
+コンテンツタイプがHALのリクエストでは、このビーンがHALを返します:
 
 {code}
 $ curl -i -H "Accept: application/hal+json" http://localhost:8080/myapp/books/1
@@ -75,7 +80,8 @@ Content-Type: application/hal+json;charset=ISO-8859-1
 }
 {code}
 
-To use HAL XML format simply change the renderer:
+{hidden}To use HAL XML format simply change the renderer:{hidden}
+XMLフォーマットのHALを使うには単にレンダラーを変更します:
 
 {code}
 import grails.rest.render.hal.*
@@ -85,9 +91,11 @@ beans = {
 {code}
 
 
-h4. Using Custom Media / Mime Types
+{hidden}h4. Using Custom Media / Mime Types{hidden}
+h4. カスタムMIME(メディア)タイプの使用
 
-If you wish to use a custom Mime Type then you first need to declare the Mime Types in @grails-app/conf/Config.groovy@:
+{hidden}If you wish to use a custom Mime Type then you first need to declare the Mime Types in @grails-app/conf/Config.groovy@:{hidden}
+もし、カスタムMIMEタイプを使いたい場合は、はじめに@grails-app/conf/Config.groovy@の中でMIMEタイプを宣言する必要があります:
 
 {code}
 grails.mime.types = [
@@ -98,11 +106,17 @@ grails.mime.types = [
 ]
 {code}
 
-{warning}
+{hidden}{warning}
 It is critical that place your new mime types after the 'all' Mime Type because if the Content Type of the request cannot be established then the first entry in the map is used for the response. If you have your new Mime Type at the top then Grails will always try and send back your new Mime Type if the requested Mime Type cannot be established.
+{warning}{hidden}
+{warning}
+'all'のMIMEタイプの後に、新たなMIMEタイプを宣言しているのには重要な意味があります。
+なぜなら、リクエストのコンテンツタイプが不明な場合は、マップ内の最初のエントリがレスポンスのコンテンツタイプとして使われるためです。
+もし、新たなMIMEタイプが先頭にあるとすると、リクエストのコンテンツタイプが不明な場合に、Grailsは新たなMIMEタイプを常に送り返すことになります。
 {warning}
 
-Then override the renderer to return HAL using the custom Mime Types:
+{hidden}Then override the renderer to return HAL using the custom Mime Types:{hidden}
+そして、カスタムMIMEタイプを使ってHALを返すためにレンダラーを上書きします:
 
 {code}
 import grails.rest.render.hal.*
@@ -114,9 +128,12 @@ beans = {
 }
 {code}
 
-In the above example the first bean defines a HAL renderer for a single book instance that returns a Mime Type of @application/vnd.books.org.book+json@. The second bean defines the Mime Type used to render a collection of books (in this case @application/vnd.books.org.booklist+json@).
+{hidden}In the above example the first bean defines a HAL renderer for a single book instance that returns a Mime Type of @application/vnd.books.org.book+json@. The second bean defines the Mime Type used to render a collection of books (in this case @application/vnd.books.org.booklist+json@).{hidden}
+上記の例で、初めのビーンは単一のbookインスタンスに対して、@application/vnd.books.org.book+json@のMIMEタイプを返すHALのレンダラーを定義しています。
+2つ目のビーンはbookのコレクションを表示するために使われるMIMEタイプを定義しています(この場合は@application/vnd.books.org.booklist+json@)。
 
-With this in place issuing a request for the new Mime Type returns the necessary HAL:
+{hidden}With this in place issuing a request for the new Mime Type returns the necessary HAL:{hidden}
+この新たなMIMEタイプに対してリクエストが投げられると必要なHALを返します:
 
 {code}
 $ curl -i -H "Accept: application/vnd.books.org.book+json" http://localhost:8080/myapp/books/1
@@ -139,11 +156,17 @@ Content-Type: application/vnd.books.org.book+json;charset=ISO-8859-1
 {code}
 
 
-h4. Customizing Link Rendering
+{hidden}h4. Customizing Link Rendering{hidden}
+h4. リンクレンダリングのカスタマイズ
 
-An important aspect of HATEOAS is the usage of links that describe the transitions the client can use to interact with the REST API. By default the @HalJsonRendere@ will automatically create links for you for associations and to the resource itself (using the "self" relationship).
+{hidden}An important aspect of HATEOAS is the usage of links that describe the transitions the client can use to interact with the REST API. By default the @HalJsonRenderer@ will automatically create links for you for associations and to the resource itself (using the "self" relationship).{hidden}
+HATEOASの重要な側面は、遷移を表現したリンクの使い方です。
+クライアントはREST APIでのやり取りにこれを使えます。
+デフォルトで@HalJsonRenderer@は、関連と("self"関連を使って)自身のリソースへのリンクを自動的に作成します。
 
-However you can customize link rendering using the @link@ method that is added to all domain classes annotated with @grails.rest.Resource@ or any class annotated with @grails.rest.Linkdable@. For example, the @show@ action can be modified as follows to provide a new link in the resulting output:
+{hidden}However you can customize link rendering using the @link@ method that is added to all domain classes annotated with @grails.rest.Resource@ or any class annotated with @grails.rest.Linkdable@. For example, the @show@ action can be modified as follows to provide a new link in the resulting output:{hidden}
+リンクのレンダリングを、@grails.rest.Resource@が付与されたドメインクラス、または@grails.rest.Linkdable@が付与されたクラスに追加された@link@メソッドを使って、カスタマイズすることもできます。
+例えば、@show@アクションで結果を出力する際に新たなリンクを追加するには、以下のように変更します:
 
 {code}
 def show(Book book) {
@@ -152,7 +175,8 @@ def show(Book book) {
 }
 {code}
 
-Which will result in output such as: 
+{hidden}Which will result in output such as: {hidden}
+この出力結果は次のようになります:
 
 {code}
 
@@ -172,4 +196,5 @@ Which will result in output such as:
 }
 {code}
 
-The @link@ method can be passed named arguments that match the properties of the @grails.rest.Link@ class.
+{hidden}The @link@ method can be passed named arguments that match the properties of the @grails.rest.Link@ class.{hidden}
+この@link@メソッドは@grails.rest.Link@クラスのプロパティに一致する名前付き引数を渡せます。

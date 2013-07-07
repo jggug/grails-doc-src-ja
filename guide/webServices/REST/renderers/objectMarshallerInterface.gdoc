@@ -1,4 +1,5 @@
-For more complex marshallers it is recommended you implement the [ObjectMarshaller|api:org.codehaus.groovy.grails.web.converters.marshaller.ObjectMarshaller] interface. For example given a domain class:
+{hidden}For more complex marshallers it is recommended you implement the [ObjectMarshaller|api:org.codehaus.groovy.grails.web.converters.marshaller.ObjectMarshaller] interface. For example given a domain class:{hidden}
+より複雑なマーシャラに対しては、[ObjectMarshaller|api:org.codehaus.groovy.grails.web.converters.marshaller.ObjectMarshaller]インタフェースの実装がお勧めです。
 
 {code}
 class Book {
@@ -6,13 +7,15 @@ class Book {
 }
 {code}
 
-By default the output when using:
+{hidden}By default the output when using:{hidden}
+デフォルトのマーシャラを使ったときの出力は:
 
 {code}
 render book as XML
 {code}
 
-Would look like:
+{hidden}Would look like:{hidden}
+次のようになります:
 
 {code:xml}
 <book id="1">
@@ -20,7 +23,8 @@ Would look like:
 </book>
 {code}
 
-To write a custom marshaller you can do the following:
+{hidden}To write a custom marshaller you can do the following:{hidden}
+カスタムマーシャラを記述するには以下のようにします:
 
 {code}
 class BookMarshaller implements ObjectMarshaller<XML> {
@@ -36,21 +40,25 @@ class BookMarshaller implements ObjectMarshaller<XML> {
 }
 {code}
 
-And then register the marshaller with:
+{hidden}And then register the marshaller with:{hidden}
+そして、そのマーシャラを登録します:
 
 {code}
 XML.registerObjectMarshaller(new BookMarshaller())
 {code}
 
-With the custom @ObjectMarshaller@ in place, the output is now:
+{hidden}With the custom @ObjectMarshaller@ in place, the output is now:{hidden}
+カスタム@ObjectMarshaller@を登録すると、出力は次のようになります:
 
 {code:xml}
 <book>The Stand</book>
 {code}
 
-h4. Customizing the Name of the Root Element
+{hidden}h4. Customizing the Name of the Root Element{hidden}
+h4. ルート要素の名前をカスタマイズする
 
-If you wish the customize the name of the surrounding element, you can implement [NameAwareMarshaller|api:org.codehaus.groovy.grails.web.converters.marshaller.NameAwareMarshaller]:
+{hidden}If you wish the customize the name of the surrounding element, you can implement [NameAwareMarshaller|api:org.codehaus.groovy.grails.web.converters.marshaller.NameAwareMarshaller]:{hidden}
+もし、囲う要素の名前をカスタマイズしたい場合は[NameAwareMarshaller|api:org.codehaus.groovy.grails.web.converters.marshaller.NameAwareMarshaller]を実装します。
 
 {code}
 class BookMarshaller implements ObjectMarshaller<XML>,NameAwareMarshaller {
@@ -64,15 +72,18 @@ class BookMarshaller implements ObjectMarshaller<XML>,NameAwareMarshaller {
 }
 {code}
 
-With the above change the output would now be:
+{hidden}With the above change the output would now be:{hidden}
+上記の変更によって、出力は以下のように変わります:
 
 {code:xml}
 <custom-book>The Stand</custom-book>
 {code}
 
-h4. Outputing Markup Using the Converters API or Builder
+{hidden}h4. Outputing Markup Using the Converters API or Builder{hidden}
+h4. コンバータAPIまたはビルダーを使ってマークアップを出力する
 
-With the passed Converter object you can explicitly code to the Converters API to stream markup to the response:
+{hidden}With the passed Converter object you can explicitly code to the Converters API to stream markup to the response:{hidden}
+渡されたコンバータオブジェクトのコンバータAPIを通じて、レスポンスへマークアップを出力するコードをわかりやすくコーディングできます:
 
 {code}
 public void marshalObject(Object object, XML converter) {
@@ -88,7 +99,8 @@ public void marshalObject(Object object, XML converter) {
 }
 {code}
 
-The above code results in:
+{hidden}The above code results in:{hidden}
+上記コードの結果は次のようになります:
 
 {code:xml}
 <book id="1" date-released="...">
@@ -96,7 +108,8 @@ The above code results in:
 </book>
 {code}
 
-You can also use a builder notation to achieve a similar result (although the builder notation does not work for @CompileStatic@):
+{hidden}You can also use a builder notation to achieve a similar result (although the builder notation does not work for @CompileStatic@):{hidden}
+また、ビルダー記法を使って同じような結果を得ることもできます:
 
 {code}
 public void marshalObject(Object object, XML converter) {
@@ -110,9 +123,11 @@ public void marshalObject(Object object, XML converter) {
 }
 {code}
 
-h4. Using the convertAnother Method to Recursively Convert Objects
+{hidden}h4. Using the convertAnother Method to Recursively Convert Objects{hidden}
+h4. 再帰的にオブジェクトをコンバートするためにconvertAnotherメソッドを使う
 
-To create more complex responses you can use the @convertAnother@ method to convert associations and other objects:
+{hidden}To create more complex responses you can use the @convertAnother@ method to convert associations and other objects:{hidden}
+より複雑なレスポンスを生成するには、関連など他のオブジェクトをコンバートする@convertAnother@メソッドを使います:
 
 {code}
 public void marshalObject(Object object, XML converter) {

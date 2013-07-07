@@ -1,4 +1,5 @@
-It is also possible to register named configurations. For example:
+{hidden}It is also possible to register named configurations. For example:{hidden}
+名前付きの設定で登録することもできます。例えば:
 
 {code}
 XML.createNamedConfig('publicApi') {
@@ -13,7 +14,8 @@ XML.createNamedConfig('adminApi') {
 }
 {code}
 
-Then when you use either the render or response methods you can wrap the call in a named configuration if necessary to customize rendering per request:
+{hidden}Then when you use either the @render@ or @respond@ methods you can wrap the call in a named configuration if necessary to customize rendering per request:{hidden}
+そして、もしリクエストごとのレンダリングのカスタマイズが必要な場合に、@render@または@respond@メソッドのどちらかを使い、名前付き設定でそのメソッド呼び出しをラップできます。
 
 {code}
 XML.use( isAdmin ? 'adminApi' : 'publicApi') {
@@ -21,7 +23,8 @@ XML.use( isAdmin ? 'adminApi' : 'publicApi') {
 }
 {code}
 
-or
+{hidden}or{hidden}
+または
 
 {code}
 XML.use( isAdmin ? 'adminApi' : 'publicApi') {

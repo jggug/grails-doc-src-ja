@@ -1,6 +1,8 @@
-[Vnd.Error|https://github.com/blongden/vnd.error] is a standardised way of expressing an error response. 
+{hidden}[Vnd.Error|https://github.com/blongden/vnd.error] is a standardised way of expressing an error response. {hidden}
+[Vnd.Error|https://github.com/blongden/vnd.error]はエラーレスポンスの表現方法を標準化したものです。
 
-By default when a validation error occurs when attempting to POST new resources then the errors object will be sent back allow with a 422 respond code:
+{hidden}By default when a validation error occurs when attempting to POST new resources then the errors object will be sent back allow with a 422 respond code:{hidden}
+デフォルトでは、新しいリソースをPOSTする際にバリデーションエラーが発生した場合、エラーオブジェクトが422のレスポンスコードで送り返されます:
 
 {code}
 $ curl -i -H "Accept: text/json"  -H "Content-Type: text/json" -X POST -d "" http://localhost:8080/myapp/books
@@ -12,7 +14,8 @@ Content-Type: text/json;charset=ISO-8859-1
 {"errors":[{"object":"rest.test.Book","field":"title","rejected-value":null,"message":"Property [title] of class [class rest.test.Book] cannot be null"}]}
 {code}
 
-If you wish to change the format to Vnd.Error then simply register @grails.rest.render.errors.VndErrorJsonRenderer@ bean in @grails-app/conf/spring/resources.groovy@:
+{hidden}If you wish to change the format to Vnd.Error then simply register @grails.rest.render.errors.VndErrorJsonRenderer@ bean in @grails-app/conf/spring/resources.groovy@:{hidden}
+もしフォーマットをVnd.Errorへ変更したい場合は、@grails-app/conf/spring/resources.groovy@の中に@grails.rest.render.errors.VndErrorJsonRenderer@ビーンを単に登録します:
 
 
 {code}
@@ -24,7 +27,8 @@ beans = {
 }
 {code}
 
-Then if you alter the client request to accept Vnd.Error you get an appropriate response:
+{hidden}Then if you alter the client request to accept Vnd.Error you get an appropriate response:{hidden}
+そして、Vnd.Errorを受け入れるようにクライアントのリクエストを変更すると、次のようにレスポンスを得られます:
 
 {code}
 $ curl -i -H "Accept: application/vnd.error+json,text/json" -H "Content-Type: text/json" -X POST -d "" http://localhost:8080/myapp/books

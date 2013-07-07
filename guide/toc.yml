@@ -239,7 +239,7 @@ webServices:
       customRenderers: カスタムレンダラーの実装
       gspRenderers: GSPを使用したカスタムレンダリング
     hypermedia: 
-      title: Hypermediaをアプリケーションステートのエンジンにする
+      title: アプリケーション状態エンジンとしてのハイパーメディア
       hal: HALサポート
       atom: Atomサポート
       vndError: Vnd.Errorサポート
