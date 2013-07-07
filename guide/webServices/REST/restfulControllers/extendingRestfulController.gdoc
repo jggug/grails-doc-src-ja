@@ -1,4 +1,6 @@
-The easiest way to get started doing so is to create a new controller for your resource that extends the @grails.rest.RestfulController@ super class. For example:
+{hidden}The easiest way to get started doing so is to create a new controller for your resource that extends the @grails.rest.RestfulController@ super class. For example:{hidden}
+まず始めの簡単な方法は、@grails.rest.RestfulController@をスーパークラスとして、リソースに対して新たなコントローラを作成する方法です。
+例えば:
 
 {code}
 class BookController extends RestfulController {
@@ -9,7 +11,9 @@ class BookController extends RestfulController {
 }
 {code}
 
-To customize any logic you can just override the appropriate action. The following table provides the names of the action names and the URIs they map to:
+{hidden}To customize any logic you can just override the appropriate action. The following table provides the names of the action names and the URIs they map to:{hidden}
+ロジックをカスタマイズするには、カスタマイズが必要なアクションを上書きします。
+以下のテーブルは、アクションの名前と、それに対応するURIです:
 
 {table}
  HTTP Method | URI               | Controller Action
@@ -22,11 +26,16 @@ To customize any logic you can just override the appropriate action. The followi
  DELETE      |/books/${id}       | delete        
 {table}
 
-{note}
+{hidden}{note}
 Note that the @create@ and @edit@ actions are only needed if the controller exposes an HTML interface. 
+{note}{hidden}
+{note}
+@create@と@edit@アクションは、コントローラがHTMLインタフェースを公開する場合にのみ必要です。
 {note}
 
-As an example if you have a [nested resource|guide:restfulMappings] then you would typically want to query both the parent and the child identifiers. For example given the following URL mapping:
+{hidden}As an example if you have a [nested resource|guide:restfulMappings] then you would typically want to query both the parent and the child identifiers. For example given the following URL mapping:{hidden}
+例のように[ネストしたリソース|guide:restfulMappings]の場合、大抵は親と子供の識別子が必要になります。
+例えば以下のようなURLマッピングの場合:
 
 {code}
 "/authors"(resources:'author') {
@@ -34,7 +43,8 @@ As an example if you have a [nested resource|guide:restfulMappings] then you wou
 }
 {code}
 
-You could implement the nested controller as follows:
+{hidden}You could implement the nested controller as follows:{hidden}
+次のように、ネストに対応したコントローラを実装できます:
 
 {code}
 class BookController extends RestfulController {
@@ -53,6 +63,7 @@ class BookController extends RestfulController {
 }
 {code}
 
-The example above subclasses @RestfulController@ and overrides the @queryForResource@ method to customize the query for the resource to take into account the parent resource.
+{hidden}The example above subclasses @RestfulController@ and overrides the @queryForResource@ method to customize the query for the resource to take into account the parent resource.{hidden}
+上記の例では、@RestfulController@のサブクラスで親リソースに対応するため、@queryForResource@メソッドをオーバーライドしてリソースのクエリをカスタマイズしています。
 
 

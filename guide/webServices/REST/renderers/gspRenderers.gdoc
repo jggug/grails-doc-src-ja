@@ -1,4 +1,5 @@
-You can also customize rendering on a per action basis using Groovy Server Pages (GSP). For example given the @show@ action mentioned previously:
+{hidden}You can also customize rendering on a per action basis using Groovy Server Pages (GSP). For example given the @show@ action mentioned previously:{hidden}
+Groovy Server Pages(GSP)を使ってアクションごとに、レンダリングをカスタマイズすることもできます:
 
 {code}
 def show(Book book) {
@@ -6,7 +7,8 @@ def show(Book book) {
 }
 {code}
 
-You could supply a @show.xml.gsp@ file to customize the rendering of the XML:
+{hidden}You could supply a @show.xml.gsp@ file to customize the rendering of the XML:{hidden}
+そして、XMLのレンダリングをカスタマイズするための@show.xml.gsp@ファイルを用意します:
 
 {code}
 <%@page contentType="application/xml"%>

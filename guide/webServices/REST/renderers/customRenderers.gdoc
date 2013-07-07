@@ -1,4 +1,6 @@
-If you want even more control of the rendering or prefer to use your own marshalling techniques then you can implement your own @Renderer@ instance. For example below is a simple implementation that customizes the rendering of the @Book@ class:
+{hidden}If you want even more control of the rendering or prefer to use your own marshalling techniques then you can implement your own @Renderer@ instance. For example below is a simple implementation that customizes the rendering of the @Book@ class:{hidden}
+もし、さらにレンダリングをコントロールしたい、または独自のマーシャリング技術を使いたいといった場合、自身の@Renderer@インスタンスを実装できます。
+例えば、以下は@Book@クラスのレンダリングをカスタマイズする簡単な実装例です:
 
 {code}
 package myapp
@@ -19,9 +21,11 @@ class BookXmlRenderer extends AbstractRenderer<Book> {
 }
 {code}
 
-The @AbstractRenderer@ super class has a constructor that takes the class that it renders and the @MimeType@(s) that are accepted (via the ACCEPT header or file extension) for the renderer.
+{hidden}The @AbstractRenderer@ super class has a constructor that takes the class that it renders and the @MimeType@(s) that are accepted (via the ACCEPT header or file extension) for the renderer.{hidden}
+スーパークラス@AbstractRenderer@は、表示するクラスと、レンダラーが受け入れる(@ACCEPT@ヘッダまたはファイル拡張子から取得した)@MimeType@を(複数)取るコンストラクタを持っています。
 
-To configure this renderer, simply add it is a bean to @grails-app/conf/spring/resources.groovy@:
+{hidden}To configure this renderer, simply add it is a bean to @grails-app/conf/spring/resources.groovy@:{hidden}
+このレンダラーを設定するには、@grails-app/conf/spring/resources.groovy@へビーンを単に追加します:
 
 {code}
 beans = {
@@ -29,19 +33,29 @@ beans = {
 }
 {code}
 
-The result will be that all @Book@ instances will be rendered in the following format:
+{hidden}The result will be that all @Book@ instances will be rendered in the following format:{hidden}
+その結果、すべての@Book@インスタンスは以下のフォーマットで表示されます:
 
 {code}
 <book id="1" title="The Stand"/>
 {code}
 
-{note}
+{hidden}{note}
 Note that if you change the rendering to a completely different format like the above, then you also need to change the binding if you plan to support POST and PUT requests. Grails will not automatically know how to bind data from a custom XML format to a domain class otherwise. See the section on "Customizing Binding of Resources" for further information.
+{note}{hidden}
+{note}
+もし、POST・PUTリクエストをサポートする予定があり、上記のように完全に異なるフォーマットへレンダリングを変えたい場合は、バインディングもあわせて変更する必要があります。
+Grailsは、カスタムXMLフォーマットから他のドメインクラスへ、どうのようにデータをバインドるするかを自動的に知ることはできません。
+さらなる情報は「リソースバインディングのカスタマイズ」を参照してください。
 {note}
 
-h4. Container Renderers
+{hidden}h4. Container Renderers{hidden}
+h4. コンテナレンダラー
 
-A @grails.rest.render.ContainerRenderer@ is a renderer that renders responses for containers of objects (lists, maps, collections etc.). The interface is largely the same as the @Renderer@ interface except for the addition of the @getComponentType()@ method, which should return the "contained" type. For example:
+{hidden}A @grails.rest.render.ContainerRenderer@ is a renderer that renders responses for containers of objects (lists, maps, collections etc.). The interface is largely the same as the @Renderer@ interface except for the addition of the @getComponentType()@ method, which should return the "contained" type. For example:{hidden}
+@grails.rest.render.ContainerRenderer@は、オブジェクトのコンテナ(リスト、マップ、コレクションなど)に対してレスポンスを表示するレンダラーです。
+このインタフェースは、型パラメータが付与されたコンテナの型を返す@getComponentType()@メソッドが加えられている以外は@Renderer@インタフェースとほとんど同じです。
+例えば:
 
 {code}
 class BookListRenderer implements ContainerRenderer<List, Book> {
