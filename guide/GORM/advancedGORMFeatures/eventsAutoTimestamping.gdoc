@@ -1,5 +1,8 @@
-GORM supports the registration of events as methods that get fired when certain events occurs such as deletes, inserts and updates. The following is a list of supported events:
+{hidden}GORM supports the registration of events as methods that get fired when certain events occurs such as deletes, inserts and updates. The following is a list of supported events:{hidden}
+GORMは、削除や新規追加・更新などの特定のイベントが発生したときに処理を行う方法として、イベントの登録をサポートしています。
+サポートしているイベントの一覧を以下に示します:
 
+{hidden}
 * @beforeInsert@ - Executed before an object is initially persisted to the database
 * @beforeUpdate@ - Executed before an object is updated
 * @beforeDelete@ - Executed before an object is deleted
@@ -8,18 +11,34 @@ GORM supports the registration of events as methods that get fired when certain 
 * @afterUpdate@ - Executed after an object has been updated
 * @afterDelete@ - Executed after an object has been deleted
 * @onLoad@ - Executed when an object is loaded from the database
+{hidden}
 
-To add an event simply register the relevant closure with your domain class.
+* @beforeInsert@ - データベースにオブジェクトが新規保存される前に実行される
+* @beforeUpdate@ - オブジェクトが更新される前に実行される
+* @beforeDelete@ - オブジェクトが削除される前に実行される
+* @beforeValidate@ - オブジェクトがバリデートされる前に実行される
+* @afterInsert@ - データベースにオブジェクトが新規保存された後に実行される
+* @afterUpdate@ - オブジェクトが更新された後に実行される
+* @afterDelete@ - オブジェクトが削除された後に実行される
+* @onLoad@ - オブジェクトがデータベースからロードされたときに実行される
+
+{hidden}To add an event simply register the relevant method with your domain class.{hidden}
+イベントを追加するには、単純に対応するメソッドをドメインクラスに追加してください。
 
 {warning}
-Do not attempt to flush the session within an event (such as with obj.save(flush:true)). Since events are fired during flushing this will cause a StackOverflowError.
+{hidden}Do not attempt to flush the session within an event (such as with obj.save(flush:true)). Since events are fired during flushing this will cause a StackOverflowError.{hidden}
+イベント内で（@obj.save(flush:true)@のように）セッションをフラッシュしようとしてはいけません。
+イベントはフラッシュ処理中の一環として実行されるため、これはStackOverflowErrorを引き起こしてしまいます。
 {warning}
 
-h3. Event types
+{hidden}h3. Event types{hidden}
+h3. イベントの種類
 
-h4. The beforeInsert event
+{hidden}h4. The beforeInsert event{hidden}
+h4. beforeInsertイベント
 
-Fired before an object is saved to the database
+{hidden}Fired before an object is saved to the database{hidden}
+オブジェクトがデータベースに新規保存される前に実行されます:
 
 {code:java}
 class Person {
@@ -37,9 +56,11 @@ class Person {
 }
 {code}
 
-h4. The beforeUpdate event
+{hidden}h4. The beforeUpdate event{hidden}
+h4. beforeUpdateイベント
 
-Fired before an existing object is updated
+{hidden}Fired before an existing object is updated{hidden}
+既存オブジェクトが更新される前に実行されます:
 
 {code:java}
 class Person {
@@ -60,9 +81,11 @@ class Person {
 }
 {code}
 
-h4. The beforeDelete event
+{hidden}h4. The beforeDelete event{hidden}
+h4. beforeDeleteイベント
 
-Fired before an object is deleted.
+{hidden}Fired before an object is deleted.{hidden}
+オブジェクトが削除される前に実行されます:
 
 {code:java}
 class Person {
@@ -76,13 +99,18 @@ class Person {
 }
 {code}
 
-Notice the usage of @withNewSession@ method above. Since events are triggered whilst Hibernate is flushing using persistence methods like @save()@ and @delete()@ won't result in objects being saved unless you run your operations with a new @Session@.
+{hidden}Notice the usage of @withNewSession@ method above. Since events are triggered whilst Hibernate is flushing using persistence methods like @save()@ and @delete()@ won't result in objects being saved unless you run your operations with a new @Session@.{hidden}
+上で@withNewSession@メソッドを利用している点に注目してください。
+イベントはHibernateがフラッシュしている最中に実行されるため、新しい@Session@で操作を実行しない限り、@save()@や@delete()@のような永続化メソッドによってオブジェクトを保存することはできません。
 
-Fortunately the @withNewSession@ method lets you share the same transactional JDBC connection even though you're using a different underlying @Session@.
+{hidden}Fortunately the @withNewSession@ method lets you share the same transactional JDBC connection even though you're using a different underlying @Session@.{hidden}
+ありがたいことに@withNewSession@メソッドを使うと、@Session@そのものは異なりますが、同一トランザクション内のJDBCコネクションを共有できます。
 
-h4. The beforeValidate event
+{hidden}h4. The beforeValidate event{hidden}
+h4. beforeValidateイベント
 
-Fired before an object is validated.
+{hidden}Fired before an object is validated.{hidden}
+オブジェクトがバリデートされる前に実行されます:
 
 {code:java}
 class Person {
@@ -98,15 +126,21 @@ class Person {
 }
 {code}
 
-The @beforeValidate@ method is run before any validators are run.
+{hidden}The @beforeValidate@ method is run before any validators are run.{hidden}
+いずれか1つのバリデータが実行される前に、@beforeValidate@メソッドが実行されます。
 
 {note}
-Validation may run more often than you think. It is triggered by the @validate()@ and @save()@ methods as you'd expect, but it is also typically triggered just before the view is rendered as well. So when writing @beforeValidate()@ implementations, make sure that they can handle being called multiple times with the same property values.
+{hidden}Validation may run more often than you think. It is triggered by the @validate()@ and @save()@ methods as you'd expect, but it is also typically triggered just before the view is rendered as well. So when writing @beforeValidate()@ implementations, make sure that they can handle being called multiple times with the same property values.{hidden}
+バリデーションはあなたが考えるよりも多くの頻度で実行される可能性があります。
+あなたの予想通り@validate()@と@save()@メソッドによって実行されますが、ビューがレンダリングされる直前にもよく実行されます。
+このため、@beforeValidate@の実装を書くときには、同じプロパティ値で複数回呼ばれても処理できるように気をつけてください。
 {note}
 
-GORM supports an overloaded version of @beforeValidate@ which accepts a @List@ parameter which may include
+{hidden}GORM supports an overloaded version of @beforeValidate@ which accepts a @List@ parameter which may include
 the names of the properties which are about to be validated.  This version of @beforeValidate@ will be called
-when the @validate@ method has been invoked and passed a @List@ of property names as an argument.
+when the @validate@ method has been invoked and passed a @List@ of property names as an argument.{hidden}
+GORMは、バリデートしようとするプロパティ名を含んだ@List@パラメータを受け取る、オーバロードされたバージョンの@beforeValidate@をサポートします。
+この@beforeValidate@は、@validate@メソッドが実行されてプロパティ名の@List@を引数として渡されたときに呼ばれます。
 
 {code:java}
 class Person {
@@ -129,20 +163,31 @@ p.validate(['age', 'name'])
 {code}
 
 {note}
+{hidden}
 Note that when @validate@ is triggered indirectly because of a call to the @save@ method that
 the @validate@ method is being invoked with no arguments, not a @List@ that includes all of
 the property names.
+{hidden}
+@save@メソッドの呼出によって@validate@が間接的に実行されるとき、@validate@メソッドは、すべてのプロパティ名を含む@List@を引数として受け取るのではなく、引数なしで実行されていることに注意してください。
 {note}
 
+{hidden}
 Either or both versions of @beforeValidate@ may be defined in a domain class.  GORM will
 prefer the @List@ version if a @List@ is passed to @validate@ but will fall back on the
 no-arg version if the @List@ version does not exist.  Likewise, GORM will prefer the
 no-arg version if no arguments are passed to @validate@ but will fall back on the
 @List@ version if the no-arg version does not exist.  In that case, @null@ is passed to @beforeValidate@.
+{hidden}
+@beforeValidate@のいずれかまたは両方のバージョンをドメインクラスに定義できます。
+GORMは、@List@が@validate@に渡されれば@List@バージョンを選ぼうとしますが、もし@List@バージョンが存在しなければ、引数なしバージョンにフォールバックします。
+同様に、GORMは@validate@に引数が渡されなければ引数なしバージョンを選ぼうとしますが、もし引数なしバージョンが存在しなければ、@List@バージョンにフォールバックします。
+そのような場合、@null@が@beforeValidate@に渡されます。
 
-h4. The onLoad/beforeLoad event
+{hidden}h4. The onLoad/beforeLoad event{hidden}
+h4. onLoad/beforeLoadイベント
 
-Fired immediately before an object is loaded from the database:
+{hidden}Fired immediately before an object is loaded from the database:{hidden}
+データベースからオブジェクトがロードされる直前に実行されます:
 
 {code:java}
 class Person {
@@ -156,11 +201,14 @@ class Person {
 }
 {code}
 
-@beforeLoad()@ is effectively a synonym for @onLoad()@, so only declare one or the other.
+{hidden}@beforeLoad()@ is effectively a synonym for @onLoad()@, so only declare one or the other.{hidden}
+@beforeLoad()@は実質的に@onLoad()@の別名なので、どちらか一方だけを宣言すれば良いです。
 
-h4. The afterLoad event
+{hidden}h4. The afterLoad event{hidden}
+h4. afterLoadイベント
 
-Fired immediately after an object is loaded from the database:
+{hidden}Fired immediately after an object is loaded from the database:{hidden}
+データベースからオブジェクトがロードされた直後に実行されます:
 
 {code:java}
 class Person {
@@ -174,11 +222,17 @@ class Person {
 }
 {code}
 
-h4. Custom Event Listeners
+{hidden}h4. Custom Event Listeners{hidden}
+h4. カスタムイベントリスナ
 
-As of Grails 2.0 there is a new API for plugins and applications to register and listen for persistence events. This API is not tied to Hibernate and also works for other persistence plugins such as the [MongoDB plugin for GORM|http://grails.org/plugin/mongodb].
+{hidden}As of Grails 2.0 there is a new API for plugins and applications to register and listen for persistence events. This API is not tied to Hibernate and also works for other persistence plugins such as the [MongoDB plugin for GORM|http://grails.org/plugin/mongodb].{hidden}
+Grails 2.0以降では、永続化イベントを登録・監視するためのプラグインとアプリケーション向けの新しいAPIがあります。
+このAPIはHibernateに依存していないため、[MongoDB plugin for GORM|http://grails.org/plugin/mongodb]のような他の永続化プラグインでも動作します。
 
-To use this API you need to subclass @AbstractPersistenceEventListener@ (in package _org.grails.datastore.mapping.engine.event_) and implement the methods @onPersistenceEvent@ and @supportsEventType@. You also must provide a reference to the datastore to the listener.  The simplest possible implementation can be seen below:
+{hidden}To use this API you need to subclass @AbstractPersistenceEventListener@ (in package _org.grails.datastore.mapping.engine.event_) and implement the methods @onPersistenceEvent@ and @supportsEventType@. You also must provide a reference to the datastore to the listener.  The simplest possible implementation can be seen below:{hidden}
+このAPIを使うには、（_org.grails.datastore.mapping.engine.event_ パッケージの）@AbstractPersistenceEventListener@のサブクラスと、その@onPersistenceEvent@と@supportsEventType@メソッドの実装が必要です。
+また、リスナにデータストアへの参照を渡さなければなりません。
+もっとも単純な実装を以下に示します:
 
 {code}
 public MyPersistenceListener(final Datastore datastore) {
@@ -221,9 +275,13 @@ public boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
 }
 {code}
 
-The @AbstractPersistenceEvent@ class has many subclasses (@PreInsertEvent@, @PostInsertEvent@ etc.) that provide further information specific to the event. A @cancel()@ method is also provided on the event which allows you to veto an insert, update or delete operation.
+{hidden}The @AbstractPersistenceEvent@ class has many subclasses (@PreInsertEvent@, @PostInsertEvent@ etc.) that provide further information specific to the event. A @cancel()@ method is also provided on the event which allows you to veto an insert, update or delete operation.{hidden}
+@AbstractPersistenceEvent@クラスは、それぞれのイベントに特有の情報を提供する多くのサブクラス（@PreInsertEvent@, @PostInsertEvent@, 等）を持っています。
+また、イベント内で新規追加・更新・削除操作をキャンセルできる@cancel()@メソッドも提供されます。
 
-Once you have created your event listener you need to register it with the @ApplicationContext@. This can be done in @BootStrap.groovy@:
+{hidden}Once you have created your event listener you need to register it with the @ApplicationContext@. This can be done in @BootStrap.groovy@:{hidden}
+独自イベントリスナを作成したら、@ApplicationContext@に登録する必要があります。
+これは@BootStrap.groovy@で行えます:
 
 {code}
 def init = {
@@ -233,7 +291,8 @@ def init = {
 }
 {code}
 
-or use this in a plugin:
+{hidden}or use this in a plugin:{hidden}
+または、プラグイン上であれば次のようにします:
 
 {code}
 def doWithApplicationContext = { applicationContext ->
@@ -243,13 +302,21 @@ def doWithApplicationContext = { applicationContext ->
 }
 {code}
 
-h4. Hibernate Events
+{hidden}h4. Hibernate Events{hidden}
+h4. Hibernateイベント
 
-It is generally encouraged to use the non-Hibernate specific API described above, but if you need access to more detailed Hibernate events then you can define custom Hibernate-specific event listeners.
+{hidden}It is generally encouraged to use the non-Hibernate specific API described above, but if you need access to more detailed Hibernate events then you can define custom Hibernate-specific event listeners.{hidden}
+一般的には前述したHibernate固有ではないAPIの使用が推奨されます。
+しかし、より詳細なHibernateイベントにアクセスする必要がある場合は、Hibernate固有のカスタムイベントリスナを定義できます。
 
-You can also register event handler classes in an application's @grails-app/conf/spring/resources.groovy@ or in the @doWithSpring@ closure in a plugin descriptor by registering a Spring bean named @hibernateEventListeners@. This bean has one property, @listenerMap@ which specifies the listeners to register for various Hibernate events.
+{hidden}You can also register event handler classes in an application's @grails-app/conf/spring/resources.groovy@ or in the @doWithSpring@ closure in a plugin descriptor by registering a Spring bean named @hibernateEventListeners@. This bean has one property, @listenerMap@ which specifies the listeners to register for various Hibernate events.{hidden}
+また、アプリケーションの@grails-app/conf/spring/resources.groovy@やプラグインディスクリプタの@doWithSpring@クロージャで、@hibernateEventListeners@という名前でSpringビーンを登録することで、イベントハンドラクラスを登録することができます。
+このビーンは@listenerMap@という1つのプロパティを持ちます。このプロパティでは様々なHibernateイベントに対して登録するリスナを指定します。
 
-The values of the Map are instances of classes that implement one or more Hibernate listener interfaces. You can use one class that implements all of the required interfaces, or one concrete class per interface, or any combination. The valid Map keys and corresponding interfaces are listed here:
+{hidden}The values of the Map are instances of classes that implement one or more Hibernate listener interfaces. You can use one class that implements all of the required interfaces, or one concrete class per interface, or any combination. The valid Map keys and corresponding interfaces are listed here:{hidden}
+Mapの値は、Hibernateのリスナインターフェイスを1つ以上実装したクラスのインスタンスです。
+すべての必要なインターフェイスを実装した1つのクラスを使ったり、1つのインターフェイスごとに1つの実装クラスを使うことができます。またその組合せも可能です。
+マップの有効なキーと対応するインターフェイスを以下に列挙します:
 
 {table}
 *Name* | *Interface*
@@ -289,7 +356,8 @@ post-collection-remove | [PostCollectionRemoveEventListener|api:org.hibernate.ev
 post-collection-update| [PostCollectionUpdateEventListener|api:org.hibernate.event.PostCollectionUpdateEventListener]
 {table}
 
-For example, you could register a class @AuditEventListener@ which implements @PostInsertEventListener@, @PostUpdateEventListener@, and @PostDeleteEventListener@ using the following in an application:
+{hidden}For example, you could register a class @AuditEventListener@ which implements @PostInsertEventListener@, @PostUpdateEventListener@, and @PostDeleteEventListener@ using the following in an application:{hidden}
+たとえば、次のようにして、アプリケーションに@PostInsertEventListener@と@PostUpdateEventListener@と@PostDeleteEventListener@を実装した@AuditEventListener@クラスを登録できます:
 
 {code}
 beans = {
@@ -304,7 +372,8 @@ beans = {
 }
 {code}
 
-or use this in a plugin:
+{hidden}or use this in a plugin:{hidden}
+または、プラグイン上であれば次のようにします:
 
 {code}
 def doWithSpring = {
@@ -319,11 +388,15 @@ def doWithSpring = {
 }
 {code}
 
-h4. Automatic timestamping
+{hidden}h4. Automatic timestamping{hidden}
+h4. 自動タイムスタンプ
 
-If you define a @dateCreated@ property it will be set to the current date for you when you create new instances. Likewise, if you define a @lastUpdated@ property it will be automatically be updated for you when you change persistent instances.
+{hidden}If you define a @dateCreated@ property it will be set to the current date for you when you create new instances. Likewise, if you define a @lastUpdated@ property it will be automatically be updated for you when you change persistent instances.{hidden}
+@dateCreated@プロパティを定義した場合、新しいインスタンスを新規保存したときに現在の日時がセットされます。
+同様に、@lastUpdated@プロパティを定義した場合は、永続化されたインスタンスが変更されるときにその値が自動的に更新されます。
 
-If this is not the behaviour you want you can disable this feature with:
+{hidden}If this is not the behaviour you want you can disable this feature with:{hidden}
+この挙動を望まない場合は、次のようにしてこの機能を無効化できます:
 
 {code:java}
 class Person {
@@ -336,5 +409,7 @@ class Person {
 {code}
 
 {warning}
-If you have @nullable: false@ constraints on either @dateCreated@ or @lastUpdated@, your domain instances will fail validation - probably not what you want. Omit constraints from these properties unless you disable automatic timestamping.
+{hidden}If you have @nullable: false@ constraints on either @dateCreated@ or @lastUpdated@, your domain instances will fail validation - probably not what you want. Omit constraints from these properties unless you disable automatic timestamping.{hidden}
+もし@dateCreated@や@lastUpdated@に@nullable: false@を指定すると、おそらくあなたの望んだ動作ではないでしょうが、ドメインインスタンスのバリデーションに失敗します。
+自動タイムスタンプを無効化しない場合は、これらのプロパティに制約を与えないでください。
 {warning}
