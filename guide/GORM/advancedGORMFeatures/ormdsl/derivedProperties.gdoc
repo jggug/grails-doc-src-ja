@@ -1,4 +1,7 @@
-A derived property is one that takes its value from a SQL expression, often but not necessarily based on the value of one or more other persistent properties.  Consider a Product class like this:
+{hidden}A derived property is one that takes its value from a SQL expression, often but not necessarily based on the value of one or more other persistent properties.  Consider a Product class like this:{hidden}
+派生プロパティはSQL式によって値が定まるプロパティです。
+しかし、必ずしも他の1つ以上の永続化プロパティの値に基づいている必要はありません。
+次のようなProductクラスを考えます:
 
 {code:java}
 class Product {
@@ -8,7 +11,9 @@ class Product {
 }
 {code}
 
-If the @tax@ property is derived based on the value of @price@ and @taxRate@ properties then is probably no need to persist the @tax@ property.  The SQL used to derive the value of a derived property may be expressed in the ORM DSL like this:
+{hidden}If the @tax@ property is derived based on the value of @price@ and @taxRate@ properties then is probably no need to persist the @tax@ property.  The SQL used to derive the value of a derived property may be expressed in the ORM DSL like this:{hidden}
+もし@tax@プロパティが@price@と@taxRate@プロパティの値に基づいて算出されているなら、おそらく@tax@プロパティを永続化する必要はないでしょう。
+派生プロパティの算出に使われるSQLは、ORM DSLで次のように表すことができます:
 
 {code:java}
 class Product {
@@ -22,9 +27,12 @@ class Product {
 }
 {code}
 
-Note that the formula expressed in the ORM DSL is SQL so references to other properties should relate to the persistence model not the object model, which is why the example refers to @PRICE@ and @TAX_RATE@ instead of @price@ and @taxRate@.
+{hidden}Note that the formula expressed in the ORM DSL is SQL so references to other properties should relate to the persistence model not the object model, which is why the example refers to @PRICE@ and @TAX_RATE@ instead of @price@ and @taxRate@.{hidden}
+ORM DSLで表された式はSQLであるため、他のプロパティへの参照はオブジェクトモデルではなくデータベース上の永続化モデルの方に合わせることに注意してください。
+サンプルコード上で@price@と@taxRate@ではなく、@PRICE@と@TAX_RATE@となっているのはそのためです。
 
-With that in place, when a Product is retrieved with something like @Product.get(42)@, the SQL that is generated to support that will look something like this:
+{hidden}With that in place, when a Product is retrieved with something like @Product.get(42)@, the SQL that is generated to support that will look something like this:{hidden}
+このような設定で、Productが@Product.get(42)@のように取得されたとき、生成されるSQLは次のようになります:
 
 {code}
 select
@@ -39,13 +47,19 @@ where
     product0_.id=?
 {code}
 
-Since the @tax@ property is derived at runtime and not stored in the database it might seem that the same effect could be achieved by adding a method like @getTax()@ to the @Product@ class that simply returns the product of the @taxRate@ and @price@ properties.  With an approach like that you would give up the ability query the database based on the value of the @tax@ property.  Using a derived property allows exactly that.  To retrieve all @Product@ objects that have a @tax@ value greater than 21.12 you could execute a query like this:
+{hidden}Since the @tax@ property is derived at runtime and not stored in the database it might seem that the same effect could be achieved by adding a method like @getTax()@ to the @Product@ class that simply returns the product of the @taxRate@ and @price@ properties.  With an approach like that you would give up the ability query the database based on the value of the @tax@ property.  Using a derived property allows exactly that.  To retrieve all @Product@ objects that have a @tax@ value greater than 21.12 you could execute a query like this:{hidden}
+@tax@プロパティは実行時に算出されデータベース上には格納されないため、@Product@クラスに@getTax()@のようなメソッドを追加して、単純に@taxRate@と@price@プロパティの積を返すようにすることで、同じ結果を達成できるようにみえるかもしれません。
+しかし、そのようなアプローチでは、@tax@プロパティの値に基づいてデータベースを検索する能力を放棄することになります。
+派生プロパティを使えばそれが可能です。
+たとえば、@tax@の値が21.12以上のすべての@Product@オブジェクトを取得するために、
+次のようなクエリを実行できます:
 
 {code:java}
 Product.findAllByTaxGreaterThan(21.12)
 {code}
 
-Derived properties may be referenced in the Criteria API:
+{hidden}Derived properties may be referenced in the Criteria API:{hidden}
+派生プロパティはクライテリアAPIでも使えます:
 
 {code:java}
 Product.withCriteria {
@@ -53,7 +67,8 @@ Product.withCriteria {
 }
 {code}
 
-The SQL that is generated to support either of those would look something like this:
+{hidden}The SQL that is generated to support either of those would look something like this:{hidden}
+これらを実行するために生成されたSQLは次のようになります:
 
 {code}
 select
@@ -69,5 +84,7 @@ where
 {code}
 
 {note}
-Because the value of a derived property is generated in the database and depends on the execution of SQL code, derived properties may not have GORM constraints applied to them.  If constraints are specified for a derived property, they will be ignored.
+{hidden}Because the value of a derived property is generated in the database and depends on the execution of SQL code, derived properties may not have GORM constraints applied to them.  If constraints are specified for a derived property, they will be ignored.{hidden}
+派生プロパティの値はデータベース上で生成されたものでSQLコードの実行に依存するため、派生プロパティにはGORMの制約を適用できません。
+もし派生プロパティに対して制約が指定されても無視されます。
 {note}
