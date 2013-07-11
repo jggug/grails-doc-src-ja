@@ -1,6 +1,9 @@
-By default Grails uses Hibernate's @ImprovedNamingStrategy@ to convert domain class Class and field names to SQL table and column names by converting from camel-cased Strings to ones that use underscores as word separators. You can customize these on a per-class basis in the @mapping@ closure but if there's a consistent pattern you can specify a different @NamingStrategy@ class to use.
+{hidden}By default Grails uses Hibernate's @ImprovedNamingStrategy@ to convert domain class Class and field names to SQL table and column names by converting from camel-cased Strings to ones that use underscores as word separators. You can customize these on a per-class basis in the @mapping@ closure but if there's a consistent pattern you can specify a different @NamingStrategy@ class to use.{hidden}
+GrailsはデフォルトでHibernateの@ImprovedNamingStrategy@を使って、キャメルケースからアンダースコア区切りに変換することで、ドメインクラスのクラス名とフィールド名をSQLのテーブル名とカラム名に変換します。
+テーブル名やカラム名は@mapping@クロージャでクラスごとにカスタマイズできますが、もし一貫した命名規則が存在するのであれば、異なる@NamingStrategy@クラスを使うように指定できます。
 
-Configure the class name to be used in @grails-app/conf/DataSource.groovy@ in the @hibernate@ section, e.g.
+{hidden}Configure the class name to be used in @grails-app/conf/DataSource.groovy@ in the @hibernate@ section, e.g.{hidden}
+@hibernate@セクションの@grails-app/conf/DataSource.groovy@で使われるクラス名を指定します。例えば:
 
 {code:java}
 dataSource {
@@ -16,7 +19,8 @@ hibernate {
 }
 {code}
 
-You can also specify the name of the class and it will be loaded for you:
+{hidden}You can also specify the name of the class and it will be loaded for you:{hidden}
+文字列としてクラス名を指定して、ロードさせることもできます:
 
 {code:java}
 hibernate {
@@ -25,7 +29,8 @@ hibernate {
 }
 {code}
 
-A third option is to provide an instance if there is some configuration required beyond calling the default constructor:
+{hidden}A third option is to provide an instance if there is some configuration required beyond calling the default constructor:{hidden}
+3番目の方法として、デフォルトコンストラクタの呼出以外に必要な設定がある場合は、設定済みのインスタンス自体を指定します:
 
 {code:java}
 hibernate {
@@ -36,7 +41,9 @@ hibernate {
 }
 {code}
 
-You can use an existing class or write your own, for example one that prefixes table names and column names:
+{hidden}You can use an existing class or write your own, for example one that prefixes table names and column names:{hidden}
+既存のクラスを使うか、自分で書くことができます。
+たとえば、テーブル名とカラム名の頭に文字列を追加するには以下のようなクラスを用意します:
 
 {code:java}
 package com.myco.myproj
