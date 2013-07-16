@@ -1,8 +1,19 @@
+{hidden}
 h3. The Basics
+{hidden}
+h3. 基本
 
+{hidden}
 Grails uses its common configuration mechanism to provide the settings for the underlying "Log4j":http://logging.apache.org/log4j/1.2/index.html log system, so all you have to do is add a @log4j@ setting to the file @grails-app/conf/Config.groovy@.
+{hidden}
+GrailsはGrails自身の共通設定の仕組みを使って、裏にある[Log4j|http://logging.apache.org/log4j/1.2/index.html]ログシステムの設定を提供しています。
+なので、@log4j@設定を@grails-app/conf/Config.groovy@ファイルに追加するだけです。
 
+{hidden}
 So what does this @log4j@ setting look like? Here's a basic example:
+{hidden}
+では、この@log4j@の設定はどのように見えるでしょうか？
+基本的な例を示します:
 
 {code:java}
 log4j = {
@@ -13,11 +24,23 @@ log4j = {
 }
 {code}
 
+{hidden}
 This says that for loggers whose name starts with 'org.codehaus.groovy.grails.web.servlet' or 'org.codehaus.groovy.grails.web.pages', only messages logged at 'error' level and above will be shown. Loggers with names starting with 'org.apache.catalina' logger only show messages at the 'warn' level and above. What does that mean? First of all, you have to understand how levels work.
+{hidden}
+このようにすると、名前が「org.codehaus.groovy.grails.web.servlet」または「org.codehaus.groovy.grails.web.pages」で始まるロガーについて、「error」レベル以上で記録されたメッセージのみが見えるようになります。
+名前が「org.apache.catalina」で始まるロガーは「warn」レベル以上のメッセージのみが見えます。
+どういう意味でしょうか？
+まず、レベルがどのように動作するか理解しなければなりません。
 
+{hidden}
 h4. Logging levels
+{hidden}
+h4. ログレベル
 
+{hidden}
 The are several standard logging levels, which are listed here in order of descending priority:
+{hidden}
+標準のロギングレベルにはいくつかの種類があり、優先順位の高い順に挙げます:
 
 # off
 # fatal
@@ -28,30 +51,76 @@ The are several standard logging levels, which are listed here in order of desce
 # trace
 # all
 
+{hidden}
 When you log a message, you implicitly give that message a level. For example, the method @log.error(msg)@ will log a message at the 'error' level. Likewise, @log.debug(msg)@ will log it at 'debug'. Each of the above levels apart from 'off' and 'all' have a corresponding log method of the same name.
+{hidden}
+メッセージを記録する時、そのメッセージにレベルを暗黙的に与えています。
+例えば、@log.error(msg)@メソッドは「error」レベルでメッセージを記録します。
+同様に、@log.debug(msg)@は「debug」で記録します。
+「off」と「all」を除いた上記のレベルには、それぞれに対応する同名のログメソッドがあります。
 
+{hidden}
 The logging system uses that _message_ level combined with the configuration for the logger (see next section) to determine whether the message gets written out. For example, if you have an 'org.example.domain' logger configured like so:
+{hidden}
+メッセージを出力するかどうかを決めるために、ログシステムはロガー(次のセクションを参照)の設定と併せて _メッセージ_ レベルを使います。
+例えば、「org.example.domain」ロガーはこのように設定されます:
 
 {code:java}
 warn 'org.example.domain'
 {code}
 
+{hidden}
 then messages with a level of 'warn', 'error', or 'fatal' will be written out. Messages at other levels will be ignored.
+{hidden}
+そうすると、「warn」または「error」、「fatal」レベルのメッセージが出力されるようになります。
+その他のレベルのメッセージは無視されます。
 
+{hidden}
 Before we go on to loggers, a quick note about those 'off' and 'all' levels. These are special in that they can only be used in the configuration; you can't log messages at these levels. So if you configure a logger with a level of 'off', then no messages will be written out. A level of 'all' means that you will see all messages. Simple.
+{hidden}
+ロガーに進む前に、「off」と「all」レベルについて簡単に説明します。
+これらは設定の中でだけ使うことができ、これらのレベルでメッセージを記録することはできません。
+そして、「off」レベルにロガーを設定すると、メッセージが全く出力されなくなります。
+「all」レベルは全てのメッセージが見られるようになります。
+単純ですね。
 
+{hidden}
 h4. Loggers
+{hidden}
+h4. ロガー
 
+{hidden}
 Loggers are fundamental to the logging system, but they are a source of some confusion. For a start, what are they? Are they shared? How do you configure them?
+{hidden}
+ロガーはログシステムにとって必須ですが、混乱のもとです。
+まず、ロガーとは何でしょうか？共有されるものでしょうか？どのように設定するのでしょうか？
 
+{hidden}
 A logger is the object you log messages to, so in the call @log.debug(msg)@, @log@ is a logger instance (of type [Log|http://commons.apache.org/logging/apidocs/org/apache/commons/logging/Log.html]). These loggers are cached and uniquely identified by name, so if two separate classes use loggers with the same name, those loggers are actually the same instance.
+{hidden}
+ロガーはメッセージを出力するオブジェクトで、@log.debug(msg)@という呼び出しにおいては、@log@が([Log|http://commons.apache.org/logging/apidocs/org/apache/commons/logging/Log.html]型の)ロガーインスタンスです。
+これらのロガーはキャッシュされ、名前によって一意に識別されます。
+2つの別々のクラスが同じ名前のロガーを使う場合、そのロガーは実際に同一のインスタンスとなります。
 
+{hidden}
 There are two main ways to get hold of a logger:
+{hidden}
+ロガーを取得するには2つの主な方法があります:
 
+{hidden}
 # use the @log@ instance injected into artifacts such as domain classes, controllers and services;
 # use the Commons Logging API directly.
+{hidden}
+# ドメインクラスやコントローラ、サービスのようなアーティファクトに注入される@log@インスタンスを使う
+# Commons Logging APIを直接使う
 
+{hidden}
 If you use the dynamic @log@ property, then the name of the logger is 'grails.app.<type>.<className>', where @type@ is the type of the artifact, for example 'controllers' or 'services', and @className@ is the fully qualified name of the artifact. For example, if you have this service:
+{hidden}
+動的な@log@プロパティを使う場合、ロガーの名前は「grails.app.<type>.<className>」になります。
+この@type@はアーティファクトの種類で、例えば「controllers」や「services」が入ります。
+そして、@className@にはそのアーティファクトの完全修飾名が入ります。
+例えば、このサービスの場合:
 
 {code:java}
 package org.example
@@ -61,9 +130,15 @@ class MyService {
 }
 {code}
 
+{hidden}
 then the name of the logger will be 'grails.app.services.org.example.MyService'.
+{hidden}
+ロガーの名前は「grails.app.services.org.example.MyService」となります。
 
+{hidden}
 For other classes, the typical approach is to store a logger based on the class name in a constant static field:
+{hidden}
+他のクラスでは、定数フィールドにクラス名をベースとしたロガーを格納するのが典型的な方法です:
 
 {code:java}
 package org.other
@@ -76,11 +151,23 @@ class MyClass {
 }
 {code}
 
+{hidden}
 This will create a logger with the name 'org.other.MyClass' - note the lack of a 'grails.app.' prefix since the class isn't an artifact. You can also pass a name to the @getLog()@ method, such as "myLogger", but this is less common because the logging system treats names with dots ('.') in a special way.
+{hidden}
+これは「org.other.MyClass」という名前のロガーが生成されます。
+アーティファクトではないクラスには「grails.app.」という接頭辞が付かないことに注意してください。
+『myLogger』のような名前を@getLog()@メソッドに渡すこともできます。
+しかし、ロギングシステムがドット(.)付きの名前を特別な方法で扱うため、これはあまり一般的ではありません。
 
+{hidden}
 h4. Configuring loggers
+{hidden}
+ロガー設定
 
+{hidden}
 You have already seen how to configure loggers in Grails:
+{hidden}
+Grailsでロガーをどのように設定するか既に見たことがあるはずです:
 
 {code:java}
 log4j = {
@@ -88,11 +175,28 @@ log4j = {
 }
 {code}
 
+{hidden}
 This example configures loggers with names starting with 'org.codehaus.groovy.grails.web.servlet' to ignore any messages sent to them at a level of 'warn' or lower. But is there a logger with this name in the application? No. So why have a configuration for it? Because the above rule applies to any logger whose name _begins with_ 'org.codehaus.groovy.grails.servlet.' as well. For example, the rule applies to both the @org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet@ class and the @org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest@ one.
+{hidden}
+この例では、「org.codehaus.groovy.grails.web.servlet」で始まる名前のロガーに送られてくる、「warn」レベル以下のメッセージは無視するように設定しています。
+しかし、アプリケーション上にこの名前のロガーは存在しているのでしょうか？答えはNoです。
+ではなぜこんな設定をしているのでしょうか？
+上記のルールは、「org.codehaus.groovy.grails.web.servlet.」で _始まる_ 名前のすべてのロガーにも適用されるからです。
+例えば、このルールは@org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet@クラスと@org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest@クラスの両方に適用されます。
 
+{hidden}
 In other words, loggers are hierarchical. This makes configuring them by package much simpler than it would otherwise be.
+{hidden}
+言い換えると、ロガーは階層的です。
+これはパッケージ毎に設定することを、他の設定に比べて非常にシンプルにします。
 
+{hidden}
 The most common things that you will want to capture log output from are your controllers, services, and other artifacts. Use the convention mentioned earlier to do that: _grails.app.<artifactType>.<className>_. In particular the class name must be fully qualifed, i.e. with the package if there is one:
+{hidden}
+最も多いケースとして、ログ出力を取得したくなるのはコントローラやサービス、その他のアーティファクトです。
+先述した「grails.app.<artifactType>.<className>」の規約を使いましょう。
+特に、クラス名は完全修飾名にしなければなりません。
+すなわち、パッケージが存在していれば含めるようにします:
 
 {code:java}
 log4j = {
@@ -110,17 +214,33 @@ log4j = {
 }
 {code}
 
+{hidden}
 The standard artifact names used in the logging configuration are:
+{hidden}
+ロギング設定に使われる標準のアーティファクト名です:
 
+{hidden}
 * @conf@ - For anything under @grails-app/conf@ such as @BootStrap.groovy@ (but excluding filters)
 * @filters@ - For filters
 * @taglib@ - For tag libraries
 * @services@ - For service classes
 * @controllers@ - For controllers
 * @domain@ - For domain entities
+{hidden}
+* @conf@ - @BootStrap.groovy@のような@grails-app/conf@配下にあるもの (フィルタは除く)
+* @filters@ - フィルタ
+* @taglib@ - タグライブラリ
+* @services@ - サービスクラス
+* @controllers@ - コントローラ
+* @domain@ - ドメインエンティティ
 
+{hidden}
 Grails itself generates plenty of logging information and it can sometimes be helpful to see that. Here are some useful loggers from Grails internals that you can use, especially when tracking down problems with your application:
+{hidden}
+Grails自身がたくさんのロギング情報を生成しており、ときどき役立つことがあります。
+特にアプリケーションの問題を追跡するときに利用可能な、Grails内部の便利なロガーを示します:
 
+{hidden}
 * @org.codehaus.groovy.grails.commons@ - Core artifact information such as class loading etc.
 * @org.codehaus.groovy.grails.web@ - Grails web request processing
 * @org.codehaus.groovy.grails.web.mapping@ - URL mapping debugging
@@ -128,14 +248,41 @@ Grails itself generates plenty of logging information and it can sometimes be he
 * @grails.spring@ - See what Spring beans Grails and plugins are defining
 * @org.springframework@ - See what Spring is doing
 * @org.hibernate@ - See what Hibernate is doing
+{hidden}
+* @org.codehaus.groovy.grails.commons@ - クラスローディング等のようなコアとなるアーティファクト情報
+* @org.codehaus.groovy.grails.web@ - GrailsのWebリクエスト処理
+* @org.codehaus.groovy.grails.web.mapping@ - URLマッピングのデバッグ
+* @org.codehaus.groovy.grails.plugins@ - プラグインの動作ログ
+* @grails.spring@ - GrailsとプラグインがどんなSpringビーンを定義しているか
+* @org.springframework@ - Springが何をするのか
+* @org.hibernate@ - Hibernateが何をするのか
 
+{hidden}
 So far, we've only looked at explicit configuration of loggers. But what about all those loggers that _don't_ have an explicit configuration? Are they simply ignored? The answer lies with the root logger.
+{hidden}
+ここまで、明示的なロガー設定についてだけ見てきました。
+しかし、明示的な設定を _持たない_ すべてのロガーについてはどうでしょうか？
+単純に無視されるのでしょうか？
+その答えはルートロガーにあります。
 
+{hidden}
 h4. The Root Logger
+{hidden}
+h4. ルートロガー
 
+{hidden}
 All logger objects inherit their configuration from the root logger, so if no explicit configuration is provided for a given logger, then any messages that go to that logger are subject to the rules defined for the root logger. In other words, the root logger provides the default configuration for the logging system.
+{hidden}
+すべてのロガーオブジェクトは設定をルートロガーから継承しています。
+よって、指定されたロガーに明示的な設定が与えられない場合、そのロガーへのメッセージはルートロガーで定義されたルールに従います。
+言い換えると、ルートロガーはロギングシステムのデフォルト設定を提供します。
 
+{hidden}
 Grails automatically configures the root logger to only handle messages at 'error' level and above, and all the messages are directed to the console (stdout for those with a C background). You can customise this behaviour by specifying a 'root' section in your logging configuration like so:
+{hidden}
+Grailsは「error」レベル以上のメッセージだけを扱うように、ルートロガーを自動的に設定します。
+そして、すべてのメッセージはコンソール(C言語的に言うと標準出力)に向けられます。
+次のようにロギング設定に「root」セクションを定義することによって、挙動をカスタマイズできます:
 
 {code:java}
 log4j = {
@@ -146,7 +293,11 @@ log4j = {
 }
 {code}
 
+{hidden}
 The above example configures the root logger to log messages at 'info' level and above to the default console appender. You can also configure the root logger to log to one or more named appenders (which we'll talk more about shortly):
+{hidden}
+上記の例は「info」レベル以上のメッセージをデフォルトのコンソールアペンダに記録するよう、ルートロガーを設定します。
+1つ以上の名前の付いたアペンダに対してロギングするように、ルートロガーを設定することもできます。(アペンダについてはすぐ後で詳しく説明します):
 
 {code:java}
 log4j = {
@@ -159,9 +310,17 @@ log4j = {
 }
 {code}
 
+{hidden}
 In the above example, the root logger will log to two appenders - the default 'stdout' (console) appender and a custom 'file' appender.
+{hidden}
+上の例では、ルートロガーはデフォルトの@stdout@(コンソール)アペンダと自前の@file@アペンダの2つに対してログ出力します。
 
+{hidden}
 For power users there is an alternative syntax for configuring the root logger: the root @org.apache.log4j.Logger@ instance is passed as an argument to the log4j closure. This lets you work with the logger directly:
+{hidden}
+パワーユーザ向けに、ルートロガーを設定するための別の構文があります。
+log4jクロージャの引数としてルート@org.apache.log4j.Logger@インスタンスが渡されます。
+これでロガーを直接操作できます:
 
 {code:java}
 log4j = { root ->
@@ -170,19 +329,48 @@ log4j = { root ->
 }
 {code}
 
+{hidden}
 For more information on what you can do with this @Logger@ instance, refer to the Log4j API documentation.
+{hidden}
+この@Logger@インスタンスでできることについての詳細は、Log4jのAPIドキュメントを参照してください。
 
+{hidden}
 Those are the basics of logging pretty well covered and they are sufficient if you're happy to only send log messages to the console. But what if you want to send them to a file? How do you make sure that messages from a particular logger go to a file but not the console? These questions and more will be answered as we look into appenders.
+{hidden}
+ここまででロギングの基本をほぼカバーしています。
+ログメッセージをコンソールに出力するだけでよいのであれば、これで十分でしょう。
+しかし、ファイルに送りたい場合はどうでしょうか？
+どのようにして、特定のロガーからのメッセージをコンソールではなくファイルに対して送るように設定するのでしょうか？
+これらの疑問、またはそれ以上についても、アペンダを調べることで、答えが得られるでしょう。
 
+{hidden}
 h3. Appenders
+{hidden}
+h3. アペンダ
 
+{hidden}
 Loggers are a useful mechanism for filtering messages, but they don't physically write the messages anywhere. That's the job of the appender, of which there are various types. For example, there is the default one that writes messages to the console, another that writes them to a file, and several others. You can even create your own appender implementations\!
+{hidden}
+ロガーはメッセージをフィルタリングするために役立つ仕組みです。
+しかし、どこにもメッセージを物理的に出力できません。
+それはアペンダの役割であり、アペンダには様々な種類があります。
+例えば、メッセージをコンソールに出力するデフォルトアペンダや、ファイルに出力するアペンダなど色々あります。
+自分でアペンダを実装することすらできます！
 
+{hidden}
 This diagram shows how they fit into the logging pipeline:
+{hidden}
+この図は、アペンダがどのようにロギングの流れに関わっているかを示しています:
 
 !logging.png!
 
+{hidden}
 As you can see, a single logger may have several appenders attached to it. In a standard Grails configuration, the console appender named 'stdout' is attached to all loggers through the default root logger configuration. But that's the only one. Adding more appenders can be done within an 'appenders' block:
+{hidden}
+見ての通り、1つのロガーに色々なアペンダが繋がっています。
+Grailsの標準の設定では、@stdout@という名前のコンソールアペンダが、ルートロガーの設定を通じて全てのロガーに繋がっています。
+しかし、それ以外のアペンダはありません。
+@appenders@ブロックで、さらにアペンダを追加することができます:
 
 {code:java}
 log4j = {
@@ -194,8 +382,12 @@ log4j = {
 }
 {code}
 
+{hidden}
 The following appenders are available by default:
+{hidden}
+次のアペンダはデフォルトで利用できます:
 
+{hidden}
 {table}
  *Name* | *Class* | *Description*
  jdbc | [JDBCAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/jdbc/JDBCAppender.html] | Logs to a JDBC connection.
@@ -203,12 +395,32 @@ The following appenders are available by default:
  file | [FileAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/FileAppender.html] | Logs to a single file.
  rollingFile | [RollingFileAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/RollingFileAppender.html] | Logs to rolling files, for example a new file each day.
 {table}
+{hidden}
+{table}
+ *名前* | *クラス* | *説明*
+ jdbc | [JDBCAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/jdbc/JDBCAppender.html] | JDBC接続に記録します。
+ console | [ConsoleAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/ConsoleAppender.html] | コンソールに記録します。
+ file | [FileAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/FileAppender.html] | 単一ファイルに記録します。
+ rollingFile | [RollingFileAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/RollingFileAppender.html] | ローテーションするファイルに記録します。例えば日次で新しいファイルにします。
+{table}
 
+{hidden}
 Each named argument passed to an appender maps to a property of the underlying [Appender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Appender.html] implementation. So the previous example sets the @name@, @maxFileSize@ and @file@ properties of the @RollingFileAppender@ instance.
+{hidden}
+アペンダに渡されるそれぞれの名前付き引数は、[Appender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Appender.html]実装の下にあるプロパティに対応しています。
+つまり、前の例は@RollingFileAppender@のインスタンスの@name@と@maxFileSize@、@file@プロパティを設定しています。
 
+{hidden}
 You can have as many appenders as you like - just make sure that they all have unique names. You can even have multiple instances of the same appender type, for example several file appenders that log to different files.
+{hidden}
+好きなだけ多くのアペンダを持つことができます。
+ただし、アペンダはすべてユニークな名前になるようにしてください。
+例えば、異なるファイルに出力する複数のファイルアペンダのように、同じアペンダ型の複数のインスタンスを持つこともできます。
 
+{hidden}
 If you prefer to create the appender programmatically or if you want to use an appender implementation that's not available in the above syntax, simply declare an @appender@ entry with an instance of the appender you want:
+{hidden}
+プログラム的にアペンダを生成したい場合や、上記の構文では利用できないアペンダの実装を使いたい場合は、必要なアペンダのインスタンスを指定して@appender@エントリを単純に宣言してください。
 
 {code:java}
 import org.apache.log4j.*
@@ -223,15 +435,25 @@ log4j = {
 }
 {code}
 
+{hidden}
 This approach can be used to configure @JMSAppender@, @SocketAppender@, @SMTPAppender@, and more.
+{hidden}
+このアプローチは@JMSAppender@、@SocketAppender@、@SMTPAppender@などを設定するために使われます。
 
+{hidden}
 Once you have declared your extra appenders, you can attach them to specific loggers by passing the name as a key to one of the log level methods from the previous section:
+{hidden}
+追加のアペンダを宣言した上で、前のセクションで紹介したログレベルのメソッドのひとつにキーとして名前を渡すことで、それを特定のロガーに対応づけることができます:
 
 {code:java}
 error myAppender: "grails.app.controllers.BookController"
 {code}
 
+{hidden}
 This will ensure that the 'grails.app.controllers.BookController' logger sends log messages to 'myAppender' as well as any appenders configured for the root logger. To add more than one appender to the logger, then add them to the same level declaration:
+{hidden}
+この設定は、@grails.app.controllers.BookController@のロガーが、ルートロガーによって設定されたアペンダだけでなく、@myAppender@にもログメッセージを送るようにします。
+1つ以上のアペンダをロガーに追加するには、同じレベルの宣言に追加します:
 
 {code:java}
 error myAppender:      "grails.app.controllers.BookController",
@@ -240,9 +462,16 @@ error myAppender:      "grails.app.controllers.BookController",
       rollingFile:     "grails.app.controllers.BookController"
 {code}
 
+{hidden}
 The above example also shows how you can configure more than one logger at a time for a given appender (@myFileAppender@) by using a list.
+{hidden}
+上の例は、特定のアペンダ(@myFileAppender@)に対して、リストを使ってどのように1つ以上のロガーを同時に設定するかについても示しています。
 
+{hidden}
 Be aware that you can only configure a single level for a logger, so if you tried this code:
+{hidden}
+ロガーにはひとつのレベルしか設定できないことに注意してください。
+なので、次のコードを試すと:
 
 {code:java}
 error myAppender:      "grails.app.controllers.BookController"
@@ -250,9 +479,19 @@ debug myFileAppender:  "grails.app.controllers.BookController"
 fatal rollingFile:     "grails.app.controllers.BookController"
 {code}
 
+{hidden}
 you'd find that only 'fatal' level messages get logged for 'grails.app.controllers.BookController'. That's because the last level declared for a given logger wins. What you probably want to do is limit what level of messages an appender writes.
+{hidden}
+@grails.app.controllers.BookController@のために「fatal」レベルのメッセージだけを記録するというのがわかるでしょう。
+特定のロガーに対して宣言した最後のレベルが勝つためです。
+おそらく行いたいことは、アペンダが書き込むメッセージのレベルを制限することです。
 
+{hidden}
 An appender that is attached to a logger configured with the 'all' level will generate a lot of logging information. That may be fine in a file, but it makes working at the console difficult. So we configure the console appender to only write out messages at 'info' level or above:
+{hidden}
+「all」レベルで設定されたロガーに繋がれたアペンダは、多くのロギング情報を生成するでしょう。
+ファイルに出力する分には良いのですが、コンソール上での作業が難しくなってしまいます。
+そのため、「info」レベル以上のメッセージだけ出力するようにコンソールアペンダを設定します:
 
 {code:java}
 log4j = {
@@ -262,18 +501,39 @@ log4j = {
 }
 {code}
 
+{hidden}
 The key here is the @threshold@ argument which determines the cut-off for log messages. This argument is available for all appenders, but do note that you currently have to specify a @Level@ instance - a string such as "info" will not work.
+{hidden}
+ここでのポイントは@threshold@引数でログメッセージを遮断するか決めることです。
+この引数は全てのアペンダで利用可能ですが、@Level@インスタンスを指定する必要があることに注意してください。
+@info@のような文字列では動作しません。
 
+{hidden}
 h3. Custom Layouts
+{hidden}
+h3. カスタムレイアウト
 
+{hidden}
 By default the Log4j DSL assumes that you want to use a [PatternLayout|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html]. However, there are other layouts available including:
+{hidden}
+デフォルトでLog4jのDSLは、[PatternLayout|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html]を使うことを前提としています。
+しかし、以下のような他のレイアウトも利用可能です:
 
+{hidden}
 * @xml@ - Create an XML log file
 * @html@ - Creates an HTML log file
 * @simple@ - A simple textual log
 * @pattern@ - A Pattern layout
+{hidden}
+* @xml@ - XMLログファイルを作成
+* @html@ - HTMLログファイルを作成
+* @simple@ - シンプルなテキストログ
+* @pattern@ - パターンレイアウト
 
+{hidden}
 You can specify custom patterns to an appender using the @layout@ setting:
+{hidden}
+@layout@設定を使ってアペンダに独自のパターンを指定できます:
 
 {code:java}
 log4j = {
@@ -284,7 +544,11 @@ log4j = {
 }
 {code}
 
+{hidden}
 This also works for the built-in appender "stdout", which logs to the console:
+{hidden}
+これはコンソール出力用のビルトインアペンダである@stdout@でも動作します。
+
 {code:java}
 log4j = {
     appenders {
@@ -294,11 +558,24 @@ log4j = {
 }
 {code}
 
+{hidden}
 h3. Environment-specific configuration
+{hidden}
+h3. 環境ごとの設定
 
+{hidden}
 Since the logging configuration is inside @Config.groovy@, you can put it inside an environment-specific block. However, there is a problem with this approach: you have to provide the full logging configuration each time you define the @log4j@ setting. In other words, you cannot selectively override parts of the configuration - it's all or nothing.
+{hidden}
+ロギングの設定は@Config.groovy@内にあるため、環境ごとのブロックの内側にその設定一式を記述できます。
+しかし、この方法には問題があります。
+環境ごとに@log4j@の完全なロギング設定を記述しなければならないのです。
+言い換えると、設定の特定の部分だけ都合良く上書きすることができません。
+全部書くか、まったく書かないかのどちらかしかありません。
 
+{hidden}
 To get around this, the logging DSL provides its own environment blocks that you can put anywhere in the configuration:
+{hidden}
+これを回避するために、ロギングDSLは設定内のどこででも記述可能な独自の環境ブロックを提供しています:
 
 {code:java}
 log4j = {
@@ -330,19 +607,40 @@ log4j = {
 }
 {code}
 
+{hidden}
 The one place you can't put an environment block is _inside_ the @root@ definition, but you can put the @root@ definition inside an environment block.
+{hidden}
+唯一@root@定義 _内_ では環境ブロックが使用できませんが、代わりに環境ブロック内へ@root@定義を配置してください。
 
+{hidden}
 h3. Full stacktraces
+{hidden}
+h3. 完全なスタックトレース
 
+{hidden}
 When exceptions occur, there can be an awful lot of noise in the stacktrace from Java and Groovy internals. Grails filters these typically irrelevant details and restricts traces to non-core Grails/Groovy class packages.
+{hidden}
+例外が発生した場合、スタックトレース内にはJavaとGroovy内部から恐しいほどたくさんのノイズが発生しています。
+Grailsはそれら一般的に重要でない詳細なスタックトレースをフィルタし、主要なGrails/Groovyクラスのパッケージでないスタックトレースを制限します。
 
+{hidden}
 When this happens, the full trace is always logged to the @StackTrace@ logger, which by default writes its output to a file called @stacktrace.log@. As with other loggers though, you can change its behaviour in the configuration. For example if you prefer full stack traces to go to the console, add this entry:
+{hidden}
+この時、フルスタックトレースは常に@StackTrace@ロガーへ出力されます。
+デフォルトは@stacktrace.log@と呼ばれるファイルへの出力です。
+他のロガーと同じように、設定でこの振る舞いを変更できます。
+例えば、フルスタックトレースをコンソールに出力したい場合、次の設定を追加します:
 
 {code:java}
 error stdout: "StackTrace"
 {code}
 
+{hidden}
 This won't stop Grails from attempting to create the stacktrace.log file - it just redirects where stack traces are written to. An alternative approach is to change the location of the 'stacktrace' appender's file:
+{hidden}
+これによって、Grailsが@stacktrace.log@ファイルを作成しなくなるわけではありません。
+単にスタックトレースが書かれるべき場所を変更するだけです。
+別の方法は@stacktrace@アペンダのファイル場所を変更することです:
 
 {code:java}
 log4j = {
@@ -353,7 +651,10 @@ log4j = {
 }
 {code}
 
+{hidden}
 or, if you don't want to the 'stacktrace' appender at all, configure it as a 'null' appender:
+{hidden}
+または、@stacktrace@アペンダがまったく必要なければ、@null@アペンダとして設定します:
 
 {code:java}
 log4j = {
@@ -363,31 +664,56 @@ log4j = {
 }
 {code}
 
+{hidden}
 You can of course combine this with attaching the 'stdout' appender to the 'StackTrace' logger if you want all the output in the console.
+{hidden}
+もちろんすべてをコンソール上にだけ出力したければ、@StackTrace@ロガーの@stdout@アペンダへの接続と、この@null@アペンダの設定を組み合わせることができます。
 
+{hidden}
 Finally, you can completely disable stacktrace filtering by setting the @grails.full.stacktrace@ VM property to @true@:
+{hidden}
+最後に、VMプロパティで@grails.full.stacktrace@を@true@に設定すると、スタックトレースフィルタを完全に無効にできます:
 
 {code:java}
 grails -Dgrails.full.stacktrace=true run-app
 {code}
 
+{hidden}
 h3. Masking Request Parameters From Stacktrace Logs
+{hidden}
+h3. スタックトレースログからリクエストパラメータをマスクする
 
+{hidden}
 When Grails logs a stacktrace, the log message may include the names and values of all of the request parameters for the current request.  To mask out the values of secure request parameters, specify the parameter names in the @grails.exceptionresolver.params.exclude@ config property:
+{hidden}
+Grailsでスタックトレースのログを出力する場合、ログメッセージには現在のリクエストに対するリクエストパラメータのすべての名前と値が含まれるかもしれません。
+セキュアなリクエストパラメータの値をマスクするには、@grails.exceptionresolver.params.exclude@の設定値にパラメータ名を指定します。
 
 {code:java}
 grails.exceptionresolver.params.exclude = ['password', 'creditCard']
 {code}
 
+{hidden}
 Request parameter logging may be turned off altogether by setting the @grails.exceptionresolver.logRequestParameters@ config property to @false@.  The default value is @true@ when the application is running in DEVELOPMENT mode and @false@ for all other modes.
+{hidden}
+@grails.exceptionresolver.logRequestParameters@の設定値に@false@を設定すると、リクエストパラメータのロギングが完全に停止します。
+デフォルト値は、@DEVELOPMENT@モードでアプリケーションを起動している場合は@true@、それ以外のモードでは@false@になります。
 
 {code:java}
 grails.exceptionresolver.logRequestParameters=false
 {code}
 
+{hidden}
 h3. Logger inheritance
+{hidden}
+h3. ロガーの継承
 
+{hidden}
 Earlier, we mentioned that all loggers inherit from the root logger and that loggers are hierarchical based on '.'-separated terms. What this means is that unless you override a parent setting, a logger retains the level and the appenders configured for that parent. So with this configuration:
+{hidden}
+以前に、全てのロガーはルートロガーを継承し、そしてロガーは「.」を区切りとした階層構造を持っていることを説明しました。
+これは親の設定を上書きする場合を除き、ロガーは親のログレベルとアペンダの設定を保持することを意味します。
+次の設定では:
 
 {code:java}
 log4j = {
@@ -400,9 +726,20 @@ log4j = {
 }
 {code}
 
+{hidden}
 all loggers in the application will have a level of 'debug' and will log to both the 'stdout' and 'file' appenders. What if you only want to log to 'stdout' for a particular logger? Change the 'additivity' for a logger in that case.
+{hidden}
+アプリケーション内のすべてのロガーが「debug」レベルに設定され、そして@stdout@アペンダと@file@アペンダの両方にログが出力されます。
+もし特定のロガーに対してのみ@stdout@にログを出力したい場合はどうすればよいでしょう？このような場合は、ロガーに対して@additivity@を変更してください。
 
+{hidden}
 Additivity simply determines whether a logger inherits the configuration from its parent. If additivity is false, then its not inherited. The default for all loggers is true, i.e. they inherit the configuration. So how do you change this setting? Here's an example:
+{hidden}
+この追加設定はロガーが親から設定を継承するかを決めます。
+もしこの設定が@false@の場合、親から設定を継承しません。
+すべてのロガーのデフォルトは@true@で親の設定を継承します。
+この設定をどのように変更するのでしょうか？
+以下に例を示します:
 
 {code:java}
 log4j = {
@@ -419,30 +756,51 @@ log4j = {
 }
 {code}
 
+{hidden}
 So when you specify a log level, add an 'additivity' named argument. Note that you when you specify the additivity, you must configure the loggers for a named appender. The following syntax will _not_ work:
+{hidden}
+このように、ログレベルを指定する際に@additivity@という名前の引数を追加します。
+@additivity@を指定するときは、名前付きのアペンダに対してロガーの設定をしなければなりません。
+例えば以下の構文では正しく動作 _しません_ :
 
 {code:java}
 info additivity: false, \["grails.app.controllers.BookController",
                          "grails.app.services.BookService"\]
 {code}
 
+{hidden}
 h3. Customizing stack trace printing and filtering
+{hidden}
+h3. スタックトレースの表示とフィルタリングをカスタマイズする
 
+{hidden}
 Stacktraces in general and those generated when using Groovy in particular are quite verbose and contain many stack frames that aren't interesting when diagnosing problems. So Grails uses a implementation of the @org.codehaus.groovy.grails.exceptions.StackTraceFilterer@ interface to filter out irrelevant stack frames. To customize the approach used for filtering, implement that interface in a class in src/groovy or src/java and register it in @Config.groovy@:
+{hidden}
+Groovyを個別で使用した場合に生成されるスタックトレースは、とても冗長で問題解析に関係のないたくさんのスタックフレームが含まれています。
+Grailsは無関係なスタックフレームを取り除くために@org.codehaus.groovy.grails.exceptions.StackTraceFilterer@インタフェースの実装を使用しています。このフィルタリング方法をカスタマイズするには、@src/groovy@または@src/java@にインタフェースの実装クラスを配置し、そのクラスを@Config.groovy@で登録します:
 
 {code}
 grails.logging.stackTraceFiltererClass =
          'com.yourcompany.yourapp.MyStackTraceFilterer'
 {code}
 
+{hidden}
 In addition, Grails customizes the display of the filtered stacktrace to make the information more readable. To customize this, implement the @org.codehaus.groovy.grails.exceptions.StackTracePrinter@ interface in a class in src/groovy or src/java and register it in @Config.groovy@:
+{hidden}
+さらに、Grailsはより情報が読みやすくなるようフィルタしたスタックトレースの表示を変更しています。
+これをカスタマイズするには、@src/groovy@または@src/java@に@org.codehaus.groovy.grails.exceptions.StackTracePrinter@インタフェースの実装クラスを配置し、そのクラスを@Config.groovy@で登録します:
 
 {code}
 grails.logging.stackTracePrinterClass =
          'com.yourcompany.yourapp.MyStackTracePrinter'
 {code}
 
+{hidden}
 Finally, to render error information in the error GSP, an HTML-generating printer implementation is needed. The default implementation is @org.codehaus.groovy.grails.web.errors.ErrorsViewStackTracePrinter@ and it's registered as a Spring bean. To use your own implementation, either implement the @org.codehaus.groovy.grails.exceptions.StackTraceFilterer@ directly or subclass @ErrorsViewStackTracePrinter@ and register it in @grails-app/conf/spring/resources.groovy@ as:
+{hidden}
+最後に、エラーGSP内にエラー情報をレンダリングするために、HTMLを生成し出力する実装が必要です。
+デフォルト実装は@org.codehaus.groovy.grails.web.errors.ErrorsViewStackTracePrinter@で、これはSpringビーンとして登録されています。
+独自の実装を使うには、@org.codehaus.groovy.grails.exceptions.StackTraceFilterer@を直接実装するか、@ErrorsViewStackTracePrinter@のサブクラスとして実装し、@grails-app/conf/spring/resources.groovy@でそれを登録します:
 
 {code}
 import com.yourcompany.yourapp.MyErrorsViewStackTracePrinter
@@ -454,9 +812,17 @@ beans = {
 }
 {code}
 
+{hidden}
 h3. Alternative logging libraries
+{hidden}
+h3. ロギングライブラリの変更
 
+{hidden}
 By default, Grails uses Log4J to do its logging. For most people this is absolutely fine, and many users don't even care what logging library is used. But if you're not one of those and want to use an alternative, such as the [JDK logging package|http://download.oracle.com/javase/6/docs/api/index.html?java/util/logging/package-summary.html] or [logback|http://logback.qos.ch/], you can do so by simply excluding a couple of dependencies from the global set and adding your own:
+{hidden}
+デフォルトでは、GrailsはロギングにLog4Jを使用します。
+大抵のユーザにとってはLog4Jで十分で、ロギングライブラリに何が使われているかを気にしません。
+しかし、もしそうではなく[JDKのロギングパッケージ|http://docs.oracle.com/javase/jp/6/api/java/util/logging/package-summary.html]や[logback|http://logback.qos.ch/]といった異なるロギングライブラリが使いたい場合、グローバルな設定からいくつかの依存関係を単に取り除き、必要な依存関係を追加します:
 
 {code}
 grails.project.dependency.resolution = {
@@ -473,4 +839,8 @@ grails.project.dependency.resolution = {
 
 {code}
 
+{hidden}
 If you do this, you will get unfiltered, standard Java stacktraces in your log files and you won't be able to use the logging configuration DSL that's just been described. Instead, you will have to use the standard configuration mechanism for the library you choose.
+{hidden}
+もしこの設定をした場合、ログファイル内ではフィルタされてない通常のJavaスタックトレースが出力され、そしてDSLで書かれたロギング設定が使用できなくなります。
+代わりに、選択したライブラリで用意されている標準的な設定方法を使わなければなりません。
