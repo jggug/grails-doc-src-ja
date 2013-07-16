@@ -1,8 +1,14 @@
-Once you have loaded and possibly modified a persistent domain class instance, it isn't straightforward to retrieve the original values. If you try to reload the instance using [get|domainClasses] Hibernate will return the current modified instance from its Session cache. Reloading using another query would trigger a flush which could cause problems if your data isn't ready to be flushed yet. So GORM provides some methods to retrieve the original values that Hibernate caches when it loads the instance (which it uses for dirty checking).
+{hidden}Once you have loaded and possibly modified a persistent domain class instance, it isn't straightforward to retrieve the original values. If you try to reload the instance using [get|domainClasses] Hibernate will return the current modified instance from its Session cache. Reloading using another query would trigger a flush which could cause problems if your data isn't ready to be flushed yet. So GORM provides some methods to retrieve the original values that Hibernate caches when it loads the instance (which it uses for dirty checking).{hidden}
+永続化されたドメインクラスのインスタンスを読み込み、いったん変更を加えると、簡単に元の値を取り出すことはできません。
+もし、[get|domainClasses]を使ってインスタンスを再読み込みしようとすると、Hibernateはセッションのキャッシュから現在変更を加えたインスタンスを返します。
+まだデータがフラッシュできる状態でない場合、他のクエリを使って再読み込みをしようとすると、データがフラッシュできる状態でないにもかかわらずフラッシュが行われ問題を引き起こします。
+GORMは、Hibernateがインスタンスの読み込み時にキャッシュする値(このインスタンスはdirtyチェックに使われる)を取り出すいくつかのメソッドを提供します。
 
+{hidden}h4. isDirty{hidden}
 h4. isDirty
 
-You can use the [isDirty|domainClasses] method to check if any field has been modified:
+{hidden}You can use the [isDirty|domainClasses] method to check if any field has been modified:{hidden}
+フィールドに変更が加えられているかどうかのチェックに、[isDirty|domainClasses]メソッドが使えます:
 
 {code}
 def airport = Airport.get(10)
@@ -14,11 +20,16 @@ if (airport.isDirty()) {
 }
 {code}
 
-{note}
+{hidden}{note}
 @isDirty()@ does not currently check collection associations, but it does check all other persistent properties and associations.
+{note}{hidden}
+{note}
+@isDirty()@は、今のところ関連のコレクションをチェックしません。
+しかし、他のすべての永続化プロパティと関連をチェックします。
 {note}
 
-You can also check if individual fields have been modified:
+{hidden}You can also check if individual fields have been modified:{hidden}
+個々のフィールドが変更されいているかチェックすることもできます:
 
 {code}
 def airport = Airport.get(10)
@@ -30,9 +41,12 @@ if (airport.isDirty('name')) {
 }
 {code}
 
+{hidden}h4. getDirtyPropertyNames{hidden}
 h4. getDirtyPropertyNames
 
-You can use the [getDirtyPropertyNames|domainClasses] method to retrieve the names of modified fields; this may be empty but will not be null:
+{hidden}You can use the [getDirtyPropertyNames|domainClasses] method to retrieve the names of modified fields; this may be empty but will not be null:{hidden}
+変更されたフィールドの名前を取得するには[getDirtyPropertyNames|domainClasses]メソッドを使います。
+このメソッドは空リストを返すかもしれませんが、nullを返すことはありません:
 
 {code}
 def airport = Airport.get(10)
@@ -45,9 +59,11 @@ for (fieldName in modifiedFieldNames) {
 }
 {code}
 
+{hidden}h4. getPersistentValue{hidden}
 h4. getPersistentValue
 
-You can use the [getPersistentValue|domainClasses] method to retrieve the value of a modified field:
+{hidden}You can use the [getPersistentValue|domainClasses] method to retrieve the value of a modified field:{hidden}
+変更されたフィールドの元の値を取得するには[getPersistentValue|domainClasses]メソッドを使います:
 
 {code}
 def airport = Airport.get(10)
