@@ -1,6 +1,16 @@
+{hidden}
 Criteria is an advanced way to query that uses a Groovy builder to construct potentially complex queries. It is a much better approach than building up query strings using a @StringBuffer@.
+{hidden}
+クライテリアは、潜在的に複雑なクエリを構築するためにGroovyのビルダを利用するという、クエリのためのより進んだ方法です。
+これは@StringBuffer@を使ってクエリ文字列を構築するより優れたやり方です。
 
+{hidden}
 Criteria can be used either with the [createCriteria|domainClasses] or [withCriteria|domainClasses] methods. The builder uses Hibernate's Criteria API. The nodes on this builder map the static methods found in the [Restrictions|api:org.hibernate.criterion.Restrictions] class of the Hibernate Criteria API. For example:
+{hidden}
+クライテリアは[createCriteria|domainClasses]メソッド、または[withCriteria|domainClasses]メソッドのいずれかで使用できます。
+このビルダーはHibernateのクライテリアAPIを使用します。
+ビルダー上のノードはHibernateのクライテリアAPIの[Restrictions|api:org.hibernate.criterion.Restrictions]クラス内の静的メソッドにマッピングされます。
+以下はその例です:
 
 {code}
 def c = Account.createCriteria()
@@ -16,19 +26,39 @@ def results = c {
 }
 {code}
 
+{hidden}
 This criteria will select up to 10 @Account@ objects in a List matching the following criteria:
+{hidden}
+このクライテリアは以下の条件に一致する@Account@オブジェクトを最大10件検索します:
 
+{hidden}
 * @balance@ is between 500 and 1000
 * @branch@ is 'London'
 * @holderFirstName@ starts with 'Fred' or 'Barney'
+{hidden}
+* @balance@が@500@から@1000@の間である
+* @branch@が@London@である
+* @holderFirstName@が@Fred@か@Barney@で始まっている
 
+{hidden}
 The results will be sorted in descending order by @holderLastName@.
+{hidden}
+結果は@holderLastName@の降順でソートされます。
 
+{hidden}
 If no records are found with the above criteria, an empty List is returned.
+{hidden}
+もし上記のクライテリアでレコードが1件も見つからない場合、空のリストが返却されます。
 
+{hidden}
 h4. Conjunctions and Disjunctions
+{hidden}
+h4. 論理積と論理和
 
+{hidden}
 As demonstrated in the previous example you can group criteria in a logical OR using an @or { }@ block:
+{hidden}
+前の例で提示したように、@or { }@ブロックを使用し、クライテリアを論理和でグループ化できます。
 
 {code:java}
 or {
@@ -37,7 +67,10 @@ or {
 }
 {code}
 
+{hidden}
 This also works with logical AND:
+{hidden}
+論理積でも同様です:
 
 {code:java}
 and {
@@ -46,7 +79,10 @@ and {
 }
 {code}
 
+{hidden}
 And you can also negate using logical NOT:
+{hidden}
+さらに否定を使うこともできます:
 
 {code:java}
 not {
@@ -55,11 +91,21 @@ not {
 }
 {code}
 
+{hidden}
 All top level conditions are implied to be AND'd together.
+{hidden}
+なお、すべてのトップレベルの条件は暗黙的にANDになります。
 
+{hidden}
 h4. Querying Associations
+{hidden}
+h4. 関連のクエリ
 
+{hidden}
 Associations can be queried by having a node that matches the property name. For example say the @Account@ class had many @Transaction@ objects:
+{hidden}
+関連はプロパティ名と一致するノードを持つことで問い合わせができます。
+例えば、@Account@クラスが1対多の関連として@Transaction@オブジェクトを持っているとします:
 
 {code}
 class Account {
@@ -69,7 +115,10 @@ class Account {
 }
 {code}
 
-We can query this association by using the property name @transaction@ as a builder node:
+{hidden}
+We can query this association by using the property name @transactions@ as a builder node:
+{hidden}
+この場合、ビルダーノードとしてプロパティ名@transactions@を使いこの関連を問い合わせできます:
 
 {code:java}
 def c = Account.createCriteria()
@@ -81,8 +130,12 @@ def results = c.list {
 }
 {code}
 
+{hidden}
 The above code will find all the @Account@ instances that have performed @transactions@ within the last 10 days.
 You can also nest such association queries within logical blocks:
+{hidden}
+上記のコードは最近10日以内の@transactions@を持つ全ての@Account@インスタンスを検索できます。
+また、論理ブロック内に関連のクエリをネストすることもできます:
 
 {code:java}
 def c = Account.createCriteria()
@@ -97,11 +150,22 @@ def results = c.list {
 }
 {code}
 
+{hidden}
 Here we find all accounts that have either performed transactions in the last 10 days OR have been recently created in the last 10 days.
+{hidden}
+これは、最近10日以内に取引があり、最近10日以内に作成された口座をすべて取得します。
 
+{hidden}
 h4. Querying with Projections
+{hidden}
+h4. プロジェクション(射影)を利用したクエリ
 
+{hidden}
 Projections may be used to customise the results. Define a "projections" node within the criteria builder tree to use projections. There are equivalent methods within the projections node to the methods found in the Hibernate [Projections|api:org.hibernate.criterion.Projections] class:
+{hidden}
+プロジェクションは取得した結果をカスタマイズするために使われます。
+プロジェクションを使うには、クライテリアビルダーのツリーの中で@projections@ノードを定義します。
+プロジェクションノードのメソッドは、Hibernateの[Projections|api:org.hibernate.criterion.Projections]クラスのメソッドに相当します。
 
 {code:java}
 def c = Account.createCriteria()
@@ -113,11 +177,21 @@ def numberOfBranches = c.get {
 }
 {code}
 
+{hidden}
 When multiple fields are specified in the projection, a List of values will be returned. A single value will be returned otherwise.
+{hidden}
+プロジェクション内に複数のフィールドが指定された場合、値のリストが返却されます。
+そうでなければ、単一の値が返却されます。
 
+{hidden}
 h4. SQL Projections
+{hidden}
+h4. SQLプロジェクション
 
+{hidden}
 The criteria DSL provides access to Hibernate's SQL projection API.
+{hidden}
+クライテリアDSLはHibernateのSQLプロジェクションAPIへのアクセスを提供します。
 
 {code:java}
 // Box is a domain class...
@@ -133,19 +207,30 @@ def c = Box.createCriteria()
 
 def results = c.list {
     projections {
-      sqlProjection '(2 * (width + height)) as perimiter, (width * height) as area', ['perimeter', 'area'], [INTEGER, INTEGER]
+      sqlProjection '(2 * (width + height)) as perimeter, (width * height) as area', ['perimeter', 'area'], [INTEGER, INTEGER]
     }
 }
 {code}
 
+{hidden}
 The first argument to the @sqlProjection@ method is the SQL which defines the projections.  The second argument is a list of
 Strings which represent column aliases corresponding to the projected values expressed in the SQL.  The third argument
 is a list of @org.hibernate.type.Type@ instances which correspond to the projected values expressed in the SQL.  The API
 supports all @org.hibernate.type.Type@ objects but constants like INTEGER, LONG, FLOAT etc. are provided by the DSL which
 correspond to all of the types defined in @org.hibernate.type.StandardBasicTypes@.
+{hidden}
+@sqlProjection@メソッドの最初の引数は、プロジェクションを定義するSQLです。
+第2引数は、SQLで表現されたプロジェクションの値に対応するカラムのエイリアスの文字列リストです。
+第3引数は、SQLで表現されたプロジェクションの値に対応する@org.hibernate.type.Type@インスタンスのリストです。
+このAPIはすべての@org.hibernate.type.Type@オブジェクトをサポートしています。
+しかし、INTEGER・LONG・FLOATなどの定数については、@org.hibernate.type.StandardBasicTypes@で定義されたすべての型に対応付けられているDSLによって提供されています。
 
+{hidden}
 Consider that the following table represents the data in the
 @BOX@ table.
+{hidden}
+以下の表は@BOX@テーブル内のデータを表すと考えてください。
+
 {table}
 width | height
 2 | 7 
@@ -154,22 +239,38 @@ width | height
 4 | 9 
 {table}
 
+{hidden}
 The query above would return results like this:
+{hidden}
+上記のクエリは以下のような結果を返します:
 
 {code}
 [[18, 14], [20, 16], [22, 18], [26, 36]]
 {code}
 
-Each of the inner lists contains the 2 projected values for each @Box@, perimiter and area.
+{hidden}
+Each of the inner lists contains the 2 projected values for each @Box@, perimeter and area.
+{hidden}
+内側のリストは、それぞれの@Box@に対する全周と面積を表す、2つのプロジェクションされた値を含んでいます。
 
+{hidden}
 {note}
 Note that if there are other references in scope wherever your criteria query is expressed that have names that conflict 
 with any of the type constants described above, the code in your criteria will refer to those references, not the type
 constants provided by the DSL.  In the unlikely event of that happening you can disambiguate the conflict by referring
 to the fully qualified Hibernate type.  For example @StandardBasicTypes.INTEGER@ instead of @INTEGER@.
 {note}
+{hidden}
+{note}
+もしクライテリアクエリ内から参照できるスコープ内に前述の型定数と重複する名前の変数が宣言されている場合は、クライテリア中のコードは、DSLが提供する型定数ではなく、その変数を利用してしまうことに注意してください。
+そのような場合は、完全修飾されたHibernateの型を指定することであいまいさを無くし衝突を回避できます。
+例えば、@INTEGER@の代わりに@StandardBasicTypes.INTEGER@を指定します。
+{note}
 
+{hidden}
 If only 1 value is being projected, the alias and the type do not need to be included in a list.
+{hidden}
+1つの値だけをプロジェクションする場合は、エイリアスと型はリストとして指定する必要はありません。
 
 {code:java}
 def results = c.list {
@@ -179,9 +280,15 @@ def results = c.list {
 }
 {code}
 
+{hidden}
 That query would return a single result with the value of 84 as the total area of all of the @Box@ instances.
+{hidden}
+上記のクエリは全@Box@インスタンスの面積の合計である84という単一の結果を返します。
 
+{hidden}
 The DSL supports grouped projections with the @sqlGroupProjection@ method.
+{hidden}
+DSLは@sqlGroupProjection@メソッドでグループ化されたプロジェクションをサポートしています。
 
 {code:java}
 def results = c.list {
@@ -191,24 +298,44 @@ def results = c.list {
 }
 {code}
 
+{hidden}
 The first argument to the @sqlProjection@ method is the SQL which defines the projections.  The second argument represents the
 group by clause that should be part of the query.  That string may be single column name or a comma separated list of column
 names.  The third argument is a list of
 Strings which represent column aliases corresponding to the projected values expressed in the SQL.  The fourth argument
 is a list of @org.hibernate.type.Type@ instances which correspond to the projected values expressed in the SQL.
+{hidden}
+@sqlGroupProjection@への最初の引数は、プロジェクションを定義するSQLです。
+第2引数は、クエリの一部となるGROUP BY句を表しています。単一のカラム名または複数のカラム名のカンマ区切り文字列を指定します。
+第3引数は、SQLで表現されたプロジェクションの値に対応するカラムのエイリアスの文字列リストです。
+第4引数は、SQLで表現されたプロジェクションの値に対応する@org.hibernate.type.Type@インスタンスのリストです。
 
+{hidden}
 The query above is projecting the combined heights of boxes grouped by width and would return results that look like this:
+{hidden}
+上記のクエリは@width@によってグループ化した上で@heights@を合計した値をプロジェクションしています。
+これは以下のような結果を返します:
 
 {code}
 [[2, 24], [4, 9]]
 {code}
 
+{hidden}
 Each of the inner lists contains 2 values.  The first value is a box width and the second value is the sum of the heights
 of all of the boxes which have that width.
+{hidden}
+それぞれの内側のリストには2つの値が格納されています。
+最初の値は@width@の値、次の値は@width@によってグループ化した上で@height@を合計した値となります。
 
+{hidden}
 h4. Using SQL Restrictions
+{hidden}
+h4. SQL Restrictionsの使用
 
+{hidden}
 You can access Hibernate's SQL Restrictions capabilities.
+{hidden}
+HibernateのSQL Restrictions機能を使用できます。
 
 {code:java}
 def c = Person.createCriteria()
@@ -218,8 +345,11 @@ def peopleWithShortFirstNames = c.list {
 }
 {code}
 
-SQL Restrictions may be parameterized to deal with SQL injection vulnerabilities related to dynamic restrictions.
 
+{hidden}
+SQL Restrictions may be parameterized to deal with SQL injection vulnerabilities related to dynamic restrictions.
+{hidden}
+SQL Restrictionsは、動的な条件に関連するSQLインジェクションの脆弱性に対処するために、条件に埋め込む値をパラメータ化できます。
 
 {code:java}
 def c = Person.createCriteria()
@@ -230,15 +360,30 @@ def peopleWithShortFirstNames = c.list {
 {code}
 
 
+{hidden}
 {note}
 Note that the parameter there is SQL. The @first_name@ attribute referenced in the example refers to the persistence model, not the object model like in HQL queries. The @Person@ property named @firstName@ is mapped to the @first_name@ column in the database and you must refer to that in the @sqlRestriction@ string.
 
 Also note that the SQL used here is not necessarily portable across databases.
 {note}
+{hidden}
+{note}
+パラメータがSQLであることに注意してください。
+上記の例で参照している@first_name@属性はHQLクエリのようにオブジェクトモデルではなく、永続化モデルを示します。
+@Person@の@firstName@プロパティはデータベース内の@first_name@列にマッピングされており、@sqlRestriction@文字列内では@first_name@を指定する必要があります。
 
+また、ここで使われるSQLは必ずしもデータベース間で移植可能ではありません。
+{note}
+
+{hidden}
 h4. Using Scrollable Results
+{hidden}
+h4. スクロール可能な検索結果の使用
 
+{hidden}
 You can use Hibernate's [ScrollableResults|api:org.hibernate.ScrollableResults] feature by calling the scroll method:
+{hidden}
+@scroll@メソッドを呼び出すことで、Hibernateの[ScrollableResults|api:org.hibernate.ScrollableResults]機能を使用できます:
 
 {code:java}
 def results = crit.scroll {
@@ -253,17 +398,38 @@ def future = results.scroll(10)
 def accountNumber = results.getLong('number')
 {code}
 
+{hidden}
 To quote the documentation of Hibernate ScrollableResults:
+{hidden}
+以下はHibernateの@ScrollableResults@のドキュメントからの引用です:
 
+{hidden}
 {quote}
 A result iterator that allows moving around within the results by arbitrary increments. The Query / ScrollableResults pattern is very similar to the JDBC PreparedStatement/ ResultSet pattern and the semantics of methods of this interface are similar to the similarly named methods on ResultSet.
 {quote}
+{hidden}
+{quote}
+任意の増分を指定して結果内を自由に移動できる結果イテレータです。
+このQuery/ScrollableResultsのパターンは、JDBCのPreparedStatement/ResultSetパターンに非常に似ています。
+そして、インタフェースのメソッドの意味も、ResultSet上の似た名前のメソッドと同じような意味になります。
+{quote}
 
+{hidden}
 Contrary to JDBC, columns of results are numbered from zero.
+{hidden}
+JDBCとは異なり結果のカラムは0から採番されます。
 
+{hidden}
 h4. Setting properties in the Criteria instance
+{hidden}
+h4. クライテリアインスタンス内でのプロパティの設定
 
+{hidden}
 If a node within the builder tree doesn't match a particular criterion it will attempt to set a property on the Criteria object itself. This allows full access to all the properties in this class. This example calls @setMaxResults@ and @setFirstResult@ on the [Criteria|api:org.hibernate.Criteria] instance:
+{hidden}
+もしこのビルダツリー内のノードが特定のクライテリアにマッチしない場合は、クライテリアオブジェクト自身のプロパティを設定しようとします。
+これは、このクラス内のすべてのプロパティへのフルアクセスを許可します。
+この例では、[Criteria|api:org.hibernate.Criteria]インスタンス上の@setMaxResults@と@setFirstResult@を呼んでいます。
 
 {code:java}
 import org.hibernate.FetchMode as FM
@@ -275,9 +441,16 @@ def results = c.list {
 }
 {code}
 
+{hidden}
 h4. Querying with Eager Fetching
+{hidden}
+h4. Eagerフェッチによるクエリ
 
+{hidden}
 In the section on [Eager and Lazy Fetching|guide:fetching] we discussed how to declaratively specify fetching to avoid the N+1 SELECT problem. However, this can also be achieved using a criteria query:
+{hidden}
+[EagerフェッチとLazyフェッチ|guide:fetching]のセクションでは、N+1 SELECT問題を避けるためにフェッチ方法を宣言的に指定する方法について説明しました。
+しかし、このクライテリアを使っても同じことを実現できます。
 
 {code:java}
 
@@ -290,7 +463,14 @@ def tasks = criteria.list{
 }
 {code}
 
+{hidden}
 Notice the usage of the @join@ method: it tells the criteria API to use a @JOIN@ to fetch the named associations with the @Task@ instances. It's probably best not to use this for one-to-many associations though, because you will most likely end up with duplicate results. Instead, use the 'select' fetch mode:
+{hidden}
+@join@メソッドの使い方に注意してください。
+これは、@Task@インスタンスと指定された関連をフェッチするために、@JOIN@を利用するようにクライテリアAPIに指示します。
+とはいえ、最終的に重複した結果が得られることになる可能性が非常に高いため、@join@は1対多関連に対して使わないのがおそらくベストです。
+代わりに@select@フェッチモードを使用しましょう:
+
 {code}
 import org.hibernate.FetchMode as FM
 ...
@@ -299,13 +479,27 @@ def results = Airport.withCriteria {
     fetchMode "flights", FM.SELECT
 }
 {code}
+{hidden}
 Although this approach triggers a second query to get the @flights@ association, you will get reliable results  - even with the @maxResults@ option.
+{hidden}
+このアプローチは@flights@関連を取得するために2次クエリを発行しますが、@maxResults@オプションを使いさえすれば、正しい結果が得られます。
 
+{hidden}
 {note}
 @fetchMode@ and @join@ are general settings of the query and can only be specified at the top-level, i.e. you cannot use them inside projections or association constraints.
 {note}
+{hidden}
+{note}
+@FetchMode@と@join@はそのクエリ全体に対する設定のため、トップレベルでのみ指定できます。
+つまり、プロジェクションや関連のブロック内では使用できません。
+{note}
 
+{hidden}
 An important point to bear in mind is that if you include associations in the query constraints, those associations will automatically be eagerly loaded. For example, in this query:
+{hidden}
+覚えておくべき重要なこととして、クエリ条件に関連を含んでいる場合は、その関連は自動的にEagerフェッチされるということです。
+例えば、次のクエリでは:
+
 {code}
 def results = Airport.withCriteria {
     eq "region", "EMEA"
@@ -314,22 +508,37 @@ def results = Airport.withCriteria {
     }
 }
 {code}
+
+{hidden}
 the @flights@ collection would be loaded eagerly via a join even though the fetch mode has not been explicitly set.
+{hidden}
+フェッチモードを明示的に設定していないにもかかわらず、この@flights@コレクションはJOINによってEagerフェッチされます。
 
+{hidden}
 h4. Method Reference
+{hidden}
+h4. メソッドの参照
 
+{hidden}
 If you invoke the builder with no method name such as:
+{hidden}
+もし、ビルダーをメソッド名を指定せずに実行すると:
 
 {code:java}
 c { ... }
 {code}
 
+{hidden}
 The build defaults to listing all the results and hence the above is equivalent to:
+{hidden}
+ビルダーのデフォルト動作は全件の一覧取得です。
+そのため上記は以下のように書いた場合と同等です:
 
 {code:java}
 c.list { ... }
 {code}
 
+{hidden}
 {table}
 Method | Description
 *list* | This is the default method. It returns all matching rows.
@@ -338,10 +547,25 @@ Method | Description
 *listDistinct* | If subqueries or associations are used, one may end up with the same row multiple times in the result set, this allows listing only distinct entities and is equivalent to @DISTINCT_ROOT_ENTITY@ of the [CriteriaSpecification|api:org.hibernate.criterion.CriteriaSpecification] class.
 *count* | Returns the number of matching rows.
 {table}
+{hidden}
+{table}
+メソッド | 概要
+*list* | これがデフォルトのメソッドです。条件に一致するすべての行を返します。
+*get* | 1つのユニークな結果セット、つまり、1行だけを返します。クライテリアは1行だけを検索するように書かれていなければなりません。このメソッドが最初の行だけに限定して返すと勘違いしないようにしてください。
+*scroll* | スクロール可能な結果セットを返します。
+*listDistinct* | サブクエリや関連を使うと、結果セット中に同じ行が複数回現れる可能性がありますが、このメソッドは重複したエンティティを取り除いたリストを返します。[CriteriaSpecification|api:org.hibernate.criterion.CriteriaSpecification]クラスの@DISTINCT_ROOT_ENTITY@を使用するのと同じです。
+*count* | 一致する行の数を返します。
+{table}
 
+{hidden}
 h4. Combining Criteria
+{hidden}
+h4. クライテリアの結合
 
+{hidden}
 You can combine multiple criteria closures in the following way:
+{hidden}
+複数のクライテリアのクロージャを以下のように結合できます:
 
 {code:java}
 def emeaCriteria = {
@@ -357,5 +581,9 @@ def results = Airport.withCriteria {
 }
 {code}
 
+{hidden}
 This technique requires that each criteria must refer to the same domain class (i.e. @Airport@).
 A more flexible approach is to use Detached Criteria, as described in the following section.
+{hidden}
+このテクニックでは、それぞれのクライテリアが同じドメインクラス(ここでは@Airport@)に対するものでなければなりません。
+より柔軟なアプローチとして、この後のセクションで説明するDetachedクライテリアの使用があります。
