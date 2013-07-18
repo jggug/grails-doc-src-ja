@@ -219,7 +219,7 @@ theWebLayer:
   contentNegotiation: コンテントネゴシエーション
 webServices:
   title: Webサービス
-  REST: 
+  REST:
     title: REST
     domainResources: RESTリソースとしてドメインクラスを使用する
     urlMappings: RESTリソースへのマッピング
@@ -230,7 +230,7 @@ webServices:
       extendingRestfulController: RestfulControllerスーパークラスの拡張
       restControllersStepByStep: RESTコントローラの実装ステップバイステップ
       generatingRestControllers: スカッフォルドを使用してRESTコントローラを生成
-    renderers: 
+    renderers:
       title: レスポンスレンダリングのカスタマイズ
       defaultRenderers: デフォルトレンダラーのカスタマイズ
       objectMarshallers: カスタムオブジェクトマーシャラの登録
@@ -238,7 +238,7 @@ webServices:
       objectMarshallerInterface: ObjectMarshallerインターフェイスへの実装
       customRenderers: カスタムレンダラーの実装
       gspRenderers: GSPを使用したカスタムレンダリング
-    hypermedia: 
+    hypermedia:
       title: アプリケーション状態エンジンとしてのハイパーメディア
       hal: HALサポート
       atom: Atomサポート
@@ -332,8 +332,8 @@ scaffolding: スカッフォルド
 deployment: デプロイ
 contributing:
   title: Grailsに貢献する
-  issues: JIRAに課題をリポート(バグ報告)
-  build: ソースからビルドしてテストを走らせる
+  issues: JIRAで課題を報告する（バグ報告）
+  build: ソースからビルドしてテストを実行する
   patchesCore: Grailsコアにパッチを送る
   patchesDoc: Grailsドキュメントにパッチを送る
 traslateReport: 翻訳レポート
