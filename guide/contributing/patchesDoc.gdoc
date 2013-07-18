@@ -1,56 +1,102 @@
-Contributing to the documentation is simpler for the core framework because there is a public fork of the [http://github.com/grails/grails-doc|http://github.com/grails/grails-doc] project that anyone can request commit access to. So, if you want to submit patches to the documentation, simply request commit access to the following repository [http://github.com/pledbrook/grails-doc|http://github.com/pledbrook/grails-doc] by sending a GitHub message to 'pledbrook' and then commit your patches just as you would to any other GitHub repository.
+{hidden}Contributing to the documentation is simpler for the core framework because there is a public fork of the [http://github.com/grails/grails-doc|http://github.com/grails/grails-doc] project that anyone can request commit access to. So, if you want to submit patches to the documentation, simply request commit access to the following repository [http://github.com/pledbrook/grails-doc|http://github.com/pledbrook/grails-doc] by sending a GitHub message to 'pledbrook' and then commit your patches just as you would to any other GitHub repository.{hidden}
+ドキュメントについての貢献はコアフレームワークへの貢献よりも簡単です。
+なぜなら、[http://github.com/grails/grails-doc|http://github.com/grails/grails-doc]プロジェクトの公開フォークがあり、誰でもコミット権をリクエストできるからです。
+ドキュメントへのパッチを送りたい場合、GitHubの「pledbrook」にメッセージを送って、次のリポジトリ[http://github.com/pledbrook/grails-doc|http://github.com/pledbrook/grails-doc]に対するコミット権をリクエストしてください。
+それから、あなたのパッチを他のGitHubリポジトリで普通に行っているようにコミットすればよいのです。
 
-h3. Building the Guide
+{hidden}h3. Building the Guide{hidden}
+h3. ガイドをビルドする
 
-To build the documentation, simply type:
+{hidden}To build the documentation, simply type:{hidden}
+ドキュメントをビルドするには、単純に以下を実行します:
+
 {code}
 ./gradlew docs
 {code}
 
-Be warned: this command can take a while to complete and you should probably increase your Gradle memory settings by giving the @GRADLE_OPTS@ environment variable a value like
+{hidden}Be warned: this command can take a while to complete and you should probably increase your Gradle memory settings by giving the @GRADLE_OPTS@ environment variable a value like{hidden}
+注意点:
+このコマンドは実行するのに時間がかかります。
+また、次のように@GRADLE_OPTS@環境変数を設定して、Gradleのメモリ使用量を増やした方が良いです。
+
 {code}
 export GRADLE_OPTS="-Xmx512m -XX:MaxPermSize=384m"
 {code}
 
-Fortunately, you can reduce the overall build time with a couple of useful options. The first allows you to specify the location of the Grails source to use:
+{hidden}Fortunately, you can reduce the overall build time with a couple of useful options. The first allows you to specify the location of the Grails source to use:{hidden}
+幸いなことに、いくつかのオプションを使うことで、全体のビルド時間を減らすことができます。
+まず、利用するGrailsのソースがどこにあるかを指定するオプションがあります:
 
 {code}
-./gradlew -Dgrails.home=/home/user/projects/grails-core docs 
+./gradlew -Dgrails.home=/home/user/projects/grails-core docs
 {code}
 
-The Grails source is required because the guide links to its API documentation and the build needs to ensure it's generated. If you don't specify a @grails.home@ property, then the build will fetch the Grails source - a download of 10s of megabytes. It must then compile the Grails source which can take a while too.
+{hidden}The Grails source is required because the guide links to its API documentation and the build needs to ensure it's generated. If you don't specify a @grails.home@ property, then the build will fetch the Grails source - a download of 10s of megabytes. It must then compile the Grails source which can take a while too.{hidden}
+Grailsのソースが必要なのは、ガイドがAPIドキュメントへのリンクを持っており、ビルド時にそれが生成されることを保証する必要があるからです。
+もし、@grails.home@プロパティを指定しないと、ビルド時にGrailsのソースファイル（10数MBあります）をダウンロードします。
+そしてそのGrailsソースコードをコンパイルするため、より時間がかかるのです。
 
-Additionally you can create a local.properties file with this variable set:
+{hidden}Additionally you can create a local.properties file with this variable set:{hidden}
+さらに、以下の変数を設定しておく@local.properties@ファイルを作成できます:
+
 {code}
 grails.home=/home/user/projects/grails-core
 {code}
-or
+
+{hidden}or{hidden}
+または
+
 {code}
 grails.home=../grails-core
 {code}
 
-The other useful option allows you to disable the generation of the API documentation, since you only need to do it once:
+{hidden}The other useful option allows you to disable the generation of the API documentation, since you only need to do it once:{hidden}
+他には、毎回生成する必要がなければ、APIドキュメントの生成を無効化するという便利なオプションもあります:
+
 {code}
 ./gradlew -Ddisable.groovydocs=true docs
 {code}
 
-Again, this can save a significant amount of time and memory.
+{hidden}Again, this can save a significant amount of time and memory.{hidden}
+これでさらに、大幅に時間とメモリを削減できます。
 
-The main English user guide is generated in the @build/docs@ directory, with the @guide@ sub-directory containing the user guide part and the @ref@ folder containing the reference material. To view the user guide, simply open @build/docs/index.html@.
+{hidden}The main English user guide is generated in the @build/docs@ directory, with the @guide@ sub-directory containing the user guide part and the @ref@ folder containing the reference material. To view the user guide, simply open @build/docs/index.html@.{hidden}
+主となる英語のユーザーガイドは@build/docs@ディレクトリに作られます。
+@guide@サブディレクトリにはユーザーガイドが、@ref@フォルダにはリファレンスが入ります。
+ユーザーガイドを表示するためには、単に@build/docs/index.html@を開きます。
 
-h3. Publishing
+{hidden}h3. Publishing{hidden}
+h3. 出力する
 
-The publishing system for the user guide is the same as [the one for Grails projects|http://grails.org/doc/2.0.0.M1/guide/conf.html#docengine]. You write your chapters and sections in the gdoc wiki format which is then converted to HTML for the final guide. Each chapter is a top-level gdoc file in the @src/<lang>/guide@ directory. Sections and sub-sections then go into directories with the same name as the chapter gdoc but without the suffix.
+{hidden}The publishing system for the user guide is the same as [the one for Grails projects|http://grails.org/doc/2.0.0.M1/guide/conf.html#docengine]. You write your chapters and sections in the gdoc wiki format which is then converted to HTML for the final guide. Each chapter is a top-level gdoc file in the @src/<lang>/guide@ directory. Sections and sub-sections then go into directories with the same name as the chapter gdoc but without the suffix.{hidden}
+ユーザーガイドの出力システムは[Grailsプロジェクトのもの|http://grails.org/doc/2.0.0.M1/guide/conf.html#docengine]と同じです。
+章やセクションをgdoc wikiフォーマットで記述すれば、ガイドの最終版ではHTMLに変換されます。
+それぞれの章は@src/<lang>/guide@ディレクトリ直下のgdocファイルです。
+セクションやサブセクションは、各章のgdocファイル名からサフィックスを除いた名前のサブフォルダに格納します。
 
-The structure of the user guide is defined in the @src/<lang>/guide/toc.yml@ file, which is a YAML file. This file also defines the (language-specific) section titles. If you add or remove a gdoc file, you must update the TOC as well!
+{hidden}The structure of the user guide is defined in the @src/<lang>/guide/toc.yml@ file, which is a YAML file. This file also defines the (language-specific) section titles. If you add or remove a gdoc file, you must update the TOC as well!{hidden}
+ユーザーガイドの構造は、YAML形式の@src/<lang>/guide/toc.yml@ファイルで定義されています。
+このファイルは同時に各セクションの（各言語ごとの）タイトルも定義しています。
+gdocファイルを追加・削除した場合、このTOCファイルも合わせて更新する必要があります！
 
-The @src/<lang>/ref@ directory contains the source for the reference sidebar. Each directory is the name of a category, which also appears in the docs. Hence the directories need different names for the different languages. Inside the directories go the gdoc files, whose names match the names of the methods, commands, properties or whatever that the files describe.
+{hidden}The @src/<lang>/ref@ directory contains the source for the reference sidebar. Each directory is the name of a category, which also appears in the docs. Hence the directories need different names for the different languages. Inside the directories go the gdoc files, whose names match the names of the methods, commands, properties or whatever that the files describe.{hidden}
+@src/<lang>/ref@ディレクトリには「Quick Reference」というサイドバーのソースが格納されています。
+各ディレクトリ名はカテゴリ名になっていて、カテゴリ名は本文にも現れます。
+そのため、ディレクトリには言語ごとに違う名前が必要です。
+そのディレクトリ内にgdocファイルが格納されます。gdocファイルの名前はメソッド名・コマンド名・プロパティ名やそのファイルが説明している何かに一致します。
 
-h3. Translations
+{hidden}h3. Translations{hidden}
+h3. 翻訳
 
-This project can host multiple translations of the user guide, with @src/en@ being the main one. To add another one, simply create a new language directory under @src@ and copy into it all the files under @src/en@. The build will take care of the rest.
+{hidden}This project can host multiple translations of the user guide, with @src/en@ being the main one. To add another one, simply create a new language directory under @src@ and copy into it all the files under @src/en@. The build will take care of the rest.{hidden}
+このプロジェクトでは、@src/en@をオリジナルとして、さまざまな言語に翻訳されたユーザーガイドを提供しています。
+新しい言語の翻訳を追加するには、単に@src@ディレクトリに新しい言語のフォルダを作成し、@src/en@にあるすべてのファイルをコピーします。
+ビルドすることで必要な作業が行われます。
 
-Once you have a copy of the original guide, you can use the @\{hidden\}@ macro to wrap the English text that you have replaced, rather than remove it. This makes it easier to compare changes to the English guide against your translation. For example:
+{hidden}Once you have a copy of the original guide, you can use the @\{hidden\}@ macro to wrap the English text that you have replaced, rather than remove it. This makes it easier to compare changes to the English guide against your translation. For example:{hidden}
+オリジナルのガイドをコピーしたら、置き換えようとしている英語の原文は削除せず、@\{hidden\}@マクロで英語の原文を囲んでください。
+これにより容易に英語の原文と今回の翻訳の比較ができます。たとえば:
+
 {code}
 \{hidden\}
 When you create a Grails application with the [create-app|commandLine] command,
@@ -63,33 +109,60 @@ não cria automaticamente um ficheiro de construção Ant @build.xml@ mas podes 
 um com o comando [integrate-with|commandLine]:
 {code}
 
-Because the English text remains in your gdoc files, @diff@ will show differences on the English lines. You can then use the output of @diff@ to see which bits of your translation need updating. On top of that, the @\{hidden\}@ macro ensures that the text inside it is not displayed in the browser, although you can display it by adding this URL as a bookmark: @javascript:toggleHidden();@ (requires you to build the user guide with Grails 2.0 M2 or later).
+{hidden}Because the English text remains in your gdoc files, @diff@ will show differences on the English lines. You can then use the output of @diff@ to see which bits of your translation need updating. On top of that, the @\{hidden\}@ macro ensures that the text inside it is not displayed in the browser, although you can display it by adding this URL as a bookmark: @javascript:toggleHidden();@ (requires you to build the user guide with Grails 2.0 M2 or later).{hidden}
+英語の原文がgdocファイルに残っていることで、@diff@で英語の行についての変更を表示することができます。
+つまり、翻訳のどこをアップデートすればいいかを知るために@diff@の出力を使えるのです。
+ブラウザで見るとき、@\{hidden\}@に囲まれた部分は表示されません。
+ただし、ブックマークとして@javascript:toggleHidden();@を追加することで、@\{hidden\}@に囲まれた部分を表示できるようになります。
+（これにはGrails 2.0以降でユーザーガイドがビルドされている必要があります。）
 
-Even better, you can use the @left_to_do.groovy@ script in the root of the project to see what still needs translating. You run it like so:
+{hidden}Even better, you can use the @left_to_do.groovy@ script in the root of the project to see what still needs translating. You run it like so:{hidden}
+もっと便利に、@left_to_do.groovy@スクリプトをプロジェクトのルートで実行すれば、まだ翻訳が必要な箇所をしることができます。
+このように実行します:
+
 {code}
 ./left_to_do.groovy es
 {code}
 
-This will then print out a recursive diff of the given translation against the reference English user guide. Anything in @\{hidden\}@ blocks that hasn't changed since being translated will _not_ appear in the diff output. In other words, all you will see is content that hasn't been translated yet and content that has changed since it was translated. Note that @\{code\}@ blocks are ignored, so you _don't_ need to include them inside @\{hidden\}@ macros.
+{hidden}This will then print out a recursive diff of the given translation against the reference English user guide. Anything in @\{hidden\}@ blocks that hasn't changed since being translated will _not_ appear in the diff output. In other words, all you will see is content that hasn't been translated yet and content that has changed since it was translated. Note that @\{code\}@ blocks are ignored, so you _don't_ need to include them inside @\{hidden\}@ macros.{hidden}
+このコマンドは、オリジナルの英語のユーザーガイドと対象となる翻訳との差分を再帰的に実行し、結果を出力します。
+@\{hidden\}@ブロックに含まれていて、翻訳されたあと変更されていない部分は差分として出力されません。
+言い換えれば、翻訳されたあと原文が修正されたのに、まだ再翻訳されていない部分が表示されます。
+@\{code\}@ブロックは無視されるため、@\{code\}@ブロックを@\{hidden\}@で囲む必要は _ありません_。
 
-To provide translations for the headers, such as the user guide title and subtitle, just add language specific entries in the 'resources/doc.properties' file like so:
+{hidden}To provide translations for the headers, such as the user guide title and subtitle, just add language specific entries in the 'resources/doc.properties' file like so:{hidden}
+ユーザーガイドのタイトルやサブタイトルなど、ヘッダ部分の翻訳をするには、@resources/doc.properties@ファイルに、次のように各言語に固有のエントリを追加します:
+
 {code}
 es.title=El Grails Framework
 es.subtitle=...
 {code}
 
-For each language translation, properties beginning @<lang>@. will override the standard ones. In the above example, the user guide title will be El Grails Framework for the Spanish translation. Also, translators can be credited by adding a '<lang>.translators' property:
+{hidden}For each language translation, properties beginning @<lang>@. will override the standard ones. In the above example, the user guide title will be El Grails Framework for the Spanish translation. Also, translators can be credited by adding a '<lang>.translators' property:{hidden}
+それぞれの言語の翻訳において、@<lang>.@で始まるプロパティは標準のプロパティを上書きします。
+上記の例で言えば、スペイン語の翻訳ではユーザーガイドのタイトルが「El Grails Framework」となります。
+同様に、翻訳者も@<lang>.translators@プロパティを追加することでクレジットに名前を載せることができます:
+
 {code}
 fr.translators=Stéphane Maldini
 {code}
 
-This should be a comma-separated list of names (or the native language equivalent) and it will be displayed as a "Translated by" header in the user guide itself.
+{hidden}This should be a comma-separated list of names (or the native language equivalent) and it will be displayed as a "Translated by" header in the user guide itself.{hidden}
+このプロパティはカンマ区切りの名前のリストになり、ユーザーガイドに「Translated by」ヘッダとして表示されます。
 
-You can build specific translations very easily using the @publishGuide_\*@ and @publishPdf_\*@ tasks. For example, to build both the French HTML and PDF user guides, simply execute
+{hidden}You can build specific translations very easily using the @publishGuide_\*@ and @publishPdf_\*@ tasks. For example, to build both the French HTML and PDF user guides, simply execute{hidden}
+特定の言語の翻訳は、@publishGuide_\*@や@publishPdf_\*@を使えば簡単にビルドできます。
+たとえば、フランス語のHTMLとPDFのユーザーガイドをビルドするには、単純に以下を実行します:
+
 {code}
 ./gradlew publishPdf_fr
 {code}
 
-Each translation is generated in its own directory, so for example the French guide will end up in @build/docs/fr@. You can then view the translated guide by opening @build/docs/<lang>/index.html@.
+{hidden}Each translation is generated in its own directory, so for example the French guide will end up in @build/docs/fr@. You can then view the translated guide by opening @build/docs/<lang>/index.html@.{hidden}
+それぞれの翻訳は、言語別のディレクトリに作成されます。
+たとえば、フランス語のガイドは@build/docs/fr@に作られます。
+翻訳されたガイドは、@build/docs/<lang>/index.html@を開けば見られます。
 
-All translations are created as part of the [Hudson CI build for the grails-doc|http://hudson.grails.org/job/grails_docs_2.0.x/lastSuccessfulBuild/artifact/build/docs/] project, so you can easily see what the current state is without having to build the docs yourself.
+{hidden}All translations are created as part of the [Hudson CI build for the grails-doc|http://hudson.grails.org/job/grails_docs_2.0.x/lastSuccessfulBuild/artifact/build/docs/] project, so you can easily see what the current state is without having to build the docs yourself.{hidden}
+すべての翻訳結果は[grails-docのHudson CIビルド|http://hudson.grails.org/job/grails_docs_2.0.x/lastSuccessfulBuild/artifact/build/docs/]プロジェクトの一部として作成されています。
+そのため、現状の最新ドキュメントは自分でビルドしなくても見ることができます。
