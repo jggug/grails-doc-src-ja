@@ -1,58 +1,104 @@
-If you want to submit patches to the project, you simply need to fork the repository on GitHub rather than clone it directly. Then you will commit your changes to your fork and send a pull request for a core team member to review.
+{hidden}If you want to submit patches to the project, you simply need to fork the repository on GitHub rather than clone it directly. Then you will commit your changes to your fork and send a pull request for a core team member to review.{hidden}
+もしプロジェクトにパッチを送りたいなら、GitHubのリポジトリを直接クローンするのではなく、フォークする必要があります。
+それから変更を自分のフォークにコミットして、コアチームのメンバーがレビューできるようにプルリクエストを送ります。
 
-h3. Forking and Pull Requests
-One of the benefits of [GitHub|http://github.com] is the way that you can easily contribute to a project by [forking the repository|http://help.github.com/fork-a-repo/] and [sending pull requests|http://help.github.com/send-pull-requests/] with your changes.
+{hidden}h3. Forking and Pull Requests{hidden}
+h3. フォークとプルリクエスト
 
-What follows are some guidelines to help ensure that your pull requests are speedily dealt with and provide the information we need. They will also make your life easier!
+{hidden}One of the benefits of [GitHub|http://github.com] is the way that you can easily contribute to a project by [forking the repository|http://help.github.com/fork-a-repo/] and [sending pull requests|http://help.github.com/send-pull-requests/] with your changes.{hidden}
+[GitHub|http://github.com]を利用するメリットの1つはプロジェクトへの貢献が容易になることです。
+[リポジトリをフォークして|http://help.github.com/fork-a-repo/]、自分の加えた変更に対する[プルリクエストを送れば|http://help.github.com/send-pull-requests/]よいからです。
 
-h4. Create a local branch for your changes
+{hidden}What follows are some guidelines to help ensure that your pull requests are speedily dealt with and provide the information we need. They will also make your life easier!{hidden}
+以下に挙げるのはガイドラインであり、あなたのプルリクエストが素早く処理されるように手助けし、我々に必要な情報を提供してくれます。
+あなたの作業も楽になるでしょう！
 
-Your life will be greatly simplified if you create a local branch to make your changes on. For example, as soon as you fork a repository and clone the fork locally, execute
+{hidden}h4. Create a local branch for your changes{hidden}
+h4. 変更用ローカルブランチを作成する
+
+{hidden}Your life will be greatly simplified if you create a local branch to make your changes on. For example, as soon as you fork a repository and clone the fork locally, execute{hidden}
+変更を行っていくためのローカルブランチを作ることで、作業も大幅にシンプルになります。
+たとえば、リポジトリをフォークして、そのフォークをローカルにクローンしたら、以下を実行します:
+
 {code}
 git checkout -b mine
 {code}
 
-This will create a new local branch called "mine" based off the "master" branch. Of course, you can name the branch whatever you like - you don't have to use "mine".
+{hidden}This will create a new local branch called "mine" based off the "master" branch. Of course, you can name the branch whatever you like - you don't have to use "mine".{hidden}
+これで@master@ブランチから@mine@という名前の新しいローカルブランチが作られます。
+もちろん、ブランチの名前は好きなように付けてください。
+@mine@という名前を使う必要はありません。
 
-h4. Create JIRAs for non-trivial changes
+{hidden}h4. Create JIRAs for non-trivial changes{hidden}
+h4. 重要な変更についてはJIRAで課題を作成する
 
-For any non-trivial changes, raise a JIRA issue if one doesn't already exist. That helps us keep track of what changes go into each new version of Grails.
+{hidden}For any non-trivial changes, raise a JIRA issue if one doesn't already exist. That helps us keep track of what changes go into each new version of Grails.{hidden}
+重要な変更については、まだ存在していなければ、JIRAで新たに課題を作成してください。
+それにより、新しいバージョンのGrailsにどのような変更が入ったか追いかけやすくなるからです。
 
-h4. Include JIRA issue ID in commit messages
+{hidden}h4. Include JIRA issue ID in commit messages{hidden}
+h4. コミットログにJIRAの課題IDを含める
 
-This may not seem particularly important, but having a JIRA issue ID in a commit message means that we can find out at a later date why a change was made. Include the ID in any and all commits that relate to that issue. If a commit isn't related to an issue, then there's no need to include an issue ID.
+{hidden}This may not seem particularly important, but having a JIRA issue ID in a commit message means that we can find out at a later date why a change was made. Include the ID in any and all commits that relate to that issue. If a commit isn't related to an issue, then there's no need to include an issue ID.{hidden}
+これはあまり重要ではないと思われるかもしれません。
+しかし、JIRAの課題IDをコミットログに含めることで、後々その変更の理由が分かるようになります。
+関連するすべてのコミットで、課題IDを記録するようにしてください。
+もちろん、課題に関連がなければ、課題IDを含める必要はありません。
 
-h4. Make sure your fork is up to date
+{hidden}h4. Make sure your fork is up to date{hidden}
+h4. 自分のフォークが最新であることを確認する
 
-Since the core developers must merge your commits into the main repository, it makes life much easier if your fork on GitHub is up to date before you send a pull request.
+{hidden}Since the core developers must merge your commits into the main repository, it makes life much easier if your fork on GitHub is up to date before you send a pull request.{hidden}
+コア開発者があなたのコミットをメインリポジトリにマージしやすいように、プルリクエストを送る前に、GitHubの自分のフォークが最新になっているか確認してください。
 
-Let's say you have the main repository set up as a remote called "upstream" and you want to submit a pull request. Also, all your changes are currently on the local "mine" branch but not on "master". The first step involves pulling any changes from the main repository that have been added since you last fetched and merged:
+{hidden}Let's say you have the main repository set up as a remote called "upstream" and you want to submit a pull request. Also, all your changes are currently on the local "mine" branch but not on "master". The first step involves pulling any changes from the main repository that have been added since you last fetched and merged:{hidden}
+たとえば、@upstream@という名前でリモートに登録されたメインリポジトリがあり、そこに対してプルリクエストを送りたいとします。
+また、すべての変更は現在、@master@ブランチではなく、ローカルの@mine@ブランチにあるとします。
+まず最初に、前回フェッチしてマージした以降に追加されているすべての変更をメインリポジトリからプルする必要があります:
+
 {code}
 git checkout master
 git pull upstream
 {code}
 
-This should complete without any problems or conflicts. Next, rebase your local branch against the now up-to-date master:
+{hidden}This should complete without any problems or conflicts. Next, rebase your local branch against the now up-to-date master:{hidden}
+これは何の問題もコンフリクトもなく終了するでしょう。
+次に、今最新化した@master@に対して、ローカルブランチをリベースします:
+
 {code}
 git checkout mine
 git rebase master
 {code}
 
-What this does is rearrange the commits such that all of your changes come after the most recent one in master. Think adding some cards to the top of a deck rather than shuffling them into the pack.
+{hidden}What this does is rearrange the commits such that all of your changes come after the most recent one in master. Think adding some cards to the top of a deck rather than shuffling them into the pack.{hidden}
+このコマンドが行ったのはコミットの並び替えです。
+つまり、あなたのすべての変更は@master@上の最新の変更の後に並んでいます。
+いくつかのカードを、中に混ぜ込むのではなく、デッキの一番上に追加したイメージです。
 
-You'll now be able to do a clean merge from your local branch to master:
+{hidden}You'll now be able to do a clean merge from your local branch to master:{hidden}
+さてこれでローカルブランチへから@master@にきれいにマージすることができます:
+
 {code}
 git checkout master
 git merge mine
 {code}
 
-Finally, you must push your changes to your remote repository on GitHub, otherwise the core developers won't be able to pick them up:
+{hidden}Finally, you must push your changes to your remote repository on GitHub, otherwise the core developers won't be able to pick them up:{hidden}
+最後に今回の変更をGitHub上のあなたのリモートリポジトリにプッシュします。
+そうしないとコア開発者に見えないからです:
+
 {code}
 git push
 {code}
 
-You're now ready to send the pull request from the GitHub user interface.
+{hidden}You're now ready to send the pull request from the GitHub user interface.{hidden}
+これでGitHubのユーザインタフェースからプルリクエストを送る準備ができました。
 
-h4. Say what your pull request is for
+{hidden}h4. Say what your pull request is for{hidden}
+h4. プルリクエストの理由を伝える
 
-A pull request can contain any number of commits and it may be related to any number of issues. In the pull request message, please specify the IDs of all issues that the request relates to. Also give a brief description of the work you have done, such as: "I refactored the data binder and added support for custom number editors (GRAILS-xxxx)".
+{hidden}A pull request can contain any number of commits and it may be related to any number of issues. In the pull request message, please specify the IDs of all issues that the request relates to. Also give a brief description of the work you have done, such as: "I refactored the data binder and added support for custom number editors (GRAILS-xxxx)".{hidden}
+1つのプルリクエストには、複数のコミットを含めることができますし、また複数の課題に関連していても構いません。
+プルリクエストのメッセージには、関連するすべての課題IDを記述してください。
+また、今回の変更についての簡単な説明も記述してください。
+たとえば、「I refactored the data binder and added support for custom number editors (GRAILS-xxxx)」のようにです。
