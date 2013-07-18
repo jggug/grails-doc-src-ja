@@ -1,63 +1,105 @@
-If you're interested in contributing fixes and features to the core framework, you will have to learn how to get hold of the project's source, build it and test it with your own applications. Before you start, make sure you have:
+{hidden}If you're interested in contributing fixes and features to the core framework, you will have to learn how to get hold of the project's source, build it and test it with your own applications. Before you start, make sure you have:{hidden}
+もしバグフィックスやコアフレームワークへの機能追加に興味があるなら、プロジェクトのソースコードを手に入れ、ビルドし、それを自分で作ったアプリケーションでテストする方法を身につけることが必要です。
+まずはじめに、以下がインストールされていることを確認してください:
 
+{hidden}
 * A JDK (1.6 or above)
 * A git client
+{hidden}
+* JDK (1.6以降)
+* gitクライアント
 
-Once you have all the pre-requisite packages installed, the next step is to download the Grails source code, which is hosted at [GitHub|http://github.com] in several repositories owned by the ["grails" GitHub user|http://github.com/grails]. This is a simple case of cloning the repository you're interested in. For example, to getthe core framework run:
+{hidden}Once you have all the pre-requisite packages installed, the next step is to download the Grails source code, which is hosted at [GitHub|http://github.com] in several repositories owned by the ["grails" GitHub user|http://github.com/grails]. This is a simple case of cloning the repository you're interested in. For example, to getthe core framework run:{hidden}
+必要なパッケージをすべてインストールしたら、次にGrailsのソースコードをダウンロードします。
+ソースコードは、[GitHub|http://github.com]上の[grailsユーザーが所有するいくつかのリポジトリ|http://github.com/grails]にホストされています。
+これは欲しいリポジトリをクローンする簡単な例です。
+たとえば、コアフレームワークを取得するには、以下を実行します:
 
 {code}
 git clone http://github.com/grails/grails-core.git
 {code}
 
-This will create a "grails-core" directory in your current working directory containing all the project source files. The next step is to get a Grails installation from the source.
+{hidden}This will create a "grails-core" directory in your current working directory containing all the project source files. The next step is to get a Grails installation from the source.{hidden}
+これにより現在の作業ディレクトリに、プロジェクトのすべてのソースコードを含む「grails-core」ディレクトリが作成されます。
+次のステップでは、このソースからGrailsの一式を入手します。
 
-h3. Creating a Grails installation
+{hidden}h3. Creating a Grails installation{hidden}
+h3. Grails一式を作成する
 
-If you look at the project structure, you'll see that it doesn't look much like a standard @GRAILS_HOME@ installation. But, it's very simple to turn it into one. Just run this from the root directory of the project:
+{hidden}If you look at the project structure, you'll see that it doesn't look much like a standard @GRAILS_HOME@ installation. But, it's very simple to turn it into one. Just run this from the root directory of the project:{hidden}
+このプロジェクト構造をみると、標準の@GRAILS_HOME@とはあまり似ていないことに気づくでしょう。
+しかし、これを標準的なものに変換するのはとても簡単です。
+プロジェクトのルートディレクトリで以下のコマンドを実行します:
 
 {code}
 ./gradlew install
 {code}
 
-This will fetch all the standard dependencies required by Grails and then build a @GRAILS_HOME@ installation. Note that this target skips the extensive collection of Grails test classes, which can take some time to complete.
+{hidden}This will fetch all the standard dependencies required by Grails and then build a @GRAILS_HOME@ installation. Note that this target skips the extensive collection of Grails test classes, which can take some time to complete.{hidden}
+これによりGrailsが必要とする標準的な依存関係がすべて解決され、@GRAILS_HOME@の一式がビルドされます。
+このコマンドでは、完了に時間がかかるGrailsの大量のテストクラスはスキップされることに注意してください。
 
-Once the above command has finished, simply set the @GRAILS_HOME@ environment variable to the checkout directory and add the "bin" directory to your path. When you next type run the @grails@ command, you'll be using the version you just built.
+{hidden}Once the above command has finished, simply set the @GRAILS_HOME@ environment variable to the checkout directory and add the "bin" directory to your path. When you next type run the @grails@ command, you'll be using the version you just built.{hidden}
+上記のコマンドが完了したら、@GRAILS_HOME@環境変数を今回チェックアウトしたディレクトリにセットし、「bin」ディレクトリにパスを通してください。
+これで次に@grails@コマンドを実行したときには、自分でビルドしたバージョンが使われるようになります。
 
-h3. Running the test suite
+{hidden}h3. Running the test suite{hidden}
+h3. テストスイートを実行する
 
-All you have to do to run the full suite of tests is:
+{hidden}All you have to do to run the full suite of tests is:{hidden}
+すべてのテストスイートを実行するには、以下のコマンドを実行します:
 
 {code}
 ./gradlew test
 {code}
 
-These will take a while (15-30 mins), so consider running individual tests using the command line. For example, to run the test case @MappingDslTests@ simply execute the following command:
+{hidden}These will take a while (15-30 mins), so consider running individual tests using the command line. For example, to run the test case @MappingDslTests@ simply execute the following command:{hidden}
+すべてのテストを実行するにはかなりの時間（15-30分）がかかります。
+そのため、コマンドラインから個別にテストを指定して実行することを検討してください。
+たとえば、@MappingDslTests@というテストケースを実行するには、単純に以下のコマンドを実行します:
+
 {code}
 ./gradlew -Dtest.single=MappingDslTest :grails-test-suite-persistence:test
 {code}
 
-Note that you need to specify the sub-project that the test case resides in, because the top-level "test" target won't work....
+{hidden}Note that you need to specify the sub-project that the test case resides in, because the top-level "test" target won't work....{hidden}
+トップレベルの「test」ターゲットではうまく動かないため、対象のテストケースが存在するサブプロジェクトを指定する必要があることに注意してください。
 
-h3. Developing in IntelliJ IDEA
+{hidden}h3. Developing in IntelliJ IDEA{hidden}
+h3. IntelliJ IDEAで開発する
 
-You need to run the following gradle task:
+{hidden}You need to run the following gradle task:{hidden}
+次のGradleタスクを実行する必要があります:
+
 {code}
 ./gradlew idea
 {code}
 
-Then open the project file which is generated in IDEA. Simple!
+{hidden}Then open the project file which is generated in IDEA. Simple!{hidden}
+次に、生成したプロジェクトファイルをIDEAで開いてください。
+簡単ですね！
 
-h3. Developing in STS / Eclipse
+{hidden}h3. Developing in STS / Eclipse{hidden}
+h3. STS/Eclipseで開発する
 
-You need to run the following gradle task:
+{hidden}You need to run the following gradle task:{hidden}
+次のGradleタスクを実行する必要があります:
+
 {code}
 ./gradlew cleanEclipse eclipse
 {code}
 
-Before importing projects to STS do the following action:
-* Edit grails-scripts/.classpath and remove the line "<classpathentry kind="src" path="../scripts"/>".
+{hidden}Before importing projects to STS do the following action:{hidden}
+STSにプロジェクトをインポートする前に、以下の作業を実施してください:
 
-Use "Import->General->Existing Projects into Workspace" to import all projects to STS. There will be a few build errors. To fix them do the following:
+{hidden}* Edit grails-scripts/.classpath and remove the line "<classpathentry kind="src" path="../scripts"/>".{hidden}
+* @grails-scripts/.classpath@を編集して、@<classpathentry kind="src" path="../scripts"/>@の行を削除します。
+
+{hidden}Use "Import->General->Existing Projects into Workspace" to import all projects to STS. There will be a few build errors. To fix them do the following:{hidden}
+メニューの「Import -> General -> Existing Projects into Workspace」から、すべてのプロジェクトをSTSにインポートします。
+いくつかのビルドエラーが出ますが、エラーを解消するため以下の手順を実施してください:
+
+{hidden}
 * Add the springloaded-core JAR file in $GRAILS_HOME/lib/com.springsource.springloaded/springloaded-core/jars to grails-core's classpath.
 * Remove "src/test/groovy" from grails-plugin-testing's source path GRECLIPSE-1067
 * Add the jsp-api JAR file in $GRAILS_HOME/lib/javax.servlet.jsp/jsp-api/jars to the classpath of grails-web
@@ -65,20 +107,46 @@ Use "Import->General->Existing Projects into Workspace" to import all projects t
 * Do a clean build for the whole workspace.
 * To use Eclipse GIT scm team provider: Select all projects (except "Servers") in the navigation and right click -> Team -> Share project (not "Share projects"). Choose "Git". Then check "Use or create repository in parent folder of project" and click "Finish".
 * Get the recommended code style settings from the [mailing list thread|http://grails.1312388.n4.nabble.com/Grails-development-code-style-IDE-formatting-settings-tp3854216p3854216.html] (final style not decided yet, currently [profile.xml|http://grails.1312388.n4.nabble.com/attachment/3854262/0/profile.xml]). Import the code style xml file to STS in Window->Preferences->Java->Code Style->Formatter->Import . Grails code uses spaces instead of tabs for indenting.
+{hidden}
+* @$GRAILS_HOME/lib/com.springsource.springloaded/springloaded-core/jars@にあるspringloaded-coreのJARファイルをgrails-coreのクラスパスに追加します。
+* grails-plugin-testingのソースパスから@src/test/groovy@を削除します(GRECLIPSE-1067)。
+* @$GRAILS_HOME/lib/javax.servlet.jsp/jsp-api/jars@にあるjsp-apiのJARファイルをgrails-webのクラスパスに追加します。
+* grails-scriptsのソースパスを修正します。@../scripts@にリンクされたソースの「linked folder」を追加します。もしgrails-scriptsでビルドエラーが出るようなら、grails-scriptsディレクトリで@../gradlew cleanEclipse eclipse@を実行し、@.classpath@ファイルを再度編集します（@<classpathentry kind="src" path="../scripts"/>@という行を削除します）。「linked folder」を追加できない場合、grails-scriptsにある（おそらく空である）@scripts@ディレクトリを削除します。
+* ワークスペース全体に対しクリーンビルドを実行します。
+* 「Eclipse GIT scm team provider」を利用する場合は、ナビゲーションビューで「Servers」以外のすべてのプロジェクトを選択し、右クリックから「Team -> Share project」(複数形ではありませんが)を実行します。「Git」を選び、「Use or create repository in parent folder of project」にチェックを入れ、「Finish」をクリックします。
+* 推奨されるコードスタイルの設定は[メーリングリストのスレッド|http://grails.1312388.n4.nabble.com/Grails-development-code-style-IDE-formatting-settings-tp3854216p3854216.html]から入手してください。（最終的なスタイルはまだ確定されていません。現状版は[profile.xml|http://grails.1312388.n4.nabble.com/attachment/3854262/0/profile.xml]です。）メニューの「Window -> Preferences -> Java -> Code Style -> Formatter -> Import」から、コードスタイルのXMLファイルをSTSにインポートします。Grailsコードでは、インデントにはタブではなくスペースを使用します。
 
-h3. Debugging Grails or a Grails application
+{hidden}h3. Debugging Grails or a Grails application{hidden}
+h3. GrailsやGrailsアプリケーションをデバッグする
 
-To enable debugging, run:
+{hidden}To enable debugging, run:{hidden}
+デバッグモードを有効にするには、以下のように実行します:
+
 {code}
 grails -debug <command>
 {code}
 
-and then connect to the JVM remotely via the IDE ("remote debugging") using the port 5005. Of course, if you have modified the @startGrails@ script to use a different port number, connect using that one.
+{hidden}and then connect to the JVM remotely via the IDE ("remote debugging") using the port 5005. Of course, if you have modified the @startGrails@ script to use a different port number, connect using that one.{hidden}
+そして、IDEのリモートデバッグで、5005ポートを使ってそのJVMにリモート接続します。
+もちろん、 @startGrails@スクリプトを修正して別のポート番号を使うようにしていた場合、その番号を使ってください。
 
 {note}
+{hidden}
 In previous versions of Grails there was a @grails-debug@ command.  The command is still included in the distribution and is deprecated in favor of the @-debug@ switch to the standard @grails@ command.
+{hidden}
+以前のバージョンのGrailsには@grails-debug@コマンドがありました。
+このコマンドはまだディストリビューションに含まれていますが、将来は廃止予定です。
+標準の@grails@コマンドに対する@-debug@スイッチが推奨されています。
 {note}
 
-If you need to debug stuff that happens during application startup, then you should modify the "grails-debug" script and change the "suspend" option from 'n' to 'y'. You can read more about the JPDA connection settings TODO here: [http://java.sun.com/j2se/1.5.0/docs/guide/jpda/conninv.html#Invocation|http://java.sun.com/j2se/1.5.0/docs/guide/jpda/conninv.html#Invocation].
+{hidden}If you need to debug stuff that happens during application startup, then you should modify the "grails-debug" script and change the "suspend" option from 'n' to 'y'. You can read more about the JPDA connection settings TODO here: [http://java.sun.com/j2se/1.5.0/docs/guide/jpda/conninv.html#Invocation|http://java.sun.com/j2se/1.5.0/docs/guide/jpda/conninv.html#Invocation].{hidden}
+もしアプリケーション起動時に起こる事象をデバッグしたい場合は、@grails-debug@スクリプトを修正し、@suspend@オプションを@n@から@y@に変更します。
+なお、JPDA(Java Platform Debugger Architecture)の接続設定については、[http://java.sun.com/j2se/1.5.0/docs/guide/jpda/conninv.html#Invocation|http://java.sun.com/j2se/1.5.0/docs/guide/jpda/conninv.html#Invocation]でより詳細を知ることができます。
 
-It's also possible to get Eclipse to wait for incoming debugger connections and instead of using "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" you could use this "-Xrunjdwp:transport=dt_socket,server=n,address=8000" (which assumes the Eclipse default port for remote java applications) Inside eclipse you create a new "Remote Java Application" launch configuration and change the connection type to "Standard (Socket Listen)" and click debug. This allows you to start a debugger session in eclipse and just leave it running and you're free to debug anything without having to keep remembering to relaunch a "Socket Attach" launch configuration. You might find it handy to have 2 scripts, one called "grails-debug", and another called "grails-debug-attach"
+{hidden}It's also possible to get Eclipse to wait for incoming debugger connections and instead of using "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" you could use this "-Xrunjdwp:transport=dt_socket,server=n,address=8000" (which assumes the Eclipse default port for remote java applications) Inside eclipse you create a new "Remote Java Application" launch configuration and change the connection type to "Standard (Socket Listen)" and click debug. This allows you to start a debugger session in eclipse and just leave it running and you're free to debug anything without having to keep remembering to relaunch a "Socket Attach" launch configuration. You might find it handy to have 2 scripts, one called "grails-debug", and another called "grails-debug-attach"{hidden}
+また、Eclipseにデバッグ用の接続が来るのを待ち受けさせることもできます。
+その場合、@-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005@の代わりに、@-Xrunjdwp:transport=dt_socket,server=n,address=8000@が必要です。
+（これはEclipseのリモートJavaアプリケーションに対するデフォルトポートを想定しています。）
+Eclipseで新規に「Remote Java Application」を実行し、接続タイプを「Standard (Socket Listen)」として、「Debug」をクリックします。
+これにより、Eclipseでデバッグセッションを起動したままにできるので、「Socket Attach」の再実行を忘れないように気を遣わずとも、自由にデバッグできます。
+この場合、@grails-debug@と@grails-debug-attach@という2つのスクリプトが便利に使えます。
