@@ -71,18 +71,27 @@ grails compile
 左メニューにある個別のコマンドラインリファレンス情報も参照して下さい。
 {note}
 
-It's often useful to provide custom arguments to the JVM when running Grails commands, in particular with @run-app@ where you may for example want to set a higher maximum heap size. The Grails command will use any JVM options provided in the general @JAVA_OPTS@ environment variable, but you can also specify a Grails-specific environment variable too:
+{hidden}It's often useful to provide custom arguments to the JVM when running Grails commands, in particular with @run-app@ where you may for example want to set a higher maximum heap size. The Grails command will use any JVM options provided in the general @JAVA_OPTS@ environment variable, but you can also specify a Grails-specific environment variable too:{hidden}
+Grailsコマンドを実行する際に、JVMへ独自の引数を提供できると便利な場合があります。
+例えば、@run-app@をする際にヒープサイズにより大きな値を設定したいといった場合です。
+Grailsコマンドは一般的な@JAVA_OPTS@の環境変数内で提供されているJVMオプションを使用しますが、Grails固有の環境変数を指定することもできます:
 
 {code}
 export GRAILS_OPTS="-Xmx1G -Xms256m -XX:MaxPermSize=256m"
 grails run-app
 {code}
 
-h4. non-interactive mode
+{hidden}h4. non-interactive mode{hidden}
+h4. 非インタラクティブモード
 
-When you run a script manually and it prompts you for information, you can answer the questions and continue running the script. But when you run a script as part of an automated process, for example a continuous integration build server, there's no way to "answer" the questions. So you can pass the @\-\-non-interactive@ switch to the script command to tell Grails to accept the default answer for any questions, for example whether to install a missing plugin.
+{hidden}When you run a script manually and it prompts you for information, you can answer the questions and continue running the script. But when you run a script as part of an automated process, for example a continuous integration build server, there's no way to "answer" the questions. So you can pass the @\-\-non-interactive@ switch to the script command to tell Grails to accept the default answer for any questions, for example whether to install a missing plugin.{hidden}
+手動でスクリプト実行する際にユーザ入力を求める場合があります。
+そのような場合は質問に応答することでスクリプトの実行が継続されます。
+しかし、継続的インテグレーションのビルドサーバといったように、自動化されたプロセスとしてスクリプトを実行する場合は質問に応答する方法がありません。
+例えば、未インストールのプラグインをインストールするかどうかといったような質問に対し、デフォルトの値で応答するようGrailsに伝えるには、そのスクリプトコマンドへ@\-\-non-interactive@を渡します。
 
-For example:
+{hidden}For example:{hidden}
+例えば:
 
 {code}
 grails war --non-interactive
