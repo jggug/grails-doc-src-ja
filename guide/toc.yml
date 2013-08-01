@@ -15,7 +15,7 @@ gettingStarted:
   requirements: インストール必要条件
   downloadingAndInstalling: ダウンロードとインストール
   creatingAnApplication: アプリケーション作成
-  aHelloWorldExample: ハローワールド例
+  aHelloWorldExample: Hello Worldの例
   usingInteractiveMode: インタラクティブモードの利用
   ide: IDEの設定
   conventionOverConfiguration: Convention over Configuration 設定より規約
