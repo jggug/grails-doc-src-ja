@@ -1,8 +1,21 @@
+{hidden}
 [Domain classes|guide:domainClasses] and [command objects|guide:commandObjects] support validation by default.  Other classes may be made validateable by defining the static @constraints@ property in the class (as described above) and then telling the framework about them.  It is important that the application register the validateable classes with the framework.  Simply defining the @constraints@ property is not sufficient.
+{hidden}
+[ドメインクラス|guide:domainClasses]と[コマンドオブジェクト|guide:commandObjects]はデフォルトでバリデーションをサポートしています。
+他のクラスについては、(前述したように)そのクラス内で静的な@constraints@プロパティを定義し、それからフレームワークにこのクラスを教えてあげることで、バリデーション可能にすることができます。
+アプリケーション側からバリデーション可能なクラスをフレームワークに登録するということが重要です。
+単に@constraints@プロパティを定義しただけでは十分ではありません。
 
+{hidden}
 h4. The Validateable Annotation
+{hidden}
+h4. Validateableアノテーション
 
+{hidden}
 Classes which define the static @constraints@ property and are annotated with @Validateable can be made validateable by the framework. Consider this example:
+{hidden}
+クラスに静的な@constraints@プロパティを定義し、@\@Validateable@を付与することでフレームワークによってバリデーション可能となります。
+例えば:
 
 {code:java}
 // src/groovy/com/mycompany/myapp/User.groovy
@@ -23,9 +36,16 @@ class User {
 }
 {code}
 
+{hidden}
 h4. Registering Validateable Classes
+{hidden}
+h4. バリデーション可能なクラスの登録
 
+{hidden}
 If a class is not marked with @Validateable, it may still be made validateable by the framework. The steps required to do this are to define the static @constraints@ property in the class (as described above) and then telling the framework about the class by assigning a value to the @grails.validateable.classes@ property in @Config.groovy@:
+{hidden}
+クラスに@\@Validateable@が付与されていなくても、フレームワークによってバリデーション可能になっている場合があります。
+アノテーションなしでバリデーション可能にするには、(前述したように)そのクラス内で静的な@constraints@プロパティを定義し、それから@Config.groovy@内の@grails.validateable.classes@プロパティに値を設定してフレームワークにこのクラスを教えてあげる必要があります:
 
 {code:java}
 grails.validateable.classes = [com.mycompany.myapp.User, com.mycompany.dto.Account]
