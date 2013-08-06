@@ -1,12 +1,24 @@
+{hidden}
 h4. Displaying Errors
+{hidden}
+h4. エラーを表示する
 
+{hidden}
 Typically if you get a validation error you redirect back to the view for rendering. Once there you need some way of displaying errors. Grails supports a rich set of tags for dealing with errors. To render the errors as a list you can use [renderErrors|tags]:
+{hidden}
+一般的にバリデーションエラーが発生した場合は、レンダリングをするために元のビューへリダイレクトします。
+このとき、何らかのエラー表示の手段が必要になります。
+Grailsではエラーを扱うためのリッチなタグセットを提供しています。
+エラーを一覧表示するには[renderErrors|tags]を使います:
 
 {code:xml}
 <g:renderErrors bean="${user}" />
 {code}
 
+{hidden}
 If you need more control you can use [hasErrors|tags] and [eachError|tags]:
+{hidden}
+もし、より詳細な制御が必要な場合は[hasErrors|tags]と[eachError|tags]を使います:
 
 {code:xml}
 <g:hasErrors bean="${user}">
@@ -18,9 +30,17 @@ If you need more control you can use [hasErrors|tags] and [eachError|tags]:
 </g:hasErrors>
 {code}
 
+{hidden}
 h4. Highlighting Errors
+{hidden}
+h4. エラーをハイライトする
 
+{hidden}
 It is often useful to highlight using a red box or some indicator when a field has been incorrectly input. This can also be done with the [hasErrors|tags] by invoking it as a method. For example:
+{hidden}
+多くの場合、フィールドが不正入力されたとき、ボックスを赤くしたり、何らかの印を使ってハイライトをすると便利です。
+これも[hasErrors|tags]をメソッドとして実行することで実現できます。
+例えば:
 
 {code:xml}
 <div class='value ${hasErrors(bean:user,field:'login','errors')}'>
@@ -28,14 +48,27 @@ It is often useful to highlight using a red box or some indicator when a field h
 </div>
 {code}
 
+{hidden}
 This code checks if the @login@ field of the @user@ bean has any errors and if so it adds an @errors@ CSS class to the @div@, allowing you to use CSS rules to highlight the @div@.
+{hidden}
+このコードは@user@ビーンの@login@フィールドにエラーがあるかどうかをチェックし、エラーがある場合には@div@に@erros@というCSSのクラスを追加するので、@dev@をハイライトするCSSルールが使えるようになります。
 
+{hidden}
 h4. Retrieving Input Values
+{hidden}
+h4. 入力値を取得する
 
+{hidden}
 Each error is actually an instance of the [FieldError|api:org.springframework.validation.FieldError] class in Spring, which retains the original input value within it. This is useful as you can use the error object to restore the value input by the user using the [fieldValue|tags] tag:
+{hidden}
+それぞれのエラーは実際にはSpringの[FieldError|api:org.springframework.validation.FieldError]クラスのインスタンスで、インスタンス内にオリジナルの入力値を保持しています。
+これは[fieldValue|tags]タグを使いエラーオブジェクトから入力値を復元するときに役立ちます:
 
 {code:xml}
 <input type="text" name="login" value="${fieldValue(bean:user,field:'login')}"/>
 {code}
 
+{hidden}
 This code will check for an existing @FieldError@ in the @User@ bean and if there is obtain the originally input value for the @login@ field.
+{hidden}
+このコードは@User@ビーン内に@FieldError@が存在するかチェックし、もし存在する場合は@login@フィールドに対する元の入力値を取得します。

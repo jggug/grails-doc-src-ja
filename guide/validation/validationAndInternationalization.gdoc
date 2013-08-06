@@ -1,8 +1,19 @@
+{hidden}
 Another important thing to note about errors in Grails is that error messages are not hard coded anywhere. The [FieldError|api:org.springframework.validation.FieldError] class in Spring resolves messages from message bundles using Grails' [i18n|guide:i18n] support.
+{hidden}
+このほかに、Grailsのエラーに関して重要なことは、エラーメッセージがどこにもハードコードされていないということです。
+Springの[FieldError|api:org.springframework.validation.FieldError]クラスは、Grailsの[i18n|guide:i18n]サポートを使いメッセージバンドルからメッセージを解決します。
 
+{hidden}
 h4. Constraints and Message Codes
+{hidden}
+h4. 制約とメッセージコード
 
+{hidden}
 The codes themselves are dictated by a convention. For example consider the constraints we looked at earlier:
+{hidden}
+このコード自体は規約によって決められています。
+例えば、以下のような制約について考えてみます:
 
 {code:java}
 package com.mycompany.myapp
@@ -19,25 +30,46 @@ class User {
 }
 {code}
 
+{hidden}
 If a constraint is violated Grails will by convention look for a message code of the form:
+{hidden}
+もし制約に違反している場合、Grailsは規約により以下の形式に従いメッセージコードを探します:
 
 {code:java}
 [Class Name].[Property Name].[Constraint Code]
 {code}
 
+{hidden}
 In the case of the @blank@ constraint this would be @user.login.blank@ so you would need a message such as the following in your @grails-app/i18n/messages.properties@ file:
+{hidden}
+@blank@制約の場合は@user.login.blank@となり、@grails-app/i18n/messages.properties@ファイル内に以下のようなメッセージが必要です:
 
 {code:java}
 user.login.blank=Your login name must be specified!
 {code}
 
+{hidden}
 The class name is looked for both with and without a package, with the packaged version taking precedence. So for example, com.mycompany.myapp.User.login.blank will be used before user.login.blank. This allows for cases where your domain class message codes clash with a plugin's.
+{hidden}
+このクラス名はパッケージ名有りとパッケージ名無しの両方で検索され、両方存在する場合はパッケージ名有りのバージョンが優先されます。
+例えば、@com.mycompany.myapp.User.login.blank@は@user.login.blank@よりも先に使われます。
+これによりドメインクラスのメッセージコードがプラグインと競合した場合でも競合を回避できます。
 
+{hidden}
 For a reference on what codes are for which constraints refer to the reference guide for each constraint.
+{hidden}
+どの制約にどんなコードが対応しているかを調べるには、それぞれの制約に対するリファレンスガイドを参照してください。
 
+{hidden}
 h4. Displaying Messages
+{hidden}
+h4. メッセージを表示する
 
+{hidden}
 The [renderErrors|tags] tag will automatically look up messages for you using the [message|tags] tag. If you need more control of rendering you can handle this yourself:
+{hidden}
+[renderErrors|tags]タグは[message|tags]タグを使って自動的にメッセージを探します。
+もし、より詳細な表示の制御が必要な場合は自分で制御できます:
 
 {code:xml}
 <g:hasErrors bean="${user}">
@@ -49,5 +81,8 @@ The [renderErrors|tags] tag will automatically look up messages for you using th
 </g:hasErrors>
 {code}
 
+{hidden}
 In this example within the body of the [eachError|tags] tag we use the [message|tags] tag in combination with its @error@ argument to read the message for the given error.
+{hidden}
+この例では[eachError|tags]タグのボディの中で、エラーに対するメッセージを取得するため[message|tags]タグに@error@引数を組み合わせて使用しています。
 
