@@ -1,9 +1,20 @@
+{hidden}
 Detached Criteria are criteria queries that are not associated with any given database session/connection. Supported since Grails 2.0, Detached Criteria queries have many uses including allowing you to create common reusable criteria queries, execute subqueries and execute batch updates/deletes.
+{hidden}
+Detachedクライテリアは特定のデータベースのセッションやコネクションと結びつかないクライテリアクエリです。
+このDetachedクライテリアクエリはGrails 2.0からサポートされており、再利用可能な共通のクライテリアクエリの作成や、サブクエリの実行、一括更新や一括削除といったさまざまな用途があります。
 
 
+{hidden}
 h4. Building Detached Criteria Queries
+{hidden}
+h4. Detachedクライテリアクエリを構築する
 
+{hidden}
 The primary point of entry for using the Detached Criteria is the @grails.gorm.DetachedCriteria@ class which accepts a domain class as the only argument to its constructor:
+{hidden}
+Detachedクライテリアを使用するための最初の入り口は、@grails.gorm.DetachedCriteria@クラスです。
+このクラスはコンストラクタの引数としてドメインクラスを受け取ります:
 
 {code}
 import grails.gorm.*
@@ -11,7 +22,11 @@ import grails.gorm.*
 def criteria = new DetachedCriteria(Person)
 {code}
 
+{hidden}
 Once you have obtained a reference to a detached criteria instance you can execute [where|guide:whereQueries] queries or criteria queries to build up the appropriate query. To build a normal criteria query you can use the @build@ method:
+{hidden}
+このようにDetachedクライテリアインスタンスへの参照を得ると、必要なクエリを構築するために[where|guide:whereQueries]クエリ、またはクライテリアクエリを実行できます。
+通常のクライテリアクエリを構築するには@build@メソッドを使います:
 
 {code}
 def criteria = new DetachedCriteria(Person).build {
@@ -19,7 +34,11 @@ def criteria = new DetachedCriteria(Person).build {
 }
 {code}
 
+{hidden}
 Note that methods on the @DetachedCriteria@ instance *do not* mutate the original object but instead return a new query. In other words, you have to use the return value of the @build@ method to obtain the mutated criteria object:
+{hidden}
+@DetachedCriteria@インスタンス上のメソッドは、このオブジェクト自身を変更 *しない* ことに注意してください。代わりに新たなクエリを返します。
+言い換えると変更されたクライテリアオブジェクトを取得するには@build@メソッドの戻り値を使用する必要があります:
 
 {code}
 def criteria = new DetachedCriteria(Person).build {
@@ -30,10 +49,18 @@ def bartQuery = criteria.build {
 }
 {code}
 
+{hidden}
 h4. Executing Detached Criteria Queries
+{hidden}
+h4. Detachedクライテリアクエリの実行する
 
+{hidden}
 Unlike regular criteria, Detached Criteria are lazy, in that no query is executed at the point of definition. Once a Detached Criteria query has been constructed then there are a number of useful query methods which are summarized in the table below:
+{hidden}
+通常のクライテリアと異なり、Detachedクライテリアは定義しただけではクエリが実行されません。
+Detachedクライテリアを構築したあとは、以下の表にあるような便利なクエリメソッドを使います:
 
+{hidden}
 {table}
 Method | Description
 *list* | List all matching entities
@@ -43,8 +70,21 @@ Method | Description
 *deleteAll* | Delete all matching records
 *updateAll(Map)* | Update all matching records with the given properties
 {table}
+{hidden}
+{table}
+メソッド | 説明
+*list* | 条件に一致するすべてのエンティティのリストを返す
+*get* | 条件に一致する単一の結果を返す
+*count* | 条件に一致するすべての行数を返す
+*exists* | もし条件に一致する行があれば@true@を返す
+*deleteAll* | 条件に一致するすべての列を削除する
+*updateAll(Map)* |  条件に一致するすべての列を与えられたプロパティ値で更新する
+{table}
 
+{hidden}
 As an example the following code will list the first 4 matching records sorted by the @firstName@ property:
+{hidden}
+例えば以下のコードは、@firstName@でソートされた行から条件に一致する最初の4件のリストになります:
 
 {code}
 def criteria = new DetachedCriteria(Person).build {
@@ -53,7 +93,10 @@ def criteria = new DetachedCriteria(Person).build {
 def results = criteria.list(max:4, sort:"firstName")
 {code}
 
+{hidden}
 You can also supply additional criteria to the list method:
+{hidden}
+@list@メソッドへ追加のクライテリアを渡すこともできます:
 
 {code}
 def results = criteria.list(max:4, sort:"firstName") {
@@ -61,13 +104,19 @@ def results = criteria.list(max:4, sort:"firstName") {
 }
 {code}
 
+{hidden}
 To retrieve a single result you can use the @get@ or @find@ methods (which are synonyms):
+{hidden}
+単一の結果を得るには、@get@メソッドまたは@find@メソッド(どちらでも同じ)を使います:
 
 {code}
 Person p = criteria.find() // or criteria.get()
 {code}
 
+{hidden}
 The @DetachedCriteria@ class itself also implements the @Iterable@ interface which means that it can be treated like a list:
+{hidden}
+また、@DetachedCriteria@クラス自身が@Iterable@インタフェースを実装しているため、リストのように扱うこともできます:
 
 {code}
 def criteria = new DetachedCriteria(Person).build {
@@ -78,9 +127,16 @@ criteria.each {
 }
 {code}
 
+{hidden}
 In this case the query is only executed when the @each@ method is called. The same applies to all other Groovy collection iteration methods.
+{hidden}
+この場合、クエリは@each@メソッドが呼ばれたときにだけ1度実行されます。
+これは、Groovyがコレクションで提供している他のイテレーションメソッドでも同じです。
 
+{hidden}
 You can also execute dynamic finders on @DetachedCriteria@ just like on domain classes. For example:
+{hidden}
+さらに、ドメインクラス上のように@DetachedCriteria@上でダイナミックファインダを実行することもできます:
 
 {code}
 def criteria = new DetachedCriteria(Person).build {
@@ -89,9 +145,16 @@ def criteria = new DetachedCriteria(Person).build {
 def bart = criteria.findByFirstName("Bart")
 {code}
 
+{hidden}
 h4. Using Detached Criteria for Subqueries
+{hidden}
+h4. サブクエリにDetachedクライテリアを使う
 
+{hidden}
 Within the context of a regular criteria query you can use @DetachedCriteria@ to execute subquery. For example if you want to find all people who are older than the average age the following query will accomplish that:
+{hidden}
+通常のクライテリアのなかで、サブクエリを実行するために@DetachedCriteria@が使えます。
+例えば、平均年齢以上のすべての人を検索したい場合は、以下のようにします:
 
 {code}
 def results = Person.withCriteria {
@@ -104,7 +167,11 @@ def results = Person.withCriteria {
  }
 {code}
 
+{hidden}
 Notice that in this case the subquery class is the same as the original criteria query class (ie. @Person@) and hence the query can be shortened to:
+{hidden}
+この場合、サブクエリのクラスは、オリジナルのクライテリアのクラス(ここでは@Person)と同じという点に注目してください。
+そのため、このクエリは以下のように短く記述できます:
 
 {code}
 def results = Person.withCriteria {
@@ -117,9 +184,17 @@ def results = Person.withCriteria {
  }
 {code}
 
+{hidden}
 If the subquery class differs from the original criteria query then you will have to use the original syntax. 
+{hidden}
+もし、このサブクエリのクラスがオリジナルのクライテリアと異なる場合は最初の書き方をする必要があります。
 
+{hidden}
 In the previous example the projection ensured that only a single result was returned (the average age). If your subquery returns multiple results then there are different criteria methods that need to be used to compare the result. For example to find all the people older than the ages 18 to 65 a @gtAll@ query can be used:
+{hidden}
+上記の例では、プロジェクションは単一結果のみ(平均年令)が返ることを保証しています。
+もしサブクエリが複数の結果を返す場合は、複数の結果を比較するためのクライテリアのメソッドがあります。
+例えば年齢が18歳から65歳よりも上のすべての人を検索するには、@getAll@クエリを使います:
 
 {code}
 def results = Person.withCriteria {
@@ -134,8 +209,12 @@ def results = Person.withCriteria {
 }
 {code}
 
+{hidden}
 The following table summarizes criteria methods for operating on subqueries that return multiple results:
+{hidden}
+以下の表は複数結果を返すサブクエリを操作するクライテリアのメソッドをまとめています:
 
+{hidden}
 {table}
 Method | Description
 *gtAll* | greater than all subquery results
@@ -145,10 +224,27 @@ Method | Description
 *eqAll* | equal to all subquery results
 *neAll* | not equal to all subquery results
 {table}
+{hidden}
+{table}
+Method | Description
+*gtAll* | サブクエリの結果すべてより大きい
+*geAll* | サブクエリの結果すべてより大きい、または等しい
+*ltAll* | サブクエリの結果すべてより小さい
+*leAll* | サブクエリの結果すべてより大きい、または等しい
+*eqAll* | サブクエリの結果すべてと等しい
+*neAll* | サブクエリの結果すべてと等しくない
+{table}
 
+{hidden}
 h4. Batch Operations with Detached Criteria
+{hidden}
+h4. Detachedクライテリアによるバッチ処理
 
+{hidden}
 The @DetachedCriteria@ class can be used to execute batch operations such as batch updates and deletes. For example, the following query will update all people with the surname "Simpson" to have the surname "Bloggs":
+{hidden}
+@DetachedCriteria@クラスは一括更新・一括削除といったバッチ処理の実行に使えます。
+例えば、以下のクエリは姓が@Simpson@のすべての人の姓を@Bloggs@に更新します:
 
 {code}
 def criteria = new DetachedCriteria(Person).build {
@@ -157,11 +253,19 @@ def criteria = new DetachedCriteria(Person).build {
 int total = criteria.updateAll(lastName:"Bloggs")
 {code}
 
+{hidden}
 {note}
 Note that one limitation with regards to batch operations is that join queries (queries that query associations) are not allowed within the @DetachedCriteria@ instance. 
 {note}
+{hidden}
+{note}
+バッチ処理の1つの制限として、結合クエリ(関連のクエリ)は@DetachedCriteria@インスタンスで使用できないことに注意してください。
+{note}
 
+{hidden}
 To batch delete records you can use the @deleteAll@ method:
+{hidden}
+行の一括削除には@deleteAll@メソッドを使います:
 
 {code}
 def criteria = new DetachedCriteria(Person).build {
