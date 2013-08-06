@@ -174,15 +174,34 @@ For more information on what you can do with this @Logger@ instance, refer to th
 
 Those are the basics of logging pretty well covered and they are sufficient if you're happy to only send log messages to the console. But what if you want to send them to a file? How do you make sure that messages from a particular logger go to a file but not the console? These questions and more will be answered as we look into appenders.
 
+{hidden}
 h3. Appenders
+{hidden}
+h3. アペンダー
 
+{hidden}
 Loggers are a useful mechanism for filtering messages, but they don't physically write the messages anywhere. That's the job of the appender, of which there are various types. For example, there is the default one that writes messages to the console, another that writes them to a file, and several others. You can even create your own appender implementations\!
+{hidden}
+ロガーはメッセージをフィルタリングするために役立つ仕組みです。
+しかし、どこにもメッセージを物理的に出力できません。
+それはアペンダーの役割であり、アペンダーには様々な種類があります。
+例えば、デフォルトではメッセージをコンソールに出力しますが、他にはファイルに出力したり、色々あります。
+自分でアペンダーを実装することすらできます！
 
+{hidden}
 This diagram shows how they fit into the logging pipeline:
+{hidden}
+この図はアペンダーをどのようにロギングの経路に差し込むかを示しています:
 
 !logging.png!
 
+{hidden}
 As you can see, a single logger may have several appenders attached to it. In a standard Grails configuration, the console appender named 'stdout' is attached to all loggers through the default root logger configuration. But that's the only one. Adding more appenders can be done within an 'appenders' block:
+{hidden}
+見ての通り、1つのロガーに色々なアペンダーが繋がっています。
+Grailsの標準の設定では、「stdout」という名前のコンソールアペンダーが、ルートロガーの設定を通じて全てのロガーに繋がっています。
+しかし、それだけです。
+「appenders」ブロックで、さらにアペンダーを追加することができます:
 
 {code:java}
 log4j = {
@@ -194,8 +213,12 @@ log4j = {
 }
 {code}
 
+{hidden}
 The following appenders are available by default:
+{hidden}
+次のアペンダーはデフォルトで利用できます:
 
+{hidden}
 {table}
  *Name* | *Class* | *Description*
  jdbc | [JDBCAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/jdbc/JDBCAppender.html] | Logs to a JDBC connection.
@@ -203,12 +226,33 @@ The following appenders are available by default:
  file | [FileAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/FileAppender.html] | Logs to a single file.
  rollingFile | [RollingFileAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/RollingFileAppender.html] | Logs to rolling files, for example a new file each day.
 {table}
+{hidden}
+{table}
+ *名前* | *クラス* | *説明*
+ jdbc | [JDBCAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/jdbc/JDBCAppender.html] | JDBC接続に記録します。
+ console | [ConsoleAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/ConsoleAppender.html] | コンソールに記録します。
+ file | [FileAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/FileAppender.html] | 単一ファイルに記録します。
+ rollingFile | [RollingFileAppender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/RollingFileAppender.html] | ローテーションするファイルに記録します。例えば日次で新しいファイルにします。
+{table}
 
+{hidden}
 Each named argument passed to an appender maps to a property of the underlying [Appender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Appender.html] implementation. So the previous example sets the @name@, @maxFileSize@ and @file@ properties of the @RollingFileAppender@ instance.
+{hidden}
+アペンダーに渡されるそれぞれの名前付き引数は、[Appender|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Appender.html]実装の下にあるプロパティに対応しています。
+つまり、前の例は@RollingFileAppender@のインスタンスの@name@と@maxFileSize@、@file@プロパティを設定しています。
 
+{hidden}
 You can have as many appenders as you like - just make sure that they all have unique names. You can even have multiple instances of the same appender type, for example several file appenders that log to different files.
+{hidden}
+好きなだけ多くのアペンダーを持つことができます。
+ただし、アペンダーはすべて一意の名前になるようにしてください。
+同じアペンダータイプの複数のインスタンスを持つことさえできます。
+例えば、ファイルアペンダーを分けることにより、異なるファイルに出力します。
 
+{hidden}
 If you prefer to create the appender programmatically or if you want to use an appender implementation that's not available in the above syntax, simply declare an @appender@ entry with an instance of the appender you want:
+{hidden}
+プログラムでアペンダーを作成することを選択するか、上記の構文では利用できないアペンダーの実装を使いたい場合、欲しいアペンダーのインスタンスを@appender@エントリに単純に宣言します。
 
 {code:java}
 import org.apache.log4j.*
@@ -223,15 +267,25 @@ log4j = {
 }
 {code}
 
+{hidden}
 This approach can be used to configure @JMSAppender@, @SocketAppender@, @SMTPAppender@, and more.
+{hidden}
+このアプローチは@JMSAppender@、@SocketAppender@、@SMTPAppender@などを設定するために使われます。
 
+{hidden}
 Once you have declared your extra appenders, you can attach them to specific loggers by passing the name as a key to one of the log level methods from the previous section:
+{hidden}
+特別なアペンダーを宣言した上で、前のセクションで紹介したログレベルのメソッドの1つに、キーとして名前を渡すことによって、それらを特定のロガーに付け加えられます:
 
 {code:java}
 error myAppender: "grails.app.controllers.BookController"
 {code}
 
+{hidden}
 This will ensure that the 'grails.app.controllers.BookController' logger sends log messages to 'myAppender' as well as any appenders configured for the root logger. To add more than one appender to the logger, then add them to the same level declaration:
+{hidden}
+これは「grails.app.controllers.BookController」のロガーが、ルートロガーによって設定されたアペンダーのように「myAppender」にログメッセージを送るようにします。
+1つ以上のアペンダーをロガーに追加するには、同じレベルの宣言に追加します:
 
 {code:java}
 error myAppender:      "grails.app.controllers.BookController",
@@ -240,9 +294,15 @@ error myAppender:      "grails.app.controllers.BookController",
       rollingFile:     "grails.app.controllers.BookController"
 {code}
 
+{hidden}
 The above example also shows how you can configure more than one logger at a time for a given appender (@myFileAppender@) by using a list.
+{hidden}
+上の例は、リストを使うことによって与えられたアペンダー(@myFileAppender)に対して、1つ以上のロガーを同時に設定する方法も示しています。
 
+{hidden}
 Be aware that you can only configure a single level for a logger, so if you tried this code:
+{hidden}
+このコードで試すように、ロガーには1つのレベルしか設定できないことに注意してください:
 
 {code:java}
 error myAppender:      "grails.app.controllers.BookController"
@@ -250,9 +310,19 @@ debug myFileAppender:  "grails.app.controllers.BookController"
 fatal rollingFile:     "grails.app.controllers.BookController"
 {code}
 
+{hidden}
 you'd find that only 'fatal' level messages get logged for 'grails.app.controllers.BookController'. That's because the last level declared for a given logger wins. What you probably want to do is limit what level of messages an appender writes.
+{hidden}
+「grails.app.controllers.BookController」のために「fatal」レベルのメッセージだけを記録するというのがわかるでしょう。
+それはロガーに与えるために宣言した最後のレベルが勝つためです。
+おそらく行いたいことは、アペンダーが書き込むメッセージのレベルを制限することです。
 
+{hidden}
 An appender that is attached to a logger configured with the 'all' level will generate a lot of logging information. That may be fine in a file, but it makes working at the console difficult. So we configure the console appender to only write out messages at 'info' level or above:
+{hidden}
+「all」レベルで設定されたロガーが繋がれたアペンダーは多くのロギング情報を生成するでしょう。
+それはファイルに生成してもよいですが、コンソールでの作業が難しくなります。
+そのため、「info」レベル以上のメッセージだけ出力するようにコンソールアペンダーを設定します:
 
 {code:java}
 log4j = {
@@ -262,18 +332,39 @@ log4j = {
 }
 {code}
 
+{hidden}
 The key here is the @threshold@ argument which determines the cut-off for log messages. This argument is available for all appenders, but do note that you currently have to specify a @Level@ instance - a string such as "info" will not work.
+{hidden}
+ここでのポイントは@threshold@引数でログメッセージを遮断するか決めることです。
+この引数は全てのアペンダーで利用可能ですが、@Level@インスタンスを指定する必要があることに注意してください。
+『info』のような文字列では動作しません。
 
+{hidden}
 h3. Custom Layouts
+{hidden}
+h3. カスタムレイアウト
 
+{hidden}
 By default the Log4j DSL assumes that you want to use a [PatternLayout|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html]. However, there are other layouts available including:
+{hidden}
+デフォルトでLog4jのDSLは、[PatternLayout|http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html]を使うことを前提としています。
+しかし、他のレイアウトも含めて利用可能です:
 
+{hidden}
 * @xml@ - Create an XML log file
 * @html@ - Creates an HTML log file
 * @simple@ - A simple textual log
 * @pattern@ - A Pattern layout
+{hidden}
+* @xml@ - XMLログファイルを作成します
+* @html@ - HTMLログファイルを作成します
+* @simple@ - シンプルなテキストログです
+* @pattern@ - パターンレイアウトです
 
+{hidden}
 You can specify custom patterns to an appender using the @layout@ setting:
+{hidden}
+@layout@設定に使うアペンダーに独自のパターンを指定できます:
 
 {code:java}
 log4j = {
@@ -284,7 +375,11 @@ log4j = {
 }
 {code}
 
+{hidden}
 This also works for the built-in appender "stdout", which logs to the console:
+{hidden}
+これはビルトインアペンダーの『stdout』でも動作し、コンソールに出力します:
+
 {code:java}
 log4j = {
     appenders {
