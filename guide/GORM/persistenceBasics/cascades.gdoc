@@ -43,7 +43,7 @@ airport.delete()
 {code}
 
 {hidden}However, if I were to remove @belongsTo@ then the above cascading deletion code *would not work*. To understand this better take a look at the summaries below that describe the default behaviour of GORM with regards to specific associations. Also read [part 2|http://blog.springsource.com/2010/07/02/gorm-gotchas-part-2/] of the GORM Gotchas series of articles to get a deeper understanding of relationships and cascading.{hidden}
-ところが、@bilongsTo@ の定義が削除されている状態で、上記に記載した削除のコードを実行した場合は、カスケード削除は*動作しません*。以降では、この事象をより良く理解できるように、それぞれの関連に対するGORMのデフォルトの振る舞いを説明します。
+ところが、@belongsTo@ の定義が削除されている状態で、上記に記載した削除のコードを実行した場合は、カスケード削除は*動作しません*。以降では、この事象をより良く理解できるように、それぞれの関連に対するGORMのデフォルトの振る舞いを説明します。
 関連とカスケードについて、更に深く理解したい場合には、[GORM Gotchas (Part 2)|http://blog.springsource.com/2010/07/02/gorm-gotchas-part-2/]も参照してください。
 
 {hidden}h5. Bidirectional one-to-many with belongsTo{hidden}
