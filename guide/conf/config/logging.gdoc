@@ -38,7 +38,7 @@ h4. Logging levels
 h4. ログレベル
 
 {hidden}
-The are several standard logging levels, which are listed here in order of descending priority:
+There are several standard logging levels, which are listed here in order of descending priority:
 {hidden}
 標準のロギングレベルにはいくつかの種類があり、優先順位の高い順に挙げます:
 
@@ -176,7 +176,7 @@ log4j = {
 {code}
 
 {hidden}
-This example configures loggers with names starting with 'org.codehaus.groovy.grails.web.servlet' to ignore any messages sent to them at a level of 'warn' or lower. But is there a logger with this name in the application? No. So why have a configuration for it? Because the above rule applies to any logger whose name _begins with_ 'org.codehaus.groovy.grails.servlet.' as well. For example, the rule applies to both the @org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet@ class and the @org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest@ one.
+This example configures loggers with names starting with 'org.codehaus.groovy.grails.web.servlet' to ignore any messages sent to them at a level of 'warn' or lower. But is there a logger with this name in the application? No. So why have a configuration for it? Because the above rule applies to any logger whose name _begins with_ 'org.codehaus.groovy.grails.web.servlet.' as well. For example, the rule applies to both the @org.codehaus.groovy.grails.web.servlet.GrailsDispatcherServlet@ class and the @org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest@ one.
 {hidden}
 この例では、「org.codehaus.groovy.grails.web.servlet」で始まる名前のロガーに送られてくる、「warn」レベル以下のメッセージは無視するように設定しています。
 しかし、アプリケーション上にこの名前のロガーは存在しているのでしょうか？答えはNoです。

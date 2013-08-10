@@ -1,9 +1,13 @@
-{hidden}The default renderers for XML and JSON can be found in the @grails.rest.renderer.xml@ and @grails.rest.renderer.json@ packages respectively. These use the Grails converters (@grails.converters.XML@ and @grails.converters.JSON@) by default for response rendering. {hidden}
-XMLとJSONに対するデフォルトのレンダラーは、それぞれ@grails.rest.renderer.xml@、@grails.rest.renderer.json@パッケージ内にあります。
+{hidden}
+The default renderers for XML and JSON can be found in the @grails.rest.render.xml@ and @grails.rest.render.json@ packages respectively. These use the Grails converters (@grails.converters.XML@ and @grails.converters.JSON@) by default for response rendering. 
+{hidden}
+XMLとJSONに対するデフォルトのレンダラーは、それぞれ@grails.rest.render.xml@、@grails.rest.render.json@パッケージ内にあります。
 これらはレスポンスのレンダリングにGrailsのコンバータ(@grails.converters.XML@と@grails.converters.JSON@)を使います。
 
-{hidden}You can easily customize response rendering using this default renderers. A common change you may want to make is to include or exclude certain properties from rendering. {hidden}
-このデフォルトレンダラーを使って簡単にレスポンスのレンダリングをカスタマイズできます。
+{hidden}
+You can easily customize response rendering using these default renderers. A common change you may want to make is to include or exclude certain properties from rendering. 
+{hidden}
+これらのデフォルトレンダラーを使って簡単にレスポンスのレンダリングをカスタマイズできます。
 よく必要となる変更は、レンダリング時に特定のプロパティをインクルード、またはエクスクルードすることです。
 
 {hidden}h4. Including or Excluding Properties from Rendering{hidden}
@@ -15,7 +19,7 @@ h4. レンダリング時のプロパティのインクルードとエクスク�
 レンダリングで特定のプロパティをインクルードするには、@grails-app/conf/spring/resources.groovy@内のビーン定義によって、カスタムレンダラーを登録する必要があります:
 
 {code}
-import grails.rest.renderer.xml.*
+import grails.rest.render.xml.*
 
 beans = {
     bookRenderer(XmlRenderer, Book) {
@@ -33,11 +37,13 @@ The bean name is not important (Grails will scan the application context for all
 しかし、構造と可読性の理由から、分かりやすい名前を付けておくことをお勧めします。
 {note}
 
-{hidden}To exclude a property the @exclude@ property of the @XmlRenderer@ class can be used:{hidden}
+{hidden}
+To exclude a property, the @excludes@ property of the @XmlRenderer@ class can be used:
+{hidden}
 プロパティをエクスクルードするには、@XmlRenderer@クラスの@exclude@プロパティを使います:
 
 {code}
-import grails.rest.renderer.xml.*
+import grails.rest.render.xml.*
 
 beans = {
     bookRenderer(XmlRenderer, Book) {
@@ -49,7 +55,9 @@ beans = {
 {hidden}h4. Customizing the Converters{hidden}
 h4. コンバーターのカスタマイズ
 
-{hidden}As mentioned previously, the default renders use the @grails.converters@ package under the covers. In other word, under the covers they essentially do the following:{hidden}
+{hidden}
+As mentioned previously, the default renders use the @grails.converters@ package under the covers. In other words, under the covers they essentially do the following:
+{hidden}
 前に説明したように、デフォルトのレンダラーは@grails.converters@パッケージ配下のクラスを使っています。
 これは、パッケージ配下のクラスを使って以下のようにした場合と本質的には同じです:
 

@@ -93,6 +93,28 @@ Grails' [REST support|guide:REST] has been significantly improved with the addit
 
 See the [user guide|guide:REST] for more information.
 
+h4. New Scaffolding 2.0 Plugin
+
+Grails' Scaffolding feature has been split into a [separate plugin|http://grails.org/plugin/scaffolding]. Version 2.0 of the plugin includes support for generating REST controllers, Async controllers, and Spock unit tests.
+
+h4. URL Mappings May Specify A Redirect
+
+URL Mappings may now specify that a redirect should be triggered when the mapping matches an incoming request:
+
+{code:java}
+class UrlMappings {
+    static mappings = {
+        "/viewBooks"(redirect: '/books/list')
+        "/viewAuthors"(redirect: [controller: 'author', action: 'list'])
+        "/viewPublishers"(redirect: [controller: 'publisher', action: 'list', permanent: true])
+
+        // ...
+    }
+}
+{code}
+
+See the [user guide|guide:redirectMappings] for more information.
+
 {hidden}h4. Async support {hidden}
 h4. 非同期サポート
 
@@ -199,7 +221,9 @@ See the [namespaced controllers|guide:namespacedControllers] docs for more infor
 {hidden}h4. Command Line {hidden}
 h4. コマンドライン
 
-{hidden}The @create-app@ command will now by default generate the command line grailsw wrapper for newly created applications.  The @\-\-skip-wrapper@ switch may be used to prevent the wrapper from being generated.{hidden}
+{hidden}
+The @create-app@ command will now by default generate the command line grailsw wrapper for newly created applications.  The @--skip-wrapper@ switch may be used to prevent the wrapper from being generated.
+{hidden}
 @create\-app@ コマンドがデフォルトでgrailswラッパーを生成するようになりました。ラッパーを生成しない場合は @\-\-skip\-wrapper@ オプションを指定してください。
 
 {code}

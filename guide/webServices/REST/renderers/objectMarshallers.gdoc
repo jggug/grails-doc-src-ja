@@ -1,4 +1,6 @@
-{hidden}Grails' Converters feature the notion of an [ObjectMarshaller|api:org.codehaus.groovy.grails.web.converters.marshaller.ObjectMarshaller], and each type can have a registered @ObjectMarshaller@. You can register custom @ObjectMarshaller@ instances to completely customize response rendering. For example you can define the following in @BootStrap.init@:{hidden}
+{hidden}
+Grails' Converters feature the notion of an [ObjectMarshaller|api:org.codehaus.groovy.grails.web.converters.marshaller.ObjectMarshaller] and each type can have a registered @ObjectMarshaller@. You can register custom @ObjectMarshaller@ instances to completely customize response rendering. For example, you can define the following in @BootStrap.init@:
+{hidden}
 Grailsのコンバーターは、[オブジェクトマーシャラ|api:org.codehaus.groovy.grails.web.converters.marshaller.ObjectMarshaller]の概念を特徴としており、それぞれの型に対して@ObjectMarshaller@を登録できます。
 そして、レスポンスのレンダリングをカスタマイズするためにカスタム@ObjectMarshaller@インタンスを登録できます。
 例えば、@BootStrap.init@の中で以下のように定義できます:
@@ -22,7 +24,9 @@ JSON.registerObjectMarshaller(DateTime) {
 }
 {code}
 
-{hidden}In the case of JSON it often simple to use a map to customize output:{hidden}
+{hidden}
+In the case of JSON it's often simple to use a map to customize output:
+{hidden}
 JSONの場合は、マップを使って簡単に出力をカスタマイズできます:
 
 {code}

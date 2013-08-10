@@ -1,7 +1,7 @@
 {hidden}
-Grails' @link@ tag offers an easy way to link to any domain class resource:
+The @link@ tag offers an easy way to link to any domain class resource:
 {hidden}
-Grailsの@link@タグは、任意のドメインクラスリソースへリンクする簡単な方法を提供します:
+@link@タグは、任意のドメインクラスリソースへリンクする簡単な方法を提供します:
 
 {code}
 <g:link resource="${book}">My Link</g:link>

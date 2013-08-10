@@ -53,7 +53,9 @@ RESTアクションの実装の鍵は、Grails 2.3で導入された[respond|con
 {hidden}h4. Implementing the 'index' action{hidden}
 h4. 'index'アクションの実装
 
-{hidden}For example to implement the @index@ action, simply call the @respond@ method passing the list of objects to respond with: {hidden}
+{hidden}
+For example, to implement the @index@ action, simply call the @respond@ method passing the list of objects to respond with: 
+{hidden}
 例えば@index@アクションを実装するには、単にオブジェクトのリストと共に@respond@メソッドを呼びます:
 
 {code}
@@ -102,7 +104,9 @@ def show(Book book) {
 }
 {code}
 
-{hidden}By specifying the domain instance as a parameter to the action Grails will automatically attempt to lookup the domain instance using the @id@ parameter of the request. If domain instance doesn't exist then @null@ will be passed into the action. The @respond@ method will return a 404 error if null is passed otherwise once again it will attempt to render an appropriate response. If the format is HTML then an appropriate model will produced. The following action is functionally equivalent to the above action:{hidden}
+{hidden}
+By specifying the domain instance as a parameter to the action Grails will automatically attempt to lookup the domain instance using the @id@ parameter of the request. If the domain instance doesn't exist, then @null@ will be passed into the action. The @respond@ method will return a 404 error if null is passed otherwise once again it will attempt to render an appropriate response. If the format is HTML then an appropriate model will produced. The following action is functionally equivalent to the above action:
+{hidden}
 アクションパラメータとして特定のドメインインスタンスを指定すると、Grailsは自動的にリクエストの@id@パラメータからドメインインスタンスを検索しようとします。
 もし、ドメインインスタンスが存在しない場合は、アクションへ@null@が渡されます。
 @respond@メソッドはnullが渡された場合は404エラーを返します。
@@ -124,7 +128,9 @@ def show(Book book) {
 {hidden}h4. Implementing the 'save' action{hidden}
 h4. 'save'アクションの実装
 
-{hidden}The @save@ action saves new resource representations. To start off with simply define a an action that accepts a resource as the first argument and mark it as @Transactional@ with the @grails.transaction.Transactional@ transform:{hidden}
+{hidden}
+The @save@ action creates new resource representations. To start off, simply define an action that accepts a resource as the first argument and mark it as @Transactional@ with the @grails.transaction.Transactional@ transform:
+{hidden}
 @save@アクションは新たなリソースを保存します。
 @save@アクションを簡単に実装するには、最初の引数にリソースをとるアクションを定義し、そのアクションに@grails.transaction.Transactional@変換を使って@Transactional@としてマークします:
 
@@ -148,7 +154,9 @@ else {
 }
 {code}
 
-{hidden}In the case of HTML the 'create' view will be rendered again so the user can correct the invalid input. In the case of other formats (JSON, XML etc.) the errors object itself will be rendered in the appropriate format and a status code of 422 (UNPROCESSABLE_ENTITY) returned.{hidden}
+{hidden}
+In the case of HTML the 'create' view will be rendered again so the user can correct the invalid input. In the case of other formats (JSON, XML etc.), the errors object itself will be rendered in the appropriate format and a status code of 422 (UNPROCESSABLE_ENTITY) returned.
+{hidden}
 HTMLの場合は'create'ビューが再度表示されます。
 そして、ユーザは誤った入力を修正できます。
 それ以外のフォーマット(JSON、XMLなど)の場合は、エラーオブジェクト自身が適切なフォーマットで表示され、422(UNPROCESSABLE_ENTITY)のステータスコードが返されます。
@@ -175,7 +183,9 @@ HTMLの場合は、オリジナルのリソースへリダイレクトされま�
 h4. 'update'アクションの実装
 
 
-{hidden}The @update@ action updates an existing resource representations and is largely similar to the @save@ action, first define the method signature:{hidden}
+{hidden}
+The @update@ action updates an existing resource representations and is largely similar to the @save@ action. First define the method signature:
+{hidden}
 @update@アクションは既存のリソースを更新します。
 そして、@update@アクションは@save@アクションとほとんど同じです。
 はじめにメソッドのシグネチャを定義します:

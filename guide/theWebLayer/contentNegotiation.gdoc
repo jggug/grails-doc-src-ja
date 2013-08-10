@@ -7,17 +7,22 @@ h4. Mimeタイプの定義 {hidden}Configuring Mime Types{hidden}
 コンテントネゴシエーションの処理を行うには、どのコンテントタイプをサポートするかをGrailsに教える必要があります。@grails-app/conf/Config.groovy@の@grails.mime.types@設定に幾つかのコンテントタイプがデフォルトで定義されています:
 
 {code:java}
-grails.mime.types = [ xml: ['text/xml', 'application/xml'],
-                      text: 'text-plain',
-                      js: 'text/javascript',
-                      rss: 'application/rss+xml',
-                      atom: 'application/atom+xml',
-                      css: 'text/css',
-                      csv: 'text/csv',
-                      all: '*/*',
-                      json: 'text/json',
-                      html: ['text/html','application/xhtml+xml']
-                    ]
+grails.mime.types = [
+    all:           '*/*',
+    atom:          'application/atom+xml',
+    css:           'text/css',
+    csv:           'text/csv',
+    form:          'application/x-www-form-urlencoded',
+    html:          ['text/html','application/xhtml+xml'],
+    js:            'text/javascript',
+    json:          ['application/json', 'text/json'],
+    multipartForm: 'multipart/form-data',
+    rss:           'application/rss+xml',
+    text:          'text/plain',
+    hal:           ['application/hal+json','application/hal+xml'],
+    xml:           ['text/xml', 'application/xml']
+]
+{code}
 {code}
 
 {hidden}The above bit of configuration allows Grails to detect to format of a request containing either the 'text/xml' or 'application/xml' media types as simply 'xml'. You can add your own types by simply adding new entries into the map.{hidden}

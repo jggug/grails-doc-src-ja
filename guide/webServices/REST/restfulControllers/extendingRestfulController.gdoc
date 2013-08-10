@@ -33,7 +33,9 @@ Note that the @create@ and @edit@ actions are only needed if the controller expo
 @create@と@edit@アクションは、コントローラがHTMLインタフェースを公開する場合にのみ必要です。
 {note}
 
-{hidden}As an example if you have a [nested resource|guide:restfulMappings] then you would typically want to query both the parent and the child identifiers. For example given the following URL mapping:{hidden}
+{hidden}
+As an example, if you have a [nested resource|guide:restfulMappings] then you would typically want to query both the parent and the child identifiers. For example, given the following URL mapping:
+{hidden}
 例のように[ネストしたリソース|guide:restfulMappings]の場合、大抵は親と子供の識別子が必要になります。
 例えば以下のようなURLマッピングの場合:
 

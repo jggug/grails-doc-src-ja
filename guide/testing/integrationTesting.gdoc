@@ -148,7 +148,7 @@ Grailsはアクション呼び出しの@signup()@を呼び出しているのを�
 h4. コントローラとレンダーメソッドのテスト
 
 {hidden}The [render|controllers] method lets you render a custom view at any point within the body of an action. For instance, consider the example below:{hidden}
-[レンダー|controllers]メソッドはアクション定義のあらゆる場所においてカスタムビューをレンダリングできます。例えば、下記の例を考えてみましょう:
+[render|controllers]メソッドはアクション定義のあらゆる場所においてカスタムビューをレンダリングできます。例えば、下記の例を考えてみましょう:
 
 {code:java}
 def save() {

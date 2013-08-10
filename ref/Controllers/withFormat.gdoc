@@ -52,8 +52,9 @@ Another important factor to note is that the @withFormat@ method deals with the 
 
 {code:java}
 request.withFormat {
+    form { .. }
     xml { .. }
-    html { .. }
+    json { .. }
 }
 {code}
 

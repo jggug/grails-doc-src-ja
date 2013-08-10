@@ -70,13 +70,11 @@ def delete() {
 {hidden}Note that the attribute name can be anything you want, and the values are often strings used to display messages, but can be any object type.{hidden}
 メッセージ表示などで文字列型が頻繁に使用されますが、flashスコープに一時的に保持する値は、どのようなオブジェクトでもかまいません。
 
-h4. コントローラのスコープ設定
+{hidden}h4. Scoped Controllers{hidden}
+h4. コントローラのスコープ
 
-{hidden}By default, a new controller instance is created for each request. In fact, because the controller is @prototype@ scoped, it is thread-safe since each request happens on its own thread.{hidden}
-デフォルトでは、コントローラはリクエスト毎にインスタンスが生成されます。コントローラのスコープは@prototype@になっているため、リクエストがそれぞれのスレッドを持っているので、スレッドセーフになります。
-
-{hidden}You can change this behaviour by placing a controller in a particular scope. The supported scopes are:{hidden}
-コントローラにスコープを指定することで振る舞いを変更できます。サポートされているスコープは:
+{hidden}Supported controller scopes are:{hidden}
+サポートされているコントローラスコープは:
 {hidden}
 * @prototype@ (default) - A new controller will be created for each request (recommended for actions as Closure properties)
 * @session@ - One controller is created for the scope of a user session
@@ -100,6 +98,11 @@ static scope = "singleton"
 {code:java}
 grails.controllers.defaultScope = "singleton"
 {code}
+
+Newly created applications have the @grails.controllers.defaultScope@ property set in @grails-app/conf/Config.groovy@ with a value of "singleton".  You may change this value to any
+of the supported scopes listed above.  If the property is not assigned a value at all, controllers will default to "prototype" scope.
+
+
 {hidden}
 {note}
 Use scoped controllers wisely. For instance, we don't recommend having any properties in a singleton-scoped controller since they will be shared for _all_ requests. Setting a default scope other than @prototype@ may also lead to unexpected behaviors if you have controllers provided by installed plugins that expect that the scope is @prototype@.

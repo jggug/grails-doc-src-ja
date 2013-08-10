@@ -92,8 +92,8 @@ class Album {
 {code}
 
 {code:java}
-def bindingMap = [name: 'Genesis',
-                  'albums[0]': [title: 'Foxtrot', numberOfTracks: 6],
+def bindingMap = [name: 'Genesis', 
+                  'albums[0]': [title: 'Foxtrot', numberOfTracks: 6], 
                   'albums[1]': [title: 'Nursery Cryme', numberOfTracks: 7]]
 
 def band = new Band(bindingMap)
@@ -129,9 +129,9 @@ def band = Band.get(someBandId)
 /*
  * This will find the Album in albums that has an id of 9 and will set its title
  * to 'The Lamb Lies Down On Broadway' and will find the Album in albums that has
- * an id of 4 and set its title to 'Selling England By The Pound'.  In both
+ * an id of 4 and set its title to 'Selling England By The Pound'.  In both 
  * cases if the Album cannot be found in albums then the album will be retrieved
- * from the database by id, the Album will be added to albums and will be updated
+ * from the database by id, the Album will be added to albums and will be updated 
  * with the values described above.  If a Album with the specified id cannot be
  * found in the database, then a binding error will be created and associated
  * with the band object.  More on binding errors later.
@@ -244,10 +244,7 @@ def save() {
 {hidden}This has the same effect as using the implicit constructor.{hidden}
 これは先ほどのコンストラクタを利用したのと同じ結果になります。
 
-{hidden}When binding an empty String (a String with no characters in it, not even spaces) to a constrained property which has been configured as nullable, the data binder will convert the empty String to null.  This simplifies the most common case where the intent is to treat an empty form field as having the value null since there isn't a way to actually submit a null as a request parameter.  When this behavior is not desireable the application may assign the value directly.{hidden}
-空文字(スペースすら含まない文字数0のString)をnullable制約を付与されたプロパティにバインディングするとき、データバインダはその空文字をnullに変換します。
-これによって、リクエストパラメータとしてnullをサブミットする方法が実際には存在しないため空文字として送信せざるを得ないが、フォームの空フィールドについて値がnullであるとみなしたい、というよくあるケースを簡単に扱えるようになります。
-この振る舞いが望ましくないときは、アプリケーションは値を直接代入することもできます。
+When binding an empty String (a String with no characters in it, not even spaces), the data binder will convert the empty String to null.  This simplifies the most common case where the intent is to treat an empty form field as having the value null since there isn't a way to actually submit a null as a request parameter.  When this behavior is not desireable the application may assign the value directly.
 
 {hidden}The mass property binding mechanism will by default automatically trim all Strings at binding time.  To disable this behavior set the @grails.databinding.trimStrings@ property to false in @grails-app/conf/Config.groovy@.{hidden}
 大量プロパティバインディング機構は、デフォルトでバインディング時にすべての文字列を自動的にトリムします。
@@ -573,7 +570,9 @@ class SomeClass {
 }
 {code}
 
-{hidden}The [BindUsing|api:org.grails.databinding.BindUsing] annotation may be used to define a custom binding mechanism for all of the fields on a particular class. When the annotation is applied to a class, the value assigned to the annotation should be a class which implements the [BindingHelper|api:org.grails.databinding.BindingHelper] interface.  An instance of that class will be used any time a value is bound to a property in the class that this annotation has been applied to.{hidden}
+{hidden}
+The [BindUsing|api:org.grails.databinding.BindUsing] annotation may be used to define a custom binding mechanism for all of the fields on a particular class. When the annotation is applied to a class, the value assigned to the annotation should be a class which implements the [BindingHelper|api:org.grails.databinding.BindingHelper] interface.  An instance of that class will be used any time a value is bound to a property in the class that this annotation has been applied to. 
+{hidden}
 [BindUsing|api:org.grails.databinding.BindUsing]アノテーションは特定のクラス上のすべてのフィールドに対する独自のバインディング方法を定義するためにも使えます。
 このアノテーションをクラスに指定するときは、アノテーションに指定する値は [BindingHelper|api:org.grails.databinding.BindingHelper]インターフェイスを実装したクラスにしなくてはいけません。
 このクラスのインスタンスは、アノテーションが指定されたクラス内のプロパティに値がバインドされるときに毎回使われます。
@@ -670,6 +669,19 @@ class Person {
 }
 {code}
 
+A global setting may be configured in @Config.groovy@ to define date formats which will be used application wide when binding to Date.
+
+{code:java}
+// grails-app/conf/Config.groovy
+
+grails.databinding.dateFormats = ['MMddyyyy', 'yyyy-MM-dd HH:mm:ss.S', "yyyy-MM-dd'T'hh:mm:ss'Z'"]
+
+{code}
+
+The formats specified in @grails.databinding.dateFormats@ will be attempted in the order in which they are included in the List.  If a property is marked with \@BindingFormat, the \@BindingFormat will take precedence over the values specified in @grails.databinding.dateFormats@.
+
+The default formats that are used are "yyyy-MM-dd HH:mm:ss.S" and "yyyy-MM-dd'T'hh:mm:ss'Z'".
+
 {hidden}h4. Custom Formatted Converters{hidden}
 h4. カスタムフォーマットコンバータ
 
@@ -733,6 +745,29 @@ class Person {
 }
 {code}
 
+h4. Localized Binding Formats
+
+The @BindingFormat@ annotation supports localized format strings by using the optional @code@ attribute.  If a value is assigned to the code attribute that value will be used as the message code to retrieve the binding format string from the @messageSource@ bean in the Spring application context and that lookup will be localized.
+
+{code:java}
+import org.grails.databinding.BindingFormat
+
+class Person {
+    @BindingFormat(code='date.formats.birthdays')
+    Date birthDate
+}
+{code}
+
+
+{code}
+# grails-app/conf/i18n/messages.properties
+date.formats.birthdays=MMddyyyy
+{code}
+
+{code}
+# grails-app/conf/i18n/messages_es.properties
+date.formats.birthdays=ddMMyyyy
+{code}
 
 {hidden}h4. Data Binding and Security concerns {hidden}
 h4. データバインディングとセキュリティ考慮
