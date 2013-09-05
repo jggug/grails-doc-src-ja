@@ -136,6 +136,7 @@ theWebLayer:
     commandObjects: コマンドオブジェクト
     formtokens: フォーム二重送信のハンドリング
     typeConverters: シンプルタイプコンバータ
+    controllerExceptionHandling: コントローラ例外ハンドリング宣言
   gsp:
     title: Groovyサーバーページ
     GSPBasics:

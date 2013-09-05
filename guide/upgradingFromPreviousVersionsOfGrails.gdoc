@@ -35,7 +35,9 @@ A common error that may occur when upgrading is:
     ::::::::::::::::::::::::::::::::::::::::::::::
     ::          UNRESOLVED DEPENDENCIES         ::
     ::::::::::::::::::::::::::::::::::::::::::::::
-    :: org.springframework#spring-test;3.2.2.RELEASE: configuration not found in org.springframework#spring-test;3.2.2.RELEASE: 'compile'. It was required from org.grails#grails-plugin-testing;2.3.0.BUILD-SNAPSHOT compile
+    :: org.springframework#spring-test;3.2.2.RELEASE: configuration 
+    not found in org.springframework#spring-test;3.2.2.RELEASE: 'compile'. 
+    It was required from org.grails#grails-plugin-testing;2.3.0.BUILD-SNAPSHOT compile
     ::::::::::::::::::::::::::::::::::::::::::::::
 {code}
 

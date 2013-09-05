@@ -23,7 +23,7 @@ grails.mime.types = [
     xml:           ['text/xml', 'application/xml']
 ]
 {code}
-{code}
+
 
 {hidden}The above bit of configuration allows Grails to detect to format of a request containing either the 'text/xml' or 'application/xml' media types as simply 'xml'. You can add your own types by simply adding new entries into the map.{hidden}
 この設定の一部を説明すると、'text/xml'または'application/xml'を含むリクエストは単純にコンテントタイプ'xml'としてGrailsが検出するのを可能にします。独自のタイプを追加するには単純にマップにタイプを追加するだけです。

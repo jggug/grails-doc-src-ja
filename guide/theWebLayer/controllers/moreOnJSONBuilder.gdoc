@@ -19,7 +19,7 @@ h4. 単純なオブジェクトを描写 {hidden}Rendering Simple Objects {hidde
 単純なJSONオブジェクトを生成するには、クロージャの中にプロパティをセットするだけです:
 
 {code}
-render(contentType: "text/json") {
+render(contentType: "application/json") {
     hello = "world"
 }
 {code}
@@ -37,7 +37,7 @@ h4. JSON配列描写 {hidden}Rendering JSON Arrays {hidden}
 オブジェクトのリストを描写するには、変数に配列を指定するだけです:
 
 {code}
-render(contentType: "text/json") {
+render(contentType: "application/json") {
     categories = ['a', 'b', 'c']
 }
 {code}
@@ -53,7 +53,7 @@ render(contentType: "text/json") {
 複雑なオブジェクトのリストも可能です。例として:
 
 {code}
-render(contentType: "text/json") {
+render(contentType: "application/json") {
     categories = [ { a = "A" }, { b = "B" } ]
 }
 {code}
@@ -69,7 +69,7 @@ render(contentType: "text/json") {
 @element@メソッドを使用することで、リストをルートとして返す事ができます:
 
 {code}
-render(contentType: "text/json") {
+render(contentType: "application/json") {
     element 1
     element 2
     element 3
@@ -89,7 +89,7 @@ h4. 複雑なオブジェクトの描写 {hidden}Rendering Complex Objects {hidd
 より複雑なオブジェクトをクロージャで描写できます。例として:
 
 {code}
-render(contentType: "text/json") {
+render(contentType: "application/json") {
     categories = ['a', 'b', 'c']
     title = "Hello JSON"
     information = {
@@ -111,7 +111,7 @@ h4. 複雑なオブジェクトの配列 {hidden}Arrays of Complex Objects {hidd
 前述したように、クロージャを使用してオブジェクトを配列にネストすることも可能です:
 
 {code}
-render(contentType: "text/json") {
+render(contentType: "application/json") {
     categories = [ { a = "A" }, { b = "B" } ]
 }
 {code}
@@ -121,7 +121,7 @@ render(contentType: "text/json") {
 
 {code}
 def results = Book.list()
-render(contentType: "text/json") {
+render(contentType: "application/json") {
     books = array {
         for (b in results) {
             book title: b.title

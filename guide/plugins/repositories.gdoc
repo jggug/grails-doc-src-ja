@@ -38,7 +38,7 @@ Grailsプラグインリポジトリにアクセス権を持っていれば、[�
 grails.project.dependency.resolution = {
     ...
     plugins {
-        build ":release:3.0.0"
+        build ':release:3.0.0'
     }
 }
 

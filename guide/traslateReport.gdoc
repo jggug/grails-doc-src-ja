@@ -1,9 +1,9 @@
 
 h1. Document Translation Report.
 
-* *File Count* - 294
+* *File Count* - 295
 * *Done* - 281
-* *TODO* - 11
+* *TODO* - 12
 * *Not found or new* - 2
 
 h2. Original document updated after translation.:
@@ -16,6 +16,7 @@ h2. Not done.
 * ../en/guide/rewriteRules.txt
 * ../en/guide/security/xssPrevention.gdoc
 * ../en/guide/services/declarativeTransactions/transactionsRollbackAndTheSession.gdoc
+* ../en/guide/theWebLayer/controllers/controllerExceptionHandling.gdoc
 * ../en/guide/theWebLayer/urlmappings/namespacedControllers.gdoc
 * ../en/guide/theWebLayer/urlmappings/redirectMappings.gdoc
 * ../en/guide/theWebLayer/urlmappings/restfulMappings.gdoc

@@ -42,7 +42,12 @@ Grails 2.3では、依存のバージョンよりもフレキシブルで保守�
 {hidden}The legacy data binder may be used by assigning @true@ to the @grails.databinding.useSpringBinder@ property in @grails-app/conf/Config.groovy@.  Note that the legacy binder does not support any of the new features provided by the new data binder.{hidden}
 @grails-app/conf/Config.groovy@ の @grails.databinding.useSpringBinder@ プロパティを @true@ にすることで以前のデータバインダーに変更することができます。 以前のバインダーは今回実装された新機能には対応していません。
 
-h4. Domain Classes As Command Objects
+h4. リクエストボディをコマンドオブジェクトにバインド
+
+If a request is made to a controller action which accepts a command object and the request includes a body, the body will be parsed and used to do data binding to the command object.  This simplifies use cases where a request includes a JSON or XML body (for example) that can be bound to a command object.  See the [Command Objects|guide:commandObjects] documentation for more details.
+
+
+h4. ドメインクラスをコマンドオブジェクトとして使用する際の振る舞い
 
 When a domain class is used as a command object and there is an @id@ request parameter, the framework will retrieve the instance of the domain class from the database using the @id@ request parameter.  See the [Command Objects|guide:commandObjects] documentation for more details.
 
@@ -74,7 +79,8 @@ grails.project.fork = [
 {hidden}See the documentation on [Forked Mode|guide:forkedMode] for more information.{hidden}
 詳しくは [フォームモード|guide:forkedMode] のドキュメントを参照してください。
 
-h4. Test Runner Daemon
+{hidden}h4. Test Runner Daemon{hidden}
+h4. テストランナーデーモン
 
 To speed up testing when using forked execution a new daemon will start-up in the background to run tests when using interactive mode. You can restart the daemon with the @restart-daemon@ command from interactive mode:
 
@@ -82,7 +88,8 @@ To speed up testing when using forked execution a new daemon will start-up in th
 $ grails> restart-daemon
 {code}
 
-h4. Server-Side REST Improvements
+{hidden}h4. Server-Side REST Improvements{hidden}
+h4. サーバサイドRESTの向上
 
 Grails' [REST support|guide:REST] has been significantly improved with the addition of the following features:
 
@@ -93,11 +100,13 @@ Grails' [REST support|guide:REST] has been significantly improved with the addit
 
 See the [user guide|guide:REST] for more information.
 
-h4. New Scaffolding 2.0 Plugin
+{hidden}h4. New Scaffolding 2.0 Plugin{hidden}
+h4. スカッフォルディング2.0プラグイン
 
 Grails' Scaffolding feature has been split into a [separate plugin|http://grails.org/plugin/scaffolding]. Version 2.0 of the plugin includes support for generating REST controllers, Async controllers, and Spock unit tests.
 
-h4. URL Mappings May Specify A Redirect
+{hidden}h4. URL Mappings May Specify A Redirect{hidden}
+h4. URLマッピングのリダイレクト指定
 
 URL Mappings may now specify that a redirect should be triggered when the mapping matches an incoming request:
 
@@ -162,7 +171,40 @@ h4. Hibernate 3と4をサポート
 {hidden}The GORM for Hibernate 3 support for Grails has been extracted into a separate project, allowing new support for Hibernate 4 as a separate plugin.{hidden}
 新たにHibernate 4をプラグインでサポートするために、Hibernate 3用のGORMは、本体から別のプラグインプロジェクトとなりました。
 
-h4. Namespaced Controllers
+{hidden}h4. Controller Exception Handling{hidden}
+h4. コントローラ例外ハンドリング
+
+Controllers may define exception handler methods which will automatically be invoked any time an action in that controller throws an exception.
+
+{code:java}
+// grails-app/controllers/demo/DemoController.groovy
+package demo
+
+class DemoController {
+
+    def someAction() {
+        // do some work
+    }
+
+    def handleSQLException(SQLException e) {
+        render 'A SQLException Was Handled'
+    }
+
+    def handleBatchUpdateException(BatchUpdateException e) {
+        redirect controller: 'logging', action: 'batchProblem'
+    }
+
+    def handleNumberFormatException(NumberFormatException nfe) {
+        [problemDescription: 'A Number Was Invalid']
+    }
+}
+{code}
+
+See the [controller exception handling|guide:controllerExceptionHandling] docs for more information.
+
+
+{hidden}h4. Namespaced Controllers{hidden}
+h4. コントローラネームスペース
 
 Controllers may now be defined in a namespace which allows for multiple controllers to be defined with the same name in different packages.
 
@@ -229,3 +271,8 @@ The @create-app@ command will now by default generate the command line grailsw w
 {code}
 grails create-app appname --skip-wrapper
 {code}
+
+
+
+
+

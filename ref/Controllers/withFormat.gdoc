@@ -58,6 +58,10 @@ request.withFormat {
 }
 {code}
 
+{note}
+The request format of @form@ is used for handling form submission in content negotiation as opposed to @html@.
+{note}
+
 If you require that the model be lazily executed you can pass a Closure instead of a Map:
 
 {code:java}

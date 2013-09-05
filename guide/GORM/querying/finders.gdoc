@@ -69,6 +69,8 @@ book =  Book.findByTitleLike("Harry Pot%")
 * @Like@ - Equivalent to a SQL like expression
 * @Ilike@ - Similar to a @Like@, except case insensitive
 * @NotEqual@ - Negates equality
+* @InRange@ - Between the @from@ and @to@ values of a Groovy Range
+* @Rlike@ - Performs a Regexp LIKE in MySQL or Oracle otherwise falls back to @Like@
 * @Between@ - Between two values (requires two arguments)
 * @IsNotNull@ - Not a null value (doesn't take an argument)
 * @IsNull@ - Is a null value (doesn't take an argument)
@@ -82,6 +84,8 @@ book =  Book.findByTitleLike("Harry Pot%")
 * @Like@ - SQL文の Like句と同様
 * @Ilike@ - 上の@Like@の同類だが、アルファベットの大文字と小文字の差を無視する
 * @NotEqual@ - パラメータの値と等しくない
+* @InRange@ - Between the @from@ and @to@ values of a Groovy Range
+* @Rlike@ - Performs a Regexp LIKE in MySQL or Oracle otherwise falls back to @Like@
 * @Between@ - 2つの値の範囲内である (2つのパラメータが必要)
 * @IsNotNull@ - Nullではない (パラメータ不要)
 * @IsNull@ - Nullである (パラメータ不要)

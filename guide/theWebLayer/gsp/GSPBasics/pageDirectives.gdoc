@@ -13,7 +13,7 @@ contentTypeディレクティブもサポートしています。
 
 {code:xml}
 
-<%@ page contentType="text/json" %>
+<%@ page contentType="application/json" %>
 
 {code}
 

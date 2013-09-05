@@ -1,9 +1,21 @@
 {hidden}h4. Adding a new Script{hidden}
+h4. 新たにスクリプトを追加する
 
 {hidden}A plugin can add a new script simply by providing the relevant Gant script in its scripts directory:{hidden}
 
 プラグインのscriptディレクトリ配下に関連するGantスクリプトを置くことで、プラグインは新しいスクリプトを追加することができます:
-{hidden}   + scripts     <-- additional scripts here{hidden}
+{hidden}
+{code:java}
++ MyPlugin.groovy
+   + scripts     <-- additional scripts here
+   + grails-app
+        + controllers
+        + services
+        + etc.
+    + lib
+{code}
+{hidden}
+
 {code:java}
 + MyPlugin.groovy
    + scripts     <-- ここにスクリプトを追加する
@@ -13,6 +25,7 @@
         + etc.
     + lib
 {code}
+
 
 {hidden}h4. Adding a new grails-app artifact (Controller, Tag Library, Service, etc.){hidden}
 

@@ -164,8 +164,10 @@ HATEOASの重要な側面は、遷移を表現したリンクの使い方です�
 クライアントはREST APIでのやり取りにこれを使えます。
 デフォルトで@HalJsonRenderer@は、関連と("self"関連を使って)自身のリソースへのリンクを自動的に作成します。
 
-{hidden}However you can customize link rendering using the @link@ method that is added to all domain classes annotated with @grails.rest.Resource@ or any class annotated with @grails.rest.Linkdable@. For example, the @show@ action can be modified as follows to provide a new link in the resulting output:{hidden}
-リンクのレンダリングを、@grails.rest.Resource@が付与されたドメインクラス、または@grails.rest.Linkdable@が付与されたクラスに追加された@link@メソッドを使って、カスタマイズすることもできます。
+{hidden}
+However you can customize link rendering using the @link@ method that is added to all domain classes annotated with @grails.rest.Resource@ or any class annotated with @grails.rest.Linkable@. For example, the @show@ action can be modified as follows to provide a new link in the resulting output:
+{hidden}
+リンクのレンダリングを、@grails.rest.Resource@が付与されたドメインクラス、または@grails.rest.Linkable@が付与されたクラスに追加された@link@メソッドを使って、カスタマイズすることもできます。
 例えば、@show@アクションで結果を出力する際に新たなリンクを追加するには、以下のように変更します:
 
 {code}
