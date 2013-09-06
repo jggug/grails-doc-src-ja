@@ -181,6 +181,7 @@ theWebLayer:
     title: URLマッピング
     mappingToControllersAndActions: コントローラとアクションにマッピング
     restfulMappings: RESTリソースへのマッピング
+    redirectMappings: URLマッピングでのリダイレクト
     embeddedVariables: 埋込変数
     mappingToViews: ビューへマッピング
     mappingToResponseCodes: レスポンスコードへマッピング
@@ -252,7 +253,6 @@ async:
   promises: Promises
   asyncGorm: 非同期GORM
   asyncRequests: 非同期リクエストハンドリング
-  grailsEvents: GrailsイベントAPI
   asyncServletApi: Servlet 3.0 Async
 validation:
   title: バリデーション

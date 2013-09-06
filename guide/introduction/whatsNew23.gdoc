@@ -44,12 +44,17 @@ Grails 2.3では、依存のバージョンよりもフレキシブルで保守�
 
 h4. リクエストボディをコマンドオブジェクトにバインド
 
-If a request is made to a controller action which accepts a command object and the request includes a body, the body will be parsed and used to do data binding to the command object.  This simplifies use cases where a request includes a JSON or XML body (for example) that can be bound to a command object.  See the [Command Objects|guide:commandObjects] documentation for more details.
+{hidden}If a request is made to a controller action which accepts a command object and the request includes a body, the body will be parsed and used to do data binding to the command object.  This simplifies use cases where a request includes a JSON or XML body (for example) that can be bound to a command object.  See the [Command Objects|guide:commandObjects] documentation for more details.{hidden}
 
+コントローラアクションがコマンドオブジェクトを受け取れる状態でリクエストがボディを含んでいる場合、ボディの内容はパースされコマンドオブジェクトにデータバインドされます。この機能は、リクエストの内容が対象のコマンドオブジェクトに対応したJSONまたXMLのボディを含んでいる処理を単純化します。
+詳細は [Command Objects|guide:commandObjects] のドキュメントを参照してください。
 
 h4. ドメインクラスをコマンドオブジェクトとして使用する際の振る舞い
 
-When a domain class is used as a command object and there is an @id@ request parameter, the framework will retrieve the instance of the domain class from the database using the @id@ request parameter.  See the [Command Objects|guide:commandObjects] documentation for more details.
+{hidden}When a domain class is used as a command object and there is an @id@ request parameter, the framework will retrieve the instance of the domain class from the database using the @id@ request parameter.  See the [Command Objects|guide:commandObjects] documentation for more details.{hidden}
+
+ドメインクラスをコマンドオブジェクトとして使用して、リクエストパラメータに @id@ が存在した場合は、 @id@ を使用してデータベースからドメインクラスインスタンスを取り出します。 詳細は [Command Objects|guide:commandObjects] のドキュメントを参照してください。
+
 
 {hidden}h4. Forked Execution{hidden}
 h4. フォーク実行 
@@ -82,7 +87,8 @@ grails.project.fork = [
 {hidden}h4. Test Runner Daemon{hidden}
 h4. テストランナーデーモン
 
-To speed up testing when using forked execution a new daemon will start-up in the background to run tests when using interactive mode. You can restart the daemon with the @restart-daemon@ command from interactive mode:
+{hidden}To speed up testing when using forked execution a new daemon will start-up in the background to run tests when using interactive mode. You can restart the daemon with the @restart-daemon@ command from interactive mode:{hidden}
+インタラクティブモードでテストを実行する際にバックグラウンドでデーモンが起動してテストがフォーク実行されテスト効率がアップします。デーモンはインタラクティブモードで @restart-daemon@ コマンド実行すると再起動できます。
 
 {code}
 $ grails> restart-daemon
@@ -91,25 +97,36 @@ $ grails> restart-daemon
 {hidden}h4. Server-Side REST Improvements{hidden}
 h4. サーバサイドRESTの向上
 
-Grails' [REST support|guide:REST] has been significantly improved with the addition of the following features:
+{hidden}Grails' [REST support|guide:REST] has been significantly improved with the addition of the following features:{hidden}
+Grailsの[REST対応|guide:REST]は、大きく向上しました、そして以下の新機能も追加されました。
 
+{hidden}
 * Rich [REST URL Mapping support|guide:restfulMappings] with supports for resource mappings, singular resource mappings, nested resources, versioning and more
 * New extensible response rendering and binding APIs
 * Support for HAL, Atom and Hypermedia (HATEAOS)
 * Scaffolding for REST controllers
+{hidden}
 
-See the [user guide|guide:REST] for more information.
+* リソースマッピング、シンギュラリソースマッピング、ネステッドリソース、バージョニングなどの、豊富な[REST URLマッピング|guide:restfulMappings]サポート。
+* 新たな拡張可能なレスポンスレンダリングとバインディングAPI
+* HAL, Atom, Hypermedia (HATEAOS)対応
+* RESTコントローラのスカッフォルディング
+
+{hidden}See the [user guide|guide:REST] for more information.{hidden}
+詳しくは[ドキュメント|guide:REST]を参照してください。
+
 
 {hidden}h4. New Scaffolding 2.0 Plugin{hidden}
 h4. スカッフォルディング2.0プラグイン
 
-Grails' Scaffolding feature has been split into a [separate plugin|http://grails.org/plugin/scaffolding]. Version 2.0 of the plugin includes support for generating REST controllers, Async controllers, and Spock unit tests.
+{hidden}Grails' Scaffolding feature has been split into a [separate plugin|http://grails.org/plugin/scaffolding]. Version 2.0 of the plugin includes support for generating REST controllers, Async controllers, and Spock unit tests.{hidden}
+Grailsでのスカッフォルディング機能は[プラグイン|http://grails.org/plugin/scaffolding]での提供として切り離されました。プラグインのバージョン2.0では、RESTコントローラ、AsyncコントローラとSpockユニットテストをサポートしています。
 
 {hidden}h4. URL Mappings May Specify A Redirect{hidden}
 h4. URLマッピングのリダイレクト指定
 
-URL Mappings may now specify that a redirect should be triggered when the mapping matches an incoming request:
-
+{hidden}URL Mappings may now specify that a redirect should be triggered when the mapping matches an incoming request:{hidden}
+URLマッピングでリダイレクトが指定できるようになりました。リクエストがマッピングにマッチしたらトリガーされます。
 {code:java}
 class UrlMappings {
     static mappings = {
@@ -122,7 +139,8 @@ class UrlMappings {
 }
 {code}
 
-See the [user guide|guide:redirectMappings] for more information.
+{hidden}See the [user guide|guide:redirectMappings] for more information.{hidden}
+詳しくは[ドキュメント|guide:redirectMappings]を参照してください。
 
 {hidden}h4. Async support {hidden}
 h4. 非同期サポート
@@ -174,7 +192,8 @@ h4. Hibernate 3と4をサポート
 {hidden}h4. Controller Exception Handling{hidden}
 h4. コントローラ例外ハンドリング
 
-Controllers may define exception handler methods which will automatically be invoked any time an action in that controller throws an exception.
+{hidden}Controllers may define exception handler methods which will automatically be invoked any time an action in that controller throws an exception.{hidden}
+コントローラのクションが投げたExceptionをハンドリングするメソッドをコントローラに定義できるようになりました。
 
 {code:java}
 // grails-app/controllers/demo/DemoController.groovy
@@ -200,14 +219,14 @@ class DemoController {
 }
 {code}
 
-See the [controller exception handling|guide:controllerExceptionHandling] docs for more information.
-
+{hidden}See the [controller exception handling|guide:controllerExceptionHandling] docs for more information.{hidden}
+詳しくは、 [ドキュメント|guide:controllerExceptionHandling] を参照してください。
 
 {hidden}h4. Namespaced Controllers{hidden}
 h4. コントローラネームスペース
 
-Controllers may now be defined in a namespace which allows for multiple controllers to be defined with the same name in different packages.
-
+{hidden}Controllers may now be defined in a namespace which allows for multiple controllers to be defined with the same name in different packages.{hidden}
+別々のパッケージでの同じ名称のコントローラを使用できるように、コントローラにネームスペースが定義できるようになりました。
 {code}
 // grails-app/controllers/com/app/reporting/AdminController.groovy
 package com.app.reporting
@@ -258,7 +277,8 @@ class UrlMappings {
 <g:link controller="admin" namespace="users">Click For User Admin</g:link>
 {code}
 
-See the [namespaced controllers|guide:namespacedControllers] docs for more information.
+詳しくは、 [ドキュメント|guide:namespacedControllers] を参照してください。
+
 
 {hidden}h4. Command Line {hidden}
 h4. コマンドライン
@@ -274,5 +294,5 @@ grails create-app appname --skip-wrapper
 
 
 
-
+----
 
