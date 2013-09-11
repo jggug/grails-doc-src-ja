@@ -18,7 +18,7 @@ Aether依存管理を使用するとGrailsではMavenビルドツールと同じ
 h4. データバインダー
 
 {hidden}Grails 2.3 includes a new data binding mechanism which is more flexible and easier to maintain than the data binder used in previous versions.  The new data binder includes numerous enhancements including:{hidden}
-Grails 2.3では、依存のバージョンよりもフレキシブルで保守性の高く簡単な新データバインダーを実装しています。
+Grails 2.3では、以前のバージョンよりもフレキシブルで保守性の高く簡単な新データバインダーを実装しています。
 
 {hidden}
 * Custom date formats on a per field basis using [BindingFormat|api:org.grails.databinding.BindingFormat]
