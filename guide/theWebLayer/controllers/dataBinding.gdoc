@@ -244,7 +244,10 @@ def save() {
 {hidden}This has the same effect as using the implicit constructor.{hidden}
 これは先ほどのコンストラクタを利用したのと同じ結果になります。
 
-When binding an empty String (a String with no characters in it, not even spaces), the data binder will convert the empty String to null.  This simplifies the most common case where the intent is to treat an empty form field as having the value null since there isn't a way to actually submit a null as a request parameter.  When this behavior is not desireable the application may assign the value directly.
+{hidden}When binding an empty String (a String with no characters in it, not even spaces), the data binder will convert the empty String to null.  This simplifies the most common case where the intent is to treat an empty form field as having the value null since there isn't a way to actually submit a null as a request parameter.  When this behavior is not desireable the application may assign the value directly.{hidden}
+空文字(スペースすら含まない文字数0のString)をnullable制約を付与されたプロパティにバインディングするとき、データバインダはその空文字をnullに変換します。
+これによって、リクエストパラメータとしてnullをサブミットする方法が実際には存在しないため空文字として送信せざるを得ないが、フォームの空フィールドについて値がnullであるとみなしたい、というよくあるケースを簡単に扱えるようになります。
+この振る舞いが望ましくないときは、アプリケーションは値を直接代入することもできます。
 
 {hidden}The mass property binding mechanism will by default automatically trim all Strings at binding time.  To disable this behavior set the @grails.databinding.trimStrings@ property to false in @grails-app/conf/Config.groovy@.{hidden}
 大量プロパティバインディング機構は、デフォルトでバインディング時にすべての文字列を自動的にトリムします。
