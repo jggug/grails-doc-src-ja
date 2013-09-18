@@ -62,7 +62,7 @@ conf:
 commandLine:
   title: コマンドライン
   interactiveMode: インタラクティブモード
-  forkedMode: フォーク実行
+  forkedMode: フォークモード
   creatingGantScripts: Gantスクリプトの作成
   reusingGrailsScripts: Grailsスクリプトの再利用
   events: イベントを取得する

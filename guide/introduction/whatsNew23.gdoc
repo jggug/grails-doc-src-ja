@@ -34,7 +34,7 @@ Grails 2.3では、以前のバージョンよりもフレキシブルで保守�
 * ユーザ定義フォーマットデータコンバーター - [BindingFormat|api:org.grails.databinding.BindingFormat]  [FormattedValueConverter|api:org.grails.databinding.converters.FormattedValueConverter]
 * クラスごとのカスタムバインディング - [BindUsing|api:org.grails.databinding.BindUsing]
 * フィールドごとのカスタムバインディング - [BindUsing|api:org.grails.databinding.BindUsing]
-* デフォルトで全ての空文字列とブランクはデータバインディングでnullに変換されます。(設定可能)
+* デフォルトで全ての空文字列とブランクはデータバインディングでnullに変換されます(設定可能)
 
 {hidden}See the [Data Binding|guide:dataBinding] section for details.{hidden}
 詳細は [データバインディング|guide:dataBinding] のセクションを参照してください。
@@ -82,7 +82,7 @@ grails.project.fork = [
 {code}
 
 {hidden}See the documentation on [Forked Mode|guide:forkedMode] for more information.{hidden}
-詳しくは [フォームモード|guide:forkedMode] のドキュメントを参照してください。
+詳しくは [フォークモード|guide:forkedMode] のドキュメントを参照してください。
 
 {hidden}h4. Test Runner Daemon{hidden}
 h4. テストランナーデーモン
@@ -107,7 +107,7 @@ Grailsの[REST対応|guide:REST]は、大きく向上しました、そして以
 * Scaffolding for REST controllers
 {hidden}
 
-* リソースマッピング、シンギュラリソースマッピング、ネステッドリソース、バージョニングなどの、豊富な[REST URLマッピング|guide:restfulMappings]サポート。
+* リソースマッピング、シンギュラリソースマッピング、ネステッドリソース、バージョニングなどの、豊富な[REST URLマッピング|guide:restfulMappings]サポート
 * 新たな拡張可能なレスポンスレンダリングとバインディングAPI
 * HAL, Atom, Hypermedia (HATEAOS)対応
 * RESTコントローラのスカッフォルディング
@@ -193,7 +193,7 @@ h4. Hibernate 3と4をサポート
 h4. コントローラ例外ハンドリング
 
 {hidden}Controllers may define exception handler methods which will automatically be invoked any time an action in that controller throws an exception.{hidden}
-コントローラのクションが投げたExceptionをハンドリングするメソッドをコントローラに定義できるようになりました。
+コントローラのアクションが投げたExceptionをハンドリングするメソッドをコントローラに定義できるようになりました。
 
 {code:java}
 // grails-app/controllers/demo/DemoController.groovy
