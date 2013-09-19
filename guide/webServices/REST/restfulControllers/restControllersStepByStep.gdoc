@@ -48,7 +48,7 @@ The 'create' and 'edit' actions are already required if you plan to implement an
 
 {hidden}The key to implementing REST actions is the [respond|controllers] method introduced in Grails 2.3. The @respond@ method tries to produce the most appropriate response for the requested content type (JSON, XML, HTML etc.){hidden}
 RESTアクションの実装の鍵は、Grails 2.3で導入された[respond|controllers]メソッドです。
-@respond@メソッドは、リクエストのCotent Type(JSON、XML、XMLなど)に対して、もっとも適切なレスポンスを生成しようとします。
+@respond@メソッドは、リクエストのContent Type(JSON、XML、HTMLなど)に対して、もっとも適切なレスポンスを生成しようとします。
 
 {hidden}h4. Implementing the 'index' action{hidden}
 h4. 'index'アクションの実装
