@@ -80,7 +80,7 @@ HTML/URLインジェクションは、Grailsが提供する[コーデック|guid
 h4. サービス妨害
 
 {hidden}Load balancers and other appliances are more likely to be useful here, but there are also issues relating to excessive queries for example where a link is created by an attacker to set the maximum value of a result set so that a query could exceed the memory limits of the server or slow the system down. The solution here is to always sanitize request parameters before passing them to dynamic finders or other GORM query methods:{hidden}
-ここでは、負荷分散装置やその他のアプライアンスが、より有用でしょう。ですが、サーバのメモリ容量を超えること、あるいはシステムを遅くさせることを目的に、結果の最大値を書き換えた超過クエリを発行するようなリンクを攻撃者が作成する、といった課題もあります。これに対する解決法は、ダイナミックファインダーやその他のGROMクエリメソッドにリクエストパラメータを渡す前に、常にサニタイズすることです:
+ここでは、負荷分散装置やその他のアプライアンスが、より有用でしょう。ですが、サーバのメモリ容量を超えること、あるいはシステムを遅くさせることを目的に、結果の最大値を書き換えた超過クエリを発行するようなリンクを攻撃者が作成する、といった課題もあります。これに対する解決法は、ダイナミックファインダーやその他のGORMクエリメソッドにリクエストパラメータを渡す前に、常にサニタイズすることです:
 
 {hidden}
 {code:java}

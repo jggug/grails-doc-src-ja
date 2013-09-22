@@ -11,7 +11,7 @@ h3. Asyncネームスペース
 {hidden}
 The Asynchronous GORM API is available on every domain class via the @async@ namespace.
 {hidden}
-非同期GROM APIは、すべてのドメインクラスに対し@async@ネームスペースを通じて提供されます。
+非同期GORM APIは、すべてのドメインクラスに対し@async@ネームスペースを通じて提供されます。
 
 {hidden}
 For example, the following code listing reads 3 objects from the database asynchronously:
@@ -114,7 +114,7 @@ As discussed in the previous section you should avoid reading and writing object
 {hidden}
 However, if you wish to do more complex GORM work asynchronously then the GORM async namespace provides a @task@ method that makes this possible. For example:
 {hidden}
-しかし、GROMのasyncネームスペースが提供している@task@メソッドを使用することで、より複雑なGORMの非同期処理が可能になります。例えば以下のように使用します。
+しかし、GORMのasyncネームスペースが提供している@task@メソッドを使用することで、より複雑なGORMの非同期処理が可能になります。例えば以下のように使用します。
 
 {code}
 def promise = Person.async.task {
@@ -131,7 +131,7 @@ Person updatedPerson = promise.get()
 {hidden}
 Note that the GORM @task@ method differs from the static @Promises.task@ method in that it deals with binding a new session to the asynchronous thread for you. If you do not use the GORM version and do asynchronous work with GORM then you need to do this manually. Example:
 {hidden}
-GORMの@task@メソッドは静的な@Promises.task@メソッドとは異なり、非同期処理のスレッドに対して自動的に新いセッションをバインドします。もしGROMの@task@メソッドを使用せず非同期にGORMの処理を行う場合は、これを手動で行う必要があります。
+GORMの@task@メソッドは静的な@Promises.task@メソッドとは異なり、非同期処理のスレッドに対して自動的に新いセッションをバインドします。もしGORMの@task@メソッドを使用せず非同期にGORMの処理を行う場合は、これを手動で行う必要があります。
 
 {code}
 import static grails.async.Promises.*
