@@ -59,8 +59,8 @@ task _publishGuide_ja(type: grails.doc.gradle.PublishGuide, dependsOn: ['_copyRe
     sourceDir = projectDir
     resourcesDir = buildResourcesDir
 
-    def propFile = new File(_grailsHome, "build.properties")
-    if(propFile.exists()) propertiesFiles = [ propFile ]
+    propertiesFiles << new File("./doc_ja.properties")
+    propertiesFiles << new File(_grailsHome, "build.properties")
 }
 
 task easyDocs_ja {
