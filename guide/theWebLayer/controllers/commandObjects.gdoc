@@ -1,15 +1,19 @@
 {hidden}Grails controllers support the concept of command objects. A command object is a class that is used in conjunction with [data binding|guide:dataBinding], usually to allow validation of data that may not fit into an existing domain class.{hidden}
-
-Grailsのコマンドオブジェクトの設計概念をサポートしています。 コマンドオブジェクトは [data binding|guide:dataBinding] と連結して使用するクラスであり、通常ドメインクラスとして扱わないデータに対してバリデーションを可能にします。
+Grailsのコントローラは、コマンドオブジェクトの概念をサポートしています。
+コマンドオブジェクトは[データバインディング|guide:dataBinding]と連携して使われるクラスであり、既存のドメインクラスとは適合しないようなデータのバリデーションを可能にします。
 
 {note}
+{hidden}
 Note: A class is only considered to be a command object when it is used as a parameter of an action.
+{hidden}
+注意: どんなクラスでもアクションの引数として使われれば、コマンドオブジェクトと見なされます。
 {note}
 
-h4. コマンドオブジェクトの宣言 {hidden}Declaring Command Objects {hidden}
+{hidden}h4. Declaring Command Objects {hidden}
+h4. コマンドオブジェクトの宣言
 
 {hidden}Command object classes are defined just like any other class.{hidden}
-コマンドオブジェクトクラスは他の通常クラスと同じように設定します:
+コマンドオブジェクトクラスは他の通常クラスと同じように定義します:
 
 {code:java}
 @grails.validation.Validateable
@@ -24,14 +28,23 @@ class LoginCommand {
 }
 {code}
 
-In this example, the command object is marked with the @Validateable@ annotation. The @Validateable@ annotation allows the definition of [constraints|guide:constraints] just like in [domain classes|guide:GORM]. If the command object is defined in the same source file as the controller that is using it, Grails will automatically mark it as @Validateable@. It is not required that command object classes be validateable.
+{hidden}In this example, the command object is marked with the @Validateable@ annotation. The @Validateable@ annotation allows the definition of [constraints|guide:constraints] just like in [domain classes|guide:GORM]. If the command object is defined in the same source file as the controller that is using it, Grails will automatically mark it as @Validateable@. It is not required that command object classes be validateable.{hidden}
+この例では、コマンドオブジェクトには@Validateable@アノテーションが付与されています。
+@Validateable@アノテーションを使うと、[ドメインクラス|guide:GORM]のように[制約|guide:constraints]が定義できます。
+コマンドオブジェクトがそれを利用するコントローラと同じソースファイル中に定義されている場合は、Grailsは自動的に@Validateable@を付与します。
+コマンドオブジェクトクラスに@Validateable@を明示的に付与する必要はありません。
 
+{hidden}h4. Using Command Objects {hidden}
+h4. コマンドオブジェクトを使用する
 
-h4. コマンドオブジェクトを使用する {hidden}Using Command Objects {hidden}
+{hidden}To use command objects, controller actions may optionally specify any number of command object parameters. The parameter types must be supplied so that Grails knows what objects to create and initialize.{hidden}
+コマンドオブジェクトを使うには、コントローラアクションの引数にコマンドオブジェクトを指定します。
+Grailsがどんなオブジェクトを生成して初期化すればよいか分かるように、引数の型を指定しなければなりません。
 
-To use command objects, controller actions may optionally specify any number of command object parameters. The parameter types must be supplied so that Grails knows what objects to create and initialize.
-
-Before the controller action is executed Grails will automatically create an instance of the command object class and populate its properties by binding the request parameters.  If the command object class is marked with @Validateable@ then the command object will be validated. For example:
+{hidden}Before the controller action is executed Grails will automatically create an instance of the command object class and populate its properties by binding the request parameters.  If the command object class is marked with @Validateable@ then the command object will be validated. For example:{hidden}
+コントローラアクションが実行される前に、Grailsは自動的にコマンドオブジェクトクラスのインスタンスを生成して、リクエストパラメータをバインドしてプロパティを設定します。
+コマンドオブジェクトクラスに@Validateable@が付与されている場合は、コマンドオブジェクトはバリデートされます。
+たとえば:
 
 {code:java}
 class LoginController {
@@ -47,13 +60,17 @@ class LoginController {
 }
 {code}
 
-If the command object's type is that of a domain class and there is an @id@ request parameter then instead of invoking the domain class constructor to create a new instance a call will be made to the static @get@ method on the domain class and the value of the @id@ parameter will be passed as an argument.  Whatever is returned from that call to @get@ is what will be passed into the controller action.  This means that if there is an @id@ request parameter and no corresponding record is found in the database then the value of the command object will be @null@.
+{hidden}If the command object's type is that of a domain class and there is an @id@ request parameter then instead of invoking the domain class constructor to create a new instance a call will be made to the static @get@ method on the domain class and the value of the @id@ parameter will be passed as an argument.  Whatever is returned from that call to @get@ is what will be passed into the controller action.  This means that if there is an @id@ request parameter and no corresponding record is found in the database then the value of the command object will be @null@.{hidden}
+もし、コマンドオブジェクトの型がドメインクラスの型と一致し、かつ、@id@リクエストパラメータが存在している場合は、新しいインスタンスを生成するためにドメインクラスのコンストラクタを実行する代わりに、ドメインクラスの@get@静的メソッドが呼ばれ、@id@パラメータがその引数として渡されます。
+@get@の呼び出しから何が返されても、それはそのままコントローラアクションに渡されます。
+つまり、もし@id@リクエストパラメータが存在しても、該当するレコードがデータベース上に見つからない場合は、コマンドオブジェクトは@null@になります。
 
-h4. コマンドオブジェクトと依存注入 {hidden}Command Objects and Dependency Injection {hidden}
+{hidden}h4. Command Objects and Dependency Injection {hidden}
+h4. コマンドオブジェクトと依存注入
 
 {hidden}Command objects can participate in dependency injection. This is useful if your command object has some custom validation logic which uses a Grails [service|guide:services]:{hidden}
-コマンドオブジェクトに依存注入をすることが可能です。Grailsの[サービス|guide:services]を使用したカスタムバリデーションなどを使用する際に便利です:
-
+コマンドオブジェクトでは依存注入がサポートされています。
+Grailsの[サービス|guide:services]を使用したカスタムバリデーションなどを使用する際に便利です:
 
 {code}
 @grails.validation.Validateable
@@ -75,9 +92,12 @@ class LoginCommand {
 {hidden}In this example the command object interacts with the @loginService@ bean which is injected by name from the Spring @ApplicationContext@.{hidden}
 この例では、@loginService@をSpringの@ApplicatinContext@から名前解決でコマンドオブジェクトに注入しています。
 
-h4. Binding The Request Body To Command Objects
+{hidden}h4. Binding The Request Body To Command Objects{hidden}
+h4. リクエストボディをコマンドオブジェクトにバインドする
 
-When a request is made to a controller action which accepts a command object and the request contains a body, Grails will attempt to parse the body of the request based on the request content type and use the body to do data binding on the command object.  See the following example.
+{hidden}When a request is made to a controller action which accepts a command object and the request contains a body, Grails will attempt to parse the body of the request based on the request content type and use the body to do data binding on the command object.  See the following example.{hidden}
+コマンドオブジェクトを受け取るコントローラアクションにリクエストが届き、かつ、そのリクエストがボディを含んでいるとき、Grailsは、リクエストのコンテントタイプに基づきリクエストのボディをパースして、コマンドオブジェクトへのデータバインディングにそのボディの情報を利用しようとします。
+以下の例を見てください:
 
 {code:java}
 // grails-app/controllers/bindingdemo/DemoController.groovy
@@ -85,7 +105,7 @@ package bindingdemo
 
 class DemoController {
 
-    def createWidget(Widget w) { 
+    def createWidget(Widget w) {
         render "Name: \${w?.name}, Size: \${w?.size}"
     }
 }
@@ -99,13 +119,16 @@ class Widget {
 {code}
 \$ curl -H "Content-Type: application/json" -d '{"name":"Some Widget","size":"42"}' localhost:8080/myapp/demo/createWidget
  Name: Some Widget, Size: 42
-~ \$ 
+~ \$
 \$ curl -H "Content-Type: application/xml" -d '<widget><name>Some Other Widget</name><size>2112</size></widget>' localhost:8080/bodybind/demo/createWidget
  Name: Some Other Widget, Size: 2112
-~ \$ 
+~ \$
 {code}
 
-Note that the body of the request is being parsed to make that work.  Any attempt to read the body of the request after that will fail since the corresponding input stream will be empty.  The controller action can either use a command object or it can parse the body of the request on its own (either directly, or by referring to something like request.JSON), but cannot do both. 
+{hidden}Note that the body of the request is being parsed to make that work.  Any attempt to read the body of the request after that will fail since the corresponding input stream will be empty.  The controller action can either use a command object or it can parse the body of the request on its own (either directly, or by referring to something like request.JSON), but cannot do both.{hidden}
+この方法において、リクエストボディがパースされていることに注意してください。
+対応する入力ストリームは空になるため、パース後にリクエストボディを読もうとしても失敗します。
+コントローラアクションは、コマンドオブジェクトを使うか、(直接、または@request.JSON@のような何らかの方法で)リクエストボディを自力でパースするかのどちらかであれば可能ですが、両方同時にはできません。
 
 {code:java}
 // grails-app/controllers/bindingdemo/DemoController.groovy
@@ -113,7 +136,7 @@ package bindingdemo
 
 class DemoController {
 
-    def createWidget(Widget w) { 
+    def createWidget(Widget w) {
         // this will fail because it requires reading the body,
         // which has already been read.
         def json = request.JSON
