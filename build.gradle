@@ -67,6 +67,16 @@ task easyDocs_ja {
     dependsOn '_publishGuide_ja'
 }
 
+task syntaxChecker << {
+    def context = new BaseInitialRenderContext()
+    def engine = new DocEngine(context)
+    engine.addMacro(new HiddenMacro())
+    file("guide").traverse(type: FileType.FILES, nameFilter: ~/^.+\.gdoc$/) { File gdoc ->
+        println gdoc
+        engine.render(gdoc.text,context)
+    }
+}
+
 defaultTasks 'easyDocs_ja'
 
 //----------------------------
@@ -75,16 +85,4 @@ defaultTasks 'easyDocs_ja'
 def execCommand(List command, File currentDir = null) {
     println "Executing '${command.join(' ')}' at ${currentDir?.canonicalPath ?: 'current dir'} ..."
     println command.execute([], currentDir).text
-}
-
-// wiki syntax scan.
-task syntaxChecker {
-    def context = new BaseInitialRenderContext()
-    def engine = new DocEngine(context)
-    engine.addMacro(new HiddenMacro())
-    def guides = new File("guide")
-    guides.traverse(type: FileType.FILES, nameFilter: ~/^.+\.gdoc$/) {File gdoc->
-        println gdoc
-        engine.render(gdoc.text,context)
-    }
 }
