@@ -1,27 +1,974 @@
 
 h1. Document Translation Report.
 
-* *File Count* - 295
+* *File Count* - 296
 * *Done* - 281
-* *TODO* - 12
+* *TODO* - 13
 * *Not found or new* - 2
 
 h2. Original document updated after translation.:
+
+*./guide/plugins/creatingAndInstallingPlugins.gdoc*
+
+{code}
+83 : compile "\:quartz:0.1"
+{code}
+
+*./guide/conf/dependencyResolution.gdoc*
+
+{code}
+22 : grails.servlet.version = "3.0" // Change depending on target container compliance (2.5 or 3.0)
+26 : grails.project.work.dir = "target/work"
+27 : grails.project.target.level = 1.6
+28 : grails.project.source.level = 1.6
+31 : grails.project.fork = [
+32 :     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
+33 :     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+35 :     // configure settings for the test-app JVM, uses the daemon by default
+36 :     test: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
+37 :     // configure settings for the run-app JVM
+38 :     run: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+39 :     // configure settings for the run-war JVM
+40 :     war: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256, forkReserve:false],
+41 :     // configure settings for the Console UI JVM
+42 :     console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
+43 : ]
+49 :         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
+52 :     log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+53 :     checksums true // Whether to verify checksums on resolve
+54 :     legacyResolve false // whether to do a secondary resolve on plugin installation, not advised and here for backwards compatibility
+57 :         inherits true // Whether to inherit repository definitions from plugins
+64 :         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
+70 :         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
+71 :         runtime 'mysql:mysql-connector-java:5.1.24'
+72 :         compile 'org.springframework.integration:spring-integration-core:2.2.5.RELEASE'
+76 :         // plugins for the build system only
+{code}
+
+*./guide/gettingStarted/generatingAnApplication.gdoc*
+
+{code}
+4  : grails generate-all helloworld.Book
+{code}
+
+*./guide/webServices/REST/hypermedia/vndError.gdoc*
+
+{code}
+12 : \{"errors":[\{"object":"rest.test.Book", "field":"title", "rejected-value":null, "message":"Property [title] of class [class rest.test.Book] cannot be null"\}]\}
+{code}
+
+*./guide/scaffolding.gdoc*
+
+{code}
+11 :         compile "\:scaffolding:2.0.0"
+{code}
+
+*./guide/webServices/REST/linkingToResources.gdoc*
+
+{code}
+7  : However, currently you cannot use g:link to link to the DELETE action and most browsers do not support sending the DELETE method directly.
+9  : The best way to accomplish this is to use a form submit:
+12 :  <form action="/book/2" method="post">
+13 :  	<input type="hidden" name="_method" value="DELETE"/>
+14 :  </form>
+17 : Grails supports overriding the request method via the hidden _method parameter. This is for browser compatibility purposes. This is useful when using restful resource mappings to create powerful web interfaces.
+18 : To make a link fire this type of event, perhaps capture all click events for links with a `data-method` attribute and issue a form submit via javascript.
+{code}
+
+*./guide/theWebLayer/gsp/resources.gdoc*
+
+{code}
+1  : \{note\}
+2  : TBD... This section of material will be updated to cover the asset-pipeline plugin before Grails 2.4 is released.
+3  : \{note\}
+{code}
+
+*./guide/theWebLayer/contentNegotiation.gdoc*
+
+{code}
+8  : grails.mime.types = [ // the first one is the default format
+9  :     all:           '*/*', // 'all' maps to '*' or the first available format in withFormat
+26 : The first one is the default format.
+53 :             * \{ render books as JSON \}
+61 : When no format matches explicitly, a @*@ (wildcard) block can be used to handle all other formats. 
+63 : There is a special format, "all", that is handled differently from the explicit formats. If "all" is specified (normally this happens through the Accept header - see below), then the first block of @withFormat()@ is executed when there isn't a @*@ (wildcard) block available.  
+65 : You should not add an explicit "all" block. In this example, a format of "all" will trigger the @html@ handler (@html@ is the first block and there is no @*@ block).
+154: "/$controller/$action?/$id?(.$format)?"\{
+{code}
+
+*./guide/theWebLayer/taglibs/iterativeTags.gdoc*
+
+{code}
+25 : That value is then passed as the default variable @it@ to the tag. However, if you have nested tags this can lead to conflicts, so you should instead name the variables that the body uses:
+{code}
+
+*./guide/gettingStarted/creatingArtefacts.gdoc*
+
+{code}
+8  : grails create-app helloworld
+9  : cd helloworld
+13 : This will result in the creation of a domain class at @grails-app/domain/helloworld/Book.groovy@ such as:
+16 : package helloworld
+{code}
+
+*./guide/introduction/whatsNew23.gdoc*
+
+{code}
+57 : \$ grails> restart-daemon
+200:         "/\$namespace/\$controller/\$action?"()
+210: See the [namespaced controllers|guide:namespacedControllers] docs for more information.
+{code}
+
+*./guide/async/promises.gdoc*
+
+{code}
+129: def map = new PromiseMap()
+{code}
+
+*./guide/conf/dependencyResolution/changingDependencies.gdoc*
+
+{code}
+8  : Be sure to read the next section on "Dependency Resolution Caching" in addition to this one as it affects changing dependencies.
+67 : * maven network repository is searched, dependency is found to be the same "age" as the version in the cache so will not be updated (i.e. downloaded)
+85 : * maven local repository is searched, dependency is found to be the same "age" as the version in the cache so will not be updated (i.e. downloaded)
+{code}
+
+*./guide/upgradingFromPreviousVersionsOfGrails.gdoc*
+
+{code}
+1  : A number of changes need to be considered when upgrading your application from Grails 2.2, some of them breaking. Here's a quick list with more detail on each item following after:
+3  : * New improved data binding (no Spring property editors)
+4  : * Much improved XSS prevention with default HTML encoding
+5  : * A new dependency resolution engine
+6  : * Must be online to fetch Grails dependencies
+7  : * Grails core dependencies rearranged
+8  : * Tomcat and Hibernate plugins independently versioned now (breaking\!)
+9  : * Scaffolding is now a separate plugin
+10 : * Spock included by default
+11 : * Dependency injection does not work in integration tests by default 
+12 : * Forked execution for tests
+13 : * Reloading in @run-app@ won't work by default on upgraded apps
+14 : * @grails-debug@ doesn't work for forked execution
+33 : If you need to authenticate to a maven repository, you will want to change the definition of that repository like so:
+36 : mavenRepo("http://artifactory.mycompany.com/repo") \{
+37 :     authentication(username: "myusername", password: "secret")
+60 :     :: org.springframework#spring-test;3.2.2.RELEASE: configuration not found in org.springframework#spring-test;3.2.2.RELEASE: 'compile'. It was required from org.grails#grails-plugin-testing;2.3.0.BUILD-SNAPSHOT compile
+93 :         build ':tomcat:7.0.42'
+96 :         runtime ':hibernate:3.6.10.2' 
+116: You no longer need to add the Spock plugin to your projects. Simply create Spock specifications as before and they will be run as unit tests. In fact, don't install the Spock plugin, otherwise your specifications will run twice and potentially fail. This also means that the @spock@ test type no longer exists. Specifications and JUnit tests run as the same type now.
+120: In order to support alternate JUnit4 test runners, Grails 2.3 no longer uses a special test runner to run tests and integration tests should no longer extend @GroovyTestCase@.
+122: This change requires that any JUnit integration tests that require dependency injection now need to be annotated with:
+125: \@TestMixin(IntegrationTestMixin)
+128: For Spock integration tests, extending @IntegrationSpec@ also works.
+197: Some existing plugins (Cucumber plugin for example) do not work with 2.3.x forked execution because they expect the tests to be running in the same JVM as the application under tests. For example it is not possible to setup fixture / test data using GORM inside a functional test and have that data visible to the application under test since the application under test is in a separate JVM. The solution to this is to provide the necessary fixture data in the @BootStrap@ of the application (only for the test environment of course).
+{code}
+
+*./guide/testing/unitTesting/unitTestingFilters.gdoc*
+
+{code}
+19 : import grails.test.mixin.TestFor
+20 : import spock.lang.Specification
+24 : class SimpleControllerSpec extends Specification \{
+26 :     // ...
+34 : import grails.test.mixin.TestFor
+35 : import spock.lang.Specification
+39 : class SimpleControllerSpec extends Specification \{
+41 :     void "test list action is filtered"() \{
+42 :         when:
+43 :         withFilters(action:"list") \{
+44 :             controller.list()
+47 :         then:
+48 :         response.redirectedUrl == '/book'
+{code}
+
+*./guide/conf/dataSource/multipleDatasources.gdoc*
+
+{code}
+221: Grails uses the Best Efforts 1PC pattern for handling transactions across multiple datasources.
+223: The [Best Efforts 1PC pattern|http://www.javaworld.com/article/2077963/open-source-tools/distributed-transactions-in-spring--with-and-without-xa.html?page=2] is fairly general but can fail in some circumstances that the developer must be aware of. This is a non-XA pattern that involves a synchronized single-phase commit of a number of resources. Because the [2PC|https://en.wikipedia.org/wiki/Two-phase_commit] is not used, it can never be as safe as an [XA|https://en.wikipedia.org/wiki/X/Open_XA] transaction, but is often good enough if the participants are aware of the compromises.
+225: The basic idea is to delay the commit of all resources as late as possible in a transaction so that the only thing that can go wrong is an infrastructure failure (not a business-processing error). Systems that rely on Best Efforts 1PC reason that infrastructure failures are rare enough that they can afford to take the risk in return for higher throughput. If business-processing services are also designed to be idempotent, then little can go wrong in practice.
+227: The BE1PC implementation was added in Grails 2.3.6. . Before this change additional datasources didn't take part in transactions initiated in Grails. The transactions in additional datasources were basically in auto commit mode. In some cases this might be the wanted behavior. One reason might be performance: on the start of each new transaction, the BE1PC transaction manager creates a new transaction to each datasource. It's possible to leave an additional datasource out of the BE1PC transaction manager by setting @transactional = false@ in the respective configuration block of the additional dataSource. Datasources with @readOnly = true@ will also be left out of the chained transaction manager (since 2.3.7).
+229: By default, the BE1PC implementation will add all beans implementing the Spring @[PlatformTransactionManager|http://docs.spring.io/spring/docs/3.2.x/javadoc-api/org/springframework/transaction/PlatformTransactionManager.html]@ interface to the chained BE1PC transaction manager. For example, a possible @[JMSTransactionManager|http://docs.spring.io/spring/docs/3.2.x/javadoc-api/org/springframework/jms/connection/JmsTransactionManager.html]@ bean in the Grails application context would be added to the Grails BE1PC transaction manager's chain of transaction managers. 
+231: You can exclude transaction manager beans from the BE1PC implementation with the this configuration option:
+233: grails.transaction.chainedTransactionManagerPostProcessor.blacklistPattern = '.*'
+235: The exclude matching is done on the name of the transaction manager bean. The transaction managers of datasources with @transactional = false@ or @readOnly = true@ will be skipped and using this configuration option is not required in that case.
+239: When the Best Efforts 1PC pattern isn't suitable for handling transactions across multiple transactional resources (not only datasources), there are several options available for adding XA/2PC support to Grails applications.
+241: The [Spring transactions documentation|http://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/transaction.html#transaction-application-server-integration] contains information about integrating the JTA/XA transaction manager of different application servers. In this case, you can configure a bean with the name @transactionManager@ manually in @resources.groovy@ or @resources.xml@ file.
+243: There is also [Atomikos plugin|http://grails.org/plugin/atomikos] available for XA support in Grails applications.
+{code}
+
+*./guide/webServices/REST/hypermedia/hal.gdoc*
+
+{code}
+89 : To return HAL instead of regular JSON for a list of resources you can simply override the renderer in @grails-app/conf/spring/resources.groovy@ with an instance of @grails.rest.render.hal.HalJsonCollectionRenderer@:
+94 :     halBookCollectionRenderer(HalJsonCollectionRenderer, rest.test.Book)
+104: Content-Type: application/hal+json;charset=UTF-8
+105: Transfer-Encoding: chunked
+106: Date: Thu, 17 Oct 2013 02:34:14 GMT
+111:       "href": "http://localhost:8080/myapp/books",
+117:     "book": [
+118:       \{
+121:             "href": "http://localhost:8080/myapp/books/1",
+122:             "hreflang": "en",
+123:             "type": "application/hal+json"
+126:         "title": "The Stand"
+128:       \{
+131:             "href": "http://localhost:8080/myapp/books/2",
+132:             "hreflang": "en",
+133:             "type": "application/hal+json"
+136:         "title": "Infinite Jest"
+138:       \{
+141:             "href": "http://localhost:8080/myapp/books/3",
+142:             "hreflang": "en",
+143:             "type": "application/hal+json"
+146:         "title": "Walden"
+148:     ]
+153: Notice that the key associated with the list of @Book@ objects in the rendered JSON is @book@ which is derived from the type of objects in the collecion, namely @Book@.  In order to customize the value of this key assign a value to the @collectionName@ property on the @HalJsonCollectionRenderer@ bean as shown below:
+158:     halBookCollectionRenderer(HalCollectionJsonRenderer, rest.test.Book) \{
+159:         collectionName = 'publications'
+164: With that in place the rendered HAL will look like the following:
+170: Content-Type: application/hal+json;charset=UTF-8
+171: Transfer-Encoding: chunked
+172: Date: Thu, 17 Oct 2013 02:34:14 GMT
+177:       "href": "http://localhost:8080/myapp/books",
+183:     "publications": [
+184:       \{
+187:             "href": "http://localhost:8080/myapp/books/1",
+188:             "hreflang": "en",
+189:             "type": "application/hal+json"
+192:         "title": "The Stand"
+194:       \{
+197:             "href": "http://localhost:8080/myapp/books/2",
+198:             "hreflang": "en",
+199:             "type": "application/hal+json"
+202:         "title": "Infinite Jest"
+204:       \{
+207:             "href": "http://localhost:8080/myapp/books/3",
+208:             "hreflang": "en",
+209:             "type": "application/hal+json"
+212:         "title": "Walden"
+214:     ]
+{code}
+
+*./guide/testing/unitTesting.gdoc*
+
+{code}
+42 : import grails.test.mixin.TestFor
+43 : import spock.lang.Specification
+46 : @Mock(Book)
+47 : class BookControllerSpec extends Specification \{
+49 :     void "test search"() \{
+50 :         given:
+51 :         def searchMock = mockFor(SearchService)
+52 :         searchMock.demand.searchWeb \{ String q -> ['first result', 'second result'] \}
+53 :         searchMock.demand.static.logResults \{ List results ->  \}
+54 :         controller.searchService = searchMock.createMock()
+56 :         when:
+57 :         controller.search()
+59 :         then:
+60 :         controller.response.text.contains "Found 2 results"
+61 :     \}
+{code}
+
+*./guide/theWebLayer/controllers/commandObjects.gdoc*
+
+{code}
+81 :     def createWidget(Widget w) \{ 
+95 : ~ \$ 
+98 : ~ \$ 
+101: Note that the body of the request is being parsed to make that work.  Any attempt to read the body of the request after that will fail since the corresponding input stream will be empty.  The controller action can either use a command object or it can parse the body of the request on its own (either directly, or by referring to something like request.JSON), but cannot do both. 
+109:     def createWidget(Widget w) \{ 
+{code}
+
+*./guide/testing/unitTesting/unitTestingDomains.gdoc*
+
+{code}
+34 : class BookControllerSpec extends Specification \{
+35 :     // ...
+48 :                     args: [message(code: 'book.label', default: 'Book'), book.id])
+66 : class BookControllerSpec extends Specification \{
+67 :    void "test saving an invalid book"() \{
+72 :         model.bookInstance \!= null
+73 :         view == '/book/create'
+76 :     void "test saving a valid book"() \{
+84 :         response.redirectedUrl == '/book/show/1'
+85 :         flash.message \!= null
+86 :         Book.count() == 1
+99 : class BookControllerSpec extends Specification \{
+100:     // ...
+104: Alternatively you can also use the @DomainClassUnitTestMixin@ directly with the @TestMixin@ annotation and then call the @mockDomain@ method to mock domains during your test:
+114: class BookControllerSpec extends Specification \{
+116:     void setupSpec() \{
+117:          mockDomain(Book)
+120:     void "test saving an invalid book"() \{
+125:         model.bookInstance \!= null
+126:         view == '/book/create'
+129:     void "test saving a valid book"() \{
+137:         response.redirectedUrl == '/book/show/1'
+138:         flash.message \!= null
+139:         Book.count() == 1
+157: # Domain classes
+158: # Classes marked with the @Validateable@ annotation
+159: # Command Objects which have been made validateable automatically
+160: # Classes configured to be validateable via the @grails.validateable.classes@ property in @Config.groovy@
+162: The first 3 are easily testable in a unit test with no special configuration necessary as long as the test method is marked with @TestFor@ or explicitly applies the @GrailsUnitTestMixin@ using @TestMixin@.  See the examples below.
+{code}
+
+*./guide/introduction/whatsNew/developmentEnvironmentFeatures.gdoc*
+
+{code}
+90 : grails.dependency.cache.dir = "\$\{userHome\}/.ivy2/cache"
+{code}
+
+*./guide/conf/versioning.gdoc*
+
+{code}
+21 : You can retrieve the version of Grails that is running with:
+{code}
+
+*./guide/spring/theBeanBuilderDSLExplained.gdoc*
+
+{code}
+138:         children = [ref('bart'), ref('lisa')]
+169:         children = [ref('bart'), ref('lisa')]
+{code}
+
+*./guide/i18n/scaffoldingAndI18n.gdoc*
+
+{code}
+3  : The scaffolding includes locale specific labels for domain classes and domain fields. For example, if you have a @Book@ domain class with a @title@ field:
+5  : \{code:java\}
+6  : class Book \{
+7  :     String title
+9  : \{code\}
+11 : The scaffolding will use labels with the following keys:
+13 : \{code:java\}
+14 : book.label = Libro
+15 : book.title.label = Título del libro
+16 : \{code\}
+18 : You can use this property pattern if you'd like or come up with one of your own. There is nothing special about the use of the word @label@ as part of the key other than it's the convention used by the scaffolding.
+{code}
+
+*./guide/introduction/whatsNew22.gdoc*
+
+{code}
+38 : Controller methods and GSP Tags which accept a controller name as a parameter now support an optional parameter indicating
+{code}
+
+*./guide/testing/unitTesting/unitTestingControllers.gdoc*
+
+{code}
+7  : import spock.lang.Specification
+10 : class SimpleControllerSpec extends Specification \{
+12 :     void "test something"() \{
+36 : import spock.lang.Specification
+39 : class SimpleControllerSpec extends Specification \{
+41 :     void "test hello"() \{
+42 :         when:
+43 :         controller.hello()
+45 :         then:
+46 :         response.text == 'hello'
+66 : import spock.lang.Specification
+69 : class SimpleControllerSpec extends Specification \{
+71 :     void 'test index'() \{
+72 :         when:
+73 :         controller.index()
+75 :         then:
+76 :         response.redirectedUrl == '/simple/hello'
+85 : import spock.lang.Specification
+87 : @TestFor(PersonController)
+88 : class PersonControllerSpec extends Specification \{
+90 :     void 'test list'() \{
+91 :         when:
+92 :         params.sort = 'name'
+93 :         params.max = 20
+94 :         params.offset = 0
+95 :         controller.list()
+97 :         then:
+98 :         // ...
+107: import spock.lang.Specification
+109: @TestFor(PersonController)
+110: class PersonControllerSpec extends Specification \{
+112:     void 'test save'() \{
+113:         when:
+114:         request.method = 'POST'
+115:         controller.save()
+117:         then:
+118:         // ...
+127: import spock.lang.Specification
+129: @TestFor(PersonController)
+130: class PersonControllerSpec extends Specification \{
+132:     void 'test list'() \{
+133:         when:
+134:         request.method = 'POST'
+135:         request.makeAjaxRequest()
+136:         controller.getPage()
+138:         then:
+139:         // ...
+161: import spock.lang.Specification
+164: class SimpleControllerSpec extends Specification \{
+166:     void 'test home'() \{
+167:         when:
+168:         controller.home()
+170:         then:
+171:         view == '/simple/homePage'
+172:         model.title == 'Hello World'
+197: import spock.lang.Specification
+200: class SimpleControllerSpec extends Specification \{
+202:     void 'test display'() \{
+203:         when:
+204:         controller.display()
+206:         then:
+207:         response.text == 'contents of the template'
+216: import spock.lang.Specification
+219: class SimpleControllerSpec extends Specification \{
+221:     void 'test display with mock template'() \{
+222:         when:
+223:         views['/simple/_snippet.gsp'] = 'mock template contents'
+224:         controller.display()
+226:         then:
+227:         response.text == 'mock template contents'
+247: import spock.lang.Specification
+250: class SimpleControllerSpec extends Specification \{
+252:     void 'test show book details'() \{
+253:         when:
+256:         then:
+257:         model.author == 'Alvin Plantinga'
+279: import spock.lang.Specification
+282: class SimpleControllerSpec extends Specification \{
+284:     void 'test render xml'() \{
+285:         when:
+286:         controller.renderXml()
+288:         then:
+289:         response.text == "<book title='Great'/>"
+290:         response.xml.@title.text() == 'Great'
+310: import spock.lang.Specification
+313: class SimpleControllerSpec extends Specification \{
+315:     void 'test render json'() \{
+316:         when:
+317:         controller.renderJson()
+319:         then:
+320:         response.text == '\{"book":"Great"\}'
+321:         response.json.book == 'Great'
+333: def consumeBook(Book b) \{
+334:     render "The title is $\{b.title\}."
+342: import spock.lang.Specification
+345: @Mock([Book])
+346: class SimpleControllerSpec extends Specification \{
+347:     void 'test consume book xml'() \{
+348:         when:
+349:         request.xml = '<book><title>Wool</title></book>'
+350:         controller.consumeBook()
+352:         then:
+353:         response.text == 'The title is Wool.'
+362: import spock.lang.Specification
+365: @Mock([Book])
+366: class SimpleControllerSpec extends Specification \{
+368:     void 'test consume book xml'() \{
+369:         when:
+370:         request.xml = new Book(title: 'Shift')
+371:         controller.consumeBook()
+373:         then:
+374:         response.text == 'The title is Shift.'
+384: import spock.lang.Specification
+387: @Mock([Book])
+388: class SimpleControllerSpec extends Specification \{
+390:     void 'test consume book json'() \{
+391:         when:
+392:         request.json = new Book(title: 'Shift')
+393:         controller.consumeBook()
+395:         then:
+396:         response.text == 'The title is Shift.'
+408:             render "The XML Title Is $\{request.XML.@title\}."
+411:             render "The JSON Title Is $\{request.JSON.title\}."
+421: import spock.lang.Specification
+424: class SimpleControllerSpec extends Specification \{
+426:     void 'test consume xml'() \{
+427:         when:
+428:         request.xml = '<book title="The Stand"/>'
+429:         controller.consume()
+431:         then:
+432:         response.text == 'The XML Title Is The Stand.'
+435:     void 'test consume json'() \{
+436:         when:
+437:         request.json = '\{title:"The Stand"\}'
+438:         controller.consume()
+440:         then:
+441:         response.text == 'The JSON Title Is The Stand.'
+448: You can test mime type handling and the @withFormat@ method quite simply by setting the request's @contentType@ attribute:
+455:         xml \{ render data as grails.converters.XML \}
+456:         json \{ render data as grails.converters.JSON \}
+464: import spock.lang.Specification
+467: class SimpleControllerSpec extends Specification \{
+469:     void 'test say hello xml'() \{
+470:         when:
+471:         request.contentType = 'application/xml'
+472:         controller.sayHello()
+474:         then:
+475:         response.text == '<?xml version="1.0" encoding="UTF-8"?><map><entry key="Hello">World</entry></map>'
+478:     void 'test say hello json'() \{
+479:         when:
+480:         request.contentType = 'application/json'
+481:         controller.sayHello()
+483:         then:
+484:         response.text == '\{"Hello":"World"\}'
+489: There are constants provided by @ControllerUnitTestMixin@ for all of the common common content types as shown below:
+493: import spock.lang.Specification
+496: class SimpleControllerSpec extends Specification \{
+498:     void 'test say hello xml'() \{
+499:         when:
+500:         request.contentType = XML_CONTENT_TYPE
+501:         controller.sayHello()
+503:         then:
+504:         response.text == '<?xml version="1.0" encoding="UTF-8"?><map><entry key="Hello">World</entry></map>'
+507:     void 'test say hello json'() \{
+508:         when:
+509:         request.contentType = JSON_CONTENT_TYPE
+510:         controller.sayHello()
+512:         then:
+513:         response.text == '\{"Hello":"World"\}'
+518: The defined constants are listed below:
+520: \{table\}
+521: *Constant* | *Value*
+522: ALL_CONTENT_TYPE | \*/\*
+523: FORM_CONTENT_TYPE | application/x-www-form-urlencoded
+524: MULTIPART_FORM_CONTENT_TYPE | multipart/form-data
+525: HTML_CONTENT_TYPE | text/html
+526: XHTML_CONTENT_TYPE | application/xhtml+xml
+527: XML_CONTENT_TYPE | application/xml
+528: JSON_CONTENT_TYPE | application/json
+529: TEXT_XML_CONTENT_TYPE | text/xml
+530: TEXT_JSON_CONTENT_TYPE | text/json
+531: HAL_JSON_CONTENT_TYPE | application/hal+json
+532: HAL_XML_CONTENT_TYPE | application/hal+xml
+533: ATOM_XML_CONTENT_TYPE | application/atom+xml
+534: \{table\}
+554: import spock.lang.Specification
+557: class SimpleControllerSpec extends Specification \{
+559:     void 'test duplicate form submission'() \{
+560:         when:
+561:         controller.handleForm()
+563:         then:
+564:         response.text == 'Bad'
+573: import spock.lang.Specification
+575: import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
+578: class SimpleControllerSpec extends Specification \{
+580:     void 'test valid form submission'() \{
+581:         when:
+582:         def tokenHolder = SynchronizerTokensHolder.store(session)
+584:         params[SynchronizerTokensHolder.TOKEN_URI] = '/controller/handleForm'
+585:         params[SynchronizerTokensHolder.TOKEN_KEY] = tokenHolder.generateToken(params[SynchronizerTokensHolder.TOKEN_URI])
+586:         controller.handleForm()
+588:         then:
+589:         response.text == 'Good'
+598: import spock.lang.Specification
+600: import org.codehaus.groovy.grails.web.servlet.mvc.SynchronizerTokensHolder
+603: class SimpleControllerSpec extends Specification \{
+605:     void 'test form submission'() \{
+606:         when:
+607:         controller.handleForm()
+609:         then:
+610:         response.text == 'Bad'
+612:         when:
+613:         response.reset()
+614:         def tokenHolder = SynchronizerTokensHolder.store(session)
+616:         params[SynchronizerTokensHolder.TOKEN_URI] = '/controller/handleForm'
+617:         params[SynchronizerTokensHolder.TOKEN_KEY] = tokenHolder.generateToken(params[SynchronizerTokensHolder.TOKEN_URI])
+618:         controller.handleForm()
+620:         then:
+621:         response.text == 'Good'
+641: import spock.lang.Specification
+643: import org.codehaus.groovy.grails.plugins.testing.GrailsMockMultipartFile
+646: class SimpleControllerSpec extends Specification \{
+648:     void 'test file upload'() \{
+649:         when:
+650:         def file = new GrailsMockMultipartFile('myFile', 'some file contents'.bytes)
+651:         request.addFile file
+652:         controller.uploadFile()
+654:         then:
+655:         file.targetFileLocation.path == '/local/disk/myFile'
+668:     def handleCommand(SimpleCommand simple) \{
+669:         if(simple.hasErrors()) \{
+670:             render 'Bad'
+671:         \} else \{
+672:             render 'Good'
+677: class SimpleCommand \{
+678:     String name
+680:     static constraints = \{
+681:         name blank: false
+690: import spock.lang.Specification
+693: class SimpleControllerSpec extends Specification \{
+695:     void 'test valid command object'() \{
+696:         given:
+697:         def simpleCommand = new SimpleCommand(name: 'Hugh')
+698:         simpleCommand.validate()
+700:         when:
+701:         controller.handleCommand(simpleCommand)
+703:         then:
+704:         response.text == 'Good'
+707:     void 'test invalid command object'() \{
+708:         given:
+709:         def simpleCommand = new SimpleCommand(name: '')
+710:         simpleCommand.validate()
+712:         when:
+713:         controller.handleCommand(simpleCommand)
+715:         then:
+716:         response.text == 'Bad'
+721: The testing framework also supports allowing Grails to create the command object instance automatically.  To test this invoke the no-arg version of the controller action method.  Grails will create an instance of the command object, perform data binding on it using the request parameters and validate the object just like it does in when the application is runnning.  See the test below.
+725: import spock.lang.Specification
+728: class SimpleControllerSpec extends Specification \{
+730:     void 'test valid command object'() \{
+731:         when:
+732:         params.name = 'Hugh'
+733:         controller.handleCommand()
+735:         then:
+736:         response.text == 'Good'
+739:     void 'test invalid command object'() \{
+740:         when:
+741:         params.name = ''
+742:         controller.handleCommand()
+744:         then:
+745:         response.text == 'Bad'
+764: import spock.lang.Specification
+767: class SimpleControllerSpec extends Specification \{
+769:     void 'test render message tag'() \{
+770:         given:
+771:         messageSource.addMessage 'foo.bar', request.locale, 'Hello World'
+773:         when:
+774:         controller.showMessage()
+776:         then:
+777:         response.text == 'Hello World'
+{code}
+
+*./guide/conf/dataSource/automaticDatabaseMigration.gdoc*
+
+{code}
+24 : The plugin uses "Liquibase":http://www.liquibase.org/ and provides access to all of its functionality, and also has support for GORM (for example generating a change set by comparing your domain classes to a database).
+{code}
+
+*./guide/testing/unitTesting/unitTestingTagLibraries.gdoc*
+
+{code}
+7  : import grails.test.mixin.TestFor
+8  : import spock.lang.Specification
+11 : class SimpleTagLibSpec extends Specification \{
+13 :     void "test something"() \{
+22 : import spock.lang.Specification
+26 : class SimpleControllerSpec extends Specification \{
+53 : import grails.test.mixin.TestFor
+54 : import spock.lang.Specification
+57 : class SimpleTagLibSpec extends Specification \{
+59 :     void "test hello tag"() \{
+60 :         expect:
+61 :         applyTemplate('<s:hello />') == 'Hello World'
+62 :         applyTemplate('<s:hello name="Fred" />') == 'Hello Fred'
+63 :         applyTemplate('<s:bye author="\$\{author\}" />', [author: new Author(name: 'Fred')]) == 'Bye Fred'
+71 : import spock.lang.Specification
+72 : import grails.test.mixin.TestMixin
+73 : import grails.test.mixin.web.GroovyPageUnitTestMixin
+75 : @TestMixin(GroovyPageUnitTestMixin)
+76 : class MultipleTagLibSpec extends Specification \{
+78 :     void "test multiple tags"() \{
+79 :         given:
+80 :         mockTagLib(SomeTagLib)
+81 :         mockTagLib(SomeOtherTagLib)
+83 :         expect:
+84 :         // ...
+92 : import grails.test.mixin.TestFor
+93 : import spock.lang.Specification
+96 : class SimpleTagLibSpec extends Specification \{
+98 :     void "test hello tag"() \{
+99 :         expect:
+111: import spock.lang.Specification
+112: import grails.test.mixin.TestMixin
+113: import grails.test.mixin.web.GroovyPageUnitTestMixin
+115: @TestMixin(GroovyPageUnitTestMixin)
+116: class RenderingSpec extends Specification \{
+118:     void "test rendering template"() \{
+119:         when:
+120:         def result = render(template: '/simple/hello')
+122:         then:
+123:         result == 'Hello World\!'
+{code}
+
+*./guide/testing/unitTesting/unitTestingURLMappings.gdoc*
+
+{code}
+6  : import com.demo.SimpleController
+7  : import grails.test.mixin.TestFor
+8  : import spock.lang.Specification
+11 : @Mock(SimpleController)
+12 : class UrlMappingsSpec extends Specification \{
+13 :     // ...
+36 :     "/actionOne"(controller: "simple", action: "action1")
+37 :     "/actionTwo"(controller: "simple", action: "action2")
+44 : import com.demo.SimpleController
+45 : import grails.test.mixin.TestFor
+46 : import spock.lang.Specification
+49 : @Mock(SimpleController)
+50 : class UrlMappingsSpec extends Specification \{
+52 :     void "test forward mappings"() \{
+53 :         expect:
+54 :         assertForwardUrlMapping("/actionOne", controller: 'simple', action: "action1")
+55 :         assertForwardUrlMapping("/actionTwo", controller: 'simple', action: "action2")
+{code}
+
+*./guide/conf/dataSource.gdoc*
+
+{code}
+5  : Drivers typically come in the form of a JAR archive. It's best to use the dependency resolution to resolve the jar if it's available in a Maven repository, for example you could add a dependency for the MySQL driver like this:
+9  :         runtime 'mysql:mysql-connector-java:5.1.29'
+13 : If you can't use dependency resolution then just put the JAR in your project's @lib@ directory.
+27 : * @transactional@ - If @false@ leaves the DataSource's transactionManager bean outside the chained BE1PC transaction manager implementation. This only applies to additional datasources.
+29 : * @properties@ - Extra properties to set on the DataSource bean. See the [Tomcat Pool|http://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html#Common_Attributes] documentation. There is also a Javadoc format [documentation of the properties|https://tomcat.apache.org/tomcat-7.0-doc/api/org/apache/tomcat/jdbc/pool/PoolConfiguration.html].
+30 : * @jmxExport@ - If @false@, will disable registration of JMX MBeans for all DataSources. By default JMX MBeans are added for DataSources with @jmxEnabled = true@ in properties.
+38 :     url = "jdbc:mysql://localhost:3306/my_database"
+41 :     username = "username"
+42 :     password = "password"
+44 :        jmxEnabled = true
+50 :        maxAge = 10 * 60000
+51 :        timeBetweenEvictionRunsMillis = 5000
+53 :        validationQuery = "SELECT 1"
+54 :        validationQueryTimeout = 3
+55 :        validationInterval = 15000
+56 :        testOnBorrow = true
+57 :        testWhileIdle = true
+58 :        testOnReturn = false
+59 :        jdbcInterceptors = "ConnectionState;StatementCache(max=200)"
+60 :        defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
+81 :     url = "jdbc:mysql://localhost:3306/my_database"
+84 :     username = "username"
+85 :     password = "password"
+87 :        // Documentation for Tomcat JDBC Pool
+88 :        // http://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html#Common_Attributes
+89 :        // https://tomcat.apache.org/tomcat-7.0-doc/api/org/apache/tomcat/jdbc/pool/PoolConfiguration.html
+90 :        jmxEnabled = true
+96 :        maxAge = 10 * 60000
+97 :        timeBetweenEvictionRunsMillis = 5000
+99 :        validationQuery = "SELECT 1"
+100:        validationQueryTimeout = 3
+101:        validationInterval = 15000
+102:        testOnBorrow = true
+103:        testWhileIdle = true
+104:        testOnReturn = false
+105:        ignoreExceptionOnPreLoad = true
+106:        // http://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html#JDBC_interceptors
+107:        jdbcInterceptors = "ConnectionState;StatementCache(max=200)"
+108:        defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED // safe default
+109:        // controls for leaked connections 
+110:        abandonWhenPercentageFull = 100 // settings are active only when pool is full
+111:        removeAbandonedTimeout = 120
+112:        removeAbandoned = true
+113:        // use JMX console to change this setting at runtime
+114:        logAbandoned = false // causes stacktrace recording overhead, use only for debugging
+115:        // JDBC driver properties
+116:        // Mysql as example
+117:        dbProperties \{
+118:            // Mysql specific driver properties
+119:            // http://dev.mysql.com/doc/connector-j/en/connector-j-reference-configuration-properties.html
+120:            // let Tomcat JDBC Pool handle reconnecting
+121:            autoReconnect=false
+122:            // truncation behaviour 
+123:            jdbcCompliantTruncation=false
+124:            // mysql 0-date conversion
+125:            zeroDateTimeBehavior='convertToNull'
+126:            // Tomcat JDBC Pool's StatementCache is used instead, so disable mysql driver's cache
+127:            cachePrepStmts=false
+128:            cacheCallableStmts=false
+129:            // Tomcat JDBC Pool's StatementFinalizer keeps track
+130:            dontTrackOpenResources=true
+131:            // performance optimization: reduce number of SQLExceptions thrown in mysql driver code
+132:            holdResultsOpenOverStatementClose=true
+133:            // enable MySQL query cache - using server prep stmts will disable query caching
+134:            useServerPrepStmts=false
+135:            // metadata caching
+136:            cacheServerConfiguration=true
+137:            cacheResultSetMetadata=true
+138:            metadataCacheSize=100
+139:            // timeouts for TCP/IP
+140:            connectTimeout=15000
+141:            socketTimeout=120000
+142:            // timer tuning (disable)
+143:            maintainTimeStats=false
+144:            enableQueryTimeouts=false
+145:            // misc tuning
+146:            noDatetimeStringSync=true
+147:        \}
+{code}
+
+*./guide/services/declarativeTransactions.gdoc*
+
+{code}
+27 : Grails also provides @\@Transactional@ and @\@NotTransactional@ annotations for cases where you need more fine-grained control over transactions at a per-method level or need to specify an alternative propagation level. For example, the @\@NotTransactional@ annotation can be used to mark a particular method to be skipped when a class is annotated with @\@Transactional@.
+30 : The @grails.transaction.Transactional@ annotation was first introduced in Grails 2.3. Prior to 2.3, Spring's @Transactional annotation was used.
+{code}
+
+*./guide/webServices/REST/binding.gdoc*
+
+{code}
+79 : The data binding depends on an instance of the [DataBindingSource|api:org.grails.databinding.DataBindingSource] interface created by an instance of the [DataBindingSourceCreator|api:org.grails.databinding.bindingsource.DataBindingSourceCreator] interface.  The specific implementation of @DataBindingSourceCreator@ will be selected based on the @contentType@ of the request.  Several implementations are provided to handle common content types.  The default implementations will be fine for most use cases.  The following table lists the content types which are supported by the core framework and which @DataBindingSourceCreator@ implementations are used for each. All of the implementation classes are in the @org.codehaus.groovy.grails.web.binding.bindingsource@ package.
+83 :  application/xml, text/xml   | xmlDataBindingSourceCreator     | XmlDataBindingSourceCreator
+84 :  application/json, text/json | jsonDataBindingSourceCreator    | JsonDataBindingSourceCreator
+85 :  application/hal+json        | halJsonDataBindingSourceCreator | HalJsonDataBindingSourceCreator
+86 :  application/hal+xml         | halXmlDataBindingSourceCreator  | HalXmlDataBindingSourceCreator
+89 : In order to provide your own @DataBindingSourceCreator@ for any of those content types, write a class which implements
+141: // MyCustomDataBindingSourceCreator.groovy in
+147: import org...databinding.SimpleMapDataBindingSource
+148: import org...databinding.bindingsource.AbstractRequestBodyDataBindingSourceCreator
+{code}
+
+*./guide/contributing/build.gdoc*
+
+{code}
+34 : These will take a while (15-30 mins), so consider running individual tests using the command line. For example, to run the test spec @BinaryPluginSpec@ simply execute the following command:
+36 : ./gradlew :grails-core:test --tests *.BinaryPluginSpec
+61 : * Add the springloaded-core JAR file in $GRAILS_HOME/lib/org.springsource.springloaded/springloaded-core/jars to grails-core's classpath.
+{code}
+
+*./guide/webServices/REST/versioningResources.gdoc*
+
+{code}
+66 : import grails.rest.render.json.*
+{code}
+
+*./guide/introduction/whatsNew/webFeatures.gdoc*
+
+{code}
+171:     "\$\{grails.web.UrlConverter.BEAN_NAME\}"(com.myapplication.MyUrlConverterImpl)
+{code}
+
+*./guide/theWebLayer/controllers/dataBinding.gdoc*
+
+{code}
+22 : assert person.lastName == 'Gabriel'
+144:                   'players[guitar]': [name: 'Steve Hackett'],
+145:                   'players[vocals]': [name: 'Peter Gabriel'],
+152: assert album.players.guitar.name == 'Steve Hackett'
+153: assert album.players.vocals.name == 'Peter Gabriel'
+154: assert album.players.keyboards.name == 'Tony Banks'
+162:                   'players[guitar]': [name: 'Steve Hackett'],
+170: assert album.players.guitar == 'Steve Hackett'
+181: assert album.players.guitar == 'Steve Hackett'
+652: A structured data binding editor is a helper class which can bind structured request parameters to a property.  The common use case for structured binding is binding to a @Date@ object which might be constructed from several smaller pieces of information contained in several request parameters with names like @birthday_month@, @birthday_date@ and @birthday_year@.  The structured editor would retrieve all of those individual pieces of information and use them to construct a @Date@.
+654: The framework provides a structured editor for binding to @Date@ objects.  An application may register its own structured editors for whatever types are appropriate.  Consider the following classes:
+657: // src/groovy/databinding/Gadget.groovy
+658: package databinding
+660: class Gadget \{
+661:     Shape expandedShape
+662:     Shape compressedShape
+667: // src/groovy/databinding/Shape.groovy
+668: package databinding
+670: class Shape \{
+671:     int area
+675: A @Gadget@ has 2 @Shape@ fields.  A @Shape@ has an @area@ property.  It may be that the application wants to accept request parameters like @width@ and @height@ and use those to calculate the @area@ of a @Shape@ at binding time.  A structured binding editor is well suited for that.
+677: The way to register a structured editor with the data binding process is to add an instance of the [org.grails.databinding.TypedStructuredBindingEditor|api:org.grails.databinding.TypedStructuredBindingEditor] interface to the Spring application context.  The easiest way to implement the @TypedStructuredBindingEditor@ interface is to extend the [org.grails.databinding.converters.AbstractStructuredBindingEditor|api:org.grails.databinding.converters.AbstractStructuredBindingEditor] abstract class and override the @getPropertyValue@ method as shown below:
+680: // src/groovy/databinding/converters/StructuredShapeEditor.groovy
+681: package databinding.converters
+683: import databinding.Shape
+685: import org.grails.databinding.converters.AbstractStructuredBindingEditor
+687: class StructuredShapeEditor extends AbstractStructuredBindingEditor<Shape> \{
+689:     public Shape getPropertyValue(Map values) \{
+690:         // retrieve the individual values from the Map
+691:         def width = values.width as int
+692:         def height = values.height as int
+694:         // use the values to calculate the area of the Shape
+695:         def area = width * height
+697:         // create and return a Shape with the appropriate area
+698:         new Shape(area: area)
+703: An instance of that class needs to be registered with the Spring application context:
+708:     shapeEditor databinding.converters.StructuredShapeEditor
+714: When the data binder binds to an instance of the @Gadget@ class it will check to see if there are request parameters with names @compressedShape@ and @expandedShape@ which have a value of "struct" and if they do exist, that will trigger the use of the @StructuredShapeEditor@.  The individual components of the structure need to have parameter names of the form propertyName_structuredElementName.  In the case of the @Gadget@ class above that would mean that the @compressedShape@ request parameter should have a value of "struct" and the @compressedShape_width@ and @compressedShape_height@ parameters should have values which represent the width and the height of the compressed @Shape@.  Similarly, the @expandedShape@ request parameter should have a value of "struct" and the @expandedShape_width@ and @expandedShape_height@ parameters should have values which represent the width and the hight of the expanded @Shape@.
+717: // grails-app/controllers/demo/DemoController.groovy
+718: class DemoController \{
+720:     def createGadget(Gadget gadget) \{
+721:         /*
+723:         /demo/createGadget?expandedShape=struct&expandedShape_width=80&expandedShape_height=30
+724:                           &compressedShape=struct&compressedShape_width=10&compressedShape_height=3
+726:         */
+728:         // with the request parameters shown above gadget.expandedShape.area would be 2400
+729:         // and gadget.compressedShape.area would be 30
+731:         // ...
+737: Typically the request parameters with "struct" as their value would be represented by hidden form fields.
+741: The [DataBindingListener|api:org.grails.databinding.events.DataBindingListener] interface provides a mechanism for listeners to be notified of data binding events.  The interface looks like this:
+744: package org.grails.databinding.events;
+746: import org.grails.databinding.errors.BindingError;
+748: public interface DataBindingListener \{
+750:     /**
+751:      * @return true if the listener is interested in events for the specified type.
+752:      */
+753:     boolean supports(Class<?> clazz);
+755:     /**
+756:      * Called when data binding is about to start.
+757:      * 
+758:      * @param target The object data binding is being imposed upon
+759:      * @param errors the Spring Errors instance (a org.springframework.validation.BindingResult)
+760:      * @return true if data binding should continue
+761:      */
+762:     Boolean beforeBinding(Object target, Object errors);
+764:     /**
+765:      * Called when data binding is about to imposed on a property
+766:      *
+767:      * @param target The object data binding is being imposed upon
+768:      * @param propertyName The name of the property being bound to
+769:      * @param value The value of the property being bound
+770:      * @param errors the Spring Errors instance (a org.springframework.validation.BindingResult)
+771:      * @return true if data binding should continue, otherwise return false
+772:      */
+773:     Boolean beforeBinding(Object target, String propertyName, Object value, Object errors);
+775:     /**
+776:      * Called after data binding has been imposed on a property
+777:      *
+778:      * @param target The object data binding is being imposed upon
+779:      * @param propertyName The name of the property that was bound to
+780:      * @param errors the Spring Errors instance (a org.springframework.validation.BindingResult)
+781:      */
+782:     void afterBinding(Object target, String propertyName, Object errors);
+784:     /**
+785:      * Called after data binding has finished.
+786:      *  
+787:      * @param target The object data binding is being imposed upon
+788:      * @param errors the Spring Errors instance (a org.springframework.validation.BindingResult)
+789:      */
+790:     void afterBinding(Object target, Object errors);
+792:     /**
+793:      * Called when an error occurs binding to a property
+794:      * @param error encapsulates information about the binding error
+795:      * @param errors the Spring Errors instance (a org.springframework.validation.BindingResult)
+796:      * @see BindingError
+797:      */
+798:     void bindingError(BindingError error, Object errors);
+802: Any bean in the Spring application context which implements that interface will automatically be registered with the data binder.  The [DataBindingListenerAdapter|api:org.grails.databinding.events.DataBindingListenerAdapter] class implements the @DataBindingListener@ interface and provides default implementations for all of the methods in the interface so this class is well suited for subclassing so your listener class only needs to provide implementations for the methods your listener is interested in.
+804: The Grails data binder has limited support for the older [BindEventListener|api:org.codehaus.groovy.grails.web.binding.BindEventListener] style listeners.  @BindEventListener@ looks like this:
+807: package org.codehaus.groovy.grails.web.binding;
+809: import org.springframework.beans.MutablePropertyValues;
+810: import org.springframework.beans.TypeConverter;
+812: public interface BindEventListener \{
+814:     /**
+815:      * @param target The target to bind to
+816:      * @param source The source of the binding, typically a Map
+817:      * @param typeConverter The type converter to be used
+818:      */
+819:     void doBind(Object target, MutablePropertyValues source, TypeConverter typeConverter);
+823: Support for @BindEventListener@ is disabled by default.  To enable support assign a value of @true@ to the @grails.databinding.enableSpringEventAdapter@ property in @grails-app/conf/Config.groovy@.
+827: grails.databinding.enableSpringEventAdapter=true
+832: With @enableSpringEventAdapter@ set to @true@ instances of @BindEventListener@ which are in the Spring application context will automatically be registered with the data binder.  Notice that the @MutablePropertyValues@ and @TypeConverter@ arguments to the @doBind@ method in @BindEventListener@ are Spring specific classes and are not relevant to the current data binder.  The event adapter will pass @null@ values for those arguments.  The only real value passed into the @doBind@ method will be the object being bound to.  This limited support is provided for backward compatibility and will be useful for a subset of scenarios.  Developers are encouraged to migrate their @BindEventListener@ beans to the newer @DataBindingListener@ model.
+{code}
 
 h2. Not done.
 
 * ../en/guide/commandLine/interactiveMode.gdoc
 * ../en/guide/commandLine/wrapper.gdoc
+* ../en/guide/introduction/whatsNew24.gdoc
 * ../en/guide/links.yml
 * ../en/guide/rewriteRules.txt
-* ../en/guide/security/xssPrevention.gdoc
+*  *(original file updated)* ../en/guide/security/xssPrevention.gdoc
 * ../en/guide/services/declarativeTransactions/transactionsRollbackAndTheSession.gdoc
 * ../en/guide/theWebLayer/controllers/controllerExceptionHandling.gdoc
 * ../en/guide/theWebLayer/urlmappings/namespacedControllers.gdoc
 * ../en/guide/theWebLayer/urlmappings/redirectMappings.gdoc
-* ../en/guide/theWebLayer/urlmappings/restfulMappings.gdoc
+*  *(original file updated)* ../en/guide/theWebLayer/urlmappings/restfulMappings.gdoc
 *  *(original file updated)* ../en/guide/toc.yml
-* ../en/guide/webServices/SOAP.gdoc
+*  *(original file updated)* ../en/guide/webServices/SOAP.gdoc
 
 h2. File not found (new file added) or empty file
 
