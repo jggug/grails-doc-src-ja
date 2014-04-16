@@ -70,7 +70,7 @@ def index(Integer max) {
 これは、ユーザインタフェースでページングをサポートする場合にのみ必要です。
 
 {hidden}The @respond@ method will, using [Content Negotiation|guide:contentNegotiation], attempt to reply with the most appropriate response given the content type requested by the client (via the ACCEPT header or file extension).{hidden}
-@respond@メソッドは、[コンテントネゴシエーション|guide:contentNegotiation]を使って、クライントからリクエストされたコンテンツタイプから(ACCEPTヘッダまたはファイル拡張子から)、もっとも適切なレスポンスを返そうとします。
+@respond@メソッドは、[コンテントネゴシエーション|guide:contentNegotiation]を使って、クライアントからリクエストされたコンテンツタイプから(ACCEPTヘッダまたはファイル拡張子から)、もっとも適切なレスポンスを返そうとします。
 
 {hidden}If the content type is established to be HTML then a model will be produced such that the action above would be the equivalent of writing:{hidden}
 もしコンテンツタイプがHTMLである場合は、上記のアクションは次のように書いた場合と同じような@model@を生成します:
